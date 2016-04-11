@@ -11,7 +11,7 @@ def run_importer():
     # This is to expand the app's context(scope),
     # so that we can use mongo configurations for the importer too.
     with app.app_context():
-      DaataImporter().run()
+      DataImporter().run()
 
 if __name__ == '__main__':
     run_importer()
