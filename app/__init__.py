@@ -1,4 +1,3 @@
-
 from flask import Flask
 import os
 import ConfigParser
@@ -18,7 +17,7 @@ def create_app():
     app = Flask(__name__)
 
     # Allow cross-domain access to API.
-    cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+    #cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     # Load application configurations
     load_config(app)
@@ -89,6 +88,8 @@ def configure_logging(app):
 def init_modules(app):
 
     # Import blueprint modules
+    from app.mod_main.views import mod_main
     from app.mod_api.views import mod_api
 
+    app.register_blueprint(mod_main)
     app.register_blueprint(mod_api)
