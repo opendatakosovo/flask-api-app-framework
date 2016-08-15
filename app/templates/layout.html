@@ -20,9 +20,8 @@
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
 
     <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
-
-
-
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/kreotive.js') }}"></script>
 </head>
 <body>
 
@@ -99,20 +98,7 @@
 
     </div>
 
-        <script>
-            $(document).ready(function(){
-                   $('#LogInForm').popover()
-           
-                $("#signIn").popover({
-                    html : true, 
-                    placement: "bottom",
-                    content: function() {
-                      return $("#LogInForm").html();
-                    }
-                });
-            });
-           
-        </script>
+
 
 
 
