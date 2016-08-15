@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+{% block body %}
+<!--About Section-->
+    <section id="feed">
+        <div class="container">
+            <div id="notloggedin">
+                    <div class="row" id="Unregistered">
+                        <div class="col-md-8 col-md-offset-2">
+                            <a href='#' class='close_notification' title='Click to Close'>
+                                <img src="../../static/img/close.png" class="close-icon"onClick="hide('hideme')" />
+
+                            </a>
+
+                            <h1>Sign up to get the most out<br> of Kreotive. </h1>
+                            <h5 class="text-center">For youth organisations all over Sweden.</h5>
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <a href="{{ url_for('main.sign') }}" class="btn btn-signup">Sign up</a>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <button type="button" class="btn btn-continue" onClick="document.getElementById('nav-bar').scrollIntoView();">Continue unregistered</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+            <nav id="nav-bar">
+
+                <div class="row">
+                    <div class="col-md-12">
+                       <a href="" ><img src="../../static/img/icon/search.png" alt="icon"></a>
+                        <a href="" ><img src="../../static/img/icon/video.png" style="margin-left: 55%;" alt="video"></a>
+                        <a href="" ><img src="../../static/img/icon/audio.png" alt="audio"></a>
+                        <a href="" ><img src="../../static/img/icon/text.png" alt="text"></a>
+                        <a href="" ><img src="../../static/img/icon/attach.png" alt="attach"></a>
+
+
+
+
+
+                    </div>
+
+                </div>
+
+            </nav>
+
+            </div>
+
+            <div id="articles">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-2" style="padding-right: 0;">
+                        <img src="../../static/img/4.jpg" class="img-responsive"/>
+                        <a href=""><img src="../../static/img/prof1.jpg" class="img-circle img-responsive profil"/></a>
+                    </div>
+
+                    <div class="col-md-3">
+                        <img src="../../static/img/1.png" class="img-responsive"/>
+                        <a href=""><img src="../../static/img/prof2.jpeg" class="img-circle img-responsive profil"/></a>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-2" style="padding-right: 0;">
+                        <img src="../../static/img/2.jpg" class="img-responsive"/>
+                        <a href=""><img src="../../static/img/prof3.png" class="img-circle img-responsive profil"/></a>
+                    </div>
+                    <div class="col-md-3" style="padding-right: 0;">
+                        <img src="../../static/img/5.jpg" class="img-responsive"/>
+                        <a href=""><img src="../../static/img/prof4.jpg" class="img-circle img-responsive profil"/></a>
+                    </div>
+                    <div class="col-md-3">
+                        <img src="../../static/img/33.gif" class="img-responsive"/>
+                        <a href=""><img src="../../static/img/prof5.jpeg" class="img-circle img-responsive profil"/></a>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3 col-md-offset-2"style="padding-right: 0;">
+                        <img src="../../static/img/6.jpg" class="img-responsive"/>
+                        <a href=""><img src="../../static/img/prof6.jpeg" class="img-circle img-responsive profil"/></a>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="../../static/img/7.jpg" class="img-responsive"/>
+                        <a href=""><img src="../../static/img/prof7.png" class="img-circle img-responsive profil"/></a>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
+
+<script>
+    function hide(hideme) {
+
+    var el = document.getElementById('Unregistered');
+
+        el.style.display = 'none';
+
+}
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+<!--About Session-->
+
+    <section>
+       <div class="row" id="SignUpForm">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <button type="button" class="btn btn-google">Sign up with Google</button>
+                    <button type="button" class="btn btn-facebook">Sign up with Facebook</button>
+                    <br>
+                    <h5 class="text-center">or</h5>
+                    <input type="email" class="form-control" align="middle" id="InputEmail1" placeholder="Email">
+                    <input type="password" class="form-control" id="Pass" placeholder="Password">
+                    <input type="password" class="form-control" id="ConfirmPass" placeholder="Confirm password">
+                    <button type="submit" class="btn btn-signup">Sign up</button>
+
+                    <h5>Already got an account?</h5>
+                    <a href="#LogInForm">Log in here.</a>
+                </div>
+                <br><br>
+            </div>
+
+    </section>
+{% endblock %}

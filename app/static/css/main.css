@@ -1,0 +1,269 @@
+/*Header style*/
+h1{
+    font-family: 'Comfortaa', cursive;
+    color: #666666;
+    font-size: 32px;
+    margin-left: -10px;
+}
+
+header{
+    margin-top: 15px;
+}
+
+#signIn{
+    float: right;
+    margin-top: 30px;
+}
+
+
+/*Button properties*/
+.btn{
+    width: 75%;
+    height: 40px;
+    margin: 5px;
+    color: #ffffff;
+    border-radius: 0px;
+    font-weight: bold;
+    font-family: 'Ubuntu', sans-serif;
+   }
+
+.btn-google {
+    margin-top: 250px;
+    background-color: #878787;
+}
+
+.btn-facebook {
+    background-color: #2d59a1;
+    margin-right: -0.1px;
+}
+
+.form-control{
+
+    width: 77%;
+    height: 40px;
+    margin: 10px auto;
+    border-radius: 0px;
+}
+
+.btn-signup{
+    margin-top: 30px;
+    background-color: #349946;
+}
+
+/*LogIn Form*/
+#LogInForm
+{
+    display: none;
+    width: 100%; !important;
+
+
+}
+
+.popover{
+    max-width: none;
+    width: 60%;/* Max Width of the popover (depending on the container!) */
+    border: none;
+    background-color: #f7f7f7;
+    margin-top: 100px;
+    float: right;
+    box-shadow: none;
+    border-radius: 0px;
+    padding: 30px 50px;
+
+
+}
+
+form .popover{
+    marigin-left: 336px;
+
+}
+
+.arrow{
+    float: left;
+}
+
+.btn-logIngoogle{
+    background-color: #d6d6d6;
+    color: #5c5c5c;
+    height: 50px;
+    width: 100%;
+}
+
+.btn-logInfacebook{
+    background-color: #2d59a1;
+    height: 50px;
+    width: 100%;
+
+}
+
+.icon{
+    margin:0 30px 0 -20px;
+}
+
+.btn-LogIn{
+    background-color: #349946;
+     height: 50px;
+    width: 100%;
+}
+
+#LogInForm a{
+    float: left;
+    color:#666666;
+    margin:10px 0 10px 50px;
+    font-size: 0.8em;
+}
+
+#EmailLogin{
+    margin-bottom: -5px;
+}
+
+#EmailLogin, #PassLogin{
+    border: none;
+    height: 50px;
+    width: 100%;
+}
+
+
+/*Footer style*/
+footer{
+    margin: 500px 40px 50px 40px;
+    background-color: #EBEBEB;
+    padding-bottom: 150px;
+}
+
+.learnMore, .About, .Support {
+    margin: 50px 0 50px 30px;
+
+}
+
+footer ul li a h6{
+    color: #a39999;
+    font-size: 1.1em;
+    font-family: 'Source Sans Pro', sans-serif;
+ }
+
+footer ul li {
+    list-style-type: none;
+
+}
+
+footer a:hover{
+    text-decoration: none;
+}
+
+input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #909;
+}
+* :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #909;
+   opacity:  1;
+}
+* ::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #909;
+   opacity:  1;
+}
+* :-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #909;
+}
+/*Feed page*/
+
+#feed h1{
+    color: #333333;
+    font-size: 3.4em;
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 150px;
+    line-height: 1.4em;
+}
+
+#Unregistered{
+    margin-bottom: 300px;
+}
+
+
+.close-icon{
+    width: 18px;
+    float: right;
+    margin-top: 90px;
+    margin-right: -20px;
+}
+
+.btn-continue{
+
+
+
+}
+
+#feed .btn{
+    height: 50px;
+    outline: 0;
+    font-family: 'Comfortaa', cursive;
+
+}
+
+#feed .btn :active{
+    outline: 0;
+    box-shadow: none;
+}
+
+#feed .btn-signup{
+    margin-right: -10px;
+    float: right;
+    width: 65%;
+    border-radius: 2px;
+    padding-top: 10px;
+    font-size: 1.3em;
+
+}
+
+#feed .btn-continue{
+    margin-left: -10px;
+    float: left;
+    width: 65%;
+    font-size: 1.1em;
+    background-color: transparent;
+    color: #000;
+    margin-top: 30px;
+    font-weight: 100;
+
+}
+
+nav{
+    margin-left: 100px;
+}
+
+nav img{
+    width: 57px;
+    height: 50px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 12px;
+    text-align: right;
+
+
+}
+
+#articles img{
+    width: 100%;
+    height: 250px;
+    margin-bottom: 10px;
+    padding-right: 0 !important;
+    position: relative;
+    z-index: 1;
+
+}
+
+#articles{
+
+    margin-left: -100px;
+
+}
+
+#articles .profil{
+    width: 45px;
+    height: 45px;
+    margin: -250px 15px 15px 15px;
+    position: absolute;
+    z-index: 2;
+}
+
