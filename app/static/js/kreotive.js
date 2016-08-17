@@ -1,11 +1,20 @@
  $(document).ready(function(){
-    $('#LogInForm').popover()
 
-    $("#signIn").popover({
+    $("#sign-in").popover({
         html : true, 
         placement: "bottom",
         content: function() {
-          return $("#LogInForm").html();
+          return $("#log-in-form").html();
         }
     });
 });
+ 
+
+  $(document).ready(function(){
+       $(".menu-icons a").click(function (e) {
+          e.preventDefault();
+      });
+
+  });
+
+

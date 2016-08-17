@@ -3,24 +3,223 @@
 /* Large Devices, Wide Screens */
     @media only screen and (max-width : 1200px) {
 
+    .video-icon{
+            margin-left: 50%;
+        }
+
     }
 
     /* Medium Devices, Desktops */
     @media only screen and (max-width : 992px) {
+
+        .logo {
+            margin-left: 30px;
+        }
+
+        #sign-in{
+            margin-right:30px;
+        }
+
+        #sign-up-form{
+            margin-top: -100px;
+            margin-bottom: 100px;
+        }
+
+
+        #articles{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .row.latest [class*='col-']:not(:first-child),
+        .row.latest [class*='col-']:not(:last-child) {
+            padding-right: 1.5px;
+            padding-left: 1.5px;
+        }
+
+        #nav-bar{
+            margin: 0px;
+        }
+
+        .menu-icons{
+            padding-right: 0px;
+        }
+
+        .video-icon{
+            margin-left: 40%;
+        }
+
+        #un-registered .btn-signup {
+
+            float: left;
+            width: 200px;
+            margin: 20px;
+        }
+
+        #un-registered .btn-continue{
+            float: right;
+            width: 200px;
+            margin: 20px;
+        }
+
+        footer{
+            margin-top: 0px;
+        }
+
+        .popover{
+            width:400px ;
+            margin-left: -180px;
+        }
+
+        .popover.bottom>.arrow {
+         margin-left: 170px;
+
+}
+
 
     }
 
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
 
+       #feed h1{
+           font-size: 1.9em;
+       }
+
+         .close-icon {
+            margin-top: -50px;
+            margin-right: 5px;
+        }
+
+        .article-title{
+         
+            margin: -150px 5px;
+        }
+
+
+
+
     }
 
     /* Extra Small Devices, Phones */
     @media only screen and (max-width : 480px) {
 
+
+
+        footer{
+            text-align: center;
+            margin: 50px 0 0 0;
+
+        }
+
+        #un-registered .btn-signup {
+
+            float: left;
+            width: 180px;
+            margin: 10px;
+        }
+
+        #un-registered .btn-continue{
+            float: right;
+            width: 180px;
+            margin: 10px;
+        }
+
+        nav img {
+            width: 40px;
+            height: 40px;
+            margin: 30px -5px;
+            padding-right: 0px;
+
+
+        }
+
+        .video-icon{
+            margin-left: 50%;
+        }
+
+
+        #articles .article-type{
+        width: 30px;
+        height: 35px;
+
+}
+
     }
 
     /* Custom, iPhone Retina */
-    @media only screen and (max-width : 320px) {
+    @media only screen and (max-width : 320px) and (max-width: 360px){
 
+        #sign-up-form{
+            margin-top: -50px;
+        }
+
+        #sign-in{
+            display: none;
+        }
+
+        .close-icon {
+            margin-top: -50px;
+            margin-right: 5px;
+        }
+
+        #feed h1 {
+            font-size: 2em;
+        }
+
+        #un-registered .btn-signup {
+
+            width: 150px;
+            margin: 20px 50px;
+        }
+
+        #un-registered .btn-continue {
+
+        width: 200px;
+        margin: 20px 40px 20px 35px;
+        }
+
+
+
+        nav img {
+            width: 40px;
+            height: 40px;
+            margin: 30px -5px;
+            padding-right: 0px;
+
+
+        }
+
+
+        #articles img {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+
+        }
+
+        .video-icon{
+            margin-left: 33%;
+        }
+
+
+        .learn-more, .about, .support {
+
+            padding: 0;
+
+        }
+
+        footer {
+            margin: 100px 0 0 0;
+            text-align: center;
+        }
+
+        ul {
+            margin-left: -55px;
+        }
+
+        .article-title{
+            font-size: 12px;
+            margin: -150px 10px;
+        }
     }
