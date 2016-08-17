@@ -63,7 +63,8 @@
         }
 
         footer{
-            margin-top: 0px;
+            margin-top: 200px;
+
         }
 
         .popover{
@@ -78,6 +79,7 @@
 
 
     }
+
 
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
@@ -98,19 +100,37 @@
 
 
 
+        .row-margin{
+            margin-left: 0px;
+        }
+
+        #un-registered .btn-signup {
+            float: right;
+            width: 180px;
+
+        }
+
+        #un-registered .btn-continue{
+             float:left;
+                width: 180px;
+
+        }
 
     }
 
     /* Extra Small Devices, Phones */
     @media only screen and (max-width : 480px) {
 
-
+        .row-margin{
+            margin-left: -10px;
+        }
 
         footer{
             text-align: center;
             margin: 50px 0 0 0;
 
         }
+
 
         #un-registered .btn-signup {
 
@@ -147,8 +167,33 @@
 
     }
 
+@media only screen and (max-width: 412px)  {
+
+    .btn{
+        display: inline-block;
+    }
+
+
+
+}
+
+ @media only screen and (max-width : 360px){
+
+     #un-registered .btn-signup {
+
+            width: 100%;
+
+        }
+
+        #un-registered .btn-continue {
+
+        width: 100%;
+               }
+
+ }
+
     /* Custom, iPhone Retina */
-    @media only screen and (max-width : 320px) and (max-width: 360px){
+    @media only screen and (max-width : 320px) and (min-width: 240px){
 
         #sign-up-form{
             margin-top: -50px;
@@ -167,17 +212,20 @@
             font-size: 2em;
         }
 
+
         #un-registered .btn-signup {
 
-            width: 150px;
-            margin: 20px 50px;
+            width: 200px;
+            text-align: center;
+            margin-left: 12%;
         }
 
         #un-registered .btn-continue {
 
         width: 200px;
-        margin: 20px 40px 20px 35px;
-        }
+        text-align: center;
+            margin-right: 12%;
+               }
 
 
 
@@ -198,9 +246,7 @@
 
         }
 
-        .video-icon{
-            margin-left: 33%;
-        }
+
 
 
         .learn-more, .about, .support {
@@ -221,5 +267,22 @@
         .article-title{
             font-size: 12px;
             margin: -150px 10px;
+        }
+
+        #articles .play-pause{
+            float: left;
+            width: 27px;
+            height: 27px;
+            margin-right: 3px;
+            margin-top:-55px ;
+        }
+
+
+       .icon {
+            margin: 0 15px 0 -20px;
+        }
+
+        .video-icon{
+            margin-left: 25%;
         }
     }
