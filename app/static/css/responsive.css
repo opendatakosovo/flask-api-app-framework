@@ -13,11 +13,11 @@
     @media only screen and (max-width : 992px) {
 
         .logo {
-            margin-left: 30px;
+            margin-left: 10px;
         }
 
         #sign-in{
-            margin-right:30px;
+            margin-right:10px;
         }
 
         #sign-up-form{
@@ -60,7 +60,10 @@
             float: right;
             width: 200px;
             margin: 20px;
+            padding-top: 15px;
         }
+
+
 
         footer{
             margin-top: 200px;
@@ -81,11 +84,18 @@
     }
 
 
-    /* Small Devices, Tablets */
+    /*Small tablets (landscape)*/
+    @media only screen and (max-width : 800px){
+
+        }
+
+
+    /* Small Devices, Tablets (iPad)*/
     @media only screen and (max-width : 768px) {
 
        #feed h1{
            font-size: 1.9em;
+           margin-bottom: 20px;
        }
 
          .close-icon {
@@ -118,6 +128,14 @@
 
     }
 
+
+    /*Small tablet*/
+
+     @media only screen and (max-width : 600px){
+
+     }
+
+
     /* Extra Small Devices, Phones */
     @media only screen and (max-width : 480px) {
 
@@ -134,15 +152,13 @@
 
         #un-registered .btn-signup {
 
-            float: left;
-            width: 180px;
-            margin: 10px;
+              width: 80%;
+            margin: 25px 40px;
         }
 
         #un-registered .btn-continue{
-            float: right;
-            width: 180px;
-            margin: 10px;
+            width: 80%;
+            margin: 10px 40px;
         }
 
         nav img {
@@ -167,122 +183,196 @@
 
     }
 
-@media only screen and (max-width: 412px)  {
+     @media only screen and (max-width : 435px) {
 
-    .btn{
-        display: inline-block;
-    }
+         #un-registered .btn-signup {
+             width: 80%;
+             margin: 42px;
+         }
 
+     }
 
-
-}
-
- @media only screen and (max-width : 360px){
-
-     #un-registered .btn-signup {
-
-            width: 100%;
-
-        }
-
-        #un-registered .btn-continue {
-
-        width: 100%;
-               }
-
- }
-
-    /* Custom, iPhone Retina */
-    @media only screen and (max-width : 320px) and (min-width: 240px){
-
-        #sign-up-form{
-            margin-top: -50px;
-        }
-
-        #sign-in{
-            display: none;
-        }
-
-        .close-icon {
-            margin-top: -50px;
-            margin-right: 5px;
-        }
-
-        #feed h1 {
-            font-size: 2em;
-        }
-
+    @media only screen and (max-width : 415px){
 
         #un-registered .btn-signup {
+            width: 80%;
+            margin: 20px 40px;
 
-            width: 200px;
-            text-align: center;
-            margin-left: 12%;
         }
 
         #un-registered .btn-continue {
 
-        width: 200px;
-        text-align: center;
-            margin-right: 12%;
-               }
-
-
-
-        nav img {
-            width: 40px;
-            height: 40px;
-            margin: 30px -5px;
-            padding-right: 0px;
-
-
+            width: 80%;
+            margin: 20px 40px;
         }
 
-
-        #articles img {
-            width: 100%;
-            margin-left: 0;
-            margin-right: 0;
-
-        }
-
-
-
-
-        .learn-more, .about, .support {
-
-            padding: 0;
-
-        }
-
-        footer {
-            margin: 100px 0 0 0;
-            text-align: center;
-        }
-
-        ul {
-            margin-left: -55px;
+        footer{
+            margin-top: 150px;
         }
 
         .article-title{
-            font-size: 12px;
-            margin: -150px 10px;
+            font-size: 1.1em;
+            margin-top: -160px;
         }
-
-        #articles .play-pause{
-            float: left;
-            width: 27px;
-            height: 27px;
-            margin-right: 3px;
-            margin-top:-55px ;
-        }
-
-
-       .icon {
-            margin: 0 15px 0 -20px;
+        .icon {
+            margin: 0 20px 0 -20px;
         }
 
         .video-icon{
-            margin-left: 25%;
+                margin-left: 39%;
+        }
+
+        .close-icon {
+            width: 10px;
+            margin-top: -30px;
+            margin-right: -7px;
         }
     }
+
+    @media only screen and (max-width : 375px){
+
+
+    }
+
+
+
+     @media only screen and (max-width : 360px){
+
+         #un-registered .btn-signup {
+                    width: 80%;
+                    margin: 20px 30px;
+            }
+
+            #un-registered .btn-continue {
+
+                width: 80%;
+                margin: 5px 30px 20px 30px;
+
+
+                   }
+
+         .icon {
+                margin: 0 20px 0 -20px;
+            }
+
+            .video-icon{
+                margin-left: 37%;
+            }
+
+            ul {
+
+            margin-left: -40px;}
+
+            nav img{
+                margin: 4px -5px;
+            }
+
+            #attach-type{
+                margin-right: 0px;
+            }
+
+
+
+            img#search {
+                margin-left: -15px;
+            }
+
+     }
+
+
+
+      /* Custom, iPhone Retina */
+      @media only screen and (max-width : 320px){
+
+            #sign-up-form{
+                margin-top: -50px;
+            }
+
+            #sign-in{
+                display: none;
+            }
+
+            .close-icon {
+                margin-top: -50px;
+                margin-right: 5px;
+            }
+
+            #feed h1 {
+                font-size: 2em;
+                margin-top: 100px;
+            }
+
+
+            #un-registered .btn-signup {
+
+                width: 200px;
+                text-align: center;
+                margin-left: 12%;
+            }
+
+            #un-registered .btn-continue {
+
+            width: 200px;
+            text-align: center;
+                margin-right: 12%;
+                   }
+
+
+
+            nav img {
+                width: 40px;
+                height: 40px;
+                margin: 30px -5px;
+                padding-right: 0px;
+
+
+            }
+
+
+            #articles img {
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+
+            }
+
+
+
+
+            .learn-more, .about, .support {
+
+                padding: 0;
+
+            }
+
+            footer {
+                margin: 100px 0 0 0;
+                text-align: center;
+            }
+
+            ul {
+                margin-left: -55px;
+            }
+
+            .article-title{
+                font-size: 12px;
+                margin: -150px 10px;
+            }
+
+            #articles .play-pause{
+                float: left;
+                width: 27px;
+                height: 27px;
+                margin-right: 3px;
+                margin-top:-55px ;
+            }
+
+
+           .icon {
+                margin: 0 10px 0 -20px;
+            }
+
+            .video-icon{
+                margin-left: 32%;
+            }
+        }

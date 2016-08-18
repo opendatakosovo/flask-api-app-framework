@@ -3,7 +3,7 @@
   $(document).ready(function() {
 
       var $img;
-      $img = $('.icon').click(function () {
+      $img = $('.fa').click(function () {
           if (this.id == 'articles') {
               $('#articles > div >div').fadeIn(450);
           } else {

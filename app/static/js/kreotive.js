@@ -18,3 +18,11 @@
   });
 
 
+
+$(document).ready(function() {
+    $(".close-icon").click(function () {
+        $("#un-registered").fadeOut(1000)
+    });
+});
+
+
