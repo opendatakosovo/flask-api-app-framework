@@ -98,7 +98,7 @@
            margin-bottom: 20px;
        }
 
-         .close-icon {
+         .fa-close {
             margin-top: -50px;
             margin-right: 5px;
         }
@@ -222,7 +222,7 @@
                 margin-left: 39%;
         }
 
-        .close-icon {
+        .fa-close {
             width: 10px;
             margin-top: -30px;
             margin-right: -7px;
@@ -292,7 +292,7 @@
                 display: none;
             }
 
-            .close-icon {
+            .fa-close {
                 margin-top: -50px;
                 margin-right: 5px;
             }

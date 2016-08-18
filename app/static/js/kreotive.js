@@ -19,10 +19,13 @@
 
 
 
-$(document).ready(function() {
-    $(".close-icon").click(function () {
-        $("#un-registered").fadeOut(1000)
-    });
-});
+$(document).ready(function () {
 
+    var div = $('#un-registered');
+
+      $('.fa-close').on('click', function() {
+            div.fadeOut();
+      });
+
+});
 

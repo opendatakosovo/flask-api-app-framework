@@ -17,3 +17,10 @@ def feed():
     :return:
     '''
     return render_template('mod_feed/feed.html')
+
+@mod_main.route('/write-article', methods=['GET'])
+def write():
+    ''' Renders the App index page.
+    :return:
+    '''
+    return render_template('mod_write/write_article.html')

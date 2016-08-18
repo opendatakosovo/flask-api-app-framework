@@ -305,3 +305,117 @@ nav{
         margin: -300px 15px;
 
     }
+
+    .fa-close{
+        font-size:25px;
+        color: #777777;
+        float: right;
+        margin-top: 90px;
+        margin-right: -20px;
+    }
+
+    #text-editor{
+        margin: 10% 15%;
+
+    }
+
+    .cke_skin_kama{
+        border: none !important;
+    }
+
+    .cke_skin_kama .cke_editor_editor-bold:active{
+        border: none !important;
+    }
+
+
+    .cke_wrapper {
+        background-color: white !important;
+    }
+
+    .cke_skin_kama a.cke_toolbox_collapser, .cke_skin_kama a:hover.cke_toolbox_collapser{
+        display: none !important;
+    }
+
+    .cke_resizer{
+        display: none !important;
+    }
+
+    .cke_button_underline{
+
+        content: "\f0cd" !important;
+    }
+
+    .cke_button_justifyblock{
+
+        content: "\f039" !important;
+    }
+
+    .cke_icon{
+        font-size: 30px !important;
+    }
+
+    .cke_button_bold .cke_icon{
+
+        content: "\f032" !important;
+    }
+
+
+
+    #editor-bar i{
+        font-size: 35px;
+       margin: 25px;
+    }
+
+
+    .btn-cancel, .btn-save, .btn-publish{
+        width: 200px;
+        height: 50px;
+        padding-top: 13px;
+    }
+
+    .btn-cancel{
+        background-color: #949494;
+        margin-left: 370px;
+
+
+    }
+
+    .btn-save{
+        background-color: #457bcc;
+        float: right;
+
+
+    }
+
+    .btn-publish{
+        background-color: #349946;
+        float: right;
+        margin-right: 330px;
+
+
+    }
+
+    .title{
+        height: 50px;
+        font-size: 35px;
+        margin-left: -40px;
+
+    }
+    .title, .description{
+        width: 90%;
+        border: none;
+        font-weight: bold;
+        color: #a1a1a1;
+        margin-top: 20px;
+
+
+    }
+
+    .description{
+        font-size: 23px;
+
+    }
+
+    textarea:focus{
+        outline: 0;
+    }
