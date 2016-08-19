@@ -1,17 +1,18 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<script type="text/javascript" src="http://www.html.am/html-editors/ckeditor/ckeditor_3.4/ckeditor.js"></script>
+<script type="text/javascript" src="../../static/ckeditor/ckeditor.js"></script>
 
 
-
+        <i class="fa fa-bars" aria-hidden="true" data-toggle="popover"> </i>
     <div id="text-editor" class="text-center">
 
-        <div id="editor-bar">
+       {# <div id="editor-bar">
 
             <i class="fa fa-bars" aria-hidden="true" data-toggle="popover">
 
             </i>
+            <i class="fa fa-text-height" aria-hidden="true"></i>
             <i class="fa fa-bold" aria-hidden="true"></i>
             <i class="fa fa-italic" aria-hidden="true"></i>
             <i class="fa fa-underline" aria-hidden="true"></i>
@@ -34,83 +35,37 @@
     <textarea class="description" rows="10" style="overflow:hidden">
      Description
     </textarea>
-
+#}
 
     </div>
 
-{#    <div id="text-editor2" class="text-center" style="width:70%; height: 50%;">#}
-{##}
-{#                <textarea class="txt-editor" cols="80" id="editor-bold" name="editor-bold" rows="20">#}
-{#                    <p>Instructions:</p>#}
-{#                    <ol>#}
-{#                    <li>Replace this text with your own text.</li>#}
-{#                    <li>Use the above toolbar format the text.</li>#}
-{#                    <li>Use the <b>Source</b> button to view the HTML code. You can then copy/paste the code into your own website or blog.</li>#}
-{#                    </ol>#}
-{#                    <p>There, that's all it takes to generate HTML text code for your website!</p>#}
-{#            </textarea>#}
-{#     </div>#}
-{##}
-{##}
-{##}
-{#<script type="text/javascript">#}
-{#//<![CDATA[#}
-{#	CKEDITOR.replace( 'editor-bold',#}
-{#	    {#}
-{##}
-{#	        toolbar :#}
-{#	        [#}
-{##}
-{#			['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['JustifyLeft'], ['JustifyCenter'], ['JustifyRight'], ['JustifyBlock'], ['FontSize'], ['Source']#}
-{#	        ]#}
-{##}
-{#	    });#}
-{##}
-{#	CKEDITOR.on( 'instanceReady', function( ev )#}
-{#	    {#}
-{#			ev.editor.dataProcessor.writer.setRules( 'p',#}
-{#                 {#}
-{#                     indent : false,#}
-{#                     breakBeforeOpen : false,#}
-{#                     breakAfterOpen : false,#}
-{#                     breakBeforeClose : false,#}
-{#                     breakAfterClose : true#}
-{#                 });#}
-{#			ev.editor.dataProcessor.writer.setRules( 'li',#}
-{#	             {#}
-{#	                 indent : false,#}
-{#	                 breakBeforeOpen : false,#}
-{#	                 breakAfterOpen : false,#}
-{#	                 breakBeforeClose : false,#}
-{#	                 breakAfterClose : true#}
-{#	             });#}
-{#			ev.editor.dataProcessor.writer.setRules( 'ul',#}
-{#	             {#}
-{#	                 indent : false,#}
-{#	                 breakBeforeOpen : false,#}
-{#	                 breakAfterOpen : true,#}
-{#	                 breakBeforeClose : false,#}
-{#	                 breakAfterClose : true#}
-{#	             });#}
-{#			ev.editor.dataProcessor.writer.setRules( 'ol',#}
-{#	             {#}
-{#	                 indent : false,#}
-{#	                 breakBeforeOpen : false,#}
-{#	                 breakAfterOpen : true,#}
-{#	                 breakBeforeClose : false,#}
-{#	                 breakAfterClose : true#}
-{#	             });#}
-{#	    });#}
-{##}
-{#//]]>#}
-{#</script>#}
+
 
 
     <a href="" class="btn btn-cancel">Cancel</a>
     <a href="" class="btn btn-publish">Publish</a>
     <a href="" class="btn btn-save">Save</a>
 
+        <script>
+            CKEDITOR.replace( 'text-editor',
+            {toolbar :
+            [
 
+                ['FontSize','Bold','Italic','Underline','Strike','BulletedList','NumberedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Image','Link'],
+                ['Source'],
+
+
+
+            ],
+
+                        width: 1000,
+                        height:400
+
+
+                    });
+
+
+        </script>
 
 
 

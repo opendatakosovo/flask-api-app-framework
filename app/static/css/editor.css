@@ -1,0 +1,5 @@
+.cke_button__bold_icon, .cke_button__italic_icon, .cke_button__underline_icon, .cke_button__strike_icon, .cke_ltr .cke_button__bulletedlist_icon, .cke_button__numberedlist_icon, .cke_button__justifyleft_icon, .cke_button__justifycenter_icon, .cke_button__justifyright_icon, .cke_button__justifyleft_icon, .cke_button__image_icon, .cke_button__link_icon {
+
+    width: 50px !important;
+    height: 50px !important;
+}
