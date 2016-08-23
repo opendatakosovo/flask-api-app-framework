@@ -4,13 +4,13 @@ import ConfigParser
 from logging.handlers import RotatingFileHandler
 from flask.ext.pymongo import PyMongo
 from flask.ext.cors import CORS
-from app.utils.mongo_utils import MongoUtils
+from app.utils.profile_mongo_utils import ProfileMongoUtils
 
 # Create MongoDB database object.
 mongo = PyMongo()
 
-#Initialize mongo access point
-mongo_utils = MongoUtils(mongo)
+# Initialize mongo access point
+profile_mongo_utils = ProfileMongoUtils(mongo)
 
 def create_app():
     # Here we  create flask instance
@@ -89,5 +89,7 @@ def init_modules(app):
 
     # Import blueprint modules
     from app.mod_main.views import mod_main
+    from app.mod_profile.views import mod_profile
 
     app.register_blueprint(mod_main)
+    app.register_blueprint(mod_profile)
