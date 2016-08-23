@@ -42,6 +42,11 @@ sudo config-template.cfg config.cfg
 sudo nano config.cfg
 ```
 
+Install the app
+```
+bash install.sh
+```
+
 #### Create New Virtual Host
 **IMPORTANT:** In production we are deploying this app under opendatakosovo.org domain so we are just adding a new virtual host to the *opendatakosovo.org.conf* file. The following instructions do not apply in our case but we still include them for documentation purposes on how to set this up from scratch:
 
