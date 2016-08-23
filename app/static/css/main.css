@@ -1,285 +1,270 @@
 /*Header style*/
-h1{
-    font-family: 'Comfortaa', cursive;
-    color: #666666;
-    font-size: 32px;
-    margin-left: -10px;
-}
 
-header{
-    margin-top: 15px;
-}
+    h1{
+        font-family: 'Comfortaa', cursive;
+        color: #666666;
+        font-size: 32px;
+        margin-left: -10px;
+    }
 
-#sign-in{
-    float: right;
-    margin-top: 30px;
-    text-decoration: none;
-}
+    header{
+        margin-top: 15px;
+    }
+
+    #sign-in{
+        float: right;
+        margin-top: 30px;
+        text-decoration: none;
+    }
 
 
 /*Button properties*/
-.btn{
-    width: 75%;
-    height: 40px;
-    margin: 5px;
-    color: #ffffff;
-    border-radius: 0px;
-    font-weight: bold;
-    font-family: 'Ubuntu', sans-serif;
-   }
+    .btn{
+        width: 75%;
+        height: 40px;
+        margin: 5px;
+        color: #ffffff;
+        border-radius: 0px;
+        font-weight: bold;
+        font-family: 'Ubuntu', sans-serif;
+       }
 
-.btn-google {
-    margin-top: 250px;
-    background-color: #878787;
-}
+    .btn-google {
+        margin-top: 250px;
+        background-color: #878787;
+    }
 
-.btn-facebook {
-    background-color: #2d59a1;
-    margin-right: -0.1px;
-}
+    .btn-facebook {
+        background-color: #2d59a1;
+        margin-right: -0.1px;
+    }
 
-.form-control{
+    .btn-signup{
+        margin-top: 30px;
+        background-color: #349946;
+    }
 
-    width: 77%;
-    height: 40px;
-    margin: 10px auto;
-    border-radius: 0px;
-}
 
-.btn-signup{
-    margin-top: 30px;
-    background-color: #349946;
-}
+/*Input fields*/
+
+    .form-control{
+
+        width: 77%;
+        height: 40px;
+        margin: 10px auto;
+        border-radius: 0px;
+    }
+
 
 /*LogIn Form*/
 
-.popover{
-    max-width: 500px;
-    /*width: 50%; Max Width of the popover (depending on the container!) */
-    border: none;
-    margin-left: -200px;
-    background-color: #f7f7f7;
-    loat: right;
-    box-shadow: none;
-    border-radius: 0px;
-    padding: 38px 0px 140px 40px;
+    .popover{
+        max-width: 500px;
+        /*width: 50%; Max Width of the popover (depending on the container!) */
+        border: none;
+        margin-left: -200px;
+        background-color: #f7f7f7;
+        loat: right;
+        box-shadow: none;
+        border-radius: 0px;
+        padding: 38px 0px 140px 40px;
+    }
 
 
-}
+    .btn-log-in-google {
+        background-color: #d6d6d6;
+        color: #5c5c5c;
+        height: 50px;
+        font-size: 14px;
+        width: 290px;
+        padding: 8px;
+    }
 
 
-.btn-log-in-google {
-    background-color: #d6d6d6;
-    color: #5c5c5c;
-    height: 50px;
-    font-size: 14px;
-    width: 290px;
-    padding: 8px;
-}
+    .btn-log-in-facebook{
+        font-size: 14px;
+        padding: 8px;
+        background-color: #2d59a1;
+         height: 50px;
+        width: 290px;
 
-.btn-log-in-facebook{
-    font-size: 14px;
-    padding: 8px;
-    background-color: #2d59a1;
-     height: 50px;
-    width: 290px;
-
-}
-
-.fa-search{
-    margin-left: -80px;
-    margin-right: 750px;
-
-}
-
-.fa-search, .fa-file-audio-o, .fa-file-text-o, .fa-file-video-o, .fa-paperclip {
-    font-size: 32px;
-    color: #000000;
-    margin-bottom: 20px;
-}
-
-.fa-file-audio-o, .fa-file-text-o, .fa-file-video-o {
-    margin-right: 70px;
-}
-
-.fa-paperclip {
-    margin-right: 0px;
-}
+    }
 
 
-.btn-log-in{
-    background-color: #349946;
-     height: 50px;
-     width: 290px;
-}
-
-#log-in-form a{
-    float: left;
-    color:#666666;
-    margin:10px 0 10px 60px;
-    font-size: 0.8em;
-}
+    .btn-log-in{
+        background-color: #349946;
+         height: 50px;
+         width: 290px;
+    }
 
 
-#email-login{
-    margin-bottom: -5px;
-}
 
-#email-login, #pass-login{
-    border: none;
-    height: 50px;
-    width: 290px;
-}
+    #email-login{
+        margin-bottom: -5px;
+    }
+
+    #email-login, #pass-login{
+        border: none;
+        height: 50px;
+        width: 290px;
+    }
+
+
+    #log-in-form a{
+        float: left;
+        color:#666666;
+        margin:10px 0 10px 60px;
+        font-size: 0.8em;
+    }
+
+    .popover.bottom>.arrow {
+        top: -13px;
+        left: 50%;
+        margin-left: 190px;
+        border-top-width: 0;
+        border-bottom-color: #888;
+        border-bottom-color: rgba(0,0,0,.25);
+    }
+
+
+    .popover.bottom>.arrow:after {
+        top: 4px;
+        margin-left: -10px;
+        content: " ";
+        border-top-width: 0;
+        border-bottom-color: #fff;
+    }
+
 
 
 /*Footer style*/
 
+    footer{
+        margin: 500px 40px 50px 40px;
+        background-color: #ebebeb;
+        padding-bottom: 150px;
+    }
 
-footer{
-    margin: 500px 40px 50px 40px;
-    background-color: #ebebeb;
-    padding-bottom: 150px;
-}
+    .learn-more, .about, .support {
+        margin: 50px 0 50px 30px;
 
-.learn-more, .about, .support {
-    margin: 50px 0 50px 30px;
+    }
 
-}
+    footer ul li a h6{
+        color: #a39999;
+        font-size: 1.1em;
+        font-family: 'Source Sans Pro', sans-serif;
+     }
 
-footer ul li a h6{
-    color: #a39999;
-    font-size: 1.1em;
-    font-family: 'Source Sans Pro', sans-serif;
- }
+    footer ul li {
+        list-style-type: none;
 
-footer ul li {
-    list-style-type: none;
+    }
 
-}
-
-footer a:hover{
-    text-decoration: none;
-}
+    footer a:hover{
+        text-decoration: none;
+    }
 
 
 /*Feed page*/
 
-#feed h1{
-    color: #333333;
-    font-size: 3.4em;
-    font-weight: bolder;
-    text-align: center;
-    margin-top: 150px;
-    line-height: 1.4em;
-}
+    #feed h1{
+        color: #333333;
+        font-size: 3.4em;
+        font-weight: bolder;
+        text-align: center;
+        margin-top: 150px;
+        line-height: 1.4em;
+    }
 
-#un-registered{
-    margin-bottom: 300px;
-}
-
-
-.close-icon{
-    width: 18px;
-    float: right;
-    margin-top: 90px;
-    margin-right: -20px;
-}
+    #un-registered{
+        margin-bottom: 300px;
+    }
 
 
-.video-icon{
-    margin-left: 580px;
-}
-
-#feed .btn{
-    height: 50px;
-    outline: 0;
-    font-family: 'Comfortaa', cursive;
-
-}
-
-#feed .btn :active{
-    outline: 0;
-    box-shadow: none;
-}
-
-#feed .btn-signup{
-    margin-right: -10px;
-    float: right;
-    width: 65%;
-    border-radius: 2px;
-    padding-top: 10px;
-    font-size: 1.3em;
-
-}
-
-#feed .btn-continue{
-    margin-left: -10px;
-    float: left;
-    width: 65%;
-    font-size: 1.1em;
-    background-color: transparent;
-    color: #000;
-    margin-top: 30px;
-    font-weight: 100;
-
-}
-
-nav{
-    margin-left: 100px;
-}
-
-#articles img{
-    width: 100%;
-    height: 300px;
-    margin-bottom: 10px;
-    padding-right: 0 !important;
-    position: relative;
-    z-index: -999;
-    text-align: center;
-
-}
-
-#articles{
-
-    margin-left: -100px;
-
-}
-
-#articles .profil{
-    width: 45px;
-    height: 45px;
-    margin: -300px 15px 15px 15px;
-    position: absolute;
-    z-index: 2;
-}
-.hidden{
-    display:none;
-}
-.popover.bottom>.arrow {
-    top: -13px;
-    left: 50%;
-    margin-left: 190px;
-    border-top-width: 0;
-    border-bottom-color: #888;
-    border-bottom-color: rgba(0,0,0,.25);
-}
+    .close-icon{
+        width: 18px;
+        float: right;
+        margin-top: 90px;
+        margin-right: -20px;
+    }
 
 
-.popover.bottom>.arrow:after {
-    top: 4px;
-    margin-left: -10px;
-    content: " ";
-    border-top-width: 0;
-    border-bottom-color: #fff;}
+    .video-icon{
+        margin-left: 580px;
+    }
 
-.article-title{
-    font-size: 1.5em;
-    position: absolute;
-    text-align: center;
-    margin: -150px 50px;
-    color: #fff;
-    z-index: 2;
-}
+    #feed .btn{
+        height: 50px;
+        outline: 0;
+        font-family: 'Comfortaa', cursive;
+
+    }
+
+    #feed .btn :active{
+        outline: 0;
+        box-shadow: none;
+    }
+
+    #feed .btn-signup{
+        margin-right: -10px;
+        float: right;
+        width: 65%;
+        border-radius: 2px;
+        padding-top: 10px;
+        font-size: 1.3em;
+    }
+
+    #feed .btn-continue{
+        margin-left: -10px;
+        float: left;
+        width: 65%;
+        font-size: 1.1em;
+        background-color: transparent;
+        color: #000;
+        margin-top: 30px;
+        font-weight: 100;
+    }
+
+    nav{
+        margin-left: 90px;
+    }
+
+    #articles img{
+        width: 100%;
+        height: 300px;
+        margin-bottom: 10px;
+        padding-right: 0 !important;
+        position: relative;
+        z-index: -999;
+        text-align: center;
+
+    }
+
+    #articles{
+        margin-left: -100px;
+    }
+
+    #articles .profil{
+        width: 45px;
+        height: 45px;
+        margin: -300px 15px 15px 15px;
+        position: absolute;
+        z-index: 2;
+    }
+    .hidden{
+        display:none;
+    }
+
+
+    .article-title{
+        font-size: 1.5em;
+        position: absolute;
+        text-align: center;
+        margin: -150px 50px;
+        color: #fff;
+        z-index: 2;
+    }
 
 
     #articles #article-type{
@@ -289,8 +274,7 @@ nav{
         margin-top: -60px;
         margin-right: 10px;
         z-index: 2;
-
-}
+    }
 
     .row-margin{
         margin-left: 100px;
@@ -303,7 +287,6 @@ nav{
         z-index: 2;
         float: right;
         margin: -300px 15px;
-
     }
 
     .fa-close{
@@ -315,93 +298,109 @@ nav{
     }
 
 
-
-
-
-   /*Text editor style*/
-
-    #text-editor{
-        margin: 10% 15%;
+    .fa-search{
+     margin-left: -80px;
+     margin-right: -10px;
 
     }
 
-    #cke_text-editor{
-        border: none !important;
-
-    }
-    .cke_chrome{
-        border: none !important;
-        background: transparent !important;
-        margin: 10% 15% !important;
-        box-shadow: none !important;
+    .fa-search, .fa-file-audio-o, .fa-file-text-o, .fa-file-video-o, .fa-paperclip {
+        font-size: 32px;
+        color: #000000;
+        margin-bottom: 20px;
     }
 
-    .cke_bottom, .cke_top{
-        border: none !important;
-        background: transparent !important;
-
+    .fa-file-audio-o, .fa-file-text-o, .fa-file-video-o {
+        margin-right: 30px;
     }
 
-    .cke_button__bold{
-        content: "\f032" !important;
+    .fa-paperclip {
+        padding-right: 0px;
+        margin-right: 0px;
     }
 
-    #editor-bar i{
-        font-size: 28px;
-       margin: 25px;
+    .fa-close{
+
+      color: #c7c7c7;
+        font-size: 20px;
+
     }
 
 
-    .btn-cancel, .btn-save, .btn-publish{
-        width: 200px;
-        height: 50px;
-        padding-top: 13px;
-    }
-
-    .btn-cancel{
-        background-color: #949494;
-        margin-left: 20%;
 
 
-    }
 
-    .btn-save{
-        background-color: #457bcc;
-        float: right;
-        margin-right: 2%
+/*article management style*/
 
-
-    }
-
-    .btn-publish{
-        background-color: #349946;
-        float: right;
-        margin-right: 20%;
-
-
-    }
-
-    .title{
-        height: 50px;
+    .editor-menu .fa{
         font-size: 35px;
-        margin-left: -40px;
+        margin-left: 20px;
+        margin-top: 200px;
 
     }
-    .title, .description{
-        width: 90%;
-        border: none;
+
+    .editor-menu .fa-bars{
+        margin-left: 200px;
+    }
+
+    #article-management h4{
         font-weight: bold;
-        color: #a1a1a1;
+        font-size: 30px;
+        margin: 40px 0px 20px 200px;
+    }
+
+    .article-visibility {
+        width: 80%;
+        border: 1px solid #c8c8c8;
+        margin: 40px 200px;
+        padding: 5px 5px 10px 5px;
+    }
+
+    .article-visibility i{
+        color: #000;
+        font-size: 32px;
+        padding-top: 15px;
+
+    }
+
+    .article-visibility .fa-trash-o{
+            margin-right: -735px;
+        margin-left: 20px;
+    }
+
+    time{
+        margin-left: 120px;
         margin-top: 20px;
-
-
+        margin-right: 50px;
     }
 
-    .description{
-        font-size: 23px;
-
+    .fa-eye:before {
+        margin-left: 70px;
     }
 
-    textarea:focus{
-        outline: 0;
+    #article-management button{
+        background: transparent;
+       border: none;
+    }
+
+    /*positioning dropdown menu*/
+
+   .dropdown-menu {
+       margin: 12px 0 0 218px;
+       box-shadow: none;
+   }
+
+   .dropdown-menu>li>a {
+       margin: 33px 21px;
+       font-size: 20px;
+   }
+
+   .fa-pencil{
+       color: #000;
+       text-decoration: none;
+   }
+
+    a:focus, a:hover {
+        color: #000;
+        text-decoration: none;
     }

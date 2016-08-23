@@ -1,16 +1,11 @@
 /*Responsive*/
 
 /* Large Devices, Wide Screens */
-    @media only screen and (max-width : 1200px) {
+    @media (max-width : 1200px) {
 
     .video-icon{
             margin-left: 50%;
         }
-
-    }
-
-    /* Medium Devices, Desktops */
-    @media only screen and (max-width : 992px) {
 
         .logo {
             margin-left: 10px;
@@ -26,8 +21,39 @@
         }
 
 
+
+    }
+
+    @media (max-width : 991px){
+
+        nav {
+
+    margin-right: -125px;
+
+    }
+
+     /*Medium Devices, Desktops */
+    @media (max-width : 800px) {
+
+        .logo {
+            margin-left: 10px;
+        }
+
+        #nav-bar {
+            margin-left: 102px;}
+
+        #sign-in{
+            margin-right:10px;
+        }
+
+        #sign-up-form{
+            margin-top: -100px;
+            margin-bottom: 100px;
+        }
+
+
         #articles{
-            margin: 0px;
+
             padding: 0px;
         }
 
@@ -43,27 +69,12 @@
 
         .menu-icons{
             padding-right: 0px;
+            margin-left: 70px;
         }
 
         .video-icon{
             margin-left: 40%;
         }
-
-        #un-registered .btn-signup {
-
-            float: left;
-            width: 200px;
-            margin: 20px;
-        }
-
-        #un-registered .btn-continue{
-            float: right;
-            width: 200px;
-            margin: 20px;
-            padding-top: 15px;
-        }
-
-
 
         footer{
             margin-top: 200px;
@@ -78,29 +89,47 @@
         .popover.bottom>.arrow {
          margin-left: 170px;
 
-}
-
-
-    }
-
-
-    /*Small tablets (landscape)*/
-    @media only screen and (max-width : 800px){
-
         }
 
 
+          .fa-close:before {
+             font-size: 15px
+
+          }
+         .fa-close {
+
+            margin-top: 49px;
+            margin-right: 5px;}
+
+        .fa-file-video-o{
+            margin-left: 254px;}
+        }
+
+        .fa-paperclip{
+            margin-right: 0px;
+            padding-right: -20px;
+        }
+
+    }
+
+        @media (max-width: 991px){
+        @media (max-width: 800px){
+        .fa-close {
+            margin-top: 80px;
+            margin-right: 90px;}
+        }}
+
     /* Small Devices, Tablets (iPad)*/
-    @media only screen and (max-width : 768px) {
+    @media (max-width : 768px) {
 
        #feed h1{
            font-size: 1.9em;
            margin-bottom: 20px;
        }
 
-         .fa-close {
-            margin-top: -50px;
-            margin-right: 5px;
+         a .fa-close {
+            margin-top: 80px;
+            margin-right: 90px;
         }
 
         .article-title{
@@ -109,35 +138,110 @@
         }
 
 
-
         .row-margin{
             margin-left: 0px;
         }
 
         #un-registered .btn-signup {
-            float: right;
+            float: none;
             width: 180px;
+            margin-left: 70px;
 
         }
 
         #un-registered .btn-continue{
-             float:left;
+
                 width: 180px;
+                margin-top: 35px;
+                margin-right: 145px;
 
         }
+
+        #articles, #nav-bar{
+            margin:5px 0px 0px -20px;
+        }
+
+        .menu-icons {
+            margin-left: 125px;
+
+            }
+
+        .fa-search {
+            margin-left: -135px;
+            margin-right: 40px;
+        }
+
+
+    }
+
+    @media (max-width : 767px) {
+
+        #un-registered .btn-continue {
+            width: 40%;
+            margin-top: 35px;
+            margin-left: 30%;
+        }
+
+        #un-registered .btn-signup {
+            float: none;
+            width: 40%;
+            margin-left: 20%;
+
+        }
+
+        #feed .fa {
+            font-size: 25px;
+        }
+
+
+    }
+
+    /*Small tablet*/
+
+
+    /*@media (max-width : 655px){*/
+
+        /*#un-registered .btn-signup{*/
+            /*margin-left: 15%;*/
+        /*}*/
+
+        /*#un-registered .btn-continue{*/
+            /*margin-top: 5%;*/
+                /*margin-right: 38%;*/
+        /*}*/
+
+     /*}*/
+
+
+    @media (max-width: 492px) {
+
+            #un-registered .btn-signup{
+                width: 60%;
+                margin-left: 20%;
+            }
 
     }
 
 
-    /*Small tablet*/
+     @media (max-width : 568px){
 
-     @media only screen and (max-width : 600px){
+         .fa-close:before {
+             font-size: 15px
+
+          }
+
+         .fa-close {
+
+            margin-top: 49px;
+            margin-right: 5px;}
+
+
 
      }
 
 
     /* Extra Small Devices, Phones */
-    @media only screen and (max-width : 480px) {
+    @media (max-width : 480px) {
 
         .row-margin{
             margin-left: -10px;
@@ -152,13 +256,13 @@
 
         #un-registered .btn-signup {
 
-              width: 80%;
-            margin: 25px 40px;
+              width: 60%;
+            margin: 20% 5%;
         }
 
         #un-registered .btn-continue{
-            width: 80%;
-            margin: 10px 40px;
+            width: 60%;
+            margin: 20% 5%;
         }
 
         nav img {
@@ -179,11 +283,11 @@
         width: 30px;
         height: 35px;
 
-}
+        }
 
     }
 
-     @media only screen and (max-width : 435px) {
+     @media(max-width : 435px) {
 
          #un-registered .btn-signup {
              width: 80%;
@@ -192,18 +296,21 @@
 
      }
 
-    @media only screen and (max-width : 415px){
+    @media (max-width : 415px){
+
+        .intro{
+           padding-top: 0px;
+        }
 
         #un-registered .btn-signup {
             width: 80%;
-            margin: 20px 40px;
-
+            margin: 20px 0px;
         }
 
         #un-registered .btn-continue {
 
             width: 80%;
-            margin: 20px 40px;
+            margin: 20px 30px;
         }
 
         footer{
@@ -229,7 +336,7 @@
         }
     }
 
-    @media only screen and (max-width : 375px){
+    @media (max-width : 375px){
 
 
     }
@@ -277,12 +384,21 @@
                 margin-left: -15px;
             }
 
+            .fa-navicon:before, .fa-reorder:before, .fa-bars:before{
+                font-size: 25px;
+            }
+
+            .fa-pencil:before {
+                font-size: 25px;
+            }
+
+
      }
 
 
 
       /* Custom, iPhone Retina */
-      @media only screen and (max-width : 320px){
+      @media (max-width : 320px){
 
             #sign-up-form{
                 margin-top: -50px;
@@ -292,10 +408,18 @@
                 display: none;
             }
 
-            .fa-close {
-                margin-top: -50px;
-                margin-right: 5px;
-            }
+          .fa-close:before {
+             font-size: 15px
+
+          }
+         .fa-close {
+
+            margin-top: 49px;
+            margin-right: 5px;}
+
+         .fa-play{
+             font-size: 16px !important;
+         }
 
             #feed h1 {
                 font-size: 2em;
@@ -307,15 +431,16 @@
 
                 width: 200px;
                 text-align: center;
-                margin-left: 12%;
+                margin-left: -5%;
             }
 
             #un-registered .btn-continue {
 
-            width: 200px;
-            text-align: center;
+                width: 200px;
+                text-align: center;
                 margin-right: 12%;
-                   }
+            }
+
 
 
 
@@ -324,8 +449,6 @@
                 height: 40px;
                 margin: 30px -5px;
                 padding-right: 0px;
-
-
             }
 
 
@@ -333,16 +456,12 @@
                 width: 100%;
                 margin-left: 0;
                 margin-right: 0;
-
             }
-
-
 
 
             .learn-more, .about, .support {
 
                 padding: 0;
-
             }
 
             footer {
@@ -375,4 +494,14 @@
             .video-icon{
                 margin-left: 32%;
             }
-        }
+
+            .menu-icons .fa {
+                    margin-right: 21px;
+
+                }
+            .fa-search:before {
+
+                margin-right: 76px;
+                }
+
+      }

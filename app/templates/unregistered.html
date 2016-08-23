@@ -1,22 +1,24 @@
+ <!--   This part is displayed when user is not logged in -->
+    <div id="un-registered">
+           <div class="row">
+               <div class="col-md-8 col-md-offset-2  col-xs-12 intro">
+                    <a href="#nav-bar" class="fa fa-close"></a>
+                    <h1>Sign up to get the most out<br> of Kreotive. </h1>
+                     <h5 class="text-center">For youth organisations all over Sweden.</h5>
+               </div>
+           </div>
 
-                  <div class="row" id="un-registered">
-                        <div class="col-md-8 col-md-offset-2">
-                            <a href="#nav-bar">
-                                <i class="fa fa-close" aria-hidden="true"></i></a>
+           <div class="row">
+               <div class=" col-xs-10 col-xs-offset-2 col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1 push-right">
+                   <a href="{{ url_for('main.sign') }}" class="btn btn-signup">Sign up</a>
+                </div>
+
+                <div class=" col-xs-12 col-sm-5 col-sm-offset-1 col-md-5">
+                    <a href="#nav-bar" type="button" class="btn btn-continue push-left">Continue unregistered</a>
+                </div>
+           </div>
+    </div>
 
 
-                            <h1>Sign up to get the most out<br> of Kreotive. </h1>
-                            <h5 class="text-center">For youth organisations all over Sweden.</h5>
-                            <div class="row">
-                                <div class=" col-xs-12 col-sm-3 col-md-5 col-md-offset-1">
-                                  <center><a href="{{ url_for('main.sign') }}" class="btn btn-signup">Sign up</a></center>
-                                </div>
 
-                                <div class=" col-xs-12 col-sm-3 col-md-5">
-                                    <a href="#nav-bar" type="button" class="btn btn-continue">Continue unregistered</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
 

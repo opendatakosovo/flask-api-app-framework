@@ -23,4 +23,11 @@ def write():
     ''' Renders the App index page.
     :return:
     '''
-    return render_template('mod_write/write_article.html')
+    return render_template('mod_article/write_article.html')
+
+@mod_main.route('/manage', methods=['GET'])
+def manage():
+    ''' Renders the App index page.
+    :return:
+    '''
+    return render_template('mod_article/article_management.html')

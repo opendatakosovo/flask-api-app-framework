@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<script type="text/javascript" src="../../static/ckeditor/ckeditor.js"></script>
+
+
+<div class="row">
+        <div class="dropdown write-menu col-md-1 col-md-offset-1">
+            <button class="fa fa-bars dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Feed</a></li>
+                    <li><a href="{{ url_for('main.manage') }}">Article management</a></li>
+                    <li><a href="#">Comments</a></li>
+                    <li><a href="#">Bookmarks</a></li>
+                    <li><a href="#">People / Organisations</a></li>
+                    <li><a href="#">Account Details</a></li>
+                </ul>
+            </div>
+        <div id="text-editor" class="text-center col-md-10">
+
+        </div>
+</div>
+
+
+
+
+    <a href="" class="btn btn-cancel">Cancel</a>
+    <a href="" class="btn btn-publish">Publish</a>
+    <a href="" class="btn btn-save">Save</a>
+
+        <script>
+            CKEDITOR.replace( 'text-editor',
+            {toolbar :
+            [
+
+                [ 'FontSize','Bold','Italic','Underline','Strike','BulletedList','NumberedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Image','Link'],
+                ['Source'],
+
+            ],
+
+                        width: 1000,
+                        height:400
+
+                    });
+
+
+        </script>
+
+
+{% endblock %}
