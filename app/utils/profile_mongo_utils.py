@@ -11,6 +11,7 @@ class ProfileMongoUtils(object):
         query = {'slug': slug}
         return self._find_one(query)
 
+
     def _find_one(self, query={}, limit=0):
 
         doc = self.mongo.db[self.collection_name] \

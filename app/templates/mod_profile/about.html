@@ -1,6 +1,27 @@
 {% extends "layout.html" %}
 {% block body %}
+    <script>
+        // TODO: Write the appropriate jQuery function to ensure the clicking on the follow
+        // button will call the follow() function.
+
+        function follow(){
+
+            $.ajax({
+                type: "POST",
+                url: "", //TODO: Use the url_for function to mode the follow POST request URL here.
+                data: { follower: "nastradin-hoxha"},
+                //success: success, //TODO: request is successful, then chnage the button label value
+                dataType: "application/json"
+            });
+        }
+
+    </script>
+
     <h2>This is the about page for {{ profile.name }}!</h2>
     <h4>About</h4>
     <strong>{{ profile.about }}</strong>
+
+    <button class="follow">Follow</button>
+
+
 {% endblock body %}
