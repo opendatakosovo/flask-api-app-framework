@@ -1,3 +1,4 @@
+*.wsgi
 .idea
 venv
 importer/data/*.*
