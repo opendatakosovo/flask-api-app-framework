@@ -1,5 +1,4 @@
 
-
 class ProfileMongoUtils(object):
     mongo = None
 
@@ -18,3 +17,13 @@ class ProfileMongoUtils(object):
             .find_one(query)
 
         return doc
+
+    def add_follower(self, followee_slug, follower_slug):
+
+        self.mongo.db[self.collection_name].update(
+            {"slug": followee_slug},
+            {"$addToSet": {"follower":follower_slug}}
+        )
+
+        return True
+

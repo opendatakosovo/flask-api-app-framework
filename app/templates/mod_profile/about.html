@@ -1,20 +1,30 @@
 {% extends "layout.html" %}
 {% block body %}
-    <script>
+    <script script type="text/javascript">
         // TODO: Write the appropriate jQuery function to ensure the clicking on the follow
         // button will call the follow() function.
 
-        function follow(){
+        $(function () {
+            function follow() {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url_for('profile.follow', profile_slug='kosovare-sahatqija') }}",
+                    data: JSON.stringify({ follower: 'dummy-follower11'}),
+                    success: (function () {
+                       $(".follow").val("Unfollow");
+                    }),
+                    error: function (error) {
+                    },
+                    dataType: "application/json",
+                    contentType: "application/json"
+                });
+            }
 
-            $.ajax({
-                type: "POST",
-                url: "", //TODO: Use the url_for function to mode the follow POST request URL here.
-                data: { follower: "nastradin-hoxha"},
-                //success: success, //TODO: request is successful, then chnage the button label value
-                dataType: "application/json"
+            $(".follow").click(function() {
+                follow();
             });
-        }
 
+        });
     </script>
 
     <h2>This is the about page for {{ profile.name }}!</h2>
@@ -22,6 +32,5 @@
     <strong>{{ profile.about }}</strong>
 
     <button class="follow">Follow</button>
-
 
 {% endblock body %}

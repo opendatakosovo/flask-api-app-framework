@@ -3,12 +3,14 @@ import os
 import ConfigParser
 from logging.handlers import RotatingFileHandler
 from flask.ext.pymongo import PyMongo
+from flask.ext.mongoengine import MongoEngine
 from flask.ext.cors import CORS
 from app.utils.profile_mongo_utils import ProfileMongoUtils
 
 # Create MongoDB database object.
 mongo = PyMongo()
 
+db = MongoEngine()
 # Initialize mongo access point
 profile_mongo_utils = ProfileMongoUtils(mongo)
 
@@ -51,6 +53,7 @@ def load_config(app):
     app.config['SERVER_PORT'] = config.get('Application', 'SERVER_PORT')
     app.config['MONGO_DBNAME'] = config.get('Mongo', 'DB_NAME')
 
+    db.connect(app.config['MONGO_DBNAME'], alias='default')
     # Logging path might be relative or starts from the root.
     # If it's relative then be sure to prepend the path with the application's root directory path.
     log_path = config.get('Logging', 'PATH')
@@ -90,6 +93,8 @@ def init_modules(app):
     # Import blueprint modules
     from app.mod_main.views import mod_main
     from app.mod_profile.views import mod_profile
+    from app.mod_user.views import mod_user
 
     app.register_blueprint(mod_main)
     app.register_blueprint(mod_profile)
+    app.register_blueprint(mod_user)
