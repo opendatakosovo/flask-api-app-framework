@@ -145,7 +145,7 @@
         padding-bottom: 150px;
     }
 
-    .learn-more, .about, .support {
+    .learn-more, .about1, .support {
         margin: 50px 0 50px 30px;
 
     }
@@ -404,3 +404,89 @@
         color: #000;
         text-decoration: none;
     }
+
+    /*Account details page*/
+
+    #acc-details h4{
+        font-weight: bold;
+        font-size: 30px;
+        margin: 40px 0px 40px 200px;
+    }
+
+    #acc-details h5{
+        font-weight: bold;
+        font-size: 22px;
+        margin: 20px 0px;
+    }
+
+    #acc-details .fa-bars{
+        background: transparent;
+       border: none;
+    }
+
+    .dropdown-menu .active{
+        font-weight: bold;
+    }
+
+    .personal-data{
+        width: 80%;
+        margin-bottom: 20px;
+        height: 40px;
+    }
+
+    .about{
+
+    height: 140px;
+    width: 322px;
+        resize: none;
+    }
+
+    .save_details{
+        width: 80%;
+        background-color: #349946;
+        border: none;
+        color: #fff;
+        height: 40px;
+    }
+
+    .change-password{
+        width: 80%;
+        background-color: #3498db;
+        border: none;
+        color: #fff;
+        height: 40px;
+        margin-bottom: 22px;
+    }
+
+    #acc-details h6{
+        width: 80%;
+        font-size: 18px;
+    }
+
+    .del-account{
+        width: 80%;
+        background-color: #db3535;
+        border: none;
+        color: #fff;
+        height: 40px;
+    }
+
+
+    .avatar{
+        width: 90px;
+        margin-left: 10%;
+        margin-top: 170px;
+
+
+    }
+
+
+    .change-avatar{
+        width: 70%;
+        background-color: #3498db;
+        border: none;
+        height: 35px;
+        color: #fff;
+        margin: 40px 0px;
+    }
+

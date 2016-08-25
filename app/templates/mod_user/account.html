@@ -1,4 +1,81 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h3>This is the account details page!</h3>
+
+    <script>
+    $(function () {
+        function save_details() {
+
+            $.ajax({
+                type:"POST",
+                url:"{{ url_for('user.save', slug='kosovares')}}",
+                data: $('#profile-details').serialize(),
+            });
+        }
+
+        $(".save_details").click(function () {
+           save_details();
+        });
+    });
+
+    </script>
+
+
+<div id="acc-details">
+    <div class="row">
+        <div class="col-md-12 col-xs-12 editor-menu">
+            <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Feed</a></li>
+                    <li><a href="{{ url_for('main.manage') }}">Article management</a></li>
+                    <li><a href="#">Comments</a></li>
+                    <li><a href="#">Bookmarks</a></li>
+                    <li><a href="#">People / Organisations</a></li>
+                    <li><a href="#" class="active">Account Details</a></li>
+                </ul>
+            <a href="{{ url_for('main.write') }}" class="fa fa-pencil" ></a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Account details</h4>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-2">
+            <img src="../../static/img/prof4.jpg" class="img-responsive img-circle avatar">
+            <button type="button" class="change-avatar">Change avatar</button>
+        </div>
+
+        <div class="col-md-4">
+            <h5>Edit account details</h5>
+            <form id="profile-details">
+                <input type="text" class="personal-data name" placeholder="Name" name="name">
+                <input type="text" class="personal-data email" placeholder="Email" name="email">
+                <input type="text" class="personal-data location" placeholder="Location" name="location">
+                <input type="text" class="personal-data telephone" placeholder="Telephone" name="telephone">
+                <input type="text" class="personal-data mobile" placeholder="Mobile" name="mobile">
+                <textarea rows="7" class="personal-data about" placeholder="About me" name="about">About me</textarea>
+            </form>
+            <button type="submit" class="save_details">Save</button>
+        </div>
+
+        <div class="col-md-4">
+            <h5>Change password</h5>
+            <form id="change-pass">
+                <input type="password" class="personal-data" placeholder="Current password">
+                <input type="password" class="personal-data" placeholder="New password">
+                <input type="password" class="personal-data" placeholder="Confirm new password">
+                <button type="submit" class="change-password">Change password</button>
+            </form>
+            <br><br><br>
+            <h5>Delete account</h5>
+                <h6>Are you sure? There's no coming back from this one!</h6>
+                <h6><b>All your articles will be deleted.</b></h6><br>
+            <button type="submit" class="del-account">Delete account</button>
+        </div>
+    </div>
+</div>
 {% endblock body %}

@@ -6,6 +6,7 @@ from flask.ext.pymongo import PyMongo
 from flask.ext.mongoengine import MongoEngine
 from flask.ext.cors import CORS
 from app.utils.profile_mongo_utils import ProfileMongoUtils
+from app.utils.user_mongo_utils import UserMongoUtils
 
 # Create MongoDB database object.
 mongo = PyMongo()
@@ -13,6 +14,7 @@ mongo = PyMongo()
 db = MongoEngine()
 # Initialize mongo access point
 profile_mongo_utils = ProfileMongoUtils(mongo)
+user_mongo_utils = UserMongoUtils(mongo)
 
 def create_app():
     # Here we  create flask instance
