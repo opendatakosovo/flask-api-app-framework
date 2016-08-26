@@ -1,4 +1,39 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h3>This is the feed page for {{ slug }}!</h3>
+
+    <div id="profile-feed">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-2">
+                <ul>
+                    <li><a href="" class="active">Feed</a></li>
+                    <li><a href="{{ url_for ('profile.about', profile_slug ="kosovare" )}}">About</a></li>
+                    <li><a href="{{ url_for ('profile.archive', profile_slug ="kosovare" )}}">All articles</a></li>
+                </ul>
+            </div>
+        </div>
+
+        {% include "mod_profile/profile_banner.html" %}
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-2">
+                   <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Feed</a></li>
+                        <li><a href="{{ url_for('main.manage') }}">Article management</a></li>
+                        <li><a href="#">Comments</a></li>
+                        <li><a href="#">Bookmarks</a></li>
+                        <li><a href="#">People / Organisations</a></li>
+                        <li><a href="#">Account Details</a></li>
+                    </ul>
+
+                    <a href="{{ url_for('main.write') }}" class="fa fa-pencil"></a>
+                    <a href="" class="fa fa-search"></a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 {% endblock body %}
