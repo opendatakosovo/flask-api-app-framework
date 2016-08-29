@@ -493,20 +493,23 @@
 
     /*Profile feed page style*/
     #profile-feed ul,
-    #profile-about ul{
+    #profile-about ul,
+    #profile-archive ul{
         margin-top: 50px;
         margin-left: -40px;
     }
 
     #profile-feed ul li,
-    #profile-about ul li{
+    #profile-about ul li,
+    #profile-archive ul li{
         list-style-type: none;
         display: inline;
 
     }
 
     #profile-feed ul li a,
-    #profile-about ul li a{
+    #profile-about ul li a,
+    #profile-archive ul li a{
         text-decoration: none;
         color: inherit;
         font-size: 16px;
@@ -515,19 +518,22 @@
     }
 
     #profile-feed ul li .active,
-    #profile-about ul li .active{
+    #profile-about ul li .active,
+    #profile-archive ul li .active{
         font-weight: bold;
     }
 
     #profile-feed .fa,
-    #profile-about .fa{
+    #profile-about .fa,
+    #profile-archive .fa{
 
         font-size: 40px;
         margin: 20px 10px;
     }
 
     #profile-feed .fa-bars,
-    #profile-about .fa-bars{
+    #profile-about .fa-bars,
+    #profile-archive .fa-bars{
         background-color: transparent;
         border: none;
 
@@ -561,9 +567,17 @@
     }
 
     #profile-feed .dropdown,
-    #profile-about .dropdown{
+    #profile-about .dropdown,
+    #profile-archive .dropdown{
         margin: 10px 0;
 
+    }
+
+    #profile-about .dropdown-menu,
+    #profile-feed .dropdown-menu,
+    #profile-archive .dropdown-menu{
+        margin-left: 20px;
+        margin-top: 0px;
     }
 
     .user-pic{
