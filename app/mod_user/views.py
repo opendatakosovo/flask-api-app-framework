@@ -7,6 +7,7 @@ import json
 
 mod_user= Blueprint('user', __name__, url_prefix='/user')
 
+
 @mod_user.route('/<slug>/account', methods=['GET'])
 def account(slug):
 
@@ -24,6 +25,7 @@ def memberships(slug):
 
         return render_template('mod_user/memberships.html')
 
+
 @mod_user.route('/<slug>/account/save', methods=['POST'])
 def save(slug):
     user_json = {
@@ -38,3 +40,4 @@ def save(slug):
     user_mongo_utils.add_user(user_json)
     resp = Response(status=200)
     return resp
+

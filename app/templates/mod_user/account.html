@@ -2,21 +2,19 @@
 {% block body %}
 
     <script>
-    $(function () {
-        function save_details() {
+        $(function () {
+            function save_details() {
 
-            $.ajax({
-                type:"POST",
-                url:"{{ url_for('user.save', slug='kosovares')}}",
-                data: $('#profile-details').serialize(),
+                $.ajax({
+                    type:"POST",
+                    url:"{{ url_for('user.save', slug='kosovares')}}",
+                    data: $('#profile-details').serialize(),
+                });
+            }
+            $(".save_details").click(function () {
+               save_details();
             });
-        }
-
-        $(".save_details").click(function () {
-           save_details();
         });
-    });
-
     </script>
 
 
@@ -24,14 +22,14 @@
     <div class="row">
         <div class="col-md-12 col-xs-12 editor-menu">
             <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Feed</a></li>
-                    <li><a href="{{ url_for('main.manage') }}">Article management</a></li>
-                    <li><a href="#">Comments</a></li>
-                    <li><a href="#">Bookmarks</a></li>
-                    <li><a href="#">People / Organisations</a></li>
-                    <li><a href="#" class="active">Account Details</a></li>
-                </ul>
+            <ul class="dropdown-menu">
+            <li><a href="#">Feed</a></li>
+            <li><a href="{{ url_for('main.manage') }}">Article management</a></li>
+            <li><a href="#">Comments</a></li>
+            <li><a href="#">Bookmarks</a></li>
+            <li><a href="#">People / Organisations</a></li>
+            <li><a href="#" class="active">Account Details</a></li>
+            </ul>
             <a href="{{ url_for('main.write') }}" class="fa fa-pencil" ></a>
         </div>
     </div>
@@ -61,7 +59,6 @@
             </form>
             <button type="submit" class="save_details">Save</button>
         </div>
-
         <div class="col-md-4">
             <h5>Change password</h5>
             <form id="change-pass">
@@ -72,8 +69,8 @@
             </form>
             <br><br><br>
             <h5>Delete account</h5>
-                <h6>Are you sure? There's no coming back from this one!</h6>
-                <h6><b>All your articles will be deleted.</b></h6><br>
+            <h6>Are you sure? There's no coming back from this one!</h6>
+            <h6><b>All your articles will be deleted.</b></h6><br>
             <button type="submit" class="del-account">Delete account</button>
         </div>
     </div>

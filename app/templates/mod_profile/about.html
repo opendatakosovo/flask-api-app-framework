@@ -31,31 +31,29 @@
         <div class="row">
             <div class="col-md-3 col-md-offset-2">
                 <ul>
-                    <li><a href="{{ url_for ('profile.feed', profile_slug ="kosovare" )}}" >Feed</a></li>
-                    <li><a href="" class="active">About</a></li>
-                    <li><a href="{{ url_for ('profile.archive', profile_slug ="kosovare" )}}">All articles</a></li>
+                <li><a href="{{ url_for ('profile.feed', profile_slug ="kosovare" )}}" >Feed</a></li>
+                <li><a href="" class="active">About</a></li>
+                <li><a href="{{ url_for ('profile.archive', profile_slug ="kosovare" )}}">All articles</a></li>
                 </ul>
             </div>
         </div>
 
-
-    {% include "mod_profile/profile_banner.html" %}
+        {% include "mod_profile/profile_banner.html" %}
 
         <div class="row">
-                <div class="col-md-6 col-md-offset-2">
-                       <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Feed</a></li>
-                            <li><a href="{{ url_for('main.manage') }}">Article management</a></li>
-                            <li><a href="#">Comments</a></li>
-                            <li><a href="#">Bookmarks</a></li>
-                            <li><a href="#">People / Organisations</a></li>
-                            <li><a href="#">Account Details</a></li>
-                        </ul>
-
-                        <a href="{{ url_for('main.write') }}" class="fa fa-pencil"></a>
-                        <a href="" class="fa fa-search"></a>
-                </div>
+            <div class="col-md-6 col-md-offset-2">
+                <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Feed</a></li>
+                    <li><a href="{{ url_for('main.manage') }}">Article management</a></li>
+                    <li><a href="#">Comments</a></li>
+                    <li><a href="#">Bookmarks</a></li>
+                    <li><a href="#">People / Organisations</a></li>
+                    <li><a href="#">Account Details</a></li>
+                </ul>
+                <a href="{{ url_for('main.write') }}" class="fa fa-pencil"></a>
+                <a href="" class="fa fa-search"></a>
+            </div>
         </div>
 
         <div class="row">
@@ -79,14 +77,14 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <span><br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat.
-                    Donec placerat nisl magna, et faucibus arcu condimentum sed.Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit. Aliquam at porttitor sem.  <br><br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat.
+                Donec placerat nisl magna, et faucibus arcu condimentum sed.Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit. Aliquam at porttitor sem.  <br><br>
 
-                    Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna, et
-                    faucibus arcu condimentum sed.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.
-                    Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna, et
+                faucibus arcu condimentum sed.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.
+                Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
                 </span>
             </div>
         </div>
@@ -99,10 +97,7 @@
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                
             </div>
-
         </div>
-
     </div>
 {% endblock body %}

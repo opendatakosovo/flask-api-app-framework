@@ -1,4 +1,4 @@
-/*Header style*/
+    /*Header style*/
 
     h1{
         font-family: 'Comfortaa', cursive;
@@ -18,7 +18,7 @@
     }
 
 
-/*Button properties*/
+    /*Button properties*/
     .btn{
         width: 75%;
         height: 40px;
@@ -27,7 +27,7 @@
         border-radius: 0px;
         font-weight: bold;
         font-family: 'Ubuntu', sans-serif;
-       }
+    }
 
     .btn-google {
         margin-top: 250px;
@@ -45,10 +45,9 @@
     }
 
 
-/*Input fields*/
+    /*Input fields*/
 
     .form-control{
-
         width: 77%;
         height: 40px;
         margin: 10px auto;
@@ -56,11 +55,10 @@
     }
 
 
-/*LogIn Form*/
+    /*LogIn Form*/
 
     .popover{
         max-width: 500px;
-        /*width: 50%; Max Width of the popover (depending on the container!) */
         border: none;
         margin-left: -200px;
         background-color: #f7f7f7;
@@ -85,19 +83,15 @@
         font-size: 14px;
         padding: 8px;
         background-color: #2d59a1;
-         height: 50px;
+        height: 50px;
         width: 290px;
-
     }
-
 
     .btn-log-in{
         background-color: #349946;
-         height: 50px;
-         width: 290px;
+        height: 50px;
+        width: 290px;
     }
-
-
 
     #email-login{
         margin-bottom: -5px;
@@ -108,7 +102,6 @@
         height: 50px;
         width: 290px;
     }
-
 
     #log-in-form a{
         float: left;
@@ -135,9 +128,12 @@
         border-bottom-color: #fff;
     }
 
+    #log-in button,
+    #log-in input{
+        width: 70%;
+    }
 
-
-/*Footer style*/
+    /*Footer style*/
 
     footer{
         margin: 500px 40px 50px 40px;
@@ -147,18 +143,16 @@
 
     .learn-more, .about1, .support {
         margin: 50px 0 50px 30px;
-
     }
 
     footer ul li a h6{
         color: #a39999;
         font-size: 1.1em;
         font-family: 'Source Sans Pro', sans-serif;
-     }
+    }
 
     footer ul li {
         list-style-type: none;
-
     }
 
     footer a:hover{
@@ -166,7 +160,7 @@
     }
 
 
-/*Feed page*/
+    /*Feed page*/
 
     #feed h1{
         color: #333333;
@@ -198,7 +192,6 @@
         height: 50px;
         outline: 0;
         font-family: 'Comfortaa', cursive;
-
     }
 
     #feed .btn :active{
@@ -238,7 +231,6 @@
         position: relative;
         z-index: -999;
         text-align: center;
-
     }
 
     #articles{
@@ -252,6 +244,7 @@
         position: absolute;
         z-index: 2;
     }
+
     .hidden{
         display:none;
     }
@@ -299,9 +292,8 @@
 
 
     #feed .fa-search{
-     margin-left: -80px;
-     margin-right: -10px;
-
+        margin-left: -80px;
+        margin-right: -10px;
     }
 
     .fa-search, .fa-file-audio-o, .fa-file-text-o, .fa-file-video-o, .fa-paperclip {
@@ -320,23 +312,16 @@
     }
 
     .fa-close{
-
-      color: #c7c7c7;
+        color: #c7c7c7;
         font-size: 20px;
-
     }
 
-
-
-
-
-/*article management style*/
+    /*article management style*/
 
     .editor-menu .fa{
         font-size: 35px;
         margin-left: 20px;
         margin-top: 200px;
-
     }
 
     .editor-menu .fa-bars{
@@ -360,11 +345,10 @@
         color: #000;
         font-size: 32px;
         padding-top: 15px;
-
     }
 
     .article-visibility .fa-trash-o{
-            margin-right: -735px;
+        margin-right: -735px;
         margin-left: 20px;
     }
 
@@ -380,25 +364,25 @@
 
     #article-management button{
         background: transparent;
-       border: none;
+        border: none;
     }
 
     /*positioning dropdown menu*/
 
-   .dropdown-menu {
-       margin: 12px 0 0 218px;
-       box-shadow: none;
-   }
+    .dropdown-menu {
+        margin: 12px 0 0 218px;
+        box-shadow: none;
+    }
 
-   .dropdown-menu>li>a {
-       margin: 33px 21px;
-       font-size: 20px;
-   }
+    .dropdown-menu>li>a {
+        margin: 33px 21px;
+        font-size: 20px;
+    }
 
-   .fa-pencil{
-       color: #000;
-       text-decoration: none;
-   }
+    .fa-pencil{
+        color: #000;
+        text-decoration: none;
+    }
 
     a:focus, a:hover {
         color: #000;
@@ -421,7 +405,7 @@
 
     #acc-details .fa-bars{
         background: transparent;
-       border: none;
+        border: none;
     }
 
     .dropdown-menu .active{
@@ -435,9 +419,8 @@
     }
 
     .about{
-
-    height: 140px;
-    width: 322px;
+        height: 140px;
+        width: 322px;
         resize: none;
     }
 
@@ -504,7 +487,6 @@
     #profile-archive ul li{
         list-style-type: none;
         display: inline;
-
     }
 
     #profile-feed ul li a,
@@ -526,7 +508,6 @@
     #profile-feed .fa,
     #profile-about .fa,
     #profile-archive .fa{
-
         font-size: 40px;
         margin: 20px 10px;
     }
@@ -536,7 +517,6 @@
     #profile-archive .fa-bars{
         background-color: transparent;
         border: none;
-
     }
 
 
@@ -548,7 +528,6 @@
         width: 100%;
         height: 80px;
         background-color: #81b7e3;
-
     }
 
     .follow, .ask-to-join {
@@ -559,7 +538,6 @@
         width: 150px;
         height: 45px;
         margin: 15px 10px;
-
     }
 
     .ask-to-join{
@@ -570,7 +548,6 @@
     #profile-about .dropdown,
     #profile-archive .dropdown{
         margin: 10px 0;
-
     }
 
     #profile-about .dropdown-menu,

@@ -1,17 +1,23 @@
-from flask import Flask
+from flask import Flask, g
 import os
 import ConfigParser
 from logging.handlers import RotatingFileHandler
 from flask.ext.pymongo import PyMongo
-from flask.ext.mongoengine import MongoEngine
-from flask.ext.cors import CORS
 from app.utils.profile_mongo_utils import ProfileMongoUtils
-from app.utils.user_mongo_utils import UserMongoUtils
+from app.utils.user_mongo_utils import UserMongoUtils, Anonymous, User
+from flask.ext.bcrypt import Bcrypt
+from flask.ext.login import LoginManager
+from flask.ext.security import Security
+
+login_manager = LoginManager()
+
 
 # Create MongoDB database object.
 mongo = PyMongo()
 
-db = MongoEngine()
+bcrypt = Bcrypt()
+
+security = Security()
 # Initialize mongo access point
 profile_mongo_utils = ProfileMongoUtils(mongo)
 user_mongo_utils = UserMongoUtils(mongo)
@@ -29,6 +35,9 @@ def create_app():
     # Configure logging.
     configure_logging(app)
 
+    # Configure login manager
+    configure_login_manager(app)
+
     # Init modules
     init_modules(app)
 
@@ -36,6 +45,28 @@ def create_app():
     mongo.init_app(app, config_prefix='MONGO')
 
     return app
+
+def configure_login_manager(app):
+    security.init_app(app)
+    # Init Login Manager
+    login_manager.init_app(app)
+
+    login_manager.login_view='mod_user.login'
+
+    login_manager.anonymous_user = Anonymous
+
+    login_manager.user = User
+
+
+@login_manager.user_loader
+def user_loader(user_id):
+    """Given *user_id*, return the associated User object.
+
+    :param unicode user_id: user_id (email) user to retrieve
+    """
+    user = user_mongo_utils.get_user_by_id(unicode(user_id))
+    g.user = user
+    return user
 
 
 def load_config(app):
@@ -54,8 +85,11 @@ def load_config(app):
 
     app.config['SERVER_PORT'] = config.get('Application', 'SERVER_PORT')
     app.config['MONGO_DBNAME'] = config.get('Mongo', 'DB_NAME')
+    app.config['SECRET_KEY'] = config.get('Application', 'SECURITY_KEY')
+    app.config['SECURITY_PASSWORD_SALT'] = config.get('Application', 'SECURITY_PASSWORD_SALT')
+    app.config['SECURITY_REGISTREABLE'] = config.get('Application', 'SECURITY_REGISTREABLE')
 
-    db.connect(app.config['MONGO_DBNAME'], alias='default')
+    # db.connect(app.config['MONGO_DBNAME'], alias='default')
     # Logging path might be relative or starts from the root.
     # If it's relative then be sure to prepend the path with the application's root directory path.
     log_path = config.get('Logging', 'PATH')
@@ -96,7 +130,11 @@ def init_modules(app):
     from app.mod_main.views import mod_main
     from app.mod_profile.views import mod_profile
     from app.mod_user.views import mod_user
+    from app.mod_auth.views import mod_auth
 
     app.register_blueprint(mod_main)
     app.register_blueprint(mod_profile)
     app.register_blueprint(mod_user)
+    app.register_blueprint(mod_auth)
+
+

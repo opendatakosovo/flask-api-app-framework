@@ -1,18 +1,14 @@
-     /*Text editor style*/
+/*Text editor style*/
 
     #text-editor{
-
         margin: 10% 5% !important;
-
-
     }
 
     #cke_text-editor{
         border: none !important;
-
     }
+
     .cke_chrome{
-        /*width: 90% !important;*/
         border: none !important;
         background: transparent !important;
         margin: 10% 20% !important;
@@ -22,15 +18,12 @@
     .cke_bottom, .cke_top{
         border: none !important;
         background: transparent !important;
-
     }
 
     #editor-bar i{
         font-size: 28px;
-       margin: 25px;
+        margin: 25px;
     }
-
-
 
     .cke_button__bold_icon, .cke_button__italic_icon,
     .cke_button__underline_icon, .cke_button__strike_icon,
@@ -41,7 +34,6 @@
 
         width: 40px !important;
         height: 40px !important;
-
     }
 
     .cke_toolgroup{
@@ -49,8 +41,7 @@
         border: none!important;
         box-shadow: none !important;
         float: none;
-
-      }
+    }
 
 
     #cke_26_label {
@@ -72,35 +63,34 @@
         box-shadow: none !important;
         height: 40px !important;
         width: 40px !important;
-
     }
-    .write-menu .fa {
 
+    .write-menu .fa {
         font-size: 40px;
         background: transparent;
         border: none;
         margin-left: 20px;
-
     }
 
-     .dropdown {
-            position: relative;
-            margin-left: 145px;
-            margin-top: 141px
-    }
-      .dropup {
-    position: relative;
-    margin-left: 145px;
-    margin-top: 141px
+    .dropdown {
+        position: relative;
+        margin-left: 145px;
+        margin-top: 141px;
     }
 
+    .dropup {
+        position: relative;
+        margin-left: 145px;
+        margin-top: 141px;
+    }
 
-      .write-menu .dropdown-menu {
-    margin: 12px 0 0 40px;
-    box-shadow: none;
-}
 
-          .btn-cancel, .btn-save, .btn-publish{
+    .write-menu .dropdown-menu {
+        margin: 12px 0 0 40px;
+        box-shadow: none;
+    }
+
+    .btn-cancel, .btn-save, .btn-publish{
         width: 200px;
         height: 50px;
         padding-top: 13px;
@@ -109,32 +99,25 @@
     .btn-cancel{
         background-color: #949494;
         margin-left: 20%;
-
-
     }
 
     .btn-save{
         background-color: #457bcc;
         float: right;
-        margin-right: 2%
-
-
+        margin-right: 2%;
     }
 
     .btn-publish{
         background-color: #349946;
         float: right;
         margin-right: 20%;
-
-
     }
 
-       #text-editor .dropdown-toggle{
+    #text-editor .dropdown-toggle{
         border: none;
         background: none;
         font-size: 40px;
         color: #474747;
         margin-left: 200px;
-
     }
 
