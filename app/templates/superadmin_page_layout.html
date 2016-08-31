@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Kreotive</title>
+
+        <!--Fonts -->
+
+        <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:600,400' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+
+         <!--CSS-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome-4.6.3/css/font-awesome.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/sadmin-main.css') }}" type="text/css">
+
+
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/kreotive-sadmin.js') }}"></script>
+
+    </head>
+
+    <body>
+
+        <div class="container-fluid">
+            <header>
+                <div class="row">
+                    <div class="col-xs-8 col-md-2 col-md-offset-1">
+                        <h1 class="logo">Kreotive</h1>
+                    </div>
+                    <div class="col-xs-4 col-md-8">
+                        {% if current_user.is_authenticated %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="{{ url_for('profile.feed', profile_slug = current_user.name)  }}" style="color:#3b8cde">Profile</a>
+                                <a href="{{ url_for('auth.logout')  }}" id="sign-in" style="color:#3b8cde">Log out</a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="#" id="sign-in" data-toggle="popover" content="#log-in-form" style="color:#3b8cde">Log In</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="row">
+                            <br>
+                            <div class="col-md-12">
+                                <form id="log-in-form" class="hidden">
+                                    <div class=" col-md-10 text-center">
+                                        <button type="button" class="btn btn-log-in-google"><img src="../static/img/google-plus.png" /> Log in with Google</button>
+                                        <button type="button" class="btn btn-log-in-facebook"><img src="../static/img/facebook.png" />Log in with Facebook</button>
+                                        <br>
+                                        <h5 class="text-center">- or -</h5>
+                                        <input type="email" class="form-control" align="middle" id="email-login" placeholder="Email">
+                                        <input type="password" class="form-control" id="pass-login" placeholder="Password">
+                                        <a href="" style="float: left; color:#666666; font-size: 0.8em;">Forgot your password?</a>
+                                        <button type="submit" class="btn btn-log-in">Log in</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+            {% block body %}
+            {% endblock %}
+
+
+
+            <footer>
+                <div class="row">
+                    <h1> Footer here </h1>
+                </div>
+            </footer>
+
+        </div>
+
+    </body>
+</html>
