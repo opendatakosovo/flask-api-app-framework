@@ -48,8 +48,6 @@ bash install.sh
 ```
 
 #### Create New Virtual Host
-**IMPORTANT:** In production we are deploying this app under opendatakosovo.org domain so we are just adding a new virtual host to the *opendatakosovo.org.conf* file. The following instructions do not apply in our case but we still include them for documentation purposes on how to set this up from scratch:
-
 Copy default virtual host config file to create new file specific to the project:
 ```
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/kreotive.com.conf
