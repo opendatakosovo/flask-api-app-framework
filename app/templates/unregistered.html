@@ -1,4 +1,6 @@
  <!--   This part is displayed when user is not logged in -->
+  {{current_user.roles.name}}
+ {% if not current_user.is_authenticated %}
 <div id="un-registered">
     <div class="row">
         <div class="col-md-8 col-md-offset-2  col-xs-12 intro">
@@ -18,7 +20,7 @@
         </div>
     </div>
 </div>
-
+{% endif %}
 
 
 

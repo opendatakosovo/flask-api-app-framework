@@ -4,10 +4,11 @@ import ConfigParser
 from logging.handlers import RotatingFileHandler
 from flask.ext.pymongo import PyMongo
 from app.utils.profile_mongo_utils import ProfileMongoUtils
-from app.utils.user_mongo_utils import UserMongoUtils, Anonymous, User
+from app.utils.user_mongo_utils import UserMongoUtils, Anonymous, User, Roles
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.login import LoginManager
-from flask.ext.security import Security
+from flask.ext.security import Security, current_user
+from bson.objectid import ObjectId
 
 login_manager = LoginManager()
 
@@ -21,6 +22,7 @@ security = Security()
 # Initialize mongo access point
 profile_mongo_utils = ProfileMongoUtils(mongo)
 user_mongo_utils = UserMongoUtils(mongo)
+
 
 def create_app():
     # Here we  create flask instance
@@ -64,8 +66,8 @@ def user_loader(user_id):
 
     :param unicode user_id: user_id (email) user to retrieve
     """
-    user = user_mongo_utils.get_user_by_id(unicode(user_id))
-    g.user = user
+    user = user_mongo_utils.get_user_by_id(ObjectId(user_id))
+
     return user
 
 

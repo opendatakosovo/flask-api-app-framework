@@ -4,7 +4,7 @@ from app import user_mongo_utils, bcrypt
 from flask import request
 from flask import Response
 import json
-
+from app.utils.user_mongo_utils import Roles
 
 mod_auth= Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -28,7 +28,8 @@ def sign_up():
                 "email": email,
                 "password": bcrypt.generate_password_hash(password, rounds=12),
                 "active": True,
-                "roles": []
+                "roles": [user_mongo_utils.get_role_id('individual')],
+                "organizations" : ['kreotive']
             }
             #TODO: Regiser user
             user_mongo_utils.add_user(user_json)
