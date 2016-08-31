@@ -95,7 +95,6 @@ class Anonymous(UserMixin):
         self.username = 'Guest'
         self.id = None
         self.roles = []
-        self.is_authenticated = False
 
     def is_authenticated(self):
         return False

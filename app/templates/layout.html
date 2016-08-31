@@ -58,16 +58,20 @@
                         <div class="row">
                             <br>
                             <div class="col-md-12">
-                                <form id="log-in-form" class="hidden">
-                                    <div class=" col-md-10 text-center">
+                                 <form id="log-in-form" method="post" action="{{ url_for('auth.login') }}" class="hidden">
+                                    <div class=" col-md-4 col-md-offset-4 text-center">
                                         <button type="button" class="btn btn-log-in-google"><img src="../static/img/google-plus.png" /> Log in with Google</button>
                                         <button type="button" class="btn btn-log-in-facebook"><img src="../static/img/facebook.png" />Log in with Facebook</button>
                                         <br>
                                         <h5 class="text-center">- or -</h5>
-                                        <input type="email" class="form-control" align="middle" id="email-login" placeholder="Email">
-                                        <input type="password" class="form-control" id="pass-login" placeholder="Password">
-                                        <a href="" style="float: left; color:#666666; font-size: 0.8em;">Forgot your password?</a>
-                                        <button type="submit" class="btn btn-log-in">Log in</button>
+                                        <input name="email" type="email" class="form-control" align="middle" id="email-login" placeholder="Email">
+                                        <input name="password" type="password" class="form-control" id="pass-login" placeholder="Password">
+                                        <a href="" style="color:#666666; font-size: 0.8em;">Forgot your password?</a></br>
+                                            {% if error %}
+                                            <div style="color:red;">   {{ error }}</div>
+                                            {% endif %}
+                                         <button type="submit" class="btn btn-log-in">Log in</button><br />
+                                    Not registered? <a href="{{ url_for('auth.sign_up') }}">Sign up here!</a>
                                     </div>
                                 </form>
                             </div>

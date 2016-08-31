@@ -8,6 +8,8 @@ from app.utils.user_mongo_utils import UserMongoUtils, Anonymous, User, Roles
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.login import LoginManager
 from flask.ext.security import Security, current_user
+from flask.ext.social import Social
+from flask.ext.principal import Principal
 from bson.objectid import ObjectId
 
 login_manager = LoginManager()
@@ -23,6 +25,9 @@ security = Security()
 profile_mongo_utils = ProfileMongoUtils(mongo)
 user_mongo_utils = UserMongoUtils(mongo)
 
+principal = Principal()
+
+social = Social()
 
 def create_app():
     # Here we  create flask instance
@@ -43,6 +48,8 @@ def create_app():
     # Init modules
     init_modules(app)
 
+    # init principal
+    principal.init_app(app)
     # Initialize the app to work with MongoDB
     mongo.init_app(app, config_prefix='MONGO')
 
@@ -50,6 +57,8 @@ def create_app():
 
 def configure_login_manager(app):
     security.init_app(app)
+    social.init_app(app)
+
     # Init Login Manager
     login_manager.init_app(app)
 
@@ -91,6 +100,15 @@ def load_config(app):
     app.config['SECURITY_PASSWORD_SALT'] = config.get('Application', 'SECURITY_PASSWORD_SALT')
     app.config['SECURITY_REGISTREABLE'] = config.get('Application', 'SECURITY_REGISTREABLE')
 
+    app.config['SOCIAL_FACEBOOK'] = {
+        'consumer_key': config.get('SOCIAL', 'FACEBOOK_CONSUMER_KEY'),
+        'consumer_secret': config.get('SOCIAL', 'FACEBOOK_CONSUMER_SECRET')
+    }
+
+    app.config['SOCIAL_GOOGLE'] = {
+        'consumer_key': config.get('SOCIAL', 'GOOGLE_CONSUMER_KEY'),
+        'consumer_secret': config.get('SOCIAL', 'GOOGLE_CONSUMER_SECRET')
+    }
     # db.connect(app.config['MONGO_DBNAME'], alias='default')
     # Logging path might be relative or starts from the root.
     # If it's relative then be sure to prepend the path with the application's root directory path.
@@ -133,10 +151,11 @@ def init_modules(app):
     from app.mod_profile.views import mod_profile
     from app.mod_user.views import mod_user
     from app.mod_auth.views import mod_auth
+    from app.mod_superadmin.views import mod_superadmin
 
     app.register_blueprint(mod_main)
     app.register_blueprint(mod_profile)
     app.register_blueprint(mod_user)
     app.register_blueprint(mod_auth)
-
+    app.register_blueprint(mod_superadmin)
 

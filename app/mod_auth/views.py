@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, url_for, redirect, flash, jsonify
-from flask.ext.security import login_user , logout_user , current_user , login_required
+from flask import Blueprint, render_template, url_for, redirect, flash,\
+    jsonify, request, Response, current_app, session
+from flask.ext.security import login_user , logout_user , current_user ,\
+    login_required
+from flask.ext.principal import Principal, Identity, AnonymousIdentity, \
+    identity_changed
 from app import user_mongo_utils, bcrypt
-from flask import request
-from flask import Response
 import json
 from app.utils.user_mongo_utils import Roles
 
@@ -65,10 +67,21 @@ def login():
                 return render_template('mod_auth/log_in.html', error=error)
             elif password_check and email_check:
                 login_user(user_input)
+                # Tell Flask-Principal the identity changed
+                identity_changed.send(current_app._get_current_object(),
+                    identity=Identity(current_user.id))
                 # print current_user.is_authenticated()
                 return redirect(url_for('main.feed'))
 
 @mod_auth.route('/logout')
 def logout():
     logout_user()
+
+    # Remove session keys set by Flask-Principal
+    for key in ('identity.name', 'identity.auth_type'):
+        session.pop(key, None)
+
+    # Tell Flask-Principal the user is anonymous
+    identity_changed.send(current_app._get_current_object(),
+                          identity=AnonymousIdentity())
     return redirect(url_for('main.feed'))
