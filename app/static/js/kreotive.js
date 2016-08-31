@@ -1,31 +1,24 @@
- $(document).ready(function(){
+ $(document).ready(function() {
 
-    $("#sign-in").popover({
-        html : true, 
-        placement: "bottom",
-        content: function() {
-          return $("#log-in-form").html();
-        }
-    });
-});
- 
+     $("#sign-in").popover({
+         html: true,
+         placement: "bottom",
+         content: function () {
+             return $("#log-in-form").html();
+         }
+     });
 
-  $(document).ready(function(){
-       $(".menu-icons a").click(function (e) {
-          e.preventDefault();
-      });
-
-  });
+     $(".menu-icons a").click(function (e) {
+         e.preventDefault();
+     });
 
 
+     var div = $('#un-registered');
 
-$(document).ready(function () {
-
-    var div = $('#un-registered');
-
-      $('.fa-close').on('click', function() {
-            div.fadeOut();
-      });
+     $('.fa-close').on('click', function () {
+         div.fadeOut();
+     });
 
 });
+
 
