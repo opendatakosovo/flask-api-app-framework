@@ -5,6 +5,7 @@ from flask.ext.login import AnonymousUserMixin
 import datetime
 from bson.objectid import ObjectId
 
+
 class UserMongoUtils(object):
 
     def __init__(self, mongo):
@@ -23,20 +24,21 @@ class UserMongoUtils(object):
         if role != None:
             return ObjectId(role['_id'])
         else:
-            ## Add role
+
+            # Add role
             self.mongo.db[self.roles_collection] \
             .insert({"name": name,'description': name})
 
-            ## Get role
+            # Get role
             role = self.mongo.db[self.roles_collection] \
             .find_one({"name":name})
 
             return ObjectId(role['_id'])
 
-    def get_user(self, email ):
+    def get_user(self, email):
         user_cursor = self.mongo.db[self.users_collection] \
             .find_one({"email":email})
-        if user_cursor == None:
+        if user_cursor is None:
             return None
         else:
             user_instance = User(unicode(user_cursor['_id']),user_cursor['name'], user_cursor['lastname'], user_cursor['active'], user_cursor['email'], user_cursor['password'] , user_cursor['roles'])
@@ -46,7 +48,7 @@ class UserMongoUtils(object):
         user_cursor = self.mongo.db[self.users_collection] \
             .find_one({"_id": ObjectId(id)})
         user_instance = None
-        if(user_cursor != None):
+        if user_cursor is not None:
             user_instance = User(unicode(user_cursor['_id']), user_cursor['name'], user_cursor['lastname'], user_cursor['active'], user_cursor['email'],
                              user_cursor['password'], user_cursor['roles'])
         else:
@@ -55,14 +57,14 @@ class UserMongoUtils(object):
 
 
 class User(UserMixin):
-    def __init__(self,id,name,lastname, is_active, email, password, role):
+    def __init__(self, id, name, lastname, is_active, email, password, role):
         self.id = id
         self.name = name
         self.lastname = lastname
         self.is_active = is_active
         self.email = email
         self.password = password
-        self.roles = [Roles( role , 'individual' , 'description')]
+        self.roles = [Roles(role, 'individual', 'description')]
         self.is_anonymous = False
         self.confirmed_at = datetime.datetime.now()
 
@@ -81,6 +83,7 @@ class User(UserMixin):
     def is_anonymous(self):
         return False
 
+
 class Roles(RoleMixin):
     def __init__(self, id, name, description):
         self.id = id
@@ -89,6 +92,7 @@ class Roles(RoleMixin):
 
     def get_role(self):
         return this
+
 
 class Anonymous(UserMixin):
     def __init__(self):

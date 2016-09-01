@@ -152,10 +152,12 @@ def init_modules(app):
     from app.mod_user.views import mod_user
     from app.mod_auth.views import mod_auth
     from app.mod_superadmin.views import mod_superadmin
+    from app.mod_article.views import mod_article
 
     app.register_blueprint(mod_main)
     app.register_blueprint(mod_profile)
     app.register_blueprint(mod_user)
     app.register_blueprint(mod_auth)
     app.register_blueprint(mod_superadmin)
+    app.register_blueprint(mod_article)
 

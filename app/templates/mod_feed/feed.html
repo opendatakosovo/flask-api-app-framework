@@ -3,12 +3,35 @@
 <!--About Section-->
     <section id="feed">
         <div class="container">
-            <div id="not-logged-in">
+                 {% include "unregistered.html" %}
 
+                 {% if current_user.is_authenticated() %}
+                 <nav id="nav-bar" style="margin-top: 100px;">
+                <br><br><br><br>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-10 col-xs-10 menu-icons">
+                            <div class="col-md-1">
+                            <button class="fa fa-bars dropdown-toggle " data-toggle="dropdown"></button>
+                                <ul class="dropdown-menu" style="margin: 12px 0 0 -76px;">
+                                    <li><a href="#" class="active">Feed</a></li>
+                                    <li><a href="{{ url_for('main.manage') }}">Article management</a></li>
+                                    <li><a href="#">Comments</a></li>
+                                    <li><a href="#">Bookmarks</a></li>
+                                    <li><a href="#">People / Organisations</a></li>
+                                    <li><a href="{{ url_for('user.account', slug = current_user.name)  }}">Account Details</a></li>
+                                </ul>
+                            </div>
+                            <a href="{{ url_for('main.write') }}" class="fa fa-pencil col-md-1" ></a>
+                            <a href="" class="fa fa-search col-md-1 col-sm-3 col-xs-2" id="search" style="margin-left: -75px; margin-right: 70px;"></a>
+                            <a href="" class="fa fa-file-video-o col-md-1 col-md-offset-5 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-1 text-center" id="video-type" data-toggle="tooltip" title="Filter by video"></a>
+                            <a href="" class="fa fa-file-audio-o col-md-1 col-sm-1 col-xs-1 text-center" id="audio-type" data-toggle="tooltip" title="Filter by audio"></a>
+                            <a href="" class="fa fa-file-text-o col-md-1 col-sm-1 col-xs-1 text-center" id="text-type" data-toggle="tooltip" title="Filter by text"></a>
+                            <a href="" class="fa fa-paperclip col-md-1 col-sm-1 col-xs-1 text-center" id="attach-type" data-toggle="tooltip" title="Filter by attachment"></a>
+                        </div>
+                    </div>
+                </nav>
 
-                {% include "unregistered.html" %}
-
-
+                {% else %}
                 <nav id="nav-bar">
                 <br><br>
                     <div class="row">
@@ -22,9 +45,8 @@
                         </div>
                     </div>
                 </nav>
-            </div>
-
-            <div id="articles">
+                {% endif %}
+                <div id="articles">
                 <div class="row latest row-bottom-margin row-margin">
                     <div class="col-md-8 col-xs-8 text-type" style="padding-right: 0;">
                         <img src="../../static/img/4.jpg" class="img-responsive"/>

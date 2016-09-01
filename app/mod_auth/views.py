@@ -1,12 +1,13 @@
 from flask import Blueprint, render_template, url_for, redirect, flash,\
     jsonify, request, Response, current_app, session
-from flask.ext.security import login_user , logout_user , current_user ,\
+from flask.ext.security import login_user, logout_user, current_user ,\
     login_required
 from flask.ext.principal import Principal, Identity, AnonymousIdentity, \
     identity_changed
 from app import user_mongo_utils, bcrypt
 import json
 from app.utils.user_mongo_utils import Roles
+
 
 mod_auth= Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -37,7 +38,10 @@ def sign_up():
             user_mongo_utils.add_user(user_json)
             flash('User successfully registered')
 
-            #TODO: login user
+            # TODO: login user
+            user_data = user_mongo_utils.get_user(email=email)
+            login_user(user_data)
+
             return redirect(url_for('main.feed'))
 
         return render_template('mod_auth/sign_up.html', error="user:" + email + "password" + password)

@@ -15,6 +15,7 @@
         float: right;
         margin-top: 30px;
         text-decoration: none;
+        font-size: 16px;
     }
 
 
@@ -87,7 +88,7 @@
         width: 290px;
     }
 
-    .btn-log-in{
+    .btn-log-in, .btn-popover-log-in{
         background-color: #349946;
         height: 50px;
         width: 290px;
@@ -217,6 +218,22 @@
         color: #000;
         margin-top: 30px;
         font-weight: 100;
+    }
+
+    #feed .fa{
+        font-size: 35px;
+
+    }
+
+    #feed .fa-bars {
+        background-color: transparent;
+        border: none;
+            margin-left: -95px;
+    }
+
+    #feed .fa-pencil {
+
+            margin-left: -120px;
     }
 
     nav{
@@ -566,4 +583,66 @@
         font-size: 30px;
     }
 
+    .profile-img{
+        width: 50px;
+        margin-left: 55px;
+        margin-top: 13px;
+    }
+
+
+    #single-article{
+        margin-top: 80px;
+    }
+
+    .news{
+        color: #000000;
+        font-size: 20px;
+    }
+
+    #single-article .org{
+        font-size: 30px;
+         margin-left: -70px;
+    }
+
+    #single-article .author{
+        font-size: 20px;
+        margin-left: -70px;
+    }
+
+    input[type=checkbox], input[type=radio] {
+        margin: -184px;
+    }
+
+    .go-back{
+        background-color: transparent;
+        border: 1px solid #000;
+        border-radius: 2px;
+        padding: 5px 30px;
+        margin: 30px 0px;
+    }
+
+    #single-article .fa-bookmark-o,
+    #single-article .fa-share-alt{
+        font-size: 30px;
+        color: #000;
+
+    }
+
+    #single-article .fa-bookmark-o{
+        margin-left: -20px;
+    }
+
+    #single-article .fa-share-alt{
+         margin-left: 50px;
+    }
+
+    .article-t{
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .thesis{
+        font-size: 20px;
+        font-weight: bold;
+    }
 

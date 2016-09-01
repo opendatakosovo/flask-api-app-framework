@@ -47,9 +47,11 @@
                     <div class="col-xs-4 col-md-8">
                         {% if current_user.is_authenticated() %}
                         <div class="row">
-                            <div class="col-md-6">
-                                <a href="{{ url_for('profile.feed', profile_slug = current_user.name)  }}" id="sign-in" style="color:#3b8cde">Profile</a>
-                                <a href="{{ url_for('auth.logout')  }}" id="sign-in" style="color:#3b8cde">Log out</a>
+                            <div class="col-md-2 col-md-offset-10">
+                                <a href="{{ url_for('profile.feed', profile_slug = current_user.name)  }}" style="margin: auto"><img src="../static/img/prof1.jpg" class="img-circle profile-img"></a>
+                                <a href="{{ url_for('auth.logout')  }}" id="sign-in" style="color:#3b8cde" >Log out</a>
+
+
                             </div>
                         </div>
                         {% else %}
@@ -70,11 +72,12 @@
                                         <h5 class="text-center">- or -</h5>
                                         <input name="email" type="email" class="form-control" align="middle" id="email-login" placeholder="Email">
                                         <input name="password" type="password" class="form-control" id="pass-login" placeholder="Password">
+                                        <input type="checkbox" name="remember_me" value="remember_me" style="margin: 0">Remember me<br>
                                         <a href="" style="color:#666666; font-size: 0.8em;">Forgot your password?</a></br>
                                             {% if error %}
                                             <div style="color:red;">   {{ error }}</div>
                                             {% endif %}
-                                         <button type="submit" class="btn btn-log-in">Log in</button><br />
+                                         <button type="submit" class="btn btn-popover-log-in">Log in</button><br />
                                     Not registered? <a href="{{ url_for('auth.sign_up') }}">Sign up here!</a>
                                     </div>
                                 </form>
@@ -125,10 +128,8 @@
 
         <script>
             $(document).ready(function() {
-                $(".close-icon").click(function () {
-                    $("#un-registered").fadeOut(1000);
-                });
-                $(document).on('click','.btn-log-in', function(){
+
+                $(document).on('click','.btn-popover-log-in', function(){
                     $.post('{{ url_for('auth.login')}}',  {
                         email: $('#email-login').val(),
                         password: $('#pass-login').val()

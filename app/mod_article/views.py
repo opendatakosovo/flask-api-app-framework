@@ -13,10 +13,13 @@ def article(slug):
 
     return render_template('mod_article/article_single.html')
 
+
 @mod_article.route('/<user_id>/<org_id_id>')
 def articles(user_id,org_id):
 	return render_template('mod_article/article_management.html')
-@mod_article.route('/new', , methods=['GET','POST'])
+
+
+@mod_article.route('/new', methods=['GET','POST'])
 def new_article(slug):
 
     return render_template('mod_article/write_article.html')

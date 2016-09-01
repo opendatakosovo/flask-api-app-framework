@@ -1,1 +1,55 @@
-article_single.html
+{% extends "layout.html" %}
+{% block body %}
+
+    <div id="single-article">
+        <div class="row">
+            <div class="col-md-1 col-md-offset-2">
+                <img src="../../static/img/prof3.png" class="img-circle">
+
+            </div>
+
+            <div class="col-md-2">
+
+                <span class="org">PANTRARNA</span></br>
+                <span class="author">John, Johnsson</span>
+
+            </div>
+
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-3">
+                <a href="" class="fa fa-tag news">   News</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 col-md-offset-2">
+                <button type="button" class="go-back">Go Back</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-2">
+                <span class="article-t">Article title</span>
+            </div>
+
+            <div class="col-md-2">
+                <a href="" class="fa fa-bookmark-o"></a>
+                <a href="" class="fa fa-share-alt"></a>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-7 col-md-offset-2">
+                <span class="thesis">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% endblock body %}

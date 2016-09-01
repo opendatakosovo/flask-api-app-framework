@@ -13,6 +13,7 @@
      });
 
 
+
      var div = $('#un-registered');
 
      $('.fa-close').on('click', function () {
