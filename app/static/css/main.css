@@ -134,6 +134,22 @@
         width: 70%;
     }
 
+    label {
+      display: block;
+      padding-left: 15px;
+      text-indent: -15px;
+    }
+     input[type=checkbox]{
+      width: 13px;
+      height: 13px;
+      padding: 0;
+      margin-right:-100px;
+      vertical-align: bottom;
+      position: relative;
+      top: -1px;
+      *overflow: hidden;
+    }
+
     /*Footer style*/
 
     footer{
@@ -607,10 +623,6 @@
     #single-article .author{
         font-size: 20px;
         margin-left: -70px;
-    }
-
-    input[type=checkbox], input[type=radio] {
-        margin: -184px;
     }
 
     .go-back{

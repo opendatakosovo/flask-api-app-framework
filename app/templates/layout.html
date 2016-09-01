@@ -48,7 +48,7 @@
                         {% if current_user.is_authenticated() %}
                         <div class="row">
                             <div class="col-md-3 col-md-offset-10">
-                                <a href="{{ url_for('profile.feed', profile_slug = current_user.name)  }}" style="margin: auto"><img src="../static/img/prof1.jpg" class="img-circle profile-img"></a>
+                                <a href="{{ url_for('profile.feed', profile_slug = current_user.name)  }}" style="margin: auto"><img src="{{ url_for('static', filename='img/prof1.jpg')}}" class="img-circle profile-img"></a>
 {#                            </div>#}
 {#                            <div class="col-md-2">#}
                                 <a href="{{ url_for('auth.logout')  }}" style="color:#3b8cde; font-size:16px; margin-top: 30px;" >Log out</a>
@@ -66,8 +66,8 @@
                             <div class="col-md-12">
                                  <form id="log-in-form" method="post" action="{{ url_for('auth.login') }}" class="hidden">
                                     <div class=" col-md-10 text-center">
-                                        <button type="button" class="btn btn-log-in-google"><img src="../static/img/google-plus.png" /> Log in with Google</button>
-                                        <button type="button" class="btn btn-log-in-facebook"><img src="../static/img/facebook.png" />Log in with Facebook</button>
+                                        <button type="button" class="btn btn-log-in-google"><img src="{{ url_for('static', filename='img/google-plus.png')}}" /> Log in with Google</button>
+                                        <button type="button" class="btn btn-log-in-facebook"><img src="{{ url_for('static', filename='img/facebook.png')}}" />Log in with Facebook</button>
                                         <br>
                                         <h5 class="text-center">- or -</h5>
                                         <input name="email" type="email" class="form-control" align="middle" id="email-login" placeholder="Email">
