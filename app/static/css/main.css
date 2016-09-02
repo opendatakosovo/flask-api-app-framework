@@ -201,10 +201,6 @@
     }
 
 
-    .video-icon{
-        margin-left: 580px;
-    }
-
     #feed .btn{
         height: 50px;
         outline: 0;
@@ -244,17 +240,10 @@
     #feed .fa-bars {
         background-color: transparent;
         border: none;
-            margin-left: -95px;
+            /*margin-left: -95px;*/
     }
 
-    #feed .fa-pencil {
 
-            margin-left: -120px;
-    }
-
-    nav{
-        margin-left: 90px;
-    }
 
     #articles img{
         width: 100%;
@@ -325,8 +314,8 @@
 
 
     #feed .fa-search{
-        margin-left: -80px;
-        margin-right: -10px;
+        margin-left: 0px;
+
     }
 
     .fa-search, .fa-file-audio-o, .fa-file-text-o, .fa-file-video-o, .fa-paperclip {
@@ -335,14 +324,6 @@
         margin-bottom: 20px;
     }
 
-    .fa-file-audio-o, .fa-file-text-o, .fa-file-video-o {
-        margin-right: 30px;
-    }
-
-    .fa-paperclip {
-        padding-right: 0px;
-        margin-right: 0px;
-    }
 
     .fa-close{
         color: #c7c7c7;

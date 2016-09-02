@@ -23,9 +23,6 @@
 
     @media (max-width : 991px) {
 
-        nav {
-            margin-right: -125px;
-        }
     }
 /*Medium Devices, Desktops */
     @media (max-width: 800px) {
@@ -36,6 +33,10 @@
 
         #nav-bar {
             margin-left: 102px;
+        }
+
+        #nav-bar1 {
+            margin-left: 0px;
         }
 
         #sign-in {
@@ -92,14 +93,8 @@
             margin-right: 5px;
         }
 
-        .fa-file-video-o {
-            margin-left: 254px;
-        }
 
-        .fa-paperclip {
-            margin-right: 0px;
-            padding-right: -20px;
-        }
+
     }
 
     @media (max-width: 991px) {
@@ -149,13 +144,13 @@
         }
 
         .menu-icons {
-            margin-left: 125px;
+            margin-left: -35px;
         }
 
-        .fa-search {
-            margin-left: -135px;
-            margin-right: 40px;
+        #feed #search{
+            margin-left: -5px;
         }
+
     }
 
     @media (max-width: 767px) {
@@ -177,16 +172,6 @@
         }
     }
 
-    /*Small tablet*/
-    /*@media (max-width : 655px){*/
-    /*#un-registered .btn-signup{*/
-    /*margin-left: 15%;*/
-    /*}*/
-    /*#un-registered .btn-continue{*/
-    /*margin-top: 5%;*/
-    /*margin-right: 38%;*/
-    /*}*/
-    /*}*/
     @media (max-width: 492px) {
 
         #un-registered .btn-signup {
@@ -236,9 +221,6 @@
             padding-right: 0px;
         }
 
-        .video-icon {
-            margin-left: 50%;
-        }
 
         #articles .article-type {
             width: 30px;
@@ -312,14 +294,6 @@
             margin: 5px 30px 20px 30px;
         }
 
-        .icon {
-            margin: 0 20px 0 -20px;
-        }
-
-        .video-icon {
-            margin-left: 37%;
-        }
-
         ul {
             margin-left: -40px;
         }
@@ -332,17 +306,7 @@
             margin-right: 0px;
         }
 
-        img#search {
-            margin-left: -15px;
-        }
 
-        .fa-navicon:before, .fa-reorder:before, .fa-bars:before {
-            font-size: 25px;
-        }
-
-        .fa-pencil:before {
-            font-size: 25px;
-        }
     }
 
 
@@ -427,21 +391,9 @@
             margin-top: -55px;
         }
 
-        .icon {
-            margin: 0 10px 0 -20px;
+        #nav-bar1 .fa{
+            margin: 0;
         }
 
-        .video-icon {
-            margin-left: 32%;
-        }
-
-        .menu-icons .fa {
-            margin-right: 21px;
-
-        }
-
-        .fa-search:before {
-            margin-right: 76px;
-        }
     }
 

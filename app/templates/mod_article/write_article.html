@@ -4,7 +4,7 @@
 <script type="text/javascript" src="../../static/ckeditor/ckeditor.js"></script>
 
 
-<div class="row">
+<div class="row" style="display: inline">
         <div class="dropdown write-menu col-md-1 col-md-offset-1">
             <button class="fa fa-bars dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
             <ul class="dropdown-menu">
@@ -16,14 +16,33 @@
                 <li><a href="{{ url_for('user.account', slug='slug') }}">Account Details</a></li>
             </ul>
         </div>
-        <div id="text-editor" class="text-center col-md-10">
+        <div id="text-editor" class="text-center col-md-8">
 
         </div>
 </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <select class="category">
+                <option value="Politics">Politics</option>
+                <option value="Humour">Humour</option>
+                <option value="Sports">Sports</option>
+                <option value="How-to's ">How-to's </option>
+                <option value="Organisation News ">Organisation News </option>
+                <option value="Local News ">Local News</option>
+            </select>
+        </div>
 
-<a href="" class="btn btn-cancel">Cancel</a>
-<a href="" class="btn btn-publish">Publish</a>
-<a href="" class="btn btn-save">Save</a>
+        <div class="col-md-2">
+            <i class="fa fa-users"></i>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3"><a href="" class="btn btn-cancel">Cancel</a></div>
+        <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3"><a href="" class="btn btn-save">Save</a></div>
+        <div class="col-md-2 col-md-offset-1 col-sm-3 col-xs-3"><a href="" class="btn btn-publish">Publish</a></div>
+    </div>
+
 
 <script>
     CKEDITOR.replace( 'text-editor',

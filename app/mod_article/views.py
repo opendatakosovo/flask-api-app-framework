@@ -20,7 +20,7 @@ def articles(user_id,org_id):
 
 
 @mod_article.route('/new', methods=['GET','POST'])
-def new_article(slug):
+def new_article():
 
     return render_template('mod_article/write_article.html')
 

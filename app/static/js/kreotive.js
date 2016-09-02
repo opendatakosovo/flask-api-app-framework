@@ -11,15 +11,6 @@
      $(".menu-icons a").click(function (e) {
          e.preventDefault();
      });
-
-
-
-     var div = $('#un-registered');
-
-     $('.fa-close').on('click', function () {
-         div.fadeOut();
-     });
-
 });
 
 

@@ -6,6 +6,16 @@
 
     #cke_text-editor{
         border: none !important;
+
+    }
+
+    #cke_1_top, .cke_inner{
+        width: 90% !important;
+        margin-left: 0 !important;
+    }
+
+    .cke_inner{
+
     }
 
     .cke_chrome{
@@ -121,3 +131,7 @@
         margin-left: 200px;
     }
 
+    .category {
+        background-color: transparent;
+        border: none;
+    }
