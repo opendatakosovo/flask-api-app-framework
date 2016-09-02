@@ -5,7 +5,7 @@
 
 
 <div class="row" style="display: inline">
-        <div class="dropdown write-menu col-md-1 col-md-offset-1">
+        <div class="dropdown write-menu col-md-1 col-md-offset-1 col-sm-1 col-sm-offset-1">
             <button class="fa fa-bars dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
             <ul class="dropdown-menu">
                 <li><a href="#">Feed</a></li>
@@ -16,13 +16,16 @@
                 <li><a href="{{ url_for('user.account', slug='slug') }}">Account Details</a></li>
             </ul>
         </div>
-        <div id="text-editor" class="text-center col-md-8">
+        <div class="text-left col-md-7 col-sm-7 col-xs-7">
+            <div id="text-editor">
+            </div>
+         </div>
 
-        </div>
 </div>
     <div class="row">
-        <div class="col-md-4 col-md-offset-2">
+        <div class="col-md-2 col-md-offset-2 col-sm-2 col-sm-offset-2 col-xs-2 col-xs-offset-2 text-right">
             <select class="category">
+                <option selected disabled>Category</option>
                 <option value="Politics">Politics</option>
                 <option value="Humour">Humour</option>
                 <option value="Sports">Sports</option>
@@ -32,15 +35,15 @@
             </select>
         </div>
 
-        <div class="col-md-2">
-            <i class="fa fa-users"></i>
+        <div class="col-md-1 col-md-offset-6 col-sm-1 col-sm-offset-6 col-xs-1 col-xs-offset-6">
+            <a href="" class="fa fa-users"></a>
 
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3"><a href="" class="btn btn-cancel">Cancel</a></div>
-        <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3"><a href="" class="btn btn-save">Save</a></div>
-        <div class="col-md-2 col-md-offset-1 col-sm-3 col-xs-3"><a href="" class="btn btn-publish">Publish</a></div>
+        <div class="col-md-2 col-md-offset-2 col-sm-2 col-sm-offset-2 col-xs-8 col-xs-offset-2"><a href="" class="btn btn-cancel">Cancel</a></div>
+        <div class="col-md-2 col-md-offset-2 col-sm-2 col-sm-offset-2 col-xs-8 col-xs-offset-2"><a href="" class="btn btn-save">Save</a></div>
+        <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-8 col-xs-offset-2"><a href="" class="btn btn-publish">Publish</a></div>
     </div>
 
 
@@ -50,14 +53,21 @@
     [
 
         [ 'FontSize','Bold','Italic','Underline','Strike','BulletedList','NumberedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Image','Link'],
-        ['Source'],
 
     ],
 
-                width: 1000,
-                height:400
+                width: 650,
+                height:300
 
             });
+
+    $( document ).ready(function() {
+        function append_tool(){
+
+            $("span#cke_1_top").append($('.fa-bars'))
+        }
+        });
+
 </script>
 
 
