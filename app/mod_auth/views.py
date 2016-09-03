@@ -7,7 +7,7 @@ from flask.ext.principal import Principal, Identity, AnonymousIdentity, \
 from app import user_mongo_utils, bcrypt
 import json
 from app.utils.user_mongo_utils import Roles
-
+from slugify import slugify
 
 mod_auth= Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -31,6 +31,7 @@ def sign_up():
                 "email": email,
                 "password": bcrypt.generate_password_hash(password, rounds=12),
                 "active": True,
+                "user_slug":slugify(name+' '+lastname),
                 "roles": [user_mongo_utils.get_role_id('individual')],
                 "organizations" : ['kreotive']
             }

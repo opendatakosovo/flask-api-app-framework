@@ -41,7 +41,16 @@ class UserMongoUtils(object):
         if user_cursor is None:
             return None
         else:
-            user_instance = User(unicode(user_cursor['_id']),user_cursor['name'], user_cursor['lastname'], user_cursor['active'], user_cursor['email'], user_cursor['password'] , user_cursor['roles'])
+            user_instance = User(unicode(user_cursor['_id']),user_cursor['name'], user_cursor['lastname'], user_cursor['active'], user_cursor['email'], user_cursor['password'] , user_cursor['roles'], user_cursor['user_slug'])
+            return user_instance
+
+    def get_user_by_slug(self, slug):
+        user_cursor = self.mongo.db[self.users_collection] \
+            .find_one({"user_slug":slug})
+        if user_cursor is None:
+            return None
+        else:
+            user_instance = User(unicode(user_cursor['_id']),user_cursor['name'], user_cursor['lastname'], user_cursor['active'], user_cursor['email'], user_cursor['password'] , user_cursor['roles'], user_cursor['user_slug'])
             return user_instance
 
     def get_user_by_id(self, id):
@@ -50,14 +59,14 @@ class UserMongoUtils(object):
         user_instance = None
         if user_cursor is not None:
             user_instance = User(unicode(user_cursor['_id']), user_cursor['name'], user_cursor['lastname'], user_cursor['active'], user_cursor['email'],
-                             user_cursor['password'], user_cursor['roles'])
+                             user_cursor['password'], user_cursor['roles'], user_cursor['user_slug'])
         else:
             return None
         return user_instance
 
 
 class User(UserMixin):
-    def __init__(self, id, name, lastname, is_active, email, password, role):
+    def __init__(self, id, name, lastname, is_active, email, password, role, user_slug):
         self.id = id
         self.name = name
         self.lastname = lastname
@@ -67,6 +76,7 @@ class User(UserMixin):
         self.roles = [Roles(role, 'individual', 'description')]
         self.is_anonymous = False
         self.confirmed_at = datetime.datetime.now()
+        self.user_slug = user_slug
 
     def is_active(self):
         return True

@@ -5,6 +5,7 @@ from logging.handlers import RotatingFileHandler
 from flask.ext.pymongo import PyMongo
 from app.utils.profile_mongo_utils import ProfileMongoUtils
 from app.utils.user_mongo_utils import UserMongoUtils, Anonymous, User, Roles
+from app.utils.content_mongo_utils import ContentMongoUtils
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.login import LoginManager
 from flask.ext.security import Security, current_user
@@ -24,6 +25,7 @@ security = Security()
 # Initialize mongo access point
 profile_mongo_utils = ProfileMongoUtils(mongo)
 user_mongo_utils = UserMongoUtils(mongo)
+content_mongo_utils = ContentMongoUtils(mongo)
 
 principal = Principal()
 

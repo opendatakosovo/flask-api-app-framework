@@ -16,49 +16,40 @@
                 <li><a href="{{ url_for('user.account', slug='slug') }}">Account Details</a></li>
             </ul>
         </div>
-        <div id="text-editor" class="text-center col-md-8">
+        <form method="post" action="{{ url_for('article.new_article')}}">
+            <input name='title' value="Title">
+            <textarea name="content" id="text-editor">
+                
+            </textarea>
+            <script>
+                CKEDITOR.replace( 'text-editor',
+                {toolbar :
+                [
 
-        </div>
+                    [ 'FontSize','Bold','Italic','Underline','Strike','BulletedList','NumberedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Image','Link'],
+                    ['Source'],
+
+                ],
+
+                            width: 1000,
+                            height:400
+
+                        });
+            </script>
+            <div class="col-md-4 col-md-offset-2">
+                <select name="category" class="category">
+                    <option value="empty">Category</option>
+                    <option value="Politics">Politics</option>
+                    <option value="Humour">Humour</option>
+                    <option value="Sports">Sports</option>
+                    <option value="How-to's ">How-to's </option>
+                    <option value="Organisation News ">Organisation News </option>
+                    <option value="Local News ">Local News</option>
+                </select>
+            </div><br />
+            <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3"><button name="action" type="submit" value="cancel" class="btn btn-cancel">Cancel</input></div>
+            <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3"><button name="action" type="submit" value="save" class="btn btn-save">Save</button></div>
+            <div class="col-md-2 col-md-offset-1 col-sm-3 col-xs-3"><button name="action" type="submit" value="publish" class="btn btn-publish">Publish</button></div>
+        </form>
 </div>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-2">
-            <select class="category">
-                <option value="Politics">Politics</option>
-                <option value="Humour">Humour</option>
-                <option value="Sports">Sports</option>
-                <option value="How-to's ">How-to's </option>
-                <option value="Organisation News ">Organisation News </option>
-                <option value="Local News ">Local News</option>
-            </select>
-        </div>
-
-        <div class="col-md-2">
-            <i class="fa fa-users"></i>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3"><a href="" class="btn btn-cancel">Cancel</a></div>
-        <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3"><a href="" class="btn btn-save">Save</a></div>
-        <div class="col-md-2 col-md-offset-1 col-sm-3 col-xs-3"><a href="" class="btn btn-publish">Publish</a></div>
-    </div>
-
-
-<script>
-    CKEDITOR.replace( 'text-editor',
-    {toolbar :
-    [
-
-        [ 'FontSize','Bold','Italic','Underline','Strike','BulletedList','NumberedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Image','Link'],
-        ['Source'],
-
-    ],
-
-                width: 1000,
-                height:400
-
-            });
-</script>
-
-
 {% endblock %}

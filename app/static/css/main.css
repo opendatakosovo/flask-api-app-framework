@@ -243,59 +243,6 @@
             /*margin-left: -95px;*/
     }
 
-
-
-    #articles img{
-        width: 100%;
-        height: 300px;
-        margin-bottom: 10px;
-        padding-right: 0 !important;
-        position: relative;
-        z-index: -999;
-        text-align: center;
-    }
-
-    #articles{
-        margin-left: -100px;
-    }
-
-    #articles .profil{
-        width: 45px;
-        height: 45px;
-        margin: -300px 15px 15px 15px;
-        position: absolute;
-        z-index: 2;
-    }
-
-    .hidden{
-        display:none;
-    }
-
-
-    .article-title{
-        font-size: 1.5em;
-        position: absolute;
-        text-align: center;
-        margin: -150px 50px;
-        color: #fff;
-        z-index: 2;
-    }
-
-
-    #articles #article-type{
-        font-size: 32px;
-        color: #fff;
-        float: right;
-        margin-top: -60px;
-        margin-right: 10px;
-        z-index: 2;
-    }
-
-    .row-margin{
-        margin-left: 100px;
-    }
-
-
     #articles .fa-play, .fa-pause{
         color: #fff;
         font-size: 30px;
@@ -351,7 +298,6 @@
     .article-visibility {
         width: 80%;
         border: 1px solid #c8c8c8;
-        margin: 40px 200px;
         padding: 5px 5px 10px 5px;
     }
 
@@ -362,8 +308,7 @@
     }
 
     .article-visibility .fa-trash-o{
-        margin-right: -735px;
-        margin-left: 20px;
+        padding-left: 20px;
     }
 
     time{
@@ -637,5 +582,65 @@
     .thesis{
         font-size: 20px;
         font-weight: bold;
+    }
+
+    .blue {
+        background: #008081;
+    }
+
+    .magenta{
+       background: #b82776;
+    }
+
+    .green{
+       background: #27b85e;
+    }
+
+    .yellow{
+       background: #989e21;
+    }
+
+    .brown{
+       background: #b88027;
+    }
+    .red{
+        background: #cf463a;
+    }
+
+    .article{
+        height:300px;
+        background-clip: content-box;;
+        padding: 10px;
+    }
+
+    .articles .profil{
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        top: 23px;
+        left: 25px;
+    }
+
+    .hidden{
+        display:none;
+    }
+
+    .article-title{
+        font-size: 1.5em;
+        color: #fff;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .articles .article-type {
+        font-size: 32px;
+        color: #fff;
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+    }
+    .article-action-icons{
     }
 

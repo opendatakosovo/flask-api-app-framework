@@ -1,4 +1,3 @@
-
 class ProfileMongoUtils(object):
     mongo = None
 
@@ -8,8 +7,8 @@ class ProfileMongoUtils(object):
 
     def get_profile(self, slug):
         query = {'slug': slug}
-        return self._find_one(query)
-
+        return self.mongo.db[self.collection_name]\
+        .find_one(query)
 
     def _find_one(self, query={}, limit=0):
 

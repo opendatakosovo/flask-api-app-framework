@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template
-from app import profile_mongo_utils
-from flask import request
-from flask import Response
+from flask import Blueprint, render_template, request, Response
+from app import profile_mongo_utils, content_mongo_utils, user_mongo_utils
+from bson.json_util import dumps
 
 mod_profile = Blueprint('profile', __name__, url_prefix='/profile')
 
@@ -12,11 +11,12 @@ def archive(profile_slug):
     '''
 
     # get the profile object for the given slug
-    profile = profile_mongo_utils.get_profile(profile_slug)
+    profile = user_mongo_utils.get_user_by_slug(profile_slug)
 
-    # TODO: Figure out how we get categorized content.
+     # TODO: load feed content for given slug
+    feed = content_mongo_utils.get_authors_articles(profile.id)
 
-    return render_template('mod_profile/archive.html', profile=profile)
+    return render_template('mod_profile/archive.html', profile=profile, feed=feed)
 
 
 @mod_profile.route('/<profile_slug>/about', methods=['GET'])
@@ -25,7 +25,7 @@ def about(profile_slug):
     '''
 
     # get the profile object for the given slug
-    profile = profile_mongo_utils.get_profile(profile_slug)
+    profile = user_mongo_utils.get_user_by_slug(profile_slug)
 
     return render_template('mod_profile/about.html', profile=profile)
 
@@ -36,10 +36,11 @@ def feed(profile_slug):
     '''
 
     # get the profile object for the given slug
-    profile = profile_mongo_utils.get_profile(profile_slug)
+    profile = user_mongo_utils.get_user_by_slug(profile_slug)
 
     # TODO: load feed content for given slug
-    feed = None
+    feed = dumps(content_mongo_utils.get_authors_articles(profile.id))
+
     # feed = content_mongo_utils.get_feed(slug)
 
     return render_template('mod_profile/feed.html', profile=profile, feed=feed)

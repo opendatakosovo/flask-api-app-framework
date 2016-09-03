@@ -10,8 +10,8 @@
 
             <div class="col-md-2">
 
-                <span class="org">PANTRARNA</span></br>
-                <span class="author">John, Johnsson</span>
+                <span class="org">{{ article['org'] }}</span></br>
+                <span class="author">{{ article['name'] }}, {{ article['lastname'] }}</span>
 
             </div>
 
@@ -20,7 +20,7 @@
             </div>
 
             <div class="col-md-3">
-                <a href="" class="fa fa-tag news">   News</a>
+                <a href="" class="fa fa-tag news">{{ article['category'] }}</a>
             </div>
         </div>
 
@@ -32,7 +32,7 @@
 
         <div class="row">
             <div class="col-md-6 col-md-offset-2">
-                <span class="article-t">Article title</span>
+                <span class="article-t">{{ article['title'] }}</span>
             </div>
 
             <div class="col-md-2">
@@ -43,7 +43,7 @@
         <br><br>
         <div class="row">
             <div class="col-md-7 col-md-offset-2">
-                <span class="thesis">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.</span>
+                <span class="thesis">{{ article['content'] }}</span>
 
             </div>
 
