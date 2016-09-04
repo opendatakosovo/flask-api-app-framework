@@ -34,7 +34,7 @@
             <div class="col-md-8 article-visibility">
             
             {% for article in articles %}
-                <div class="col-md-12" style="display: flex;">
+                <div id="{{ article['_id'] }}" class="col-md-12" style="display: flex;">
                     
                         <div class="col-md-9">
                             <div class="col-md-6">
@@ -45,13 +45,13 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                        {% if article['visible'] == true %}
-                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visibility=False) }}">
-                                <i class="fa fa-eye {{ article['visibility'] }}"></i>
+                        {% if article['visible'] == True %}
+                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=False) }}">
+                                <i class="fa fa-eye "></i>
                             </a>
-                        {% else %}
-                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visibility=True) }}">
-                                <i class="fa fa-eye-slash {{ article['visibility'] }}"></i>
+                        {% elif article['visible'] == False %}
+                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=True) }}">
+                                <i class="fa fa-eye-slash"></i>
                             </a>
                         {% endif %}
                             <i class=" fa fa-trash-o"></i>

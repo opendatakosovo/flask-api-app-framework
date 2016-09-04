@@ -78,9 +78,10 @@ def new_article():
         return render_template('mod_article/write_article.html')
 
 
-@mod_article.route('/edit-article-visibility/<article_id>/<visibility>', methods=["POST", "GET"])
-def edit_article_visibility(article_id, visibility):
-    content_mongo_utils.change_article_visibility(article_id, visibility)
+@mod_article.route('/edit-article-visibility/<article_id>/<visible>', methods=["POST", "GET"])
+def edit_article_visibility(article_id, visible):
+    update = content_mongo_utils.change_article_visibility(article_id, visible)
+    print update
     return redirect(url_for('article.my_articles', article_action='show'))
 
 

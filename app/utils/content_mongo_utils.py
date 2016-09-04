@@ -64,6 +64,10 @@ class ContentMongoUtils(object):
         :param visible: True or False
         :rtype: Boolean
         """
-        self.mongo.db[self.content_collection] \
-            .update({"_id": ObjectId(article_id)}, {'$set': {"visible": visible}})
-        return True
+        if visible == 'True':
+            update = self.mongo.db[self.content_collection] \
+            .update({"_id": ObjectId(article_id)}, {'$set': {"visible": True}})
+        elif visible == 'False':
+            update = self.mongo.db[self.content_collection] \
+            .update({"_id": ObjectId(article_id)}, {'$set': {"visible": False}})
+        return update
