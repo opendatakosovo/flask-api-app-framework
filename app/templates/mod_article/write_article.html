@@ -11,11 +11,8 @@
              <form method="post" action="{{ url_for('article.new_article')}}">
 
                  <div class="row">
-                     <div class="col-md-2">
-
-                     </div>
-                     <div class="col-md-10">
-                        <input name='title' placeholder="Title" class="title">
+                     <div class="col-md-12 col-md-offset-1">
+                        <input class="form-control title" name="title" placeholder="Title">
                      </div>
                  </div>
 
@@ -42,11 +39,8 @@
 
 
                 <div class="row">
-                    <div class="col-md-2">
-
-                     </div>
-                    <div class="col-md-10">
-                         <select name="category" class="category">
+                    <div class="col-md-12 col-md-offset-1">
+                         <select name="category" class="form-control category">
                             <option value="empty">Category</option>
                             <option value="Politics">Politics</option>
                             <option value="Humour">Humour</option>
