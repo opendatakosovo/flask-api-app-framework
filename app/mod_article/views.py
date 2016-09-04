@@ -89,3 +89,4 @@ def paginated_articles(skip_posts_number, posts_per_page):
     # TODO: Restrict access to only authenticated users
     articles = dumps(content_mongo_utils.get_paginated_articles(skip_posts_number, posts_per_page))
     return Response(response=articles)
+

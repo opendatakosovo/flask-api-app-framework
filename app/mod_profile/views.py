@@ -62,3 +62,11 @@ def follow(profile_slug):
     resp = Response(status=200)
 
     return resp
+
+@mod_profile.route('/articles/<profile_slug>/<int:skip_posts_number>/<int:posts_per_page>', methods=['POST'])
+def paginated_author_articles(profile_slug,skip_posts_number, posts_per_page):
+    # TODO: Restrict access to only authenticated users
+     # get the profile object for the given slug
+    profile = user_mongo_utils.get_user_by_slug(profile_slug)
+    articles = dumps(content_mongo_utils.get_authors_paginated_articles(profile.id, skip_posts_number, posts_per_page))
+    return Response(response=articles)

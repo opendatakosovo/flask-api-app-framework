@@ -70,7 +70,7 @@
 
             $('.load-more-btn').click(function () {
 
-                var url = "{{ url_for('article.paginated_articles', skip_posts_number='1111111111', posts_per_page='999999999') }}";
+                var url = "{{ url_for('profile.paginated_author_articles',profile_slug=profile.user_slug, skip_posts_number='1111111111', posts_per_page='999999999') }}";
                 var skip_posts_number = parseInt($(this).attr("data-skip-posts-number"));
                 var number_of_posts = parseInt($(this).data("posts-per-page"));
                 var post_url = url.replace("1111111111", skip_posts_number).replace("999999999", number_of_posts);
