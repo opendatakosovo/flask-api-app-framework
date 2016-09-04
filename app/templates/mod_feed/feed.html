@@ -14,18 +14,21 @@
                     <div class="row menu-icons">
 
                         <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                        {% if current_user.is_authenticated() %}
                             <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown" style="color: #000"></button>
                             <ul class="dropdown-menu" style="margin: 12px 0 0 30px;">
                                 <li><a href="#" class="active">Feed</a></li>
-                                <li><a href="{{ url_for('main.manage') }}">Article management</a></li>
+                                <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a></li>
                                 <li><a href="#">Comments</a></li>
                                 <li><a href="#">Bookmarks</a></li>
                                 <li><a href="#">People / Organisations</a></li>
-                                <li><a href="{{ url_for('user.account', slug = current_user.user_slug)  }}">Account Details</a></li>
                             </ul>
+                        {% endif %}
                         </div>
                         <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                        {% if current_user.is_authenticated() %}
                             <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil" ></a>
+                        {% endif %}
                         </div>
                         <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                             <a href="" class="fa fa-search " aria-hidden="true" id="search1" style="margin-left: 0px;"></a>
@@ -86,22 +89,44 @@
                     // Initialize displaying articles in feed
                     initFeed();
 
+                    $('.load-more-btn').click(function(){
+
+                        var url = "{{ url_for('article.paginated_articles', skip_posts_number='1111111111', posts_per_page='999999999') }}";
+                        var skip_posts_number = parseInt($(this).attr("data-skip-posts-number"));
+                        var number_of_posts = parseInt($(this).data("posts-per-page"));
+                        var post_url = url.replace("1111111111", skip_posts_number).replace("999999999", number_of_posts);
+                        var posting = $.post( post_url );
+
+                        posting.done(function(data){
+                            loadMoreArticles(jQuery.parseJSON(data));
+                        });
+                        $(this).attr('data-page',(parseInt(skip_posts_number) + 6));
+                    });
+
                 });
                 function initFeed(){
                     // Get the first 6 feeds
                     var articles = {{ articles|safe }};
-                    for(idx in articles){
-                        feedTheFeed(articles[idx], idx)
+                    for(var idx in articles){
+                        feedTheFeed(articles[idx], idx);
                     }
+                }
+
+                function loadMoreArticles(posts){
+                    for(var idx in posts){
+                        console.log(posts[idx]);
+                        feedTheFeed(posts[idx], idx);
+                    }
+
                 }
 
 
                 function feedTheFeed(article,idx){
 
-
                     var styleClass = getArticleDivClass(idx);
                     var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
-                    article_slug_url = article_slug.replace('article_slug',article['slug']);
+                    var article_slug_url = article_slug.replace('article_slug',article['slug']);
+
                     var divHTML = ''+
                     '<div class="article '+styleClass+' text-type text-type1" style="padding-right: 0;">'+
                         '<a href="'+article_slug_url+'">'+
@@ -145,14 +170,15 @@
                     <div class="col-md-12 latest row-bottom-margin row-margin">
 
                     </div>
+                    <button class="btn col-md-12 load-more-btn" data-skip-posts-number="6" data-posts-per-page="6">Load more</button>
                 </div>
         </div>
     </section>
 
-<script>
-$(document).ready(function(){
-$('[data-toggle="tooltip"]').tooltip();
-});
-</script>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 
 {% endblock %}

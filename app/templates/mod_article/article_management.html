@@ -44,10 +44,19 @@
                                 <h3 datetime="2016-07-20T12:39">{% if article['published_date'] %} {{ article['published_date'].strftime('%Y-%m-%d %H:%M') }} {% endif %}</h3>
                             </div>
                         </div>
-                        
                         <div class="col-md-3">
-                            <i class="fa fa-eye"></i>
+                        {% if article['visible'] == true %}
+                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visibility=False) }}">
+                                <i class="fa fa-eye {{ article['visibility'] }}"></i>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visibility=True) }}">
+                                <i class="fa fa-eye-slash {{ article['visibility'] }}"></i>
+                            </a>
+                        {% endif %}
                             <i class=" fa fa-trash-o"></i>
+                        
+                        
                         </div>
                     
                 </div>

@@ -19,24 +19,30 @@ login_manager = LoginManager()
 # Create MongoDB database object.
 mongo = PyMongo()
 
+# Create BCrypt object
 bcrypt = Bcrypt()
 
+# Create flask-security object
 security = Security()
-# Initialize mongo access point
+
+# Create flask-principal object
+principal = Principal()
+
+# Create flask-social object
+social = Social()
+
+# Initialize mongo utils access points
 profile_mongo_utils = ProfileMongoUtils(mongo)
 user_mongo_utils = UserMongoUtils(mongo)
 content_mongo_utils = ContentMongoUtils(mongo)
 
-principal = Principal()
-
-social = Social()
 
 def create_app():
     # Here we  create flask instance
     app = Flask(__name__)
 
     # Allow cross-domain access to API.
-    #cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+    # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     # Load application configurations
     load_config(app)
@@ -52,22 +58,30 @@ def create_app():
 
     # init principal
     principal.init_app(app)
+
     # Initialize the app to work with MongoDB
     mongo.init_app(app, config_prefix='MONGO')
 
     return app
 
+
 def configure_login_manager(app):
+    # Init flask-security
     security.init_app(app)
+
+    # Init flask-social
     social.init_app(app)
 
     # Init Login Manager
     login_manager.init_app(app)
 
-    login_manager.login_view='mod_user.login'
+    # Set the default user login view
+    login_manager.login_view = 'mod_user.login'
 
+    # Set the anonymous user class
     login_manager.anonymous_user = Anonymous
 
+    # Set the user class
     login_manager.user = User
 
 
@@ -124,9 +138,9 @@ def load_config(app):
 
 
 def configure_logging(app):
-    ''' Configure the app's logging.
+    """ Configure the app's logging.
      param app: The Flask app object
-    '''
+    """
 
     log_path = app.config['LOG_PATH']
     log_level = app.config['LOG_LEVEL']
@@ -147,7 +161,6 @@ def configure_logging(app):
 
 
 def init_modules(app):
-
     # Import blueprint modules
     from app.mod_main.views import mod_main
     from app.mod_profile.views import mod_profile
@@ -162,4 +175,3 @@ def init_modules(app):
     app.register_blueprint(mod_auth)
     app.register_blueprint(mod_superadmin)
     app.register_blueprint(mod_article)
-

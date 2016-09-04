@@ -1,15 +1,7 @@
 /*Text editor style*/
 
     #text-editor{
-        margin: 10% 5% !important;
-    }
-
-    #cke_text-editor{
-        border: none !important;
-        margin-right: 0 !important;
-        /*position:relative;*/
-        width:680px !important;
-
+        /*margin: 10% 5% !important;*/
     }
 
     a#cke_13, a#cke_14, a#cke_15, a#cke_16, a#cke_17, span#cke_11, a#cke_18, a#cke_19, a#cke_20,
@@ -101,16 +93,16 @@
 
     span#cke_1_top, .cke_inner{
         /*width: 90% !important;*/
-        margin-left: -50px !important;
+        /*margin-left: -50px !important;*/
         /*margin-right: -100px;*/
-        width: 680px;
+        /*width: 680px;*/
 
     }
 
     .cke_chrome{
         border: none !important;
         background: transparent !important;
-        margin: 10% 20% !important;
+        /*margin: 10% 20% !important;*/
         box-shadow: none !important;
     }
 
@@ -174,21 +166,18 @@
         font-size: 36px;
         background: transparent;
         border: none;
-        margin-left: 90px;
-        margin-top: -22px;
     }
-
-    .dropdown {
-        margin-top: 100px;
-    }
-
     .dropup {
         position: relative;
         margin: 80px -80px 0 100px;
 
     }
 
-
+    .dropdown.write-menu.col-md-6 {
+            float: right;
+            margin-top: 10px;
+            margin-right: -20px;
+        }
     .write-menu .dropdown-menu {
         margin: 12px 0 0 40px;
         box-shadow: none;
@@ -248,7 +237,14 @@
     }
 
     #cke_1_contents{
-        margin-left: -35px;
+        /*margin-left: -35px;*/
+    }
+    .title {
+        background-color: transparent;
+        border: none;
+        color: #a1a1a1;
+        font-size:24px;
+        font-weight: bold;
     }
 
 
@@ -272,10 +268,6 @@
            height: 20px;
        }
 
-      #text-editor{
-          width: 280px !important;
-
-       }
 
        span#cke_1_top {
 
@@ -286,10 +278,8 @@
 
        .write-menu .fa {
            font-size: 30px;
-           margin-left: -17px;
-           margin-top: -22px;
+           position: absolute;
+           left: 0px;
+           top: -79px;
        }
-       .dropdown {
-        margin-top: 100px;
-    }
    }

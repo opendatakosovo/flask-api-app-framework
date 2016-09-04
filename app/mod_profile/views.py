@@ -13,7 +13,7 @@ def archive(profile_slug):
     # get the profile object for the given slug
     profile = user_mongo_utils.get_user_by_slug(profile_slug)
 
-     # TODO: load feed content for given slug
+    # TODO: load feed content for given slug
     feed = content_mongo_utils.get_authors_articles(profile.id)
 
     return render_template('mod_profile/archive.html', profile=profile, feed=feed)
@@ -63,5 +63,3 @@ def follow(profile_slug):
     resp = Response(status=200)
 
     return resp
-
-
