@@ -14,6 +14,10 @@ class UserMongoUtils(object):
         self.roles_collection = 'roles'
 
     def add_user(self, user):
+        """ Add user to the database.
+         :param user: JSON object containing the user information
+         :rtype: Boolean
+        """
         self.mongo.db[self.users_collection] \
                 .insert(user)
         return True
@@ -44,6 +48,10 @@ class UserMongoUtils(object):
             user_instance = User(unicode(user_cursor['_id']),user_cursor['name'], user_cursor['lastname'], user_cursor['active'], user_cursor['email'], user_cursor['password'] , user_cursor['roles'], user_cursor['user_slug'])
             return user_instance
 
+    def get_users(self):
+        users = self.mongo.db[self.users_collection] \
+            .find()
+        return users
     def get_user_by_slug(self, slug):
         user_cursor = self.mongo.db[self.users_collection] \
             .find_one({"user_slug":slug})

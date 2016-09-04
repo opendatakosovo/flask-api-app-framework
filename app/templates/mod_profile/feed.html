@@ -77,7 +77,12 @@
                 var posting = $.post(post_url);
 
                 posting.done(function (data) {
-                    loadMoreArticles(jQuery.parseJSON(data));
+                    var posts = jQuery.parseJSON(data);
+                    if(posts.length > 0){
+                        loadMoreArticles(posts);
+                    }else{
+                        $('.load-more-btn').text("No more posts");
+                    };
                 });
                 $(this).attr('data-skip-posts-number', (parseInt(skip_posts_number) + 6));
             });

@@ -42,8 +42,6 @@ def feed(profile_slug):
 
     feed = dumps(content_mongo_utils.get_authors_paginated_articles(profile.id, 0, 6))
 
-    # feed = content_mongo_utils.get_feed(slug)
-
     return render_template('mod_profile/feed.html', profile=profile, feed=feed)
 
 

@@ -25,11 +25,17 @@ class ContentMongoUtils(object):
         return articles
 
     def get_paginated_articles(self, skips, limits):
+        """ Get paginated articles from the database.
+        :rtype: MongoDB Cursor with the queried articles
+        """
         articles = self.mongo.db[self.content_collection] \
             .find({'visible': True, 'published': True}).skip(skips).limit(limits)
         return articles
 
     def get_authors_paginated_articles(self, author_id, skips, limits):
+        """ Get paginated articles from the database for a specific author.
+        :rtype: MongoDB Cursor with the queried articles
+        """
         articles = self.mongo.db[self.content_collection] \
             .find({"user": author_id, 'visible': True, 'published': True}).skip(skips).limit(limits)
         return articles
