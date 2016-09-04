@@ -39,7 +39,8 @@ def feed(profile_slug):
     profile = user_mongo_utils.get_user_by_slug(profile_slug)
 
     # TODO: load feed content for given slug
-    feed = dumps(content_mongo_utils.get_authors_articles(profile.id))
+
+    feed = dumps(content_mongo_utils.get_authors_paginated_articles(profile.id, 0, 6))
 
     # feed = content_mongo_utils.get_feed(slug)
 

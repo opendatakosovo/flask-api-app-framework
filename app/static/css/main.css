@@ -152,27 +152,25 @@
 
     /*Footer style*/
 
-    footer{
-        margin: 500px 40px 50px 40px;
+    .footer{
         background-color: #ebebeb;
-        padding-bottom: 150px;
     }
 
     .learn-more, .about1, .support {
         margin: 50px 0 50px 30px;
     }
 
-    footer ul li a h6{
+    .footer ul li a h6{
         color: #a39999;
         font-size: 1.1em;
         font-family: 'Source Sans Pro', sans-serif;
     }
 
-    footer ul li {
+    .footer ul li {
         list-style-type: none;
     }
 
-    footer a:hover{
+    .footer a:hover{
         text-decoration: none;
     }
 
@@ -434,44 +432,47 @@
 
 
     /*Profile feed page style*/
-    #profile-feed ul,
-    #profile-about ul,
-    #profile-archive ul{
+    .profile-feed ul,
+    .profile-about ul,
+    .profile-archive ul{
         margin-top: 50px;
         margin-left: -40px;
     }
 
-    #profile-feed ul li,
-    #profile-about ul li,
-    #profile-archive ul li{
+    .profile-feed ul li,
+    .profile-about ul li,
+    .profile-archive ul li{
         list-style-type: none;
         display: inline;
     }
 
-    #profile-feed ul li a,
-    #profile-about ul li a,
-    #profile-archive ul li a{
+    .profile-feed ul li a,
+    .profile-about ul li a,
+    .profile-archive ul li a{
         text-decoration: none;
         color: inherit;
         font-size: 16px;
         margin-right: 20px;
 
     }
+    .profile-feed{
+        height:auto;
+    }
 
-    #profile-feed ul li .active,
+    .profile-feed ul li .active,
     #profile-about ul li .active,
     #profile-archive ul li .active{
         font-weight: bold;
     }
 
-    #profile-feed .fa,
+    .profile-feed .fa,
     #profile-about .fa,
     #profile-archive .fa{
         font-size: 40px;
         margin: 20px 10px;
     }
 
-    #profile-feed .fa-bars,
+    .profile-feed .fa-bars,
     #profile-about .fa-bars,
     #profile-archive .fa-bars{
         background-color: transparent;
@@ -503,14 +504,14 @@
         display: none;
     }
 
-    #profile-feed .dropdown,
+    .profile-feed .dropdown,
     #profile-about .dropdown,
     #profile-archive .dropdown{
         margin: 10px 0;
     }
 
     #profile-about .dropdown-menu,
-    #profile-feed .dropdown-menu,
+    .profile-feed .dropdown-menu,
     #profile-archive .dropdown-menu{
         margin-left: 20px;
         margin-top: 0px;
@@ -643,5 +644,9 @@
     }
     .load-more-btn{
         margin-left:15%;
+    }
+
+    .articles{
+        height:auto;
     }
 

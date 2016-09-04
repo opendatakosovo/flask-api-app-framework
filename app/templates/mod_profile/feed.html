@@ -1,87 +1,122 @@
 {% extends "layout.html" %}
 {% block body %}
 
-    <div id="profile-feed">
-        <div class="row">
-            <div class="col-md-3 col-md-offset-2">
-                <ul>
-                    <li><a href="" class="active">Feed</a></li>
-                    <li><a href="{{ url_for ('profile.about', profile_slug = profile.user_slug )}}">About</a></li>
-                    <li><a href="{{ url_for ('profile.archive', profile_slug = profile.user_slug )}}">All articles</a></li>
-                </ul>
-            </div>
-        </div>
+    <div class="profile-feed">
+         <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-2">
+                        <ul>
+                            <li><a href="" class="active">Feed</a></li>
+                            <li><a href="{{ url_for ('profile.about', profile_slug = profile.user_slug ) }}">About</a></li>
+                            <li><a href="{{ url_for ('profile.archive', profile_slug = profile.user_slug ) }}">All articles</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-        <!-- Banner part at Feed/About/Article Pages-->
+                <!-- Banner part at Feed/About/Article Pages-->
 
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
-                <div class="box">
-                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
-                    <span class="user-name">{{ profile.name }}, {{ profile.lastname }}</span>
-    {#                    TODO: with jinja after we implement login#}
-                    <button type="button" class="follow pull-right">Follow</button>
-                    <button type="button" class="ask-to-join pull-right">Ask to join</button>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
+
+                        <div class="box">
+                            <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
+                            <span class="user-name">{{ profile.name }}, {{ profile.lastname }}</span>
+                            {#                    TODO: with jinja after we implement login#}
+                            <button type="button" class="follow pull-right">Follow</button>
+                            <button type="button" class="ask-to-join pull-right">Ask to join</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                {% if current_user.is_authenticated() %}
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-2">
+                            <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true"
+                                    data-toggle="dropdown"></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Feed</a></li>
+                                <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
+                                </li>
+                                <li><a href="#">Comments</a></li>
+                                <li><a href="#">Bookmarks</a></li>
+                                <li><a href="#">People / Organisations</a></li>
+                                <li><a href="#">Account Details</a></li>
+                            </ul>
+                            <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
+                            <a href="" class="fa fa-search"></a>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="articles">
+                    <div class="col-md-8 col-md-offset-2 latest row-bottom-margin row-margin">
+                    </div>
+                    <button class="btn col-md-12 load-more-btn" data-skip-posts-number="6" data-posts-per-page="6">
+                        Load more
+                    </button>
 
                 </div>
-            </div>
-        </div>
+         </div>
+    </div>
+    <script type="text/javascript">
 
-        {% if current_user.is_authenticated() %}
-        <div class="row">
-            <div class="col-md-6 col-md-offset-2">
-                <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Feed</a></li>
-                    <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a></li>
-                    <li><a href="#">Comments</a></li>
-                    <li><a href="#">Bookmarks</a></li>
-                    <li><a href="#">People / Organisations</a></li>
-                    <li><a href="#">Account Details</a></li>
-                </ul>
-                <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
-                <a href="" class="fa fa-search"></a>
-            </div>
-        </div>
-        {% endif %}
-        <script type="text/javascript">
-
-        $(document).ready(function(){
+        $(document).ready(function () {
 
             // Initialize displaying articles in feed
             initFeed();
 
+            $('.load-more-btn').click(function () {
+
+                var url = "{{ url_for('article.paginated_articles', skip_posts_number='1111111111', posts_per_page='999999999') }}";
+                var skip_posts_number = parseInt($(this).attr("data-skip-posts-number"));
+                var number_of_posts = parseInt($(this).data("posts-per-page"));
+                var post_url = url.replace("1111111111", skip_posts_number).replace("999999999", number_of_posts);
+                var posting = $.post(post_url);
+
+                posting.done(function (data) {
+                    loadMoreArticles(jQuery.parseJSON(data));
+                });
+                $(this).attr('data-skip-posts-number', (parseInt(skip_posts_number) + 6));
+            });
+
         });
-        function initFeed(){
+        function initFeed() {
             // Get the first 6 feeds
             var articles = {{ feed|safe }};
-            for(idx in articles){
+            for (idx in articles) {
                 feedTheFeed(articles[idx], idx)
             }
         }
+        function loadMoreArticles(posts) {
+            for (var idx in posts) {
+                feedTheFeed(posts[idx], idx);
+            }
 
+        }
 
-        function feedTheFeed(article,idx){
+        function feedTheFeed(article, idx) {
 
 
             var styleClass = getArticleDivClass(idx);
             var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
-            article_slug_url = article_slug.replace('article_slug',article['slug']);
-            var divHTML = ''+
-            '<div class="article '+styleClass+' text-type text-type1" style="padding-right: 0;">'+
-                '<a href="'+article_slug_url+'">'+
-                    '<img src="'+"{{ url_for('static', filename='img/prof1.jpg')}}"+'" class="img-circle img-responsive profil"/>' +
-                    '<h3 class="article-title">'+article['title']+'</h3>'+
-                '</a>'+
-                '<i class="fa fa-file-text-o article-type" aria-hidden="true"></i>'+
-            '</div>'
+            article_slug_url = article_slug.replace('article_slug', article['slug']);
+            var divHTML = '' +
+                    '<div class="article ' + styleClass + ' text-type text-type1" style="padding-right: 0;">' +
+                    '<a href="' + article_slug_url + '">' +
+                    '<img src="' + "{{ url_for('static', filename='img/prof1.jpg')}}" + '" class="img-circle img-responsive profil"/>' +
+                    '<h3 class="article-title">' + article['title'] + '</h3>' +
+                    '</a>' +
+                    '<i class="fa fa-file-text-o article-type" aria-hidden="true"></i>' +
+                    '</div>';
 
             $('.latest').append(divHTML);
         }
-        function getArticleDivClass(idx){
+        function getArticleDivClass(idx) {
             var style = '';
-            switch(idx) {
+            switch (idx) {
                 case '0':
                     style = 'col-md-8 col-sm-6 col-xs-12 blue';
                     break;
@@ -106,16 +141,5 @@
 
             return style;
         }
-        </script>
-        <div class="articles">
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-8 latest row-bottom-margin row-margin">
-
-            </div>
-            <div class="col-md-2">
-            </div>
-        </div>
-    </div>
-
+    </script>
 {% endblock body %}

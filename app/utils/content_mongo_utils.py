@@ -29,6 +29,11 @@ class ContentMongoUtils(object):
             .find({'visible': True, 'published': True}).skip(skips).limit(limits)
         return articles
 
+    def get_authors_paginated_articles(self, author_id, skips, limits):
+        articles = self.mongo.db[self.content_collection] \
+            .find({"user": author_id, 'visible': True, 'published': True}).skip(skips).limit(limits)
+        return articles
+
     def get_single_article(self, slug):
         """ Get an article based on the title slug.
         :param slug: the slug version of the title
