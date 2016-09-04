@@ -8,9 +8,6 @@
          }
      });
 
-     $(".menu-icons a").click(function (e) {
-         e.preventDefault();
-     });
 });
 
 
