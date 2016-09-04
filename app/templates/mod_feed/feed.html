@@ -100,7 +100,7 @@
                         posting.done(function(data){
                             loadMoreArticles(jQuery.parseJSON(data));
                         });
-                        $(this).attr('data-page',(parseInt(skip_posts_number) + 6));
+                        $(this).attr('data-skip-posts-number',(parseInt(skip_posts_number) + 6));
                     });
 
                 });

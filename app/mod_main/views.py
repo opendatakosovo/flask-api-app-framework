@@ -10,5 +10,5 @@ def feed():
     ''' Renders the App index page.
     :return:
     '''
-    articles = dumps(content_mongo_utils.get_paginated_articles(0,2))
+    articles = dumps(content_mongo_utils.get_paginated_articles(0,6))
     return render_template('mod_feed/feed.html', articles=articles)
