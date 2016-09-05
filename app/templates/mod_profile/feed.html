@@ -25,7 +25,7 @@
                             <span class="user-name">{{ profile.name }}, {{ profile.lastname }}</span>
                             {#                    TODO: with jinja after we implement login#}
                             <button type="button" class="follow pull-right">Follow</button>
-                            <button type="button" class="ask-to-join pull-right">Ask to join</button>
+
 
                         </div>
                     </div>
@@ -46,6 +46,12 @@
                                 <li><a href="#">Account Details</a></li>
                             </ul>
                             <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
+                            <a href="" class="fa fa-search"></a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-2">
                             <a href="" class="fa fa-search"></a>
                         </div>
                     </div>

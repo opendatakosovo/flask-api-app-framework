@@ -5,9 +5,9 @@
         <div class="row">
             <div class="col-md-3 col-md-offset-2">
                 <ul>
-                    <li><a href="" class="active">Feed</a></li>
+                    <li><a href="{{ url_for ('profile.feed', profile_slug = profile.user_slug )}}">Feed</a></li>
                     <li><a href="{{ url_for ('profile.about', profile_slug = profile.user_slug )}}">About</a></li>
-                    <li><a href="{{ url_for ('profile.archive', profile_slug = profile.user_slug )}}">All articles</a></li>
+                    <li><a href="" class="active">All articles</a></li>
                 </ul>
             </div>
         </div>
@@ -27,22 +27,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-2">
-                <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Feed</a></li>
-                    <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a></li>
-                    <li><a href="#">Comments</a></li>
-                    <li><a href="#">Bookmarks</a></li>
-                    <li><a href="#">People / Organisations</a></li>
-                    <li><a href="#">Account Details</a></li>
-                </ul>
-
-                <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
-                <a href="" class="fa fa-search"></a>
-            </div>
-        </div>
-         
     </div>
+
 {% endblock body %}

@@ -38,7 +38,7 @@ class ContentMongoUtils(object):
         :rtype: MongoDB Cursor with the queried articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({"user": author_id, 'visible': True, 'published': True}).skip(skips).limit(limits)
+            .find({"user": author_id, 'visible': True, 'published': True}).sort([("_id",-1)]).limit(limits).skip(skips)
         return articles
 
     def get_single_article(self, slug):
@@ -56,7 +56,7 @@ class ContentMongoUtils(object):
         :rtype: MongoDB cursor of the founded article.
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({"user": author_id})
+            .find({"user": author_id}).sort([("_id",-1)])
         return articles
 
     def change_article_visibility(self, article_id, visible):
