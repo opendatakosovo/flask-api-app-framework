@@ -74,7 +74,7 @@ def new_article():
                  "author_lastname": current_user.lastname})
             return redirect(url_for('article.my_articles', article_action='publish'))
         elif action == "cancel":
-            return redirect(url_for('article.my_articles'))
+            return redirect(url_for('article.my_articles', article_action='show'))
         return render_template('mod_article/write_article.html')
 
 
