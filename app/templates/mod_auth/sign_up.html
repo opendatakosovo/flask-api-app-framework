@@ -15,9 +15,10 @@
                     <input type="email" class="form-control" align="middle" id="input-email" placeholder="Email" name="email">
                     <input type="password" class="form-control" id="input-pass" placeholder="Password" name="password">
                     <input type="password" class="form-control" id="confirm-pass" placeholder="Confirm password" name="confirm_password">
+                    {% if error %}<div style="color:red;">   {{ error }}</div>{% endif %}
                     <button type="submit" class="btn btn-signup">Sign up</button>
                     <h5>Already got an account?
-                        {% if error %}{{ error }}{% endif %}</h5>
+                        </h5>
                     <a href="{{ url_for('auth.login') }}">Log in here.</a>
                 </div><br><br>
             </form>

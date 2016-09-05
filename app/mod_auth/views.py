@@ -21,28 +21,33 @@ def sign_up():
         password = request.form["password"]
         confirm_password = request.form['confirm_password']
 
-        if password == confirm_password:
-            user_json = {
-                "name": name,
-                "lastname": lastname,
-                "email": email,
-                "password": bcrypt.generate_password_hash(password, rounds=12),
-                "active": True,
-                "user_slug": slugify(name + ' ' + lastname),
-                "roles": [user_mongo_utils.get_role_id('individual')],
-                "organizations": ['kreotive']
-            }
-            # TODO: Regiser user
-            user_mongo_utils.add_user(user_json)
-            flash('User successfully registered')
+        user_check = user_mongo_utils.get_user({"email":email})
+        if not user_check:
+            error = "A user with that e-mail already exists in the database"
+            return render_template('mod_auth/sign_up.html', error=error)
+        else:
+            if password == confirm_password:
+                user_json = {
+                    "name": name,
+                    "lastname": lastname,
+                    "email": email,
+                    "password": bcrypt.generate_password_hash(password, rounds=12),
+                    "active": True,
+                    "user_slug": slugify(name + ' ' + lastname),
+                    "roles": [user_mongo_utils.get_role_id('individual')],
+                    "organizations": ['kreotive']
+                }
+                # Regiser user
+                user_mongo_utils.add_user(user_json)
 
-            # TODO: login user
-            user_data = user_mongo_utils.get_user(email=email)
-            login_user(user_data)
+                #  login user
+                user_data = user_mongo_utils.get_user(email=email)
+                login_user(user_data)
 
-            return redirect(url_for('main.feed'))
-
-        return render_template('mod_auth/sign_up.html', error="user:" + email + "password" + password)
+                return redirect(url_for('main.feed'))
+            else:
+                error = "Passowrds didn't match"
+                return render_template('mod_auth/sign_up.html', error=error)
 
 
 @mod_auth.route('/login', methods=["POST", "GET"])

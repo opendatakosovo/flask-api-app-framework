@@ -13,6 +13,15 @@ class UserMongoUtils(object):
         self.users_collection = 'users'
         self.roles_collection = 'roles'
 
+    def query(self, query):
+        """ Make a query by only sending a JSON .
+         :param query: JSON object containing the query params
+         :rtype: Mongo Cursor
+        """
+        result = self.mongo.db[self.users_collection] \
+            .find(query)
+        return result
+
     def add_user(self, user):
         """ Add user to the database.
          :param user: JSON object containing the user information

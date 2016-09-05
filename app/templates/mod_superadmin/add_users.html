@@ -4,6 +4,7 @@
 
             <div class="container-fluid">
                 <h3>Add users</h3>
+                <span style="color:red;">{{ error }}</span>
                 <form method="post" action="{{ url_for('superadmin.add_users') }}">
                     <div class="col-md-4 col-xs-10 col-xs-offset-1 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
                         <input type="text" class="form-control" id="input-name" placeholder="Name" name="name" >

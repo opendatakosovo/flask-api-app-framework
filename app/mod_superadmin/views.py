@@ -21,6 +21,7 @@ def users():
 
 @mod_superadmin.route('/add_users', methods=['GET','POST'])
 def add_users():
+    error = ""
     if request.method=='GET':
         return render_template('mod_superadmin/add_users.html')
     elif request.method=='POST':
@@ -30,19 +31,23 @@ def add_users():
         password = request.form["password"]
         confirm_password = request.form['confirm_password']
         role = request.form['role']
-        if password == confirm_password:
-            user_json = {
-                "name": name,
-                "lastname": lastname,
-                "email": email,
-                "password": bcrypt.generate_password_hash(password, rounds=12),
-                "active": True,
-                "user_slug": slugify(name + ' ' + lastname),
-                "roles": [user_mongo_utils.get_role_id(role)],
-                "role": role,
-                "organizations": ['kreotive']
-            }
-            # TODO: Regiser user
-            user_mongo_utils.add_user(user_json)
-
-        return render_template('mod_superadmin/add_users.html')
+        if user_mongo_utils.get_user({"email":email}) != None:
+            error = "A user with that e-mail already exists in the database"
+            return render_template('mod_superadmin/add_users.html', error=error)
+        else:
+            if password == confirm_password:
+                user_json = {
+                    "name": name,
+                    "lastname": lastname,
+                    "email": email,
+                    "password": bcrypt.generate_password_hash(password, rounds=12),
+                    "active": True,
+                    "user_slug": slugify(name + ' ' + lastname),
+                    "roles": [user_mongo_utils.get_role_id(role)],
+                    "role": role,
+                    "organizations": ['kreotive']
+                }
+                # TODO: Regiser user
+                user_mongo_utils.add_user(user_json)
+            error = "User registered, if you want to continue adding users, fill the form and click Add User"
+            return render_template('mod_superadmin/add_users.html', error=error)
