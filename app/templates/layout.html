@@ -152,6 +152,18 @@
                     }
                 });
             });
+
+             $(document).on("click",function (e) {
+                if (e.target.id=="close") {
+                  $("#un-registered").fadeToggle(500);
+                  e.stopPropagation();
+                  return false;
+                }
+                else if ($("#un-registered").is(":visible")) {
+                  $("#un-registered").fadeOut(500);
+                }
+              });
+
         </script>
     </body>
 </html>
