@@ -5,6 +5,7 @@ from slugify import slugify
 from datetime import datetime
 from bson.json_util import dumps
 
+
 mod_article = Blueprint('article', __name__, url_prefix='/article')
 
 

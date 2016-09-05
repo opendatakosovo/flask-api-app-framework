@@ -152,25 +152,28 @@
 
     /*Footer style*/
 
-    .footer{
+    footer{
         background-color: #ebebeb;
+        /*position: absolute;*/
+        bottom: 0;
+        padding: 50px;
     }
 
-    .learn-more, .about1, .support {
-        margin: 50px 0 50px 30px;
-    }
+    /*.learn-more, .about1, .support {*/
+        /*margin: 50px 0 50px 30px;*/
+    /*}*/
 
-    .footer ul li a h6{
+    footer ul li a h6{
         color: #a39999;
         font-size: 1.1em;
         font-family: 'Source Sans Pro', sans-serif;
     }
 
-    .footer ul li {
+    footer ul li {
         list-style-type: none;
     }
 
-    .footer a:hover{
+    footer a:hover{
         text-decoration: none;
     }
 

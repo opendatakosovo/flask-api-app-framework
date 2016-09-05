@@ -22,6 +22,7 @@ class ContentMongoUtils(object):
         """
         articles = self.mongo.db[self.content_collection] \
             .find({'visible': True, 'published': True})
+
         return articles
 
     def get_paginated_articles(self, skips, limits):
@@ -29,7 +30,7 @@ class ContentMongoUtils(object):
         :rtype: MongoDB Cursor with the queried articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({'visible': True, 'published': True}).skip(skips).limit(limits)
+            .find({'visible': True, 'published': True}).sort([("_id",-1)]).limit(limits).skip(skips)
         return articles
 
     def get_authors_paginated_articles(self, author_id, skips, limits):
