@@ -21,8 +21,8 @@ def sign_up():
         password = request.form["password"]
         confirm_password = request.form['confirm_password']
 
-        user_check = user_mongo_utils.get_user({"email":email})
-        if not user_check:
+        user_check = user_mongo_utils.get_user(email=email)
+        if user_check:
             error = "A user with that e-mail already exists in the database"
             return render_template('mod_auth/sign_up.html', error=error)
         else:
