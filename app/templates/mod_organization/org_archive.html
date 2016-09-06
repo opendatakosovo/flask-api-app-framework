@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
 
-    <div class="profile-archive">
-        <div class="row">
+    <div class="org-archive">
+        <div class="row text-left">
             <div class="col-md-3 col-md-offset-2">
                 <ul>
-                    <li><a href="{{ url_for ('profile.feed', profile_slug = profile.user_slug )}}">Feed</a></li>
-                    <li><a href="{{ url_for ('profile.about', profile_slug = profile.user_slug )}}">About me</a></li>
+                    <li><a href="{{ url_for ('organization.feed', organization_slug = organization.user_slug )}}">Feed</a></li>
+                    <li><a href="{{ url_for ('organization.about', organization_slug = organization.user_slug )}}">About us</a></li>
                     <li><a href="" class="active">All articles</a></li>
                 </ul>
             </div>
@@ -21,9 +21,12 @@
                     <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
                     <span class="user-name">{{ current_user.name }}, {{ current_user.lastname }}</span>
                     <button type="button" class="follow pull-right">Follow</button>
+                    <button type="button" class="ask-to-join pull-right">Ask to join</button>
                 </div>
             </div>
         </div>
     </div>
+
+
 
 {% endblock body %}

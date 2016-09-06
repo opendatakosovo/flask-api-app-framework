@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
 
-    <div id="org-feed">
+    <div class="org-feed">
         <div class="container">
                 <div class="row">
                     <div class="col-md-12 col-md-offset-2">
                         <ul>
                             <li><a href="" class="active">Feed</a></li>
-                            <li><a href="{{ url_for ('profile.about', profile_slug = profile.user_slug ) }}">About</a></li>
-                            <li><a href="{{ url_for ('profile.archive', profile_slug = profile.user_slug ) }}">All articles</a>
+                            <li><a href="{{ url_for ('organization.about', organization_slug = organization.user_slug ) }}">About us</a></li>
+                            <li><a href="{{ url_for ('organization.archive', organization_slug = organization.user_slug ) }}">All articles</a>
                             </li>
                         </ul>
                     </div>
@@ -22,7 +22,7 @@
 
                         <div class="box">
                             <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
-                            <span class="user-name">{{ profile.name }}, {{ profile.lastname }}</span>
+                            <span class="user-name">{{ organization.name }}</span>
                             <button type="button" class="follow pull-right">Follow</button>
                             <button type="button" class="ask-to-join pull-right">Ask to join</button>
 

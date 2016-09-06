@@ -1,39 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
-    <script script type="text/javascript" xmlns="http://www.w3.org/1999/html">
-        // TODO: Write the appropriate jQuery function to ensure the clicking on the follow
-        // button will call the follow() function.
 
-        $(function () {
-            function follow() {
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url_for('profile.follow', profile_slug='kosovare-sahatqija') }}",
-                    data: JSON.stringify({ follower: 'dummy-follower11'}),
-                    success: (function () {
-                       $(".follow").val("Unfollow");
-                    }),
-                    error: function (error) {
-                    },
-                    dataType: "application/json",
-                    contentType: "application/json"
-                });
-            }
-
-            $(".follow").click(function() {
-                follow();
-            });
-
-        });
-    </script>
-
-    <div class="profile-about">
+    <div class="org-about">
         <div class="row">
             <div class="col-md-3 col-md-offset-2">
                 <ul>
-                <li><a href="{{ url_for ('profile.feed', profile_slug =profile.user_slug )}}" >Feed</a></li>
-                <li><a href="" class="active">About me</a></li>
-                <li><a href="{{ url_for ('profile.archive', profile_slug =profile.user_slug )}}">All articles</a></li>
+                <li><a href="{{ url_for ('organization.feed', organization_slug =organization.user_slug )}}" >Feed</a></li>
+                <li><a href="" class="active">About us</a></li>
+                <li><a href="{{ url_for ('organization.archive', organization_slug =organization.user_slug )}}">All articles</a></li>
                 </ul>
             </div>
         </div>
@@ -47,6 +21,7 @@
                     <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
                     <span class="user-name">{{ current_user.name }}, {{ current_user.lastname }}</span>
                     <button type="button" class="follow pull-right">Follow</button>
+                    <button type="button" class="ask-to-join pull-right">Ask to join</button>
                 </div>
             </div>
         </div>
@@ -65,7 +40,7 @@
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2"><br>
-                <span style="font-weight: bold; font-size: 30px">About me</span>
+                <span style="font-weight: bold; font-size: 30px">About us</span>
             </div>
         </div>
 
@@ -86,16 +61,17 @@
 
         <div class="row">
             <div class="col-md-3 col-md-offset-2">
-                <span class="contact">Contact me</span>
+                <span class="contact">Contact us</span>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-2 contact-info">
-                <span class="email col-md-4">E-mail: {{ current_user.email }}</span>
-                <span class="telephone col-md-4">Telephone: {{ current_user.telephone }}</span>
-                <span class="mobile col-md-4">Mobile: {{ current_user.mobile }}</span>
+            <div class="col-md-8 col-md-offset-2">
             </div>
         </div>
     </div>
+
+
+
+
 {% endblock body %}

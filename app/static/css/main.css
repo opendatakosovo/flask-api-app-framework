@@ -154,14 +154,9 @@
 
     footer{
         background-color: #ebebeb;
-        /*position: absolute;*/
         bottom: 0;
         padding: 50px;
     }
-
-    /*.learn-more, .about1, .support {*/
-        /*margin: 50px 0 50px 30px;*/
-    /*}*/
 
     footer ul li a h6{
         color: #a39999;
@@ -279,16 +274,6 @@
     }
 
     /*article management style*/
-
-    .editor-menu .fa{
-        font-size: 35px;
-        margin-left: 20px;
-        margin-top: 200px;
-    }
-
-    .editor-menu .fa-bars{
-        margin-left: 200px;
-    }
 
     #article-management h4{
         font-weight: bold;
@@ -437,21 +422,31 @@
     /*Profile feed page style*/
     .profile-feed ul,
     .profile-about ul,
-    .profile-archive ul{
-        margin-top: 50px;
+    .profile-archive ul,
+    .org-feed ul,
+    .org-about ul,
+    .org-archive ul{
         margin-left: -40px;
     }
 
     .profile-feed ul li,
     .profile-about ul li,
-    .profile-archive ul li{
+    .profile-archive ul li,
+    .org-feed ul li,
+    .org-about ul li,
+    .org-archive ul li{
         list-style-type: none;
         display: inline;
+
+
     }
 
     .profile-feed ul li a,
     .profile-about ul li a,
-    .profile-archive ul li a{
+    .profile-archive ul li a,
+    .org-feed ul li a,
+    .org-about ul li a,
+    .org-archive ul li a{
         text-decoration: none;
         color: inherit;
         font-size: 16px;
@@ -463,21 +458,30 @@
     }
 
     .profile-feed ul li .active,
-    #profile-about ul li .active,
-    #profile-archive ul li .active{
+    .profile-about ul li .active,
+    .profile-archive ul li .active,
+    .org-feed ul li .active,
+    .org-about ul li .active,
+    .org-archive ul li .active{
         font-weight: bold;
     }
 
     .profile-feed .fa,
-    #profile-about .fa,
-    #profile-archive .fa{
+    .profile-about .fa,
+    .profile-archive .fa,
+    .org-feed .fa,
+    .org-about .fa,
+    .org-archive .fa{
         font-size: 40px;
         margin: 20px 10px;
     }
 
     .profile-feed .fa-bars,
-    #profile-about .fa-bars,
-    #profile-archive .fa-bars{
+    .profile-about .fa-bars,
+    .profile-archive .fa-bars,
+    .org-feed .fa-bars,
+    .org-about .fa-bars,
+    .org-archive .fa-bars{
         background-color: transparent;
         border: none;
     }
@@ -506,14 +510,14 @@
 
 
     .profile-feed .dropdown,
-    #profile-about .dropdown,
-    #profile-archive .dropdown{
+    .org-feed .dropdown{
         margin: 10px 0;
     }
 
-    #profile-about .dropdown-menu,
+
     .profile-feed .dropdown-menu,
-    #profile-archive .dropdown-menu{
+    .org-feed .dropdown-menu
+    {
         margin-left: 20px;
         margin-top: 0px;
     }
@@ -529,10 +533,18 @@
 
     .profile-img{
         width: 50px;
-        /*margin-left: 55px;*/
         margin-top: 13px;
     }
 
+    .contact{
+        font-size:1.3em;
+        font-weight: bold;
+    }
+
+    .contact-info{
+        background-color: #ebebeb;
+        padding: 20px 5px;
+    }
 
     #single-article{
         margin-top: 80px;

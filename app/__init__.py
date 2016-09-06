@@ -168,6 +168,8 @@ def init_modules(app):
     from app.mod_auth.views import mod_auth
     from app.mod_superadmin.views import mod_superadmin
     from app.mod_article.views import mod_article
+    from app.mod_organization.views import mod_organization
+
 
     app.register_blueprint(mod_main)
     app.register_blueprint(mod_profile)
@@ -175,3 +177,4 @@ def init_modules(app):
     app.register_blueprint(mod_auth)
     app.register_blueprint(mod_superadmin)
     app.register_blueprint(mod_article)
+    app.register_blueprint(mod_organization)
