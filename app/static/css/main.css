@@ -155,7 +155,8 @@
     footer{
         background-color: #ebebeb;
         bottom: 0;
-        padding: 50px;
+        padding: 50px 50px 200px 50px;
+
     }
 
     footer ul li a h6{
@@ -427,6 +428,7 @@
     .org-about ul,
     .org-archive ul{
         margin-left: -40px;
+        padding-top: 50px;
     }
 
     .profile-feed ul li,
@@ -543,7 +545,12 @@
 
     .contact-info{
         background-color: #ebebeb;
-        padding: 20px 5px;
+        padding: 20px 0px;
+        width: 97%;
+    }
+
+    .activity-info{
+        padding-top: 30px;
     }
 
     #single-article{
@@ -562,7 +569,6 @@
 
     #single-article .author{
         font-size: 20px;
-        margin-left: -70px;
     }
 
     .go-back{
@@ -656,10 +662,25 @@
         right: 10px;
     }
     .load-more-btn{
-        margin-left:15%;
+        margin-left:10%;
     }
 
     .articles{
         height:auto;
+        padding-bottom: 150px;
     }
 
+    #feed .container{
+        margin:0px;
+    }
+
+    .search-field{
+        padding: 20px;
+        width: 100%;
+        border: none;
+        font-size: 22px;
+    }
+
+    .search-field:focus{
+        outline: none;
+    }

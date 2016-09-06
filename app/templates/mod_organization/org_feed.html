@@ -3,8 +3,8 @@
 
     <div class="org-feed">
         <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-md-offset-2">
+           <div class="row">
+                    <div class="col-md-12">
                         <ul>
                             <li><a href="" class="active">Feed</a></li>
                             <li><a href="{{ url_for ('organization.about', organization_slug = organization.user_slug ) }}">About us</a></li>
@@ -17,7 +17,7 @@
                 <!-- Banner part at Feed/About/Article Pages-->
 
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-12">
                         <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
 
                         <div class="box">
@@ -32,7 +32,7 @@
 
                 {% if current_user.is_authenticated() %}
                     <div class="row">
-                        <div class="col-md-6 col-md-offset-2">
+                        <div class="col-md-8">
                             <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true"
                                     data-toggle="dropdown"></button>
                             <ul class="dropdown-menu">
@@ -41,7 +41,7 @@
                                 </li>
                                 <li><a href="#">Comments</a></li>
                                 <li><a href="#">Bookmarks</a></li>
-                                <li><a href="#">People / Organisations</a></li>
+                                <li><a href="#">Following</a></li>
                                 <li><a href="#">Account Details</a></li>
                             </ul>
                             <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
@@ -50,27 +50,40 @@
                     </div>
                 {% else %}
                     <div class="row">
-                        <div class="col-md-2 col-md-offset-2">
+                        <div class="col-md-1">
                             <a href="" class="fa fa-search"></a>
                         </div>
+                        <div class="col-md-7">
+                            <input type="text" placeholder="Search for Articles or Authors in {{ current_user.name }}" class="search-field"/>
+                        </div>
+
+                        <div class="col-md-1">
+                            <a class="fa fa-file-video-o" data-toggle="tooltip" title="Filter by video"></a>
+                        </div>
+                        <div class="col-md-1">
+                            <a class="fa fa-file-audio-o" data-toggle="tooltip" title="Filter by audio"></a>
+                        </div>
+                        <div class="col-md-1">
+                            <a class="fa fa-file-text-o" data-toggle="tooltip" title="Filter by text"></a>
+                        </div>
+                        <div class="col-md-1">
+                            <a class="fa fa-paperclip" data-toggle="tooltip" title="Filter by attachment"></a>
+                        </div>
+
+
                     </div>
+
                 {% endif %}
 
                 <div class="articles">
-                    <div class="col-md-8 col-md-offset-2 latest row-bottom-margin row-margin">
+                    <div class="col-md-12 latest row-bottom-margin row-margin">
                     </div>
                     <button class="btn col-md-12 load-more-btn" data-skip-posts-number="6" data-posts-per-page="6">
                         Load more
                     </button>
 
                 </div>
-         </div>
-
-
-
-
-
-
+        </div>
     </div>
 
 {% endblock body %}

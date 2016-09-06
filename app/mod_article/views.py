@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, Response, redirect, url_for
-from app import content_mongo_utils
+from app import content_mongo_utils, profile_mongo_utils
 from flask.ext.security import current_user
 from slugify import slugify
 from datetime import datetime
@@ -13,7 +13,10 @@ mod_article = Blueprint('article', __name__, url_prefix='/article')
 def article(slug):
     # TODO: Restrict access to only authenticated users if the article has "visible" set to False
     article = content_mongo_utils.get_single_article(slug)
-    return render_template('mod_article/article_single.html', article=article)
+
+    profile = profile_mongo_utils.get_profile(article['author_slug'])
+
+    return render_template('mod_article/article_single.html', article=article, profile=profile)
 
 
 @mod_article.route('/<user_id>/<org_id>')

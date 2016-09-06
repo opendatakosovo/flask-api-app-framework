@@ -38,26 +38,26 @@
 
     <body>
 
-        <div class="container-fluid">
+        <div class="container">
             <header>
                 <div class="row">
-                    <div class="col-xs-8 col-md-2 col-md-offset-1">
+                    <div class="col-xs-8 col-md-2">
                         <a href="{{url_for('main.feed')}}"><h1 class="logo">Kreotive</h1></a>
                     </div>
-                    <div class="col-xs-4 col-md-8">
+                    <div class="col-xs-4 col-md-8 col-md-offset-2 text-right">
                         {% if current_user.is_authenticated() %}
-                        <div class="row text-right">
-                            <div class="col-md-4 col-md-offset-8">
+{#                        <div class="row text-right">#}
+{#                            <div class="col-md-4 col-md-offset-10">#}
                                 <a href="{{ url_for('profile.feed', profile_slug = current_user.user_slug)  }}" style="margin: auto"><img src="{{ url_for('static', filename='img/prof1.jpg')}}" class="img-circle profile-img"></a>
                                 <a href="{{ url_for('auth.logout')  }}" style="color:#3b8cde; font-size:16px; margin-top: 30px;" >Log out</a>
-                            </div>
-                        </div>
+{#                            </div>#}
+{#                        </div>#}
                         {% else %}
-                        <div class="row">
-                            <div class="col-md-12">
+{#                        <div class="row">#}
+{#                            <div class="col-md-12">#}
                                 <a href="#" id="sign-in" data-toggle="popover" content="#log-in-form" style="color:#3b8cde">Log In</a>
-                            </div>
-                        </div>
+{#                            </div>#}
+{#                        </div>#}
 
                         <div class="row">
                             <br>
@@ -94,7 +94,7 @@
             <footer>
 
                 <div class="row">
-                    <div class="col-xs-10 col-md-3 learn-more">
+                    <div class="col-xs-12 col-md-3 learn-more">
                         <ul>
                         <li><a href=""><h6><b>LEARN MORE</b></h6></a></li><br>
                         <li><a href=""><h6 style="margin-bottom: 35px;">New Features</h6></a></li>
@@ -102,7 +102,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-xs-10 col-md-3 about1">
+                    <div class="col-xs-12 col-md-3 about1">
                         <ul>
                         <li><a href=""><h6><b>ABOUT</b></h6></a></li><br>
                         <li><a href=""><h6>Blog</h6></a></li>
@@ -111,7 +111,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-xs-10 col-md-2 support">
+                    <div class="col-xs-12 col-md-2 support">
                         <ul>
                         <li><a href=""><h6><b>SUPPORT</b></h6></a></li><br>
                         <li><a href=""><h6>FAQ</h6></a></li>
@@ -161,6 +161,12 @@
                   $("#un-registered").fadeOut(500);
                 }
               });
+
+
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
 
         </script>
     </body>
