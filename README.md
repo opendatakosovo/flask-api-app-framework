@@ -90,3 +90,30 @@ Restart the server for these changes to take effect:
 ```
 sudo service apache2 restart
 ```
+
+#### add
+First create a folder in your desktop called dev.
+````
+cd ~
+````
+mkdir dev
+````
+cd dev
+
+Getting the project in your local machine.
+````
+git clone https://github.com/Gaddea/kreotive.git
+````
+cd kreotive
+
+
+Create and edit project config file:
+````
+sudo config-template.cfg config.cfg
+sudo nano config.cfg
+
+Install&run the app
+````
+bash install.sh
+
+bash run-debug.ssh
