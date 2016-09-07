@@ -117,4 +117,3 @@ Install&run the app
 bash install.sh
 
 bash run-debug.sh
-
