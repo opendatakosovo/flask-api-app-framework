@@ -1,0 +1,201 @@
+{% extends "layout.html" %}
+{% block body %}
+    <!--About Section-->
+    <section id="feed">
+        <div class="container">
+
+            {% include "unregistered.html" %}
+
+            {% if current_user.is_authenticated() %}
+
+
+                <nav id="nav-bar1" style="margin-top: 100px;">
+                    <br><br><br><br>
+
+                    <div class="row menu-icons">
+
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                            {% if current_user.is_authenticated() %}
+                                <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
+                                        style="color: #000"></button>
+                                <ul class="dropdown-menu" style="margin: 12px 0 0 30px;">
+                                    <li><a href="#" class="active">Feed</a></li>
+                                    <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article
+                                        management</a></li>
+                                    <li><a href="#">Comments</a></li>
+                                    <li><a href="#">Bookmarks</a></li>
+                                    <li><a href="#">Following</a></li>
+                                    <li><a href="#">Account details</a></li>
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                            {% if current_user.is_authenticated() %}
+                                <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                            <a href="" class="fa fa-search " aria-hidden="true" id="search1"
+                               style="margin-left: 0px;"></a>
+                        </div>
+                        <div class="col-md-1 col-md-offset-5 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-right">
+                            <a href="" class="fa fa-file-video-o" aria-hidden="true" id="video-type1"
+                               data-toggle="tooltip" title="Filter by video"></a>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-file-audio-o" aria-hidden="true" id="audio-type1"
+                               data-toggle="tooltip" title="Filter by audio"></a>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-file-text-o" aria-hidden="true" id="text-type1"
+                               data-toggle="tooltip" title="Filter by text"></a>
+                        </div>
+
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-paperclip" aria-hidden="true" id="attach-type1"
+                               data-toggle="tooltip" title="Filter by attachment"></a>
+                        </div>
+
+
+                    </div>
+                </nav>
+
+            {% else %}
+                <nav id="nav-bar">
+                    <br><br>
+
+                    <div class="row menu-icons">
+
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                            <a href="" class="fa fa-search" aria-hidden="true" id="search"></a>
+                        </div>
+                        <div class="col-md-1 col-md-offset-7 col-sm-1 col-sm-offset-7 col-xs-1 col-xs-offset-7 text-right">
+                            <a href="" class="fa fa-file-video-o " aria-hidden="true" id="video-type"
+                               data-toggle="tooltip" title="Filter by video"></a>
+                        </div>
+
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-file-audio-o " aria-hidden="true" id="audio-type"
+                               data-toggle="tooltip" title="Filter by audio"></a>
+                        </div>
+
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-file-text-o " aria-hidden="true" id="text-type"
+                               data-toggle="tooltip" title="Filter by text"></a>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-paperclip " aria-hidden="true" id="attach-type"
+                               data-toggle="tooltip" title="Filter by attachment"></a>
+                        </div>
+
+                    </div>
+                </nav>
+            {% endif %}
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    // Initialize displaying articles in feed
+                    initFeed();
+
+                    $('.load-more-btn').click(function () {
+
+                        var url = "{{ url_for('article.paginated_articles', skip_posts_number='1111111111', posts_per_page='999999999') }}";
+                        var skip_posts_number = parseInt($(this).attr("data-skip-posts-number"));
+                        var number_of_posts = parseInt($(this).data("posts-per-page"));
+                        var post_url = url.replace("1111111111", skip_posts_number).replace("999999999", number_of_posts);
+                        var posting = $.post(post_url);
+
+                        posting.done(function (data) {
+                            var posts = jQuery.parseJSON(data);
+                            if(posts.length > 0){
+                                loadMoreArticles(posts);
+                            }else{
+                                $('.load-more-btn').text("No more posts");
+                            }
+
+                        });
+                        $(this).attr('data-skip-posts-number', (parseInt(skip_posts_number) + 6));
+                    });
+
+                });
+                function initFeed() {
+                    // Get the first 6 feeds
+                    var articles = {{ articles|safe }};
+                    for (var idx in articles) {
+                        feedTheFeed(articles[idx], idx);
+                    }
+                }
+
+                function loadMoreArticles(posts) {
+                    for (var idx in posts) {
+                        feedTheFeed(posts[idx], idx);
+                    }
+
+                }
+
+
+                function feedTheFeed(article, idx) {
+
+                    var styleClass = getArticleDivClass(idx);
+                    var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
+                    var article_slug_url = article_slug.replace('article_slug', article['slug']);
+
+                    var divHTML = '' +
+                            '<div class="article ' + styleClass + ' text-type text-type1" style="padding-right: 0;">' +
+                            '<a href="' + article_slug_url + '">' +
+                            '<img src="' + "{{ url_for('static', filename='img/prof1.jpg')}}" + '" class="img-circle img-responsive profil"/>' +
+                            '<h3 class="article-title">' + article['title'] + '</h3>' +
+                            '</a>' +
+                            '<i class="fa fa-file-text-o article-type" aria-hidden="true"></i>' +
+                            '</div>'
+
+                    $('.latest').append(divHTML);
+                }
+                function getArticleDivClass(idx) {
+                    var style = '';
+                    switch (idx) {
+                        case '0':
+                            style = 'col-md-8 col-sm-6 col-xs-12 blue';
+                            break;
+                        case '1':
+                            style = 'col-md-4 col-sm-6 col-xs-12 magenta';
+                            break;
+                        case '2':
+                            style = 'col-md-4 col-sm-6 col-xs-12 green';
+                            break;
+                        case '3':
+                            style = 'col-md-8 col-sm-6 col-xs-12 yellow';
+                            break;
+                        case '4':
+                            style = 'col-md-8 col-sm-6 col-xs-12 brown';
+                            break;
+                        case '5':
+                            style = 'col-md-4 col-sm-6 col-xs-12 red';
+                            break;
+                        default:
+                            style = 'col-md-12 col-sm-12 col-xs-12 blue';
+                    }
+
+                    return style;
+                }
+            </script>
+            <div class="articles row">
+                <div class="col-md-12 latest row-bottom-margin row-margin">
+
+                </div>
+                <button class="btn col-md-12 load-more-btn" data-skip-posts-number="6" data-posts-per-page="6">Load
+                    more
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+{% endblock %}

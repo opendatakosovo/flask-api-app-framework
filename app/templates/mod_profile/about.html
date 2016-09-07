@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% block body %}
+    <script script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+        // TODO: Write the appropriate jQuery function to ensure the clicking on the follow
+        // button will call the follow() function.
+
+        $(function () {
+            function follow() {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url_for('profile.follow', profile_slug='kosovare-sahatqija') }}",
+                    data: JSON.stringify({ follower: 'dummy-follower11'}),
+                    success: (function () {
+                       $(".follow").val("Unfollow");
+                    }),
+                    error: function (error) {
+                    },
+                    dataType: "application/json",
+                    contentType: "application/json"
+                });
+            }
+
+            $(".follow").click(function() {
+                follow();
+            });
+
+        });
+    </script>
+
+    <div class="profile-about">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                <li><a href="{{ url_for ('profile.feed', profile_slug =profile.user_slug )}}" >Feed</a></li>
+                <li><a href="" class="active">About me</a></li>
+                <li><a href="{{ url_for ('profile.archive', profile_slug =profile.user_slug )}}">All articles</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Banner part at Feed/About/Article Pages-->
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
+                <div class="box">
+                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
+                    <span class="user-name">{{ current_user.name }}, {{ current_user.lastname }}</span>
+                    <button type="button" class="follow pull-right">Follow</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row activity-info">
+            <div class="col-md-2 col-md-offset-3">
+                <span>Location:</span> <strong><span>Location</span></strong>
+            </div>
+            <div class="col-md-2">
+                <span>Articles:</span><strong><span>0</span></strong>
+            </div>
+            <div class="col-md-2">
+                <span>Followers:</span><strong><span>0</span></strong>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12"><br>
+                <span style="font-weight: bold; font-size: 30px">About me</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <span><br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat.
+                Donec placerat nisl magna, et faucibus arcu condimentum sed.Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit. Aliquam at porttitor sem.  <br><br>
+
+                Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna, et
+                faucibus arcu condimentum sed.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.
+                Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <span class="contact">Contact me</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 contact-info">
+                <span class="email col-md-3">E-mail: {{ current_user.email }}</span>
+                <span class="telephone col-md-3">Telephone: {{ current_user.telephone }}</span>
+                <span class="mobile col-md-3">Mobile: {{ current_user.mobile }}</span>
+            </div>
+
+        </div>
+        <br/>
+        </div>
+    </div>
+{% endblock body %}
