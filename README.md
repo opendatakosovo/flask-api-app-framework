@@ -116,5 +116,5 @@ Install&run the app
 ````
 bash install.sh
 
-bash run-debug.ssh
-\\\\
+bash run-debug.sh
+
