@@ -2,47 +2,48 @@
 {% block body %}
 
     <div id="single-article">
+
         <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-1 col-md-offset-1 text-center">
                 <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle">
 
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-3 text-left">
 
                 <span class="org">{{ profile['org'] }}</span></br>
                 <span class="author">{{ article['author_name'] }}, {{ article['author_lastname'] }}</span>
 
             </div>
 
-            <div class=" col-md-2 col-md-offset-2">
+            <div class=" col-md-2">
                 <span class="fa fa-clock-o">   {{ article['published_date'].strftime('%Y-%m-%d %H:%M')}}</span>
             </div>
 
-            <div class="col-md-3 col-md-offset-6">
-                <a href="" class="fa fa-tag news">{{ article['category'] }}</a>
+            <div class="col-md-3 col-md-offset-1 text-center">
+                <a href="" class="fa fa-tag news">  {{ article['category'] }}</a>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 col-md-offset-1">
                 <button type="button" onclick="goBack()" class="go-back">Go Back</button>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <span class="article-t">{{ article['title'] }}</span>
+            <div class="col-md-6 col-md-offset-1">
+                <span class="article-t">    {{ article['title'] }}</span>
             </div>
 
-            <div class="col-md-2 col-md-offset-4">
+            <div class="col-md-2 col-md-offset-2">
                 <a href="" class="fa fa-bookmark-o"></a>
                 <a href="" class="fa fa-share-alt"></a>
             </div>
         </div>
         <br><br>
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-10 col-md-offset-1">
                 <span class="thesis">{{ article['content']|safe }}</span>
 
             </div>

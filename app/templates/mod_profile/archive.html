@@ -4,7 +4,7 @@
     <div class="profile-archive">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10 col-md-offset-1">
                 <ul>
                     <li><a href="{{ url_for ('profile.feed', profile_slug = profile.user_slug )}}">Feed</a></li>
                     <li><a href="{{ url_for ('profile.about', profile_slug = profile.user_slug )}}">About me</a></li>
@@ -16,7 +16,8 @@
         <!-- Banner part at Feed/About/Article Pages-->
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10 col-md-offset-1">
+                  <i class="fa fa-share-alt share-org"></i>
                 <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
                 <div class="box">
                     <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">

@@ -29,10 +29,10 @@
         <script type="text/javascript" src="{{ url_for('static', filename='js/kreotive.js') }}"></script>
 
         <script type="text/javascript" src="{{ url_for('static', filename='js/filtering.js') }}"></script>
-        <script type="text/javascript">
-        $(document).ready(function(){
-
-        });
+        <script>
+          $( function() {
+            $( "#tabs" ).tabs();
+          } );
         </script>
     </head>
 
@@ -46,19 +46,10 @@
                     </div>
                     <div class="col-xs-4 col-md-8 col-md-offset-2 text-right">
                         {% if current_user.is_authenticated() %}
-{#                        <div class="row text-right">#}
-{#                            <div class="col-md-4 col-md-offset-10">#}
                                 <a href="{{ url_for('profile.feed', profile_slug = current_user.user_slug)  }}" style="margin: auto"><img src="{{ url_for('static', filename='img/prof1.jpg')}}" class="img-circle profile-img"></a>
                                 <a href="{{ url_for('auth.logout')  }}" style="color:#3b8cde; font-size:16px; margin-top: 30px;" >Log out</a>
-{#                            </div>#}
-{#                        </div>#}
                         {% else %}
-{#                        <div class="row">#}
-{#                            <div class="col-md-12">#}
                                 <a href="#" id="sign-in" data-toggle="popover" content="#log-in-form" style="color:#3b8cde">Log In</a>
-{#                            </div>#}
-{#                        </div>#}
-
                         <div class="row">
                             <br>
                             <div class="col-md-12">

@@ -6,6 +6,7 @@ from flask.ext.pymongo import PyMongo
 from app.utils.profile_mongo_utils import ProfileMongoUtils
 from app.utils.user_mongo_utils import UserMongoUtils, Anonymous, User, Roles
 from app.utils.content_mongo_utils import ContentMongoUtils
+from app.utils.org_mongo_utils import OrgMongoUtils
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.login import LoginManager
 from flask.ext.security import Security, current_user
@@ -35,6 +36,7 @@ social = Social()
 profile_mongo_utils = ProfileMongoUtils(mongo)
 user_mongo_utils = UserMongoUtils(mongo)
 content_mongo_utils = ContentMongoUtils(mongo)
+org_mongo_utils = OrgMongoUtils(mongo)
 
 
 def create_app():
