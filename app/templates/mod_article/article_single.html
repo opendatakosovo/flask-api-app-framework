@@ -4,23 +4,23 @@
     <div id="single-article">
 
         <div class="row">
-            <div class="col-md-1 col-md-offset-1 text-center">
+            <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
                 <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle">
 
             </div>
 
-            <div class="col-md-3 text-left">
+            <div class="col-md-3 col-sm-3 col-xs-3 text-left">
 
                 <span class="org">{{ profile['org'] }}</span></br>
                 <span class="author">{{ article['author_name'] }}, {{ article['author_lastname'] }}</span>
 
             </div>
 
-            <div class=" col-md-2">
+            <div class=" col-md-4">
                 <span class="fa fa-clock-o">   {{ article['published_date'].strftime('%Y-%m-%d %H:%M')}}</span>
             </div>
 
-            <div class="col-md-3 col-md-offset-1 text-center">
+            <div class="col-md-2 col-md-offset-1 text-left">
                 <a href="" class="fa fa-tag news">  {{ article['category'] }}</a>
             </div>
         </div>
@@ -32,14 +32,20 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 col-md-offset-1">
+            <div class="col-md-8 col-md-offset-1">
                 <span class="article-t">    {{ article['title'] }}</span>
             </div>
-
-            <div class="col-md-2 col-md-offset-2">
+            {% if current_user.is_authenticated() %}
+            <div class="col-md-2 col-md-offset-1 text-left">
                 <a href="" class="fa fa-bookmark-o"></a>
                 <a href="" class="fa fa-share-alt"></a>
             </div>
+            {% else %}
+            <div class="col-md-2 col-md-offset-1 text-left">
+                <a href="{{ url_for('auth.sign_up') }}" class="fa fa-bookmark-o"></a>
+                <a href="{{ url_for('auth.sign_up') }}" class="fa fa-share-alt"></a>
+            </div>
+            {% endif %}
         </div>
         <br><br>
         <div class="row">

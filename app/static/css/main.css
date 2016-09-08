@@ -611,6 +611,10 @@
          margin-left: 50px;
     }
 
+    #single-article .fa-clock-o{
+        font-size: 17px;
+    }
+
     .article-t{
         font-size: 30px;
         font-weight: bold;
