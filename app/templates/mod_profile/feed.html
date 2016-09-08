@@ -2,9 +2,8 @@
 {% block body %}
 
     <div class="profile-feed">
-        <div class="container">
         <div class="row text-left">
-            <div class="col-md-12">
+            <div class="col-md-10 col-md-offset-1">
                 <ul>
                     <li><a href="" class="active">Feed</a></li>
                     <li><a href="{{ url_for ('profile.about', profile_slug = profile.user_slug ) }}">About me</a></li>
@@ -16,7 +15,8 @@
         <!-- Banner part at Feed/About/Article Pages-->
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10 col-md-offset-1">
+                  <i class="fa fa-share-alt share-org"></i>
                 <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
                 <div class="box">
                     <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
@@ -29,39 +29,42 @@
         {% if current_user.is_authenticated() %}
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-1 col-md-offset-1">
                 <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
                     <ul class="dropdown-menu">
                         <li><a href="#">Feed</a></li>
                         <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a></li>
                         <li><a href="#">Comments</a></li>
                         <li><a href="#">Bookmarks</a></li>
-                        <li><a href="#">People / Organisations</a></li>
+                        <li><a href="#">Following</a></li>
                         <li><a href="#">Account Details</a></li>
                     </ul>
                 <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
-                <a href="" class="fa fa-search"></a>
+                <a href="{{ url_for('profile.search', profile_slug = profile.user_slug) }}" class="fa fa-search"></a>
             </div>
         </div>
 
         {% else %}
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 col-md-offset-1">
                 <a href="" class="fa fa-search"></a>
             </div>
         </div>
 
         {% endif %}
 
-        <div class="articles">
-            <div class="col-md-12 latest">
+        <div class="articles row">
+            <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
             </div>
-            <button class="btn col-md-12 load-more-btn" data-skip-posts-number="6" data-posts-per-page="6">
-                Load more
-            </button>
         </div>
-    </div>
+
+        <div class="row text-center">
+            <div class="col-md-10 col-md-offset-1">
+                <button class="btn load-more-btn " data-skip-posts-number="6" data-posts-per-page="6">Load
+                more</button>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript">

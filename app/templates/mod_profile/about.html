@@ -30,7 +30,7 @@
     <div class="profile-about">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10 col-md-offset-1">
                 <ul>
                 <li><a href="{{ url_for ('profile.feed', profile_slug =profile.user_slug )}}" >Feed</a></li>
                 <li><a href="" class="active">About me</a></li>
@@ -43,7 +43,8 @@
 
         <div class="row">
 
-            <div class="col-md-12">
+            <div class="col-md-10 col-md-offset-1">
+                <i class="fa fa-share-alt share-org"></i>
                 <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
                 <div class="box">
                     <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
@@ -54,7 +55,7 @@
         </div>
 
         <div class="row activity-info">
-            <div class="col-md-2 col-md-offset-3">
+            <div class="col-md-2 col-md-offset-4">
                 <span>Location:</span> <strong><span>Location</span></strong>
             </div>
             <div class="col-md-2">
@@ -66,13 +67,13 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12"><br>
+            <div class="col-md-10 col-md-offset-1"><br>
                 <span style="font-weight: bold; font-size: 30px">About me</span>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10 col-md-offset-1">
                 <span><br>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat.
                 Donec placerat nisl magna, et faucibus arcu condimentum sed.Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -85,15 +86,16 @@
                 </span>
             </div>
         </div>
-
+        <br/>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 col-md-offset-1">
                 <span class="contact">Contact me</span>
             </div>
         </div>
+        <br/>
 
         <div class="row">
-            <div class="col-md-12 contact-info">
+            <div class="col-md-10 col-md-offset-1 contact-info">
                 <span class="email col-md-3">E-mail: {{ current_user.email }}</span>
                 <span class="telephone col-md-3">Telephone: {{ current_user.telephone }}</span>
                 <span class="mobile col-md-3">Mobile: {{ current_user.mobile }}</span>

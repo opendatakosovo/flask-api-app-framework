@@ -70,3 +70,14 @@ def paginated_author_articles(profile_slug,skip_posts_number, posts_per_page):
     profile = user_mongo_utils.get_user_by_slug(profile_slug)
     articles = dumps(content_mongo_utils.get_authors_paginated_articles(profile.id, skip_posts_number, posts_per_page))
     return Response(response=articles)
+
+@mod_profile.route('/<profile_slug>/search', methods=['GET'])
+def search(profile_slug):
+    ''' Loads the article archive page.
+    '''
+
+    # get the profile object for the given slug
+    profile = user_mongo_utils.get_user_by_slug(profile_slug)
+
+    return render_template('mod_profile/search.html', profile=profile)
+

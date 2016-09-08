@@ -2,7 +2,7 @@
 {% block body %}
     <!--About Section-->
     <section id="feed">
-        <div class="container">
+
 
             {% include "unregistered.html" %}
 
@@ -63,13 +63,11 @@
             {% else %}
                 <nav id="nav-bar">
                     <br><br>
-
-                    <div class="row menu-icons">
-
-                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                    <div class="row">
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
                             <a href="" class="fa fa-search" aria-hidden="true" id="search"></a>
                         </div>
-                        <div class="col-md-1 col-md-offset-7 col-sm-1 col-sm-offset-7 col-xs-1 col-xs-offset-7 text-right">
+                        <div class="col-md-1 col-md-offset-7 col-sm-1 col-sm-offset-7 col-xs-1 col-xs-offset-6 text-right">
                             <a href="" class="fa fa-file-video-o " aria-hidden="true" id="video-type"
                                data-toggle="tooltip" title="Filter by video"></a>
                         </div>
@@ -183,19 +181,16 @@
             </script>
             <div class="articles row">
                 <div class="col-md-12 latest row-bottom-margin row-margin">
-
                 </div>
-                <button class="btn col-md-12 load-more-btn" data-skip-posts-number="6" data-posts-per-page="6">Load
-                    more
-                </button>
             </div>
-        </div>
-    </section>
 
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
+            <div class="row text-center">
+                <div class="col-md-10 col-md-offset-1">
+                     <button class="btn load-more-btn " data-skip-posts-number="6" data-posts-per-page="6">Load
+                    more</button>
+                </div>
+            </div>
+
+    </section>
 
 {% endblock %}

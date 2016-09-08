@@ -37,7 +37,6 @@
 
     .btn-facebook {
         background-color: #2d59a1;
-        margin-right: -0.1px;
     }
 
     .btn-signup{
@@ -75,23 +74,19 @@
         color: #5c5c5c;
         height: 50px;
         font-size: 14px;
-        width: 290px;
-        padding: 8px;
     }
 
 
     .btn-log-in-facebook{
         font-size: 14px;
-        padding: 8px;
         background-color: #2d59a1;
         height: 50px;
-        width: 290px;
     }
 
     .btn-log-in, .btn-popover-log-in{
         background-color: #349946;
         height: 50px;
-        width: 290px;
+
     }
 
     #email-login{
@@ -101,7 +96,7 @@
     #email-login, #pass-login{
         border: none;
         height: 50px;
-        width: 290px;
+
     }
 
     #log-in-form a{
@@ -131,23 +126,17 @@
 
     #log-in button,
     #log-in input{
-        width: 70%;
+        height: 40px;
+
     }
 
-    label {
-      display: block;
-      padding-left: 15px;
-      text-indent: -15px;
-    }
      input[type=checkbox]{
       width: 13px;
-      height: 13px;
+      height: 18px !important;
       padding: 0;
-      margin-right:-100px;
       vertical-align: bottom;
       position: relative;
-      top: -1px;
-      *overflow: hidden;
+      overflow: hidden;
     }
 
     /*Footer style*/
@@ -156,6 +145,7 @@
         background-color: #ebebeb;
         bottom: 0;
         padding: 50px 50px 200px 50px;
+        margin-top: 50px;
 
     }
 
@@ -181,22 +171,13 @@
         font-size: 3.4em;
         font-weight: bolder;
         text-align: center;
-        margin-top: 150px;
         line-height: 1.4em;
     }
 
     #un-registered{
-        margin-bottom: 300px;
+        padding-top: 150px;
+       padding-bottom: 300px;
     }
-
-
-    .close-icon{
-        width: 18px;
-        float: right;
-        margin-top: 90px;
-        margin-right: -20px;
-    }
-
 
     #feed .btn{
         height: 50px;
@@ -204,8 +185,8 @@
         font-family: 'Comfortaa', cursive;
     }
 
-    #feed .btn :active{
-        outline: 0;
+    #feed .btn :focus{
+        outline: none;
         box-shadow: none;
     }
 
@@ -229,15 +210,9 @@
         font-weight: 100;
     }
 
-    #feed .fa{
-        font-size: 35px;
-
-    }
-
     #feed .fa-bars {
         background-color: transparent;
         border: none;
-            /*margin-left: -95px;*/
     }
 
     #articles .fa-play, .fa-pause{
@@ -248,33 +223,24 @@
         margin: -300px 15px;
     }
 
-    .fa-close{
-        font-size:25px;
-        color: #777777;
-        float: right;
-        margin-top: 90px;
-        margin-right: -20px;
-    }
 
-
-    #feed .fa-search{
-        margin-left: 0px;
-
-    }
-
-    .fa-search, .fa-file-audio-o, .fa-file-text-o, .fa-file-video-o, .fa-paperclip {
-        font-size: 32px;
+    .fa-bars, .fa-pencil, .fa-search, .fa-file-audio-o, .fa-file-text-o, .fa-file-video-o, .fa-paperclip {
+        font-size: 35px;
         color: #000000;
-        margin-bottom: 20px;
+        margin: 20px 0px;
     }
 
 
     .fa-close{
         color: #c7c7c7;
-        font-size: 20px;
+        font-size: 20px !important;
     }
 
     /*article management style*/
+
+    #article-management{
+        padding-top: 100px;
+    }
 
     #article-management h4{
         font-weight: bold;
@@ -282,9 +248,12 @@
         margin: 40px 0px 20px 200px;
     }
 
+    #article-management .fa {
+        font-size: 35px;
+    }
+
     .article-visibility {
-        width: 80%;
-        border: 1px solid #c8c8c8;
+        width: 83%;
         padding: 5px 5px 10px 5px;
     }
 
@@ -296,6 +265,16 @@
 
     .article-visibility .fa-trash-o{
         padding-left: 20px;
+    }
+
+    .article-visibility h3{
+        font-size: 20px;
+    }
+
+    .manage-line{
+        display: flex;
+        border: 1px solid #c8c8c8;
+        margin-bottom: 10px;
     }
 
     time{
@@ -424,9 +403,11 @@
     .profile-feed ul,
     .profile-about ul,
     .profile-archive ul,
+    .prof-search ul,
     .org-feed ul,
     .org-about ul,
-    .org-archive ul{
+    .org-archive ul,
+    .org-search ul{
         margin-left: -40px;
         padding-top: 50px;
     }
@@ -434,9 +415,11 @@
     .profile-feed ul li,
     .profile-about ul li,
     .profile-archive ul li,
+    .prof-search ul li,
     .org-feed ul li,
     .org-about ul li,
-    .org-archive ul li{
+    .org-archive ul li,
+    .org-search ul li{
         list-style-type: none;
         display: inline;
 
@@ -446,34 +429,40 @@
     .profile-feed ul li a,
     .profile-about ul li a,
     .profile-archive ul li a,
+    .prof-search ul li a,
     .org-feed ul li a,
     .org-about ul li a,
-    .org-archive ul li a{
+    .org-archive ul li a,
+    .org-search ul li a{
         text-decoration: none;
         color: inherit;
         font-size: 16px;
         margin-right: 20px;
 
     }
-    .profile-feed{
-        height:auto;
-    }
+    /*.profile-feed{*/
+        /*height:auto;*/
+    /*}*/
 
     .profile-feed ul li .active,
     .profile-about ul li .active,
     .profile-archive ul li .active,
+    .prof-search ul li .active,
     .org-feed ul li .active,
     .org-about ul li .active,
-    .org-archive ul li .active{
+    .org-archive ul li .active,
+    .org-search ul li .active{
         font-weight: bold;
     }
 
     .profile-feed .fa,
     .profile-about .fa,
     .profile-archive .fa,
+    .prof-search .fa,
     .org-feed .fa,
     .org-about .fa,
-    .org-archive .fa{
+    .org-archive .fa,
+    .org-search .fa{
         font-size: 40px;
         margin: 20px 10px;
     }
@@ -481,9 +470,11 @@
     .profile-feed .fa-bars,
     .profile-about .fa-bars,
     .profile-archive .fa-bars,
+    .prof-search .fa-bars,
     .org-feed .fa-bars,
     .org-about .fa-bars,
-    .org-archive .fa-bars{
+    .org-archive .fa-bars,
+    .org-search .fa-bars{
         background-color: transparent;
         border: none;
     }
@@ -495,7 +486,7 @@
 
     .box{
         width: 100%;
-        height: 80px;
+        height: 70px;
         background-color: #81b7e3;
     }
 
@@ -506,26 +497,29 @@
         font-weight: bold;
         width: 150px;
         height: 45px;
-        margin: 15px 10px;
+        margin: 12px 10px;
     }
 
 
 
     .profile-feed .dropdown,
-    .org-feed .dropdown{
+    .org-feed .dropdown,
+    .org-search .dropdown
+    {
         margin: 10px 0;
     }
 
 
     .profile-feed .dropdown-menu,
-    .org-feed .dropdown-menu
+    .org-feed .dropdown-menu,
+    .org-search .dropdown-menu
     {
         margin-left: 20px;
         margin-top: 0px;
     }
 
     .user-pic{
-        margin: 10px;
+        margin: 5px;
     }
 
     .user-name{
@@ -546,7 +540,30 @@
     .contact-info{
         background-color: #ebebeb;
         padding: 20px 0px;
-        width: 97%;
+        /*width: 97%;*/
+    }
+
+    .load-more-btn{
+
+        height: 40px;
+        color: #ffffff;
+        border-radius: 0px;
+        border: none;
+        font-weight: bold;
+        font-family: 'Ubuntu', sans-serif;
+        margin-bottom: 20px;
+        background-color: #d6d6d6;
+    }
+
+    .load-more-btn:focus{
+        outline: none;
+    }
+
+    .share-org{
+        font-size: 20px !important;
+        position: absolute;
+        color: #fff;
+        right:20px;
     }
 
     .activity-info{
@@ -594,13 +611,12 @@
          margin-left: 50px;
     }
 
-    .article-t{
-        font-size: 30px;
-        font-weight: bold;
+    #single-article .fa-clock-o{
+        font-size: 17px;
     }
 
-    .thesis{
-        font-size: 20px;
+    .article-t{
+        font-size: 30px;
         font-weight: bold;
     }
 
@@ -661,17 +677,10 @@
         bottom: 0;
         right: 10px;
     }
-    .load-more-btn{
-        margin-left:10%;
-    }
 
     .articles{
         height:auto;
-        padding-bottom: 150px;
-    }
-
-    #feed .container{
-        margin:0px;
+        padding-bottom: 50px;
     }
 
     .search-field{
@@ -684,3 +693,16 @@
     .search-field:focus{
         outline: none;
     }
+
+    .tab-1:focus{
+        font-weight: bold;
+    }
+
+    .tab-2:focus{
+        font-weight: bold;
+    }
+
+    .col-xs-1{
+        padding: 0px;
+    }
+

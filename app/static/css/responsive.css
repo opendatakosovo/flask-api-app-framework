@@ -3,22 +3,10 @@
 /* Large Devices, Wide Screens */
     @media (max-width : 1200px) {
 
-        .video-icon{
-            margin-left: 50%;
-        }
-
         .logo {
             margin-left: 10px;
         }
 
-        #sign-in{
-            margin-right:10px;
-        }
-
-        #sign-up-form{
-            margin-top: -100px;
-            margin-bottom: 100px;
-        }
     }
 
     @media (max-width : 991px) {
@@ -31,21 +19,9 @@
             margin-left: 10px;
         }
 
-        #nav-bar {
-            margin-left: 102px;
-        }
 
         #nav-bar1 {
             margin-left: 0px;
-        }
-
-        #sign-in {
-            margin-right: 10px;
-        }
-
-        #sign-up-form {
-            margin-top: -100px;
-            margin-bottom: 100px;
         }
 
         #articles {
@@ -56,15 +32,6 @@
         .row.latest [class*='col-']:not(:last-child) {
             padding-right: 1.5px;
             padding-left: 1.5px;
-        }
-
-        #nav-bar {
-            margin: 0px;
-        }
-
-        .menu-icons {
-            padding-right: 0px;
-            margin-left: 70px;
         }
 
         .video-icon {
@@ -137,14 +104,6 @@
             width: 180px;
             margin-top: 35px;
             margin-right: 145px;
-        }
-
-        #articles, #nav-bar {
-            margin: 5px 0px 0px -20px;
-        }
-
-        .menu-icons {
-            margin-left: -35px;
         }
 
         #feed #search{
@@ -314,9 +273,6 @@
     /* Custom, iPhone Retina */
     @media (max-width: 320px) {
 
-        #sign-up-form {
-            margin-top: -50px;
-        }
 
         #sign-in {
             display: none;
@@ -335,6 +291,9 @@
             font-size: 16px !important;
         }
 
+        .fa{
+            font-size: 15px;
+        }
         #feed h1 {
             font-size: 2em;
             margin-top: 100px;
@@ -391,9 +350,6 @@
             margin-top: -55px;
         }
 
-        #nav-bar1 .fa{
-            margin: 0;
-        }
 
     }
 
