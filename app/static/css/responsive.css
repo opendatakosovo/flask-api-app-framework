@@ -10,7 +10,9 @@
     }
 
     @media (max-width : 991px) {
-
+        .fa-share-alt, .fa-bookmark-o{
+            font-size: 20px;
+        }
     }
 /*Medium Devices, Desktops */
     @media (max-width: 800px) {
@@ -129,6 +131,15 @@
         #feed .fa {
             font-size: 25px;
         }
+
+        .news, .time{
+            margin-top: 20px;
+        }
+
+        .news{
+            float: right;
+        }
+
     }
 
     @media (max-width: 492px) {
@@ -265,6 +276,23 @@
             margin-right: 0px;
         }
 
+        .news{
+            font-size: 18px!important;
+
+        }
+
+
+        #single-article .fa-bookmark-o,
+        #single-article .fa-bookmark,
+        #single-article .fa-comment-o,
+        #single-article .fa-tag,
+        #single-article .fa-share-alt{
+            font-size: 20px !important;
+        }
+
+        .comment{
+            font-size: 20px;
+        }
 
     }
 
@@ -348,6 +376,14 @@
             height: 27px;
             margin-right: 3px;
             margin-top: -55px;
+        }
+
+        .btn-previous, .btn-reply{
+            width: 100%;
+        }
+
+        .article-t{
+            font-size: 20px;
         }
 
 

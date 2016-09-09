@@ -15,7 +15,6 @@ def article(slug):
     article = content_mongo_utils.get_single_article(slug)
 
     profile = profile_mongo_utils.get_profile(article['author_slug'])
-
     return render_template('mod_article/article_single.html', article=article, profile=profile)
 
 
@@ -94,4 +93,5 @@ def paginated_articles(skip_posts_number, posts_per_page):
     # TODO: Restrict access to only authenticated users
     articles = dumps(content_mongo_utils.get_paginated_articles(skip_posts_number, posts_per_page))
     return Response(response=articles)
+
 
