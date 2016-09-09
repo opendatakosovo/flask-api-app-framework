@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+    <div id="article-bookmarks">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-xs-12">
+                <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Feed</a></li>
+                        <li><a href="{{ url_for('article.my_articles', article_action='') }}">Article management</a></li>
+                        <li><a href="#">Comments</a></li>
+                        <li><a href="#" class="active">Bookmarks</a></li>
+                        <li><a href="#">Following</a></li>
+                        <li><a href="{{ url_for('user.account', slug='slug') }}">Account Details</a></li>
+                    </ul>
+                <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil" ></a>
+            </div>
+        </div>
+
+        <div class="row">
+           <div class="col-md-10 col-md-offset-1">
+                <h3>Bookmarks</h3>
+                <span style="color:red;"> {{ message }} </span>
+            </div>
+        </div>
+
+        <div class="row" >
+            <div class="col-md-10 col-md-offset-1 ">
+
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
