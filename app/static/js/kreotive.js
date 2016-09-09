@@ -8,9 +8,18 @@
          }
      });
 
-});
+     $("#share").popover({
+         html: true,
+         placement: "top",
+         content: function () {
+             return $("#share-social-media").html();
+         }
+     });
 
- function goBack() {
-    window.history.back();
-}
+
+ });
+
+      function goBack() {
+         window.history.back();
+     }
 
