@@ -1,5 +1,4 @@
 from bson.objectid import ObjectId
-from app.mod_profile.mod_views.user import User
 import re
 
 class UserMongoUtils(object):
