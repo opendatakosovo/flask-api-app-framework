@@ -15,24 +15,23 @@ def index():
 
 @mod_superadmin.route('/users', methods=['GET'])
 def users():
-
     users = user_mongo_utils.get_users()
     return render_template('mod_superadmin/users.html', users=users)
 
 
-@mod_superadmin.route('/add_users', methods=['GET','POST'])
+@mod_superadmin.route('/users/add', methods=['GET', 'POST'])
 def add_users():
     error = ""
-    if request.method=='GET':
+    if request.method == 'GET':
         return render_template('mod_superadmin/add_users.html')
-    elif request.method=='POST':
+    elif request.method == 'POST':
         name = request.form['name']
         lastname = request.form['lastname']
         email = request.form["email"]
         password = request.form["password"]
         confirm_password = request.form['confirm_password']
         role = request.form['role']
-        if user_mongo_utils.get_user({"email":email}):
+        if user_mongo_utils.get_user({"email": email}):
             error = "A user with that e-mail already exists in the database"
             return render_template('mod_superadmin/add_users.html', error=error)
         else:
@@ -53,32 +52,38 @@ def add_users():
             error = "User registered, if you want to continue adding users, fill the form and click Add User"
             return render_template('mod_superadmin/add_users.html', error=error)
 
-@mod_superadmin.route('/add_org', methods=['GET','POST'])
-def add_org():
 
-    if request.method=='GET':
+@mod_superadmin.route('/organizations', methods=['GET'])
+def organizations():
+    organizations = org_mongo_utils.get_organizations()
+    return render_template('mod_superadmin/organizations.html', organizations=organizations)
+
+
+@mod_superadmin.route('/organizations/add', methods=['GET', 'POST'])
+def add_org():
+    if request.method == 'GET':
         users = user_mongo_utils.get_users()
         users_list = []
         for user in users:
-            users_list.append(user['user_slug'])
+            users_list.append(user['username'])
         return render_template('mod_superadmin/add_org.html', users_list=users_list)
-    elif request.method=='POST':
+    elif request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
         admin = request.form['org_admin']
 
-        org_slug=slugify(name)
+        org_slug = slugify(name)
 
-        if user_mongo_utils.get_user({"slug":org_slug}):
+        if user_mongo_utils.get_user({"slug": org_slug}):
             error = "A user with that e-mail already exists in the database"
             return render_template('mod_superadmin/add_org.html', error=error)
         else:
 
-           org_json = {
+            org_json = {
                 "name": name,
-                "email":email,
+                "email": email,
                 "active": True,
-                "org_slug":org_slug,
+                "org_slug": org_slug,
                 "org_admin": [slugify(admin)],
             }
 
@@ -86,6 +91,3 @@ def add_org():
 
         error = "Organization is registered, if you want to continue adding organizations, fill the form and click Add Organization"
         return render_template('mod_superadmin/add_org.html', error=error)
-
-
-

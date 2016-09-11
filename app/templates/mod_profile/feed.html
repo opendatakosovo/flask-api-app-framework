@@ -2,12 +2,12 @@
 {% block body %}
 
     <div class="profile-feed">
-        <div class="row text-left">
+       <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <ul>
-                    <li><a href="" class="active">Feed</a></li>
-                    <li><a href="{{ url_for ('profile.about', profile_slug = profile.user_slug ) }}">About me</a></li>
-                    <li><a href="{{ url_for ('profile.archive', profile_slug = profile.user_slug ) }}">All articles</a></li>
+                    <li><a href="{{ url_for ('profile.feed', username =profile.username )}}"  class="active">Feed</a></li>
+                    <li><a href="{{ url_for ('profile.about', username =profile.username )}}">About me</a></li>
+                    <li><a href="{{ url_for ('profile.archive', username =profile.username )}}">All articles</a></li>
                 </ul>
             </div>
         </div>
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        {% if current_user.is_authenticated() %}
+        {% if current_user.is_authenticated %}
 
         <div class="row">
             <div class="col-md-8 col-md-offset-1">
@@ -37,10 +37,10 @@
                         <li><a href="#">Comments</a></li>
                         <li><a href="#">Bookmarks</a></li>
                         <li><a href="#">Following</a></li>
-                        <li><a href="#">Account Details</a></li>
+                        <li><a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account Details</a></li>
                     </ul>
-                <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
-                <a href="{{ url_for('profile.search', profile_slug = profile.user_slug) }}" class="fa fa-search"></a>
+                <a href="{{ url_for('article.new_article', author_type="individual", name=current_user.name, username=current_user.username) }}" class="fa fa-pencil"></a>
+                <a href="{{ url_for('profile.search', username = profile.username) }}" class="fa fa-search"></a>
             </div>
         </div>
 
@@ -76,7 +76,7 @@
 
             $('.load-more-btn').click(function () {
 
-                var url = "{{ url_for('profile.paginated_author_articles',profile_slug=profile.user_slug, skip_posts_number='1111111111', posts_per_page='999999999') }}";
+                var url = "{{ url_for('profile.paginated_author_articles',username=profile.username, skip_posts_number='1111111111', posts_per_page='999999999') }}";
                 var skip_posts_number = parseInt($(this).attr("data-skip-posts-number"));
                 var number_of_posts = parseInt($(this).data("posts-per-page"));
                 var post_url = url.replace("1111111111", skip_posts_number).replace("999999999", number_of_posts);
@@ -114,11 +114,12 @@
 
             var styleClass = getArticleDivClass(idx);
             var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
-            article_slug_url = article_slug.replace('article_slug', article['slug']);
+            var article_slug_url = article_slug.replace('article_slug', article['slug']);
+            var article_avatar_url = "{{ url_for('static',filename='')}}" + article['avatar_url'];
             var divHTML = '' +
                     '<div class="article ' + styleClass + ' text-type text-type1" style="padding-right: 0;">' +
+                    '<img src="' + article_avatar_url + '" class="img-circle img-responsive profil"/>' +
                     '<a href="' + article_slug_url + '">' +
-                    '<img src="' + "{{ url_for('static', filename='img/prof1.jpg')}}" + '" class="img-circle img-responsive profil"/>' +
                     '<h3 class="article-title">' + article['title'] + '</h3>' +
                     '</a>' +
                     '<i class="fa fa-file-text-o article-type" aria-hidden="true"></i>' +

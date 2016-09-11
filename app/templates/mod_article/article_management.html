@@ -5,56 +5,77 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1 col-xs-12">
                 <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Feed</a></li>
-                        <li><a href="{{ url_for('article.my_articles', article_action='') }}" class="active">Article management</a></li>
-                        <li><a href="#">Comments</a></li>
-                        <li><a href="#">Bookmarks</a></li>
-                        <li><a href="#">Following</a></li>
-                        <li><a href="{{ url_for('user.account', slug='slug') }}">Account Details</a></li>
-                    </ul>
-                <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil" ></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Feed</a></li>
+                    <li><a href="{{ url_for('article.my_articles', article_action='') }}" class="active">Article
+                        management</a></li>
+                    <li><a href="#">Comments</a></li>
+                    <li><a href="#">Bookmarks</a></li>
+                    <li><a href="#">Following</a></li>
+                    <li><a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account
+                        Details</a></li>
+                </ul>
+                <a href="{{ url_for('article.new_article', author_type='individual', name=current_user.name, username=current_user.username) }}"
+                   class="fa fa-pencil"></a>
             </div>
         </div>
 
         <div class="row">
-           <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-10 col-md-offset-1">
                 <h3>Article Management</h3>
                 <span style="color:red;"> {{ message }} </span>
             </div>
         </div>
-        
-        <div class="row" >
+
+        <div class="row">
             <div class="col-md-10 col-md-offset-1 article-visibility">
-            
-            {% for article in articles %}
-                <div id="{{ article['_id'] }}" class="col-md-12 manage-line" style="">
-                    
+
+                {% for article in articles %}
+                    <div id="{{ article['_id'] }}" class="col-md-12 manage-line" style="">
+
                         <div class="col-md-9">
                             <div class="col-md-9">
-                                <h3 style="font-size: 20px; padding-bottom: 5px;">{{ article['title'] }}</h3>
+                                {% if article['published'] == False %}
+                                    <a href="{{ url_for('article.article',slug=article['slug']) }}">
+                                        <h3 style="font-size: 20px; padding-bottom: 5px;">(DRAFT)
+                                            - {{ article['title'] }}
+                                        </h3>
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('article.article',slug=article['slug']) }}">
+                                        <h3 style="font-size: 20px; padding-bottom: 5px;">{{ article['title'] }}</h3>
+                                    </a>
+                                {% endif %}
                             </div>
                             <div class="col-md-3">
-                                <h3 style="font-size: 14px" datetime="2016-07-20T12:39">{% if article['published_date'] %} {{ article['published_date'].strftime('%Y-%m-%d %H:%M') }} {% endif %}</h3>
+                                <h3 style="font-size: 14px" datetime="2016-07-20T12:39">
+                                    {% if article['published_date'] %}
+                                        {{ article['published_date'].strftime('%Y-%m-%d %H:%M') }}
+                                    {% endif %}
+                                </h3>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                        {% if article['visible'] == True %}
-                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=False) }}">
-                                <i class="fa fa-eye "></i>
+                        <div class="col-md-3 visible-article">
+                            {% if article['visible'] == True %}
+                                <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=False) }}">
+                                    <i class="fa fa-eye "></i>
+                                </a>
+                            {% elif article['visible'] == False %}
+                                <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=True) }}">
+                                    <i class="fa fa-eye-slash"></i>
+                                </a>
+                            {% endif %}
+                            <a href="{{ url_for('article.delete_article', article_id = article._id) }}">
+                                <i class="fa fa-trash-o"></i>
                             </a>
-                        {% elif article['visible'] == False %}
-                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=True) }}">
-                                <i class="fa fa-eye-slash"></i>
+                            <a href="">
+                                <i class=" fa fa-pencil-square-o"></i>
                             </a>
-                        {% endif %}
-                            <i class=" fa fa-trash-o"></i>
-                        
-                        
+
                         </div>
-                    
-                </div>
-            {% endfor %}
+
+                    </div>
+                {% endfor %}
             </div>
             <div class="col-md-2">
             </div>

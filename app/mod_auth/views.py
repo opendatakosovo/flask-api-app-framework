@@ -31,6 +31,7 @@ def sign_up():
                     "name": name,
                     "lastname": lastname,
                     "email": email,
+                    "username": name+lastname,
                     "password": bcrypt.generate_password_hash(password, rounds=12),
                     "active": True,
                     "user_slug": slugify(name + ' ' + lastname),
@@ -52,36 +53,32 @@ def sign_up():
 
 @mod_auth.route('/login', methods=["POST", "GET"])
 def login():
-    if current_user.is_authenticated():
-        return redirect(url_for('main.feed'))
-    else:
-        error = ""
-        if request.method == "GET":
-            return render_template('mod_auth/log_in.html')
-        elif request.method == "POST":
-            email = request.form['email']
-            password = request.form['password']
+    if request.method == "GET":
+        return render_template('mod_auth/log_in.html')
+    elif request.method == "POST":
+        email = request.form['email']
+        password = request.form['password']
 
-            user_input = user_mongo_utils.get_user(email=email)
-            if user_input is None:
-                error = 'Please write both username and password', 'error'
+        user_input = user_mongo_utils.get_user(email=email)
+        if user_input is None:
+            error = 'Please write both username and password', 'error'
+            return render_template('mod_auth/log_in.html', error=error)
+        elif user_input != None:
+            password_check = bcrypt.check_password_hash(user_input.password, password)
+            email_check = True if user_input.email == email else False
+            if not email_check:
+                error = 'Wrong email'
                 return render_template('mod_auth/log_in.html', error=error)
-            elif user_input != None:
-                password_check = bcrypt.check_password_hash(user_input.password, password)
-                email_check = True if user_input.email == email else False
-                if not email_check:
-                    error = 'Wrong email'
-                    return render_template('mod_auth/log_in.html', error=error)
-                elif not password_check:
-                    error = 'Wrong password'
-                    return render_template('mod_auth/log_in.html', error=error)
-                elif password_check and email_check:
-                    login_user(user_input)
-                    # Tell Flask-Principal the identity changed
-                    identity_changed.send(current_app._get_current_object(),
-                                          identity=Identity(current_user.id))
-                    # print current_user.is_authenticated()
-                    return redirect(url_for('main.feed'))
+            elif not password_check:
+                error = 'Wrong password'
+                return render_template('mod_auth/log_in.html', error=error)
+            elif password_check and email_check:
+                login_user(user_input)
+                # Tell Flask-Principal the identity changed
+                identity_changed.send(current_app._get_current_object(),
+                                      identity=Identity(current_user.id))
+                # print current_user.is_authenticated()
+                return redirect(url_for('main.feed'))
 
 
 @login_required

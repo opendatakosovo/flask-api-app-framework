@@ -4,7 +4,7 @@
     <section id="feed">
         {% include "unregistered.html" %}
 
-        {% if current_user.is_authenticated() %}
+        {% if current_user.is_authenticated %}
 
 
             <nav id="nav-bar1" style="margin-top: 100px;">
@@ -28,12 +28,14 @@
                         {% endif %}
                     </div>
                     <div class="col-md-1 col-sm-1 col-xs-1 text-center">
-                        {% if current_user.is_authenticated() %}
-                            <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('article.new_article', author_type='individual', name=current_user.name , username=current_user.username) }}"
+                               class="fa fa-pencil"></a>
                         {% endif %}
                     </div>
                     <div class="col-md-1 col-sm-1 col-xs-1 text-center">
-                        <a href="" class="fa fa-search " aria-hidden="true" id="search1"
+                        <a href="{{ url_for('main.search_organizations') }}" class="fa fa-search " aria-hidden="true"
+                           id="search1"
                            style="margin-left: 0px;"></a>
                     </div>
                     <div class="col-md-1 col-md-offset-5 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-right">
@@ -63,7 +65,8 @@
                 <br><br>
                 <div class="row">
                     <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-search" aria-hidden="true" id="search"></a>
+                        <a href="{{ url_for('main.search_organizations') }}" class="fa fa-search" aria-hidden="true"
+                           id="search"></a>
                     </div>
                     <div class="col-md-1 col-md-offset-7 col-sm-1 col-sm-offset-7 col-xs-1 col-xs-offset-6 text-right">
                         <a href="" class="fa fa-file-video-o " aria-hidden="true" id="video-type"
@@ -105,9 +108,9 @@
 
                     posting.done(function (data) {
                         var posts = jQuery.parseJSON(data);
-                        if(posts.length > 0){
+                        if (posts.length > 0) {
                             loadMoreArticles(posts);
-                        }else{
+                        } else {
                             $('.load-more-btn').text("No more posts");
                         }
 
@@ -131,21 +134,26 @@
 
             }
 
-
             function feedTheFeed(article, idx) {
 
                 var styleClass = getArticleDivClass(idx);
                 var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
                 var article_slug_url = article_slug.replace('article_slug', article['slug']);
+                var article_avatar_url = "{{ url_for('static',filename='')}}" + article['avatar_url'];
+                var profile_url = "{{ url_for('profile.feed',username='username') }}".replace('username',article['username']);
+
 
                 var divHTML = '' +
                         '<div class="article ' + styleClass + ' text-type text-type1" style="padding-right: 0;">' +
+                        '<a href="' + profile_url + '">' +
+                        '<img src="' + article_avatar_url + '" class="img-circle img-responsive profil"/>' +
+                        '</a>' +
                         '<a href="' + article_slug_url + '">' +
-                        '<img src="' + "{{ url_for('static', filename='img/prof1.jpg')}}" + '" class="img-circle img-responsive profil"/>' +
                         '<h3 class="article-title">' + article['title'] + '</h3>' +
                         '</a>' +
                         '<i class="fa fa-file-text-o article-type" aria-hidden="true"></i>' +
-                        '</div>'
+                        '</div>';
+
 
                 $('.latest').append(divHTML);
             }
@@ -184,8 +192,9 @@
 
         <div class="row text-center">
             <div class="col-md-10 col-md-offset-1">
-                 <button class="btn load-more-btn " data-skip-posts-number="6" data-posts-per-page="6">Load
-                more</button>
+                <button class="btn load-more-btn " data-skip-posts-number="6" data-posts-per-page="6">Load
+                    more
+                </button>
             </div>
         </div>
 

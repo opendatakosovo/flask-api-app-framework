@@ -1,83 +1,83 @@
-from flask import Blueprint, render_template, request, Response
-from app import profile_mongo_utils, content_mongo_utils, user_mongo_utils
-from bson.json_util import dumps
+from flask import Blueprint
+from mod_views.user import User
+from mod_views.profile import Profile
+from flask.ext.login import login_required
 
 mod_profile = Blueprint('profile', __name__, url_prefix='/profile')
 
+profile = Profile()
 
-@mod_profile.route('/<profile_slug>/archive', methods=['GET'])
-def archive(profile_slug):
-    ''' Loads the article archive page.
-    '''
+'''
+    Profile
+'''
+# Article archive page
 
-    # get the profile object for the given slug
-    profile = user_mongo_utils.get_user_by_slug(profile_slug)
+mod_profile.add_url_rule(
+    '/<string:username>/archive',
+    methods = ['GET'],
+    view_func=profile.archive)
 
-    # TODO: load feed content for given slug
-    feed = content_mongo_utils.get_authors_articles(profile.id)
+# Article archive page
 
-    return render_template('mod_profile/archive.html', profile=profile, feed=feed)
+mod_profile.add_url_rule(
+    '/<string:username>/search',
+    methods = ['GET'],
+    view_func=profile.search)
 
+# Profile about page
+mod_profile.add_url_rule(
+    '/<string:username>/about',
+    methods = ['GET'],
+    view_func=profile.about)
 
-@mod_profile.route('/<profile_slug>/about', methods=['GET'])
-def about(profile_slug):
-    ''' Loads the about page.
-    '''
-
-    # get the profile object for the given slug
-    profile = user_mongo_utils.get_user_by_slug(profile_slug)
-
-    return render_template('mod_profile/about.html', profile=profile)
-
-
-@mod_profile.route('/<profile_slug>', methods=['GET'])
-def feed(profile_slug):
-    ''' Loads the feed page.
-    '''
-
-    # get the profile object for the given slug
-    profile = user_mongo_utils.get_user_by_slug(profile_slug)
-
-    # TODO: load feed content for given slug
-
-    feed = dumps(content_mongo_utils.get_authors_paginated_articles(profile.id, 0, 6))
-
-    return render_template('mod_profile/feed.html', profile=profile, feed=feed)
+# Profile feed page
+mod_profile.add_url_rule(
+    '/<string:username>',
+    methods = ['GET'],
+    view_func=profile.feed)
 
 
-@mod_profile.route('/<profile_slug>/follow', methods=['POST'])
-def follow(profile_slug):
-    '''
-    TODO:
-        1. Get POST reuqest body JSON
-        2. Get the SLUG of the follower.
-        3. Implement profile_mongo_utils.add_follower()
-        4. Call profile_mongo_utils.add_follower()
-        5. Check if it adds the follower slug in the document.
-        6. Implement profile_mongo_utils.remove_follower()
-    '''
+# Follow a profile
+mod_profile.add_url_rule(
+    '/<string:username>/follow',
+    methods=['POST'],
+    view_func=profile.follow)
 
-    follower_slug = request.json["follower"]
-    profile_mongo_utils.add_follower(profile_slug, follower_slug)
-    resp = Response(status=200)
+# Paginated articles of a specific profile
+mod_profile.add_url_rule(
+    '/articles/<string:username>/<int:skip_posts_number>/<int:posts_per_page>',
+    methods=['POST'],
+    view_func=profile.paginated_author_articles)
 
-    return resp
+# Profile account settings
+mod_profile.add_url_rule(
+    '/<string:username>/settings',
+    methods=['GET', 'POST'],
+    view_func=profile.profile_settings)
 
-@mod_profile.route('/articles/<profile_slug>/<int:skip_posts_number>/<int:posts_per_page>', methods=['POST'])
-def paginated_author_articles(profile_slug,skip_posts_number, posts_per_page):
-    # TODO: Restrict access to only authenticated users
-     # get the profile object for the given slug
-    profile = user_mongo_utils.get_user_by_slug(profile_slug)
-    articles = dumps(content_mongo_utils.get_authors_paginated_articles(profile.id, skip_posts_number, posts_per_page))
-    return Response(response=articles)
+# Articles of a profile/author
+mod_profile.add_url_rule(
+    '/<string:username>/articles',
+    methods=['GET', 'POST'],
+    view_func=profile.articles)
 
-@mod_profile.route('/<profile_slug>/search', methods=['GET'])
-def search(profile_slug):
-    ''' Loads the article archive page.
-    '''
+#Profile articles
+mod_profile.add_url_rule(
+    '/<string:username>/articles',
+    methods=['GET'],
+    view_func=profile.articles)
 
-    # get the profile object for the given slug
-    profile = user_mongo_utils.get_user_by_slug(profile_slug)
+mod_profile.add_url_rule(
+    '/<string:username>/memberships',
+    methods=["GET"],
+    view_func=profile.memberships)
 
-    return render_template('mod_profile/search.html', profile=profile)
+mod_profile.add_url_rule(
+    '/upload',
+    methods=["GET", 'POST'],
+    view_func=profile.upload_avatar)
 
+mod_profile.add_url_rule(
+    '/photo/<filename>',
+    methods=["GET"],
+    view_func=profile.get_avatar_url)

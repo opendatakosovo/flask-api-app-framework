@@ -282,10 +282,6 @@
         margin-right: 50px;
     }
 
-    .fa-eye:before {
-        margin-left: 70px;
-    }
-
     #article-management button{
         background: transparent;
         border: none;
@@ -380,16 +376,14 @@
 
 
     .avatar{
-        width: 90px;
+        width: 100px;
+        height: 100px;
         margin-left: 10%;
         margin-top: 170px;
 
 
     }
-
-
     .change-avatar{
-        width: 70%;
         background-color: #3498db;
         border: none;
         height: 35px;
@@ -526,8 +520,9 @@
         font-size: 30px;
     }
 
-    .profile-img{
-        width: 50px;
+    .profile-img {
+        width: 40px;
+        height: 40px;
         margin-top: 13px;
     }
 
@@ -580,7 +575,6 @@
 
     #single-article .org{
         font-size: 30px;
-         margin-left: -70px;
     }
 
     #single-article .author{
@@ -762,4 +756,23 @@
     .col-xs-1{
         padding: 0px;
     }
-
+    .col-md-3.visible-article {
+        /*padding-left: 12%;*/
+    }
+    .fa-pencil-square-o{
+        padding-left:20px;
+    }
+    .search-img-item {
+        height: 36px;
+        position: absolute;
+        right: 0;
+    }
+    .search-item {
+        padding-top: 16px;
+    }
+    .search-title {
+        color: black;
+    }
+    .active{
+        color:blue;
+    }

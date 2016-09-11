@@ -70,13 +70,21 @@
                     </li>
 
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#users"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="users" class="collapse">
                             <li>
                                <a href="{{ url_for('superadmin.users') }}"><i class="fa fa-fw fa-user"></i> All users</a>
                             </li>
                             <li>
                                 <a href="{{ url_for('superadmin.add_users') }}"><i class="fa fa-fw fa-user"></i> Add user</a>
+                            </li>
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#organizations"><i class="fa fa-fw fa-arrows-v"></i> Organizations <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="organizations" class="collapse">
+                            <li>
+                                <a href="{{ url_for('superadmin.organizations') }}"><i class="fa fa-fw fa-user"></i> All organization</a>
                             </li>
                             <li>
                                 <a href="{{ url_for('superadmin.add_org') }}"><i class="fa fa-fw fa-user"></i> Add organization</a>

@@ -4,7 +4,8 @@ import ConfigParser
 from logging.handlers import RotatingFileHandler
 from flask.ext.pymongo import PyMongo
 from app.utils.profile_mongo_utils import ProfileMongoUtils
-from app.utils.user_mongo_utils import UserMongoUtils, Anonymous, User, Roles
+from app.utils.user_mongo_utils import UserMongoUtils
+from app.mod_profile.mod_views.user import User, Roles, UserDataStore
 from app.utils.content_mongo_utils import ContentMongoUtils
 from app.utils.org_mongo_utils import OrgMongoUtils
 from flask.ext.bcrypt import Bcrypt
@@ -13,6 +14,7 @@ from flask.ext.security import Security, current_user
 from flask.ext.social import Social
 from flask.ext.principal import Principal
 from bson.objectid import ObjectId
+from os.path import join, dirname, realpath
 
 login_manager = LoginManager()
 
@@ -31,6 +33,9 @@ principal = Principal()
 
 # Create flask-social object
 social = Social()
+
+upload_folder = join(dirname(realpath(__file__)), 'static/uploads/')
+allowed_extensions = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 # Initialize mongo utils access points
 profile_mongo_utils = ProfileMongoUtils(mongo)
@@ -69,22 +74,13 @@ def create_app():
 
 def configure_login_manager(app):
     # Init flask-security
-    security.init_app(app)
+    security.init_app(app, UserDataStore)
 
     # Init flask-social
     social.init_app(app)
 
-    # Init Login Manager
-    login_manager.init_app(app)
-
-    # Set the default user login view
-    login_manager.login_view = 'mod_user.login'
-
-    # Set the anonymous user class
-    login_manager.anonymous_user = Anonymous
-
-    # Set the user class
-    login_manager.user = User
+    app.config['SECURITY_LOGIN_URL'] = '/auth/login'
+    app.config['SECURITY_LOGIN_USER_TEMPLATE'] = 'mod_auth/log_in.html'
 
 
 @login_manager.user_loader
@@ -122,6 +118,9 @@ def load_config(app):
         'consumer_key': config.get('SOCIAL', 'FACEBOOK_CONSUMER_KEY'),
         'consumer_secret': config.get('SOCIAL', 'FACEBOOK_CONSUMER_SECRET')
     }
+
+    app.config['UPLOAD_FOLDER'] = upload_folder
+    app.config['ALLOWED_EXTENSIONS'] = allowed_extensions
 
     app.config['SOCIAL_GOOGLE'] = {
         'consumer_key': config.get('SOCIAL', 'GOOGLE_CONSUMER_KEY'),
@@ -166,7 +165,6 @@ def init_modules(app):
     # Import blueprint modules
     from app.mod_main.views import mod_main
     from app.mod_profile.views import mod_profile
-    from app.mod_user.views import mod_user
     from app.mod_auth.views import mod_auth
     from app.mod_superadmin.views import mod_superadmin
     from app.mod_article.views import mod_article
@@ -175,7 +173,6 @@ def init_modules(app):
 
     app.register_blueprint(mod_main)
     app.register_blueprint(mod_profile)
-    app.register_blueprint(mod_user)
     app.register_blueprint(mod_auth)
     app.register_blueprint(mod_superadmin)
     app.register_blueprint(mod_article)
