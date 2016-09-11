@@ -5,7 +5,7 @@ from logging.handlers import RotatingFileHandler
 from flask.ext.pymongo import PyMongo
 from app.utils.profile_mongo_utils import ProfileMongoUtils
 from app.utils.user_mongo_utils import UserMongoUtils
-from app.mod_profile.mod_views.user import User, Roles, UserDataStore
+from app.mod_profile.mod_views.user import UserDataStore
 from app.utils.content_mongo_utils import ContentMongoUtils
 from app.utils.org_mongo_utils import OrgMongoUtils
 from flask.ext.bcrypt import Bcrypt

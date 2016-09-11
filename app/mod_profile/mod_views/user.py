@@ -1,6 +1,5 @@
 # coding=utf-8
-from flask.ext.security import UserMixin, RoleMixin, current_user
-# from flask.ext.login import AnonymousUserMixin
+from flask.ext.security import UserMixin, RoleMixin
 import datetime
 from werkzeug.security import check_password_hash
 
