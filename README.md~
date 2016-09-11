@@ -78,8 +78,8 @@ sudo service apache2 restart
 
 ### 2. Local Installation (UBUNTU)
 
-
-First create a folder in your desktop called dev:
+Create a folder:
+First create a folder in your desktop called dev.
 ```
 cd ~
 mkdir dev
