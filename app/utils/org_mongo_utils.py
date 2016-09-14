@@ -29,3 +29,9 @@ class OrgMongoUtils(object):
         org_cursor = self.mongo.db[self.org_collection] \
             .find()
         return org_cursor
+
+    def find_org(self,keyword):
+
+        find_org_result = self.mongo.db[self.org_collection] \
+            .find({'$text': {'$search': keyword}})
+        return find_org_result

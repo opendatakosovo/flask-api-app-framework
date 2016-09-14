@@ -144,3 +144,10 @@ class UserMongoUtils(object):
     def get_avatar_url(self, username):
         return self.mongo.db[self.users_collection] \
             .find_one({"username": username})['avatar_url']
+
+    def find_user(self, keyword):
+
+        find_user_result=self.mongo.db[self.users_collection] \
+            .find({'$text': {'$search': keyword}})
+
+        return find_user_result

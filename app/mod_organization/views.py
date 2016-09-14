@@ -4,7 +4,7 @@ from app import org_mongo_utils
 
 mod_organization = Blueprint('organization', __name__, url_prefix='/organization')
 
-@login_required
+
 @mod_organization.route('/<organization_slug>', methods=['GET'])
 def feed(organization_slug):
 
@@ -14,7 +14,6 @@ def feed(organization_slug):
 
     return render_template('mod_organization/feed.html', organization=organization, feed=feed)
 
-@login_required
 @mod_organization.route('/<organization_slug>/about', methods=['GET'])
 def about(organization_slug):
 

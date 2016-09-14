@@ -1,6 +1,19 @@
 {% extends "layout.html" %}
 {% block body %}
     <!--About Section-->
+    <script>
+        $(document).ready(function () {
+            $('#search-people').on('keypress', function (e) {
+                if (e.which == 13) {//Enter key pressed
+                    var query = $('#search-people').val();
+                    var url = "{{ url_for('main.search_people') }}" + '?q=' + query;
+                    window.location = url;
+                }
+            });
+        });
+
+    </script>
+
     <section id="feed">
         {% include "unregistered.html" %}
 
@@ -34,28 +47,12 @@
                         {% endif %}
                     </div>
                     <div class="col-md-1 col-sm-1 col-xs-1 text-center">
-                        <a href="" class="fa fa-search " aria-hidden="true" id="search1"
+                        <a href="{{ url_for('main.search_organizations') }}" class="fa fa-search " aria-hidden="true" id="search1"
                            style="margin-left: 0px;"></a>
                     </div>
-                    <div class="col-md-1 col-md-offset-5 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-right">
-                        <a href="" class="fa fa-file-video-o" aria-hidden="true" id="video-type1"
-                           data-toggle="tooltip" title="Filter by video"></a>
+                    <div class="col-md-5 col-sm-5 col-xs-5">
+                        <input type="text" id="search-people" class="search-field" placeholder="Search for people"/>
                     </div>
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-file-audio-o" aria-hidden="true" id="audio-type1"
-                           data-toggle="tooltip" title="Filter by audio"></a>
-                    </div>
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-file-text-o" aria-hidden="true" id="text-type1"
-                           data-toggle="tooltip" title="Filter by text"></a>
-                    </div>
-
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-paperclip" aria-hidden="true" id="attach-type1"
-                           data-toggle="tooltip" title="Filter by attachment"></a>
-                    </div>
-
-
                 </div>
             </nav>
 
@@ -64,25 +61,11 @@
                 <br><br>
                 <div class="row">
                     <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="{{ url_for('main.search') }}" class="fa fa-search" aria-hidden="true" id="search"></a>
-                    </div>
-                    <div class="col-md-1 col-md-offset-7 col-sm-1 col-sm-offset-7 col-xs-1 col-xs-offset-6 text-right">
-                        <a href="" class="fa fa-file-video-o " aria-hidden="true" id="video-type"
-                           data-toggle="tooltip" title="Filter by video"></a>
+                        <a href="#" class="fa fa-search" aria-hidden="true" id="search"></a>
                     </div>
 
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-file-audio-o " aria-hidden="true" id="audio-type"
-                           data-toggle="tooltip" title="Filter by audio"></a>
-                    </div>
-
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-file-text-o " aria-hidden="true" id="text-type"
-                           data-toggle="tooltip" title="Filter by text"></a>
-                    </div>
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-paperclip " aria-hidden="true" id="attach-type"
-                           data-toggle="tooltip" title="Filter by attachment"></a>
+                    <div class="col-md-5 col-sm-5 col-xs-5">
+                        <input type="text" id="search-people" class="search-field" placeholder="Search for people"/>
                     </div>
 
                 </div>
@@ -109,19 +92,16 @@
             </div>
         </div>
         <div class="row">
-
             {% for user in users %}
                 <div class="search-item row">
                     <div class="col-md-1 col-md-offset-2">
                         <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">
                     </div>
                     <div class="col-md-6">
-                        <h4 class="search-result-title">{{ user.name }}</h4>
+                        <a href="{{ url_for('profile.feed', username=user.username) }}"><h4 class="search-result-title">{{ user.name }}, {{ user.lastname }}</h4></a>
                     </div>
                 </div>
-
             {% endfor %}
-
         </div>
 
     </section>

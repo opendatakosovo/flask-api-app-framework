@@ -328,9 +328,10 @@
         border: none;
     }
 
-    .dropdown-menu .active{
+    .active{
         font-weight: bold;
     }
+
 
     .personal-data{
         width: 80%;
@@ -770,9 +771,14 @@
     .search-item {
         padding-top: 16px;
     }
+
+    .search-item.row a{
+        color: #000;
+    }
+
     .search-title {
         color: black;
     }
     .active{
-        color:blue;
+        font-weight: bold;
     }

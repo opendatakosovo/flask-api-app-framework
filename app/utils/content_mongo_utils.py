@@ -26,6 +26,14 @@ class ContentMongoUtils(object):
 
         return articles
 
+    def find_article(self, keyword):
+        """ Find articles from the database.
+        :param keyword: the keyword we want to search based on.
+        :rtype: MongoDB Cursor with all the articles
+        """
+        find_result = self.mongo.db[self.content_collection].find( { '$text': { '$search': keyword } } )
+        return find_result
+
     def delete_article(self, id):
         """ Delete article from the database.
         :rtype: MongoDB Cursor with all the articles
@@ -95,8 +103,9 @@ class ContentMongoUtils(object):
         """
         if visible == 'True':
             update = self.mongo.db[self.content_collection] \
-            .update({"_id": ObjectId(article_id)}, {'$set': {"visible": True}})
+                .update({"_id": ObjectId(article_id)}, {'$set': {"visible": True}})
         elif visible == 'False':
             update = self.mongo.db[self.content_collection] \
-            .update({"_id": ObjectId(article_id)}, {'$set': {"visible": False}})
+                .update({"_id": ObjectId(article_id)}, {'$set': {"visible": False}})
         return update
+

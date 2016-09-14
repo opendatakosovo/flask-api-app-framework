@@ -88,10 +88,6 @@
             margin-right: 90px;
         }
 
-        .article-title {
-            margin: -150px 5px;
-        }
-
         .row-margin {
             margin-left: 0px;
         }
@@ -228,7 +224,6 @@
 
         .article-title {
             font-size: 1.1em;
-            margin-top: -160px;
         }
 
         .icon {
@@ -367,7 +362,6 @@
 
         .article-title {
             font-size: 12px;
-            margin: -150px 10px;
         }
 
         #articles .play-pause {
