@@ -2,8 +2,8 @@ from bson.objectid import ObjectId
 import re
 from app.mod_profile.mod_views.user import User
 
-class UserMongoUtils(object):
 
+class UserMongoUtils(object):
     def __init__(self, mongo):
         self.mongo = mongo
         self.users_collection = 'users'
@@ -24,7 +24,7 @@ class UserMongoUtils(object):
          :rtype: Mongo Cursor
         """
         result = self.mongo.db[self.users_collection] \
-            .update(condition, {"$set":update_json})
+            .update(condition, {"$set": update_json})
         return result
 
     def add_user(self, user):
@@ -38,35 +38,39 @@ class UserMongoUtils(object):
         user['about_me'] = ""
         user['role'] = "individual"
         user['avatar_url'] = ""
-        user['username'] = re.sub("[!@#$%^&*()[]{};:,./<>?\|`~-=_+ ]", "", user['username']).replace(' ','').lower()
+        user['people_following'] = []
+        user['people_followers'] = []
+        user['org_following'] = []
+        user['username'] = re.sub("[!@#$%^&*()[]{};:,./<>?\|`~-=_+ ]", "", user['username']).replace(' ', '').lower()
         self.mongo.db[self.users_collection] \
-                .insert(user)
+            .insert(user)
         return True
 
     def change_avatar(self, username, avatar_url):
         self.mongo.db[self.users_collection] \
-            .update({"username":username},{"$set":{"avatar_url": avatar_url}})
+            .update({"username": username}, {"$set": {"avatar_url": avatar_url}})
         return True
+
     def get_role_id(self, name):
         role = self.mongo.db[self.roles_collection] \
-            .find_one({"name":name})
+            .find_one({"name": name})
         if role != None:
             return ObjectId(role['_id'])
         else:
 
             # Add role
             self.mongo.db[self.roles_collection] \
-            .insert({"name": name,'description': name})
+                .insert({"name": name, 'description': name})
 
             # Get role
             role = self.mongo.db[self.roles_collection] \
-            .find_one({"name":name})
+                .find_one({"name": name})
 
             return ObjectId(role['_id'])
 
     def get_user(self, email):
         user_cursor = self.mongo.db[self.users_collection] \
-            .find_one({"email":email})
+            .find_one({"email": email})
         if user_cursor is None:
             return None
         else:
@@ -76,15 +80,18 @@ class UserMongoUtils(object):
                 lastname=user_cursor['lastname'],
                 is_active=user_cursor['active'],
                 email=user_cursor['email'],
-                password=user_cursor['password'] ,
-                roles = user_cursor['roles'],
+                password=user_cursor['password'],
+                roles=user_cursor['roles'],
                 role=user_cursor['role'],
                 username=user_cursor['username'],
-                location= user_cursor['location'],
-                telephone= user_cursor['telephone'],
-                mobile = user_cursor['mobile'],
-                about_me = user_cursor['about_me'],
-                avatar_url = user_cursor['avatar_url']
+                location=user_cursor['location'],
+                telephone=user_cursor['telephone'],
+                mobile=user_cursor['mobile'],
+                about_me=user_cursor['about_me'],
+                avatar_url=user_cursor['avatar_url'],
+                people_followers=user_cursor['people_followers'],
+                people_following=user_cursor['people_following'],
+                org_following=user_cursor['org_following']
             )
             return user_instance
 
@@ -92,29 +99,33 @@ class UserMongoUtils(object):
         users = self.mongo.db[self.users_collection] \
             .find()
         return users
+
     def get_user_by_username(self, username):
         user_cursor = self.mongo.db[self.users_collection] \
-            .find_one({"username":username})
+            .find_one({"username": username})
         if user_cursor is None:
             return None
         else:
-           user_instance = User(
+            user_instance = User(
                 id=unicode(user_cursor['_id']),
                 name=user_cursor['name'],
                 lastname=user_cursor['lastname'],
                 is_active=user_cursor['active'],
                 email=user_cursor['email'],
-                password=user_cursor['password'] ,
-                roles = user_cursor['roles'],
+                password=user_cursor['password'],
+                roles=user_cursor['roles'],
                 role=user_cursor['role'],
                 username=user_cursor['username'],
-                location= user_cursor['location'],
-                telephone= user_cursor['telephone'],
-                mobile = user_cursor['mobile'],
-                about_me = user_cursor['about_me'],
-                avatar_url = user_cursor['avatar_url']
+                location=user_cursor['location'],
+                telephone=user_cursor['telephone'],
+                mobile=user_cursor['mobile'],
+                about_me=user_cursor['about_me'],
+                avatar_url=user_cursor['avatar_url'],
+                people_followers=user_cursor['people_followers'],
+                people_following=user_cursor['people_following'],
+                org_following=user_cursor['org_following']
             )
-           return user_instance
+        return user_instance
 
     def get_user_by_id(self, id):
         user_cursor = self.mongo.db[self.users_collection] \
@@ -127,15 +138,18 @@ class UserMongoUtils(object):
                 lastname=user_cursor['lastname'],
                 is_active=user_cursor['active'],
                 email=user_cursor['email'],
-                password=user_cursor['password'] ,
-                roles = user_cursor['roles'],
+                password=user_cursor['password'],
+                roles=user_cursor['roles'],
                 role=user_cursor['role'],
                 username=user_cursor['username'],
-                location= user_cursor['location'],
-                telephone= user_cursor['telephone'],
-                mobile = user_cursor['mobile'],
-                about_me = user_cursor['about_me'],
-                avatar_url = user_cursor['avatar_url']
+                location=user_cursor['location'],
+                telephone=user_cursor['telephone'],
+                mobile=user_cursor['mobile'],
+                about_me=user_cursor['about_me'],
+                avatar_url=user_cursor['avatar_url'],
+                people_followers=user_cursor['people_followers'],
+                people_following=user_cursor['people_following'],
+                org_following=user_cursor['org_following']
             )
         else:
             return None
@@ -144,3 +158,36 @@ class UserMongoUtils(object):
     def get_avatar_url(self, username):
         return self.mongo.db[self.users_collection] \
             .find_one({"username": username})['avatar_url']
+
+    def add_follower(self, follower_username, followee_username, action):
+        if action == 'follow':
+            added_follower_to_current_user = self.mongo.db[self.users_collection].update(
+                {"username": followee_username},
+                {"$addToSet": {"people_followers": follower_username}}
+            )
+
+            added_followee_to_the_user_ = self.mongo.db[self.users_collection].update(
+                {"username": follower_username},
+                {"$addToSet": {"people_following": followee_username}}
+            )
+
+            if added_followee_to_the_user_['updatedExisting'] and added_follower_to_current_user['updatedExisting']:
+                return True
+            else:
+                return False
+        elif action == 'unfollow':
+            print action
+            added_follower_to_current_user = self.mongo.db[self.users_collection].update(
+                {"username": followee_username},
+                {"$pull": {"people_followers": follower_username}}
+            )
+
+            added_followee_to_the_user_ = self.mongo.db[self.users_collection].update(
+                {"username": follower_username},
+                {"$pull": {"people_following": followee_username}}
+            )
+
+            if added_followee_to_the_user_['updatedExisting'] and added_follower_to_current_user['updatedExisting']:
+                return True
+            else:
+                return False

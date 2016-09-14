@@ -39,7 +39,7 @@ mod_profile.add_url_rule(
 
 # Follow a profile
 mod_profile.add_url_rule(
-    '/<string:username>/follow',
+    '/<string:username>/<string:action>',
     methods=['POST'],
     view_func=profile.follow)
 

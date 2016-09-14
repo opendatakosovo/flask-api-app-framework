@@ -12,35 +12,26 @@
             </div>
         </div>
 
-        <!-- Banner part at Feed/About/Article Pages-->
-
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                  <i class="fa fa-share-alt share-org"></i>
-                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
-                <div class="box">
-                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
-                    <span class="user-name">{{ profile.name }}, {{ profile.lastname }}</span>
-                    <button type="button" class="follow pull-right">Follow</button>
-                </div>
-            </div>
-        </div>
+        {% include('mod_profile/profile_header.html') %}
 
         {% if current_user.is_authenticated %}
 
+
         <div class="row">
             <div class="col-md-8 col-md-offset-1">
+                {% if current_user.username == profile.username %}
                 <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
                     <ul class="dropdown-menu">
                         <li><a href="#">Feed</a></li>
                         <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a></li>
                         <li><a href="#">Comments</a></li>
                         <li><a href="#">Bookmarks</a></li>
-                        <li><a href="#">Following</a></li>
-                        <li><a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account Details</a></li>
+                        <li><a href="{{ url_for('profile.memberships', username=profile.username) }}">Following</a></li>
+                        <li><a href="{{ url_for('profile.profile_settings', username=profile.username) }}">Account Details</a></li>
                     </ul>
-                <a href="{{ url_for('article.new_article', author_type="individual", name=current_user.name, username=current_user.username) }}" class="fa fa-pencil"></a>
-                <a href="{{ url_for('profile.search', username = profile.username) }}" class="fa fa-search"></a>
+                <a href="{{ url_for('article.new_article', author_type="individual", name=profile.name, username=profile.username) }}" class="fa fa-pencil"></a>
+                    {% endif %}
+                    <a href="{{ url_for('profile.search', username = profile.username) }}" class="fa fa-search"></a>
             </div>
         </div>
 

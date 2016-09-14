@@ -1,32 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-    <script script type="text/javascript" xmlns="http://www.w3.org/1999/html">
-        // TODO: Write the appropriate jQuery function to ensure the clicking on the follow
-        // button will call the follow() function.
-
-        $(function () {
-            function follow() {
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url_for('profile.follow', username=profile.username ) }}",
-                    data: JSON.stringify({ follower: "{{ profile.username }}" }),
-                    success: (function () {
-                       $(".follow").val("Unfollow");
-                    }),
-                    error: function (error) {
-                    },
-                    dataType: "application/json",
-                    contentType: "application/json"
-                });
-            }
-
-            $(".follow").click(function() {
-                follow();
-            });
-
-        });
-    </script>
-
     <div class="profile-about">
     <div class="container">
         <div class="row">
@@ -41,17 +14,7 @@
 
         <!-- Banner part at Feed/About/Article Pages-->
 
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <i class="fa fa-share-alt share-org"></i>
-                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
-                <div class="box">
-                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
-                    <span class="user-name">{{ profile.name }}, {{ profile.lastname }}</span>
-                    <button type="button" class="follow pull-right">Follow</button>
-                </div>
-            </div>
-        </div>
+        {% include('mod_profile/profile_header.html') %}
 
         <div class="row activity-info">
             <div class="col-md-2 col-md-offset-4">
