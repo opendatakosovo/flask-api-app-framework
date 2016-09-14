@@ -1,7 +1,11 @@
+*.wsgi
 .idea
 venv
 importer/data/*.*
 config.cfg
+
+# Upload folder
+app/static/uploads
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
