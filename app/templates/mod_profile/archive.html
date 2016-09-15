@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <div class="profile-archive">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <ul>
+                    <li><a href="{{ url_for ('profile.feed', username =profile.username )}}" >Feed</a></li>
+                    <li><a href="{{ url_for ('profile.about', username =profile.username )}}" >About me</a></li>
+                    <li><a href="{{ url_for ('profile.archive', username =profile.username )}}" class="active">All articles</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Banner part at Feed/About/Article Pages-->
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                  <i class="fa fa-share-alt share-org"></i>
+                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
+                <div class="box">
+                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
+                    <span class="user-name">{{ current_user.name }}, {{ current_user.lastname }}</span>
+                    <button type="button" class="follow pull-right">Follow</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+{% endblock body %}

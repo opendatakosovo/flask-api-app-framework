@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="prof-search">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <ul>
+                    <li><a href="{{ url_for ('profile.feed', username = profile.username ) }}">Feed</a></li>
+                    <li><a href="{{ url_for ('profile.about', username = profile.username ) }}">About me</a></li>
+                    <li><a href="{{ url_for ('profile.archive', username = profile.username ) }}">All articles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Banner part at Feed/About/Article Pages-->
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
+                <i class="fa fa-share-alt share-org"></i>
+                <div class="box">
+                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
+                    <span class="user-name">{{ current_user.name }}, {{ current_user.lastname }}</span>
+                    {% if current_user.is_authenticated() %}
+                        <button type="button" class="follow pull-right">Follow</button>
+                        <button type="button" class="ask-to-join pull-right">Ask to join</button>
+                    {% else %}
+                        <button type="button" class="follow pull-right" onclick="{{ url_for('auth.sign_up') }}">Follow
+                        </button>
+                        <button type="button" class="ask-to-join pull-right" onclick="{{ url_for('auth.sign_up') }}">Ask
+                            to join
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% if current_user.is_authenticated() %}
+            <div class="row">
+                <div class="col-md-1  col-md-offset-1 col-sm-1 col-xs-1 text-center">
+                    <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
+                            style="color: #000"></button>
+                    <ul class="dropdown-menu" style="margin: 12px 0 0 30px; padding-top: 0px;">
+                        <li><a href="#" class="active">Feed</a></li>
+                        <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article
+                            management</a></li>
+                        <li><a href="#">Comments</a></li>
+                        <li><a href="#">Bookmarks</a></li>
+                        <li><a href="#">Following</a></li>
+                        <li><a href="#">Account details</a></li>
+                    </ul>
+
+                </div>
+                <div class="col-md-1">
+                    <a href="{{ url_for('article.new_article',author_type='individual', name=current_user.name, username=current_user.username) }}"
+                       class="fa fa-pencil"></a>
+                </div>
+                <div class="col-md-1">
+                    <a href="" class="fa fa-search"></a>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" placeholder="Search for Articles by {{ current_user.name }}"
+                           class="search-field"/>
+                </div>
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="col-md-1 col-md-offset-1">
+                    <a href="" class="fa fa-search"></a>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" placeholder="Search for Articles by {{ current_user.name }}" class="search-field"/>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".tab-2").click(function () {
+                $(".nav-article-type").hide();
+            });
+
+            $(".tab-1").click(function () {
+                $(".nav-article-type").show();
+            });
+        })
+    </script>
+{% endblock %}
