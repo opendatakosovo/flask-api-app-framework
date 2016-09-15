@@ -6,7 +6,7 @@
             $('#search-article').on('keypress', function (e) {
                 if (e.which == 13) {//Enter key pressed
                     var query = $('#search-article').val();
-                    var url = "{{ url_for('main.search_organizations') }}" + '?q=' + query;
+                    var url = "{{ url_for('main.search_articles') }}" + '?q=' + query;
                     window.location = url;
                 }
             });
