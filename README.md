@@ -1,6 +1,6 @@
 # Kreotive
 
-### Inslallation
+### 1. Server Installation
 #### Environment
 - Ubuntu 16.04 LTS 64 bit
 - MongoDB 3.2.x
@@ -12,18 +12,6 @@ Apache Virtual Host:
 sudo apt-get update
 sudo apt-get install apache2
 sudo apt-get install libapache2-mod-wsgi
-```
-
-Checkout project:
-```
-cd /var/www
-git clone https://github.com/Gaddea/kreotive.git
-```
-
-Create project .wsgi
-```
-cd /var/www/kreotive
-sudo cp app-template.wsgi app.wsgi
 ```
 
 Open the new file in your editor with root privileges:
@@ -42,10 +30,6 @@ sudo config-template.cfg config.cfg
 sudo nano config.cfg
 ```
 
-Install the app
-```
-bash install.sh
-```
 
 #### Create New Virtual Host
 Copy default virtual host config file to create new file specific to the project:
@@ -91,29 +75,33 @@ Restart the server for these changes to take effect:
 sudo service apache2 restart
 ```
 
-#### add
-First create a folder in your desktop called dev.
-````
+
+### 2. Local Installation (UBUNTU)
+
+
+First create a folder in your desktop called dev:
+```
 cd ~
-````
 mkdir dev
-````
 cd dev
+```
 
-Getting the project in your local machine.
-````
+Getting the project in your local machine:
+```
 git clone https://github.com/Gaddea/kreotive.git
-````
 cd kreotive
+```
 
-
-Create and edit project config file:
-````
-sudo config-template.cfg config.cfg
-sudo nano config.cfg
-
-Install&run the app
-````
+Install and run the app:
+```
 bash install.sh
+bash run-debug.sh
+```
 
-bash run-debug.ssh
+
+
+
+
+
+
+
