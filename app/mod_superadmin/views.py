@@ -31,7 +31,8 @@ def add_users():
         password = request.form["password"]
         confirm_password = request.form['confirm_password']
         role = request.form['role']
-        if user_mongo_utils.get_user({"email": email}):
+        user_check = user_mongo_utils.get_user(email=email)
+        if user_check:
             error = "A user with that e-mail already exists in the database"
             return render_template('mod_superadmin/add_users.html', error=error)
         else:
@@ -40,17 +41,20 @@ def add_users():
                     "name": name,
                     "lastname": lastname,
                     "email": email,
+                    "username": name + lastname,
                     "password": bcrypt.generate_password_hash(password, rounds=12),
                     "active": True,
                     "user_slug": slugify(name + ' ' + lastname),
-                    "roles": [user_mongo_utils.get_role_id(role)],
-                    "role": role,
+                    "roles": [user_mongo_utils.get_role_id('individual')],
                     "organizations": ['kreotive']
                 }
                 # TODO: Regiser user
                 user_mongo_utils.add_user(user_json)
-            error = "User registered, if you want to continue adding users, fill the form and click Add User"
-            return render_template('mod_superadmin/add_users.html', error=error)
+                error = "User registered, if you want to continue adding users, fill the form and click Add User"
+                return render_template('mod_superadmin/add_users.html', error=error)
+            else:
+                error = "Password error."
+                return render_template('mod_superadmin/add_users.html', error=error)
 
 
 @mod_superadmin.route('/organizations', methods=['GET'])

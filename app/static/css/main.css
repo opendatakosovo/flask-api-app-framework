@@ -511,8 +511,10 @@
         margin-top: 0px;
     }
 
-    .user-pic{
+    .user-pic {
         margin: 5px;
+        width: 60px;
+        height: 60px;
     }
 
     .user-name{

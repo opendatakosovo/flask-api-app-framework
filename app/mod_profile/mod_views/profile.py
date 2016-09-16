@@ -57,7 +57,7 @@ class Profile():
         return render_template('mod_profile/feed.html', profile=profile, feed=feed)
 
     @login_required
-    def follow(self, username):
+    def follow(self, username, action):
         '''
         TODO:
             1. Get POST reuqest body JSON
@@ -68,8 +68,8 @@ class Profile():
             6. Implement profile_mongo_utils.remove_follower()
         '''
 
-        follower_username = request.json["follower"]
-        profile_mongo_utils.add_follower(username, follower_username)
+        followee_username = current_user.username
+        user_mongo_utils.add_follower(followee_username, username, action)
         resp = Response(status=200)
 
         return resp
@@ -108,7 +108,9 @@ class Profile():
 
     @login_required
     def memberships(self, username):
-        return render_template('mod_profile/memberships.html')
+        # get the profile object for the given username
+        profile = user_mongo_utils.get_user_by_username(username)
+        return render_template('mod_profile/memberships.html' , profile=profile)
 
     @login_required
     def allowed_file(self, filename):
