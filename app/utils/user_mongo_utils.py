@@ -176,7 +176,7 @@ class UserMongoUtils(object):
             else:
                 return False
         elif action == 'unfollow':
-            print action
+
             added_follower_to_current_user = self.mongo.db[self.users_collection].update(
                 {"username": followee_username},
                 {"$pull": {"people_followers": follower_username}}
