@@ -62,9 +62,10 @@ class ContentMongoUtils(object):
 
         articles_dump = list(articles)
         for article in articles_dump:
-            article['avatar_url'] = self.mongo.db[self.users_collection] \
-                .find_one({"username": article['username']})['avatar_url']
-
+            avatar_url = self.mongo.db[self.users_collection] \
+                .find_one({"username": article['username']})
+            if avatar_url:
+                article['avatar_url'] = avatar_url['avatar_url']
         return articles_dump
 
     def get_authors_paginated_articles(self, username, skips, limits):
@@ -77,7 +78,8 @@ class ContentMongoUtils(object):
 
         articles_dump = list(articles)
         for article in articles_dump:
-            article['avatar_url'] = self.mongo.db[self.users_collection] \
+            if article is not None:
+                article['avatar_url'] = self.mongo.db[self.users_collection] \
                 .find_one({"username": article['username']})['avatar_url']
         return articles_dump
 
