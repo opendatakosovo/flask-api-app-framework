@@ -37,7 +37,7 @@ class UserMongoUtils(object):
         user['telephone'] = ""
         user['about_me'] = ""
         user['role'] = "individual"
-        user['avatar_url'] = ""
+        user['avatar_url'] = "img/no-avatar.png"
         user['people_following'] = []
         user['people_followers'] = []
         user['org_following'] = []

@@ -2,48 +2,20 @@
 {% block body %}
 
     <div class="profile-feed">
-       <div class="row">
+        <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <ul>
-                    <li><a href="{{ url_for ('profile.feed', username =profile.username )}}"  class="active">Feed</a></li>
-                    <li><a href="{{ url_for ('profile.about', username =profile.username )}}">About me</a></li>
-                    <li><a href="{{ url_for ('profile.archive', username =profile.username )}}">All articles</a></li>
+                    <li><a href="{{ url_for ('profile.feed', username =profile.username ) }}" class="active">Feed</a>
+                    </li>
+                    <li><a href="{{ url_for ('profile.about', username =profile.username ) }}">About me</a></li>
+                    <li><a href="{{ url_for ('profile.archive', username =profile.username ) }}">All articles</a></li>
                 </ul>
             </div>
         </div>
 
         {% include('mod_profile/profile_header.html') %}
+        {% include('mod_profile/user_menu.html') %}
 
-        {% if current_user.is_authenticated %}
-
-
-        <div class="row">
-            <div class="col-md-8 col-md-offset-1">
-                {% if current_user.username == profile.username %}
-                <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Feed</a></li>
-                        <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a></li>
-                        <li><a href="#">Comments</a></li>
-                        <li><a href="#">Bookmarks</a></li>
-                        <li><a href="{{ url_for('profile.memberships', username=profile.username) }}">Following</a></li>
-                        <li><a href="{{ url_for('profile.profile_settings', username=profile.username) }}">Account Details</a></li>
-                    </ul>
-                <a href="{{ url_for('article.new_article', author_type="individual", name=profile.name, username=profile.username) }}" class="fa fa-pencil"></a>
-                    {% endif %}
-                    <a href="{{ url_for('profile.search', username = profile.username) }}" class="fa fa-search"></a>
-            </div>
-        </div>
-
-        {% else %}
-
-        <div class="row">
-            <div class="col-md-2 col-md-offset-1">
-                <a href="" class="fa fa-search"></a>
-            </div>
-        </div>
-
-        {% endif %}
 
         <div class="articles row">
             <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
@@ -53,7 +25,8 @@
         <div class="row text-center">
             <div class="col-md-10 col-md-offset-1">
                 <button class="btn load-more-btn " data-skip-posts-number="6" data-posts-per-page="6">Load
-                more</button>
+                    more
+                </button>
             </div>
         </div>
     </div>
@@ -75,11 +48,12 @@
 
                 posting.done(function (data) {
                     var posts = jQuery.parseJSON(data);
-                    if(posts.length > 0){
+                    if (posts.length > 0) {
                         loadMoreArticles(posts);
-                    }else{
+                    } else {
                         $('.load-more-btn').text("No more posts");
-                    };
+                    }
+                    ;
                 });
                 $(this).attr('data-skip-posts-number', (parseInt(skip_posts_number) + 6));
             });
