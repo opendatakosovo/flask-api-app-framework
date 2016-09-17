@@ -76,6 +76,7 @@ def new_article_from_author(form, name, username):
     content = form['content']
     category = form['category']
     title = form['title']
+    type = form['type']
     publish_article = True
     if action == "save":
         publish_article = False
@@ -87,6 +88,7 @@ def new_article_from_author(form, name, username):
         "category": category,
         "title": title,
         "slug": slugify(title),
+        "type": type,
         "username": current_user.username,
         "published": publish_article,
         "published_date": datetime.now(),
@@ -148,5 +150,4 @@ def delete_article(article_id):
     # TODO: Restrict access to only authenticated users
     content_mongo_utils.delete_article(article_id)
     return redirect(url_for('article.my_articles', article_action='show'))
-
 

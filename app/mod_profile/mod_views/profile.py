@@ -10,7 +10,7 @@ UPLOAD_FOLDER = 'app/static/uploads/'
 
 
 class Profile():
-    @login_required
+
     def archive(self, username):
         ''' Loads the article archive page.
         '''
@@ -22,7 +22,7 @@ class Profile():
 
         return render_template('mod_profile/archive.html', profile=profile, feed=feed)
 
-    @login_required
+
     def search(self, username):
         ''' Loads the article archive page.
         '''
@@ -34,7 +34,7 @@ class Profile():
 
         return render_template('mod_profile/search.html', profile=profile, feed=feed)
 
-    @login_required
+
     def about(self, username):
         ''' Loads the about page.
         '''
@@ -44,7 +44,7 @@ class Profile():
 
         return render_template('mod_profile/about.html', profile=profile)
 
-    @login_required
+
     def feed(self, username):
         ''' Loads the feed page.
         '''
@@ -74,7 +74,7 @@ class Profile():
 
         return resp
 
-    @login_required
+
     def paginated_author_articles(self, username, skip_posts_number, posts_per_page):
         # TODO: Restrict access to only authenticated users
         # get the profile object for the given username
@@ -102,7 +102,7 @@ class Profile():
                 user_mongo_utils.update({'username': current_user.username},user_json )
             return render_template('mod_profile/account.html', profile=profile, error="Succesfully updated profile.")
 
-    @login_required
+
     def articles(self, username):
         return render_template('mod_profile/articles.html')
 

@@ -1,12 +1,27 @@
 {% extends "layout.html" %}
 {% block body %}
     <!--About Section-->
+    <script>
+        $(document).ready(function () {
+            $('#search-article').on('keypress', function (e) {
+                if (e.which == 13) {//Enter key pressed
+                    var query = $('#search-article').val();
+                    var url = "{{ url_for('main.search_articles') }}" + '?q=' + query;
+                    window.location = url;
+                }
+            });
+
+        });
+
+    </script>
+
     <section id="feed">
         {% include "unregistered.html" %}
 
         {% if current_user.is_authenticated %}
+            <script>
 
-
+            </script>
             <nav id="nav-bar1" style="margin-top: 100px;">
                 <br><br><br><br>
 
@@ -34,10 +49,14 @@
                         {% endif %}
                     </div>
                     <div class="col-md-1 col-sm-1 col-xs-1 text-center">
-                        <a href="" class="fa fa-search " aria-hidden="true" id="search1"
+                        <a href="{{ url_for('main.search_organizations') }}" class="fa fa-search " aria-hidden="true"
+                           id="search1"
                            style="margin-left: 0px;"></a>
                     </div>
-                    <div class="col-md-1 col-md-offset-5 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-right">
+                    <div class="col-md-5 col-sm-5 col-xs-5">
+                        <input type="text" id="search-article" class="search-field" placeholder="Search for articles"/>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
                         <a href="" class="fa fa-file-video-o" aria-hidden="true" id="video-type1"
                            data-toggle="tooltip" title="Filter by video"></a>
                     </div>
@@ -64,9 +83,12 @@
                 <br><br>
                 <div class="row">
                     <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="{{ url_for('main.search') }}" class="fa fa-search" aria-hidden="true" id="search"></a>
+                        <a href="#" class="fa fa-search" aria-hidden="true" id="search"></a>
                     </div>
-                    <div class="col-md-1 col-md-offset-7 col-sm-1 col-sm-offset-7 col-xs-1 col-xs-offset-6 text-right">
+                     <div class="col-md-7 col-sm-7 col-xs-7">
+                        <input type="text" id="search-article" class="search-field" placeholder="Search for articles"/>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
                         <a href="" class="fa fa-file-video-o " aria-hidden="true" id="video-type"
                            data-toggle="tooltip" title="Filter by video"></a>
                     </div>
@@ -91,13 +113,13 @@
         <div class="row">
             <div class="col-md-2 col-md-offset-3">
                 <a href="{{ url_for('main.search_organizations') }}">
-                    <h4  class="search-title ">Organizations</h4>
+                    <h4 class="search-title ">Organizations</h4>
                 </a>
 
             </div>
             <div class="col-md-1 col-md-offset-0">
                 <a href="{{ url_for('main.search_people') }}">
-                    <h4  class="search-title">People</h4>
+                    <h4 class="search-title">People</h4>
                 </a>
 
             </div>
@@ -108,7 +130,7 @@
 
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="Articles-found">
 
             {% for article in articles %}
                 <div class="search-item row">
@@ -116,7 +138,7 @@
                         <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">
                     </div>
                     <div class="col-md-6">
-                        <h4 class="search-result-title">{{ article.title }}</h4>
+                        <a href="{{ url_for('article.article', slug = article.slug) }}"><h4 class="search-result-title">{{ article.title }}</h4></a>
                     </div>
                 </div>
 

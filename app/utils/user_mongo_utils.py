@@ -159,6 +159,13 @@ class UserMongoUtils(object):
         return self.mongo.db[self.users_collection] \
             .find_one({"username": username})['avatar_url']
 
+    def find_user(self, keyword):
+
+        find_user_result=self.mongo.db[self.users_collection] \
+            .find({'$text': {'$search': keyword}})
+
+        return find_user_result
+
     def add_follower(self, follower_username, followee_username, action):
         if action == 'follow':
             added_follower_to_current_user = self.mongo.db[self.users_collection].update(

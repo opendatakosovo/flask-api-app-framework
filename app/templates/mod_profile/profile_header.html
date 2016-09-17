@@ -34,7 +34,7 @@
         <div class="box">
             <img src="{{ url_for('static',filename='') + profile.avatar_url }}" class="img-circle user-pic">
             <span class="user-name">{{ profile.name }}, {{ profile.lastname }}</span>
-            {% if current_user.is_authenticated() %}
+            {% if current_user.is_authenticated %}
                 {% if current_user.username not in profile.people_followers %}
                     <button type="button" class="follow pull-right" onclick="follow()">Follow</button>
                 {% else %}
@@ -42,9 +42,7 @@
                 {% endif %}
 
             {% else %}
-                <a type="button" class="follow pull-right"
-                   href="{{ url_for('profile.follow', username=profile.username) }}">Follow
-                </a>
+                <button type="button" class="follow pull-right" onclick="{{ url_for('auth.sign_up') }}">Follow</button>
                 <button type="button" class="ask-to-join pull-right" onclick="{{ url_for('auth.sign_up') }}">Ask
                     to join
                 </button>

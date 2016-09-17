@@ -38,24 +38,25 @@
                            id="search1"
                            style="margin-left: 0px;"></a>
                     </div>
-                    <div class="col-md-1 col-md-offset-5 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-right">
-                        <a href="" class="fa fa-file-video-o" aria-hidden="true" id="video-type1"
-                           data-toggle="tooltip" title="Filter by video"></a>
-                    </div>
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-file-audio-o" aria-hidden="true" id="audio-type1"
-                           data-toggle="tooltip" title="Filter by audio"></a>
-                    </div>
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-file-text-o" aria-hidden="true" id="text-type1"
-                           data-toggle="tooltip" title="Filter by text"></a>
-                    </div>
+                    <div id="filter">
+                        <div class="col-md-1 col-md-offset-5 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-right">
+                            <a href="" class="fa fa-file-video-o" aria-hidden="true" id="video-type1"
+                               data-toggle="tooltip" title="Filter by video" data-category="video"></a>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-file-audio-o" aria-hidden="true" id="audio-type1"
+                               data-toggle="tooltip" title="Filter by audio" data-category="audio"></a>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-file-text-o" aria-hidden="true" id="text-type1"
+                               data-toggle="tooltip" title="Filter by text" data-category="text"></a>
+                        </div>
 
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-paperclip" aria-hidden="true" id="attach-type1"
-                           data-toggle="tooltip" title="Filter by attachment"></a>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-paperclip" aria-hidden="true" id="attach-type1"
+                               data-toggle="tooltip" title="Filter by attachment" data-category="attachment"></a>
+                        </div>
                     </div>
-
 
                 </div>
             </nav>
@@ -68,25 +69,26 @@
                         <a href="{{ url_for('main.search_organizations') }}" class="fa fa-search" aria-hidden="true"
                            id="search"></a>
                     </div>
-                    <div class="col-md-1 col-md-offset-7 col-sm-1 col-sm-offset-7 col-xs-1 col-xs-offset-6 text-right">
-                        <a href="" class="fa fa-file-video-o " aria-hidden="true" id="video-type"
-                           data-toggle="tooltip" title="Filter by video"></a>
-                    </div>
+                    <div id="filter">
+                        <div class="col-md-1 col-md-offset-7 col-sm-1 col-sm-offset-7 col-xs-1 col-xs-offset-6 text-right">
+                            <a href="" class="fa fa-file-video-o " aria-hidden="true" id="video-type"
+                               data-toggle="tooltip" title="Filter by video" data-category="video"></a>
+                        </div>
 
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-file-audio-o " aria-hidden="true" id="audio-type"
-                           data-toggle="tooltip" title="Filter by audio"></a>
-                    </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-file-audio-o " aria-hidden="true" id="audio-type"
+                               data-toggle="tooltip" title="Filter by audio" data-category="audio"></a>
+                        </div>
 
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-file-text-o " aria-hidden="true" id="text-type"
-                           data-toggle="tooltip" title="Filter by text"></a>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-file-text-o " aria-hidden="true" id="text-type"
+                               data-toggle="tooltip" title="Filter by text" data-category="text"></a>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                            <a href="" class="fa fa-paperclip " aria-hidden="true" id="attach-type"
+                               data-toggle="tooltip" title="Filter by attachment" data-category="attachment"></a>
+                        </div>
                     </div>
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
-                        <a href="" class="fa fa-paperclip " aria-hidden="true" id="attach-type"
-                           data-toggle="tooltip" title="Filter by attachment"></a>
-                    </div>
-
                 </div>
             </nav>
         {% endif %}
@@ -141,7 +143,7 @@
                 var article_slug_url = article_slug.replace('article_slug', article['slug']);
                 var article_avatar_url = "{{ url_for('static',filename='')}}" + article['avatar_url'];
                 var profile_url = "{{ url_for('profile.feed',username='username') }}".replace('username',article['username']);
-
+                var type = getArticleTypeClass(article.type);
 
                 var divHTML = '' +
                         '<div class="article ' + styleClass + ' text-type text-type1" style="padding-right: 0;">' +
@@ -151,12 +153,35 @@
                         '<a href="' + article_slug_url + '">' +
                         '<h3 class="article-title">' + article['title'] + '</h3>' +
                         '</a>' +
-                        '<i class="fa fa-file-text-o article-type" aria-hidden="true"></i>' +
+                        '<i class="' + type + '" aria-hidden="true"></i>' +
                         '</div>';
 
 
                 $('.latest').append(divHTML);
             }
+
+            function getArticleTypeClass(idx) {
+                var style = '';
+                switch (idx) {
+                    case 'text':
+                        style = 'fa fa-file-text-o text article-type';
+                        break;
+                    case 'video':
+                        style = 'fa fa-file-video-o video article-type';
+                        break;
+                    case 'audio':
+                        style = 'fa fa-file-audio-o audio article-type';
+                        break;
+                    case 'attachment':
+                        style = 'fa fa-paperclip attachment article-type';
+                        break;
+                    default:
+                        style = 'fa file-text-o article-type';
+                }
+
+                return style;
+            }
+
             function getArticleDivClass(idx) {
                 var style = '';
                 switch (idx) {

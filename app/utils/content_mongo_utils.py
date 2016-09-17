@@ -2,6 +2,7 @@ import datetime
 from bson.objectid import ObjectId
 from bson.json_util import json
 
+
 class ContentMongoUtils(object):
     def __init__(self, mongo):
         self.mongo = mongo
@@ -26,32 +27,41 @@ class ContentMongoUtils(object):
 
         return articles
 
+    def find_article(self, keyword):
+        """ Find articles from the database.
+        :param keyword: the keyword we want to search based on.
+        :rtype: MongoDB Cursor with all the articles
+        """
+        find_result = self.mongo.db[self.content_collection].find({'$text': {'$search': keyword}})
+        return find_result
+
     def delete_article(self, id):
         """ Delete article from the database.
         :rtype: MongoDB Cursor with all the articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .remove({"_id":ObjectId(id)})
+            .remove({"_id": ObjectId(id)})
 
         return articles
+
     def search(self, text):
         """ Search articles from the database.
         :rtype: MongoDB Cursor with all the articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find( { '$text': { '$search': text } } )
+            .find({'$text': {'$search': text}})
 
         return articles
+
     def get_paginated_articles(self, skips, limits):
         """ Get paginated articles from the database.
         :rtype: JSON with the queried articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({'visible': True, 'published': True}).sort([("_id",-1)]).limit(limits).skip(skips)
+            .find({'visible': True, 'published': True}).sort([("_id", -1)]).limit(limits).skip(skips)
 
         articles_dump = list(articles)
         for article in articles_dump:
-
             avatar_url = self.mongo.db[self.users_collection] \
                 .find_one({"username": article['username']})
             if avatar_url:
@@ -63,7 +73,8 @@ class ContentMongoUtils(object):
         :rtype: MongoDB Cursor with the queried articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({"username": username, 'visible': True, 'published': True}).sort([("_id",-1)]).limit(limits).skip(skips)
+            .find({"username": username, 'visible': True, 'published': True}).sort([("_id", -1)]).limit(limits).skip(
+            skips)
 
         articles_dump = list(articles)
         for article in articles_dump:
@@ -87,7 +98,7 @@ class ContentMongoUtils(object):
         :rtype: MongoDB cursor of the founded article.
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({"username": username}).sort([("_id",-1)])
+            .find({"username": username}).sort([("_id", -1)])
         return articles
 
     def change_article_visibility(self, article_id, visible):
@@ -98,8 +109,8 @@ class ContentMongoUtils(object):
         """
         if visible == 'True':
             update = self.mongo.db[self.content_collection] \
-            .update({"_id": ObjectId(article_id)}, {'$set': {"visible": True}})
+                .update({"_id": ObjectId(article_id)}, {'$set': {"visible": True}})
         elif visible == 'False':
             update = self.mongo.db[self.content_collection] \
-            .update({"_id": ObjectId(article_id)}, {'$set': {"visible": False}})
+                .update({"_id": ObjectId(article_id)}, {'$set': {"visible": False}})
         return update
