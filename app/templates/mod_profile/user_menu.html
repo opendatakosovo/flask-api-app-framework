@@ -1,0 +1,37 @@
+{% if current_user.is_authenticated %}
+
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-1">
+            {% if current_user.username == profile.username %}
+                <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Feed</a></li>
+                    <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
+                    </li>
+                    <li><a href="#">Comments</a></li>
+                    <li><a href="#">Bookmarks</a></li>
+                    <li><a href="{{ url_for('profile.memberships', username=profile.username) }}">Following</a></li>
+                    <li><a href="{{ url_for('profile.profile_settings', username=profile.username) }}">Account
+                        Details</a></li>
+                </ul>
+                <a href="{{ url_for('article.new_article', author_type="individual", name=profile.name, username=profile.username) }}"
+                   class="fa fa-pencil"></a>
+            {% endif %}
+            <a href="{{ url_for('profile.search', username = profile.username) }}" class="fa fa-search"></a>
+        </div>
+    </div>
+
+{% else %}
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+            <a href="" class="fa fa-search"></a>
+        </div>
+        <div class="col-md-8">
+            <input type="text" placeholder="Search for Articles by {{ current_user.name }}"
+                   class="search-field"/>
+        </div>
+    </div>
+
+{% endif %}

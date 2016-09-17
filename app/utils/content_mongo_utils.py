@@ -39,10 +39,10 @@ class ContentMongoUtils(object):
         """ Delete article from the database.
         :rtype: MongoDB Cursor with all the articles
         """
-        articles = self.mongo.db[self.content_collection] \
-            .remove({"_id": ObjectId(id)})
+        self.mongo.db[self.content_collection] \
+            .deleteOne({"_id": ObjectId(id)})
 
-        return articles
+        return True
 
     def search(self, text):
         """ Search articles from the database.

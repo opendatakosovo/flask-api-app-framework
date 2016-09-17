@@ -149,5 +149,5 @@ def paginated_articles(skip_posts_number, posts_per_page):
 def delete_article(article_id):
     # TODO: Restrict access to only authenticated users
     content_mongo_utils.delete_article(article_id)
-    return redirect(url_for('article.my_articles', article_action='show'))
+    return Response(200)
 

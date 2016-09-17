@@ -45,7 +45,7 @@ def sign_up():
                 user_data = user_mongo_utils.get_user(email=email)
                 login_user(user_data)
 
-                return redirect(url_for('main.feed'))
+                return redirect(url_for('profile.profile_settings', username=user_data.username))
             else:
                 error = "Passowrds didn't match"
                 return render_template('mod_auth/sign_up.html', error=error)
