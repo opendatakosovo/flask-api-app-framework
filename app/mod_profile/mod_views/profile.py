@@ -18,11 +18,13 @@ class Profile():
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
 
-        feed = content_mongo_utils.get_authors_articles(profile.username)
+        category = content_mongo_utils.get_categories()
 
-        return render_template('mod_profile/archive.html', profile=profile, feed=feed)
+        articles_by_category = content_mongo_utils.count_articles_by_category(profile.username, category)
 
+        return render_template('mod_profile/archive.html', profile=profile, articles_by_category=articles_by_category)
 
+    @login_required
     def search(self, username):
         ''' Loads the article archive page.
         '''
@@ -52,11 +54,24 @@ class Profile():
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
 
-        feed = dumps(content_mongo_utils.get_authors_paginated_articles(profile.username, 0, 6))
+        feed = dumps(content_mongo_utils.get_authors_paginated_articles(profile.username))
 
         return render_template('mod_profile/feed.html', profile=profile, feed=feed)
 
-    @login_required
+    def category_feed(self, username, category):
+        ''' Loads the feed page with specific category article.
+                '''
+
+        # get the profile object for the given username
+        profile = user_mongo_utils.get_user_by_username(username)
+
+        feed = dumps(content_mongo_utils.get_articles_one_category_only(profile.username, category))
+
+        return render_template('mod_profile/feed.html', profile=profile, feed=feed)
+
+
+
+
     def follow(self, username, action):
         '''
         TODO:
@@ -73,7 +88,6 @@ class Profile():
         resp = Response(status=200)
 
         return resp
-
 
     def paginated_author_articles(self, username, skip_posts_number, posts_per_page):
         # TODO: Restrict access to only authenticated users
@@ -101,7 +115,6 @@ class Profile():
                 user_json['about_me'] = request.form['about_me']
                 user_mongo_utils.update({'username': current_user.username},user_json )
             return render_template('mod_profile/account.html', profile=profile, error="Succesfully updated profile.")
-
 
     def articles(self, username):
         return render_template('mod_profile/articles.html')

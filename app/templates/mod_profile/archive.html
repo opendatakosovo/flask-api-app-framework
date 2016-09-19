@@ -6,10 +6,9 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <ul>
-                        <li><a href="{{ url_for ('profile.feed', username =profile.username ) }}">Feed</a></li>
-                        <li><a href="{{ url_for ('profile.about', username =profile.username ) }}">About me</a></li>
-                        <li><a href="{{ url_for ('profile.archive', username =profile.username ) }}" class="active">All
-                            articles</a></li>
+                        <li><a href="{{ url_for ('profile.feed', username =profile.username )}}" >Feed</a></li>
+                        <li><a href="{{ url_for ('profile.about', username =profile.username )}}" >About me</a></li>
+                        <li><a href="{{ url_for ('profile.archive', username =profile.username)}}" class="active">All articles</a></li>
                     </ul>
                 </div>
             </div>
@@ -17,7 +16,60 @@
             <!-- Banner part at Feed/About/Article Pages-->
 
             {% include('mod_profile/profile_header.html') %}
-            {% include('mod_profile/user_menu.html') %}
-        </div>
 
+            <br>
+
+            <div class="categories row">
+                <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            // Initialize displaying categories in archive
+            initFeed();
+
+            function initFeed() {
+                var articles = {{ articles_by_category|safe }};
+                for (var idx in articles) {
+                    if (articles[idx] > 0) {
+                        feedTheFeed(articles[idx], idx)
+                    }
+                }
+            }
+
+            $(".article:nth-child(8n+1)").css("background-color", "black").addClass('col-md-8 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+2)").css("background-color", "#b82776").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+3)").css("background-color", "#27b85e").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+4)").css("background-color", "#989e21").addClass('col-md-8 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+5)").css("background-color", "#b88027").addClass('col-md-8 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+6)").css("background-color", "#cf463a").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+7)").css("background-color", "#445d9b").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n)").css("background-color", "#1c7184").addClass('col-md-8 col-sm-6 col-xs-12');
+
+
+            function feedTheFeed(article, idx) {
+                var feed_url = "{{url_for('profile.category_feed',username =profile.username, category = 'category')}}";
+                var display_category = feed_url.replace('category', idx);
+                var articleCategory = idx;
+                var articleNumber = article;
+                var divHTML = '' +
+                    '<div class="article " style="padding: 3px;">' +
+                    '<a href="' + display_category + '">' +
+                    '<h3 class="article-title">' +  articleCategory  + ' (' + articleNumber +')' + '</h3>' +
+                    '</a>' +
+                    '<i class="fa fa-tag category-tag" aria-hidden="true"></i>' +
+                    '</div>';
+                $('.latest').append(divHTML);
+            }
+        });
+    </script>
 {% endblock body %}
+
+
+
+
