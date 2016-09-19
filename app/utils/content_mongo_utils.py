@@ -61,6 +61,7 @@ class ContentMongoUtils(object):
             .find({'visible': True, 'published': True}).sort([("_id", -1)]).limit(limits).skip(skips)
 
         articles_dump = list(articles)
+
         for article in articles_dump:
             avatar_url = self.mongo.db[self.users_collection] \
                 .find_one({"username": article['username']})
@@ -68,13 +69,13 @@ class ContentMongoUtils(object):
                 article['avatar_url'] = avatar_url['avatar_url']
         return articles_dump
 
-    def get_authors_paginated_articles(self, username, skips, limits):
+
+    def get_authors_paginated_articles(self, username):
         """ Get paginated articles from the database for a specific author.
         :rtype: MongoDB Cursor with the queried articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({"username": username, 'visible': True, 'published': True}).sort([("_id", -1)]).limit(limits).skip(
-            skips)
+            .find({"username": username, 'visible': True, 'published': True}).sort([("_id", -1)])
 
         articles_dump = list(articles)
         for article in articles_dump:
@@ -114,3 +115,24 @@ class ContentMongoUtils(object):
             update = self.mongo.db[self.content_collection] \
                 .update({"_id": ObjectId(article_id)}, {'$set': {"visible": False}})
         return update
+
+    def get_categories(self):
+        list_of_categories = self.mongo.db[self.content_collection].distinct("category")
+        return list_of_categories
+
+    def count_articles_by_category(self, username, category):
+
+        list_of_categories = self.mongo.db[self.content_collection].distinct("category")
+        articles_number_category_list = {}
+        for category in list_of_categories:
+            nr_articles_category = self.mongo.db[self.content_collection] \
+                .find({"username": username, "category": category, 'visible': True, 'published': True}).count()
+
+            articles_number_category_list[category] = nr_articles_category
+        return json.dumps(articles_number_category_list)
+
+    def get_articles_one_category_only(self, username, category):
+
+        articles = self.mongo.db[self.content_collection] \
+                .find({"username": username, "category": category, 'visible': True, 'published': True})
+        return articles

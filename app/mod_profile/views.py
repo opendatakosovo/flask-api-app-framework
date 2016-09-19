@@ -33,9 +33,14 @@ mod_profile.add_url_rule(
 # Profile feed page
 mod_profile.add_url_rule(
     '/<string:username>',
-    methods = ['GET'],
+    methods=['GET'],
     view_func=profile.feed)
 
+# Profile feed page
+mod_profile.add_url_rule(
+    '/<string:username>/<string:category>',
+    methods=['GET'],
+    view_func=profile.category_feed)
 
 # Follow a profile
 mod_profile.add_url_rule(
@@ -55,17 +60,17 @@ mod_profile.add_url_rule(
     methods=['GET', 'POST'],
     view_func=profile.profile_settings)
 
-# Articles of a profile/author
-mod_profile.add_url_rule(
-    '/<string:username>/articles',
-    methods=['GET', 'POST'],
-    view_func=profile.articles)
-
-#Profile articles
-mod_profile.add_url_rule(
-    '/<string:username>/articles',
-    methods=['GET'],
-    view_func=profile.articles)
+# # Articles of a profile/author
+# mod_profile.add_url_rule(
+#     '/<string:username>/articles',
+#     methods=['GET', 'POST'],
+#     view_func=profile.articles)
+#
+# #Profile articles
+# mod_profile.add_url_rule(
+#     '/<string:username>/articles',
+#     methods=['GET'],
+#     view_func=profile.articles)
 
 mod_profile.add_url_rule(
     '/<string:username>/memberships',

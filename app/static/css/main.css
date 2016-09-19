@@ -784,3 +784,9 @@
     .active{
         font-weight: bold;
     }
+
+    .category-tag{
+        font-size: 33px;
+        color:#fff;
+        margin-left: 10px;
+    }
