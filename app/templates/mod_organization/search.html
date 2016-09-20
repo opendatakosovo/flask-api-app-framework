@@ -62,7 +62,7 @@
 
                 </div>
                 <div class="col-md-1">
-                    <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
+                    <a href="{{ url_for('article.new_article' , author_type="organization", name=organization['name'], username=organization['org_slug']) }}" class="fa fa-pencil"></a>
                 </div>
                 <div class="col-md-1">
                     <a href="" class="fa fa-search"></a>
@@ -115,20 +115,52 @@
             <div class="col-md-6 col-md-offset-3">
                 <ul>
                     <li class="col-md-6 text-center"><a href="#tabs-1" class="tab-1">Articles</a></li>
+
                     <li class="col-md-6 text-center"><a href="#tabs-2" class="tab-2">Authors</a></li>
                 </ul>
             </div>
+        </div>
+
+        <div class="row" id="Articles-found">
+            {% for article in articles %}
+                <div class="search-item row">
+                    <div class="col-md-1 col-md-offset-2">
+                        <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{{ url_for('article.article', slug = article.slug) }}"><h4 class="search-result-title">{{ article.title }}</h4></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="row" id="people-found">
+            {% for user in users %}
+                <div class="search-item row">
+                    <div class="col-md-1 col-md-offset-2">
+                        <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{{ url_for('profile.feed', username=user.username) }}"><h4 class="search-result-title">{{ user.name }}, {{ user.lastname }}</h4></a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
     <script>
         $(document).ready(function () {
+
+            $(".nav-article-type, #people-found").css("display","none");
+
             $(".tab-2").click(function () {
-                $(".nav-article-type").hide();
+                $(".nav-article-type, #Articles-found").hide();
+                $("#people-found").show();
             });
 
             $(".tab-1").click(function () {
-                $(".nav-article-type").show();
+                $(".nav-article-type, #Articles-found").show();
+                $("#people-found").hide();
             });
         })
     </script>

@@ -24,7 +24,7 @@ class Profile():
 
         return render_template('mod_profile/archive.html', profile=profile, articles_by_category=articles_by_category)
 
-    @login_required
+
     def search(self, username):
         ''' Loads the article archive page.
         '''
@@ -44,7 +44,9 @@ class Profile():
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
 
-        return render_template('mod_profile/about.html', profile=profile)
+        articles_no = content_mongo_utils.count_articles(username)
+
+        return render_template('mod_profile/about.html', profile=profile, articles_no=articles_no)
 
 
     def feed(self, username):
@@ -69,10 +71,7 @@ class Profile():
 
         return render_template('mod_profile/feed.html', profile=profile, feed=feed)
 
-
-
-
-    def follow(self, username, action):
+    def follow(self, username):
         '''
         TODO:
             1. Get POST reuqest body JSON
@@ -83,11 +82,12 @@ class Profile():
             6. Implement profile_mongo_utils.remove_follower()
         '''
 
-        followee_username = current_user.username
-        user_mongo_utils.add_follower(followee_username, username, action)
+        follower_username = request.json["follower"]
+        profile_mongo_utils.add_follower(username, follower_username)
         resp = Response(status=200)
 
         return resp
+
 
     def paginated_author_articles(self, username, skip_posts_number, posts_per_page):
         # TODO: Restrict access to only authenticated users
@@ -116,14 +116,13 @@ class Profile():
                 user_mongo_utils.update({'username': current_user.username},user_json )
             return render_template('mod_profile/account.html', profile=profile, error="Succesfully updated profile.")
 
+
     def articles(self, username):
         return render_template('mod_profile/articles.html')
 
     @login_required
     def memberships(self, username):
-        # get the profile object for the given username
-        profile = user_mongo_utils.get_user_by_username(username)
-        return render_template('mod_profile/memberships.html' , profile=profile)
+        return render_template('mod_profile/memberships.html')
 
     @login_required
     def allowed_file(self, filename):
