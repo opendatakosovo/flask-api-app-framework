@@ -53,21 +53,13 @@
                         <div class="col-md-1">
                             <a href="{{ url_for('organization.search', organization_slug=organization.org_slug) }}" class="fa fa-search"></a>
                         </div>
-
-                        <div class="col-md-8">
-                            <input type="text" placeholder="Search for Articles or Authors in {{ organization.name }}" class="search-field"/>
-                        </div>
                     </div>
                 {% else %}
                     <div class="row">
                         <div class="col-md-1 col-md-offset-1">
                             <a href="" class="fa fa-search"></a>
                         </div>
-                        <div class="col-md-5">
-                            <input type="text" placeholder="Search for Articles or Authors in {{ organization.name }}" class="search-field"/>
-                        </div>
-
-                        <div class="col-md-1">
+                        <div class="col-md-1 col-md-offset-5">
                             <a class="fa fa-file-video-o" data-toggle="tooltip" title="Filter by video"></a>
                         </div>
                         <div class="col-md-1">

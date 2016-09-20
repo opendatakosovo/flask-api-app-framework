@@ -37,7 +37,9 @@ def about(organization_slug):
 
     organization = org_mongo_utils.get_org_by_slug(organization_slug)
 
-    return render_template('mod_organization/about.html', organization=organization, feed=feed, organization_slug=organization_slug)
+    articles_no = content_mongo_utils.count_org_articles(organization_slug)
+
+    return render_template('mod_organization/about.html', organization=organization, feed=feed, organization_slug=organization_slug, articles_no=articles_no)
 
 
 @mod_organization.route('/<organization_slug>/archive', methods=['GET'])
@@ -55,11 +57,13 @@ def archive(organization_slug):
 @mod_organization.route('/<organization_slug>/search', methods=['GET'])
 def search(organization_slug):
 
-    feed = None
-
     organization = org_mongo_utils.get_org_by_slug(organization_slug)
 
-    return render_template('mod_organization/search.html', organization=organization, feed=feed)
+    articles = content_mongo_utils.get_org_articles(organization_slug)
+
+    users = user_mongo_utils.get_users()
+
+    return render_template('mod_organization/search.html', organization=organization, feed=feed, articles=articles, users = users)
 
 
 @mod_organization.route('/<organization_slug>/settings', methods=['GET'])

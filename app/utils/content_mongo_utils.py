@@ -27,6 +27,15 @@ class ContentMongoUtils(object):
 
         return articles
 
+    def get_org_articles(self,org_slug):
+        """ Get articles from the database.
+        :rtype: MongoDB Cursor with all the articles
+        """
+        articles = self.mongo.db[self.content_collection] \
+            .find({'author.org_slug':org_slug, 'visible': True, 'published': True})
+
+        return articles
+
     def find_article(self, keyword):
         """ Find articles from the database.
         :param keyword: the keyword we want to search based on.
@@ -126,6 +135,16 @@ class ContentMongoUtils(object):
             update = self.mongo.db[self.content_collection] \
                 .update({"_id": ObjectId(article_id)}, {'$set': {"visible": False}})
         return update
+
+    def count_articles(self,username):
+        nr_articles = self.mongo.db[self.content_collection] \
+            .find({"username": username, 'visible': True, 'published': True}).count()
+        return nr_articles
+
+    def count_org_articles(self,org_slug):
+        nr_articles = self.mongo.db[self.content_collection] \
+            .find({"author.org_slug": org_slug, 'visible': True, 'published': True}).count()
+        return nr_articles
 
     def get_categories(self):
         list_of_categories = self.mongo.db[self.content_collection].distinct("category")

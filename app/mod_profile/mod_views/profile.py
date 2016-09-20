@@ -44,7 +44,9 @@ class Profile():
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
 
-        return render_template('mod_profile/about.html', profile=profile)
+        articles_no = content_mongo_utils.count_articles(username)
+
+        return render_template('mod_profile/about.html', profile=profile, articles_no=articles_no)
 
 
     def feed(self, username):
