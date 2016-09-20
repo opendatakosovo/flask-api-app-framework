@@ -77,26 +77,23 @@
                                 {% endif %}
                             </h3>
                         </div>
-
-
-                    <div class="col-md-3 col-sm-4 col-xs-12 visible-article text-right">
-                        {% if article['visible'] == True %}
-                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=False) }}">
-                                <i class="fa fa-eye "></i>
+                        <div class="col-md-3 col-sm-4 col-xs-12 visible-article text-right">
+                            {% if article['visible'] == True %}
+                                <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=False) }}">
+                                    <i class="fa fa-eye "></i>
+                                </a>
+                            {% elif article['visible'] == False %}
+                                <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=True) }}">
+                                    <i class="fa fa-eye-slash"></i>
+                                </a>
+                            {% endif %}
+                            <a href="{{ url_for('article.delete_article', article_id = article._id) }}">
+                                <i class="fa fa-trash-o"></i>
                             </a>
-                        {% elif article['visible'] == False %}
-                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=True) }}">
-                                <i class="fa fa-eye-slash"></i>
+                            <a href="">
+                                <i class=" fa fa-pencil-square-o"></i>
                             </a>
-                        {% endif %}
-                        <a href="{{ url_for('article.delete_article', article_id = article._id) }}">
-                            <i class="fa fa-trash-o"></i>
-                        </a>
-                        <a href="">
-                            <i class=" fa fa-pencil-square-o"></i>
-                        </a>
-                    </div>
-                    </div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>

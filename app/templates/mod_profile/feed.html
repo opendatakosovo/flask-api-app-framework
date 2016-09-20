@@ -1,3 +1,16 @@
+Skip to content
+Personal Open source Business Explore
+Sign upSign inPricingBlogSupport
+This repository
+Search
+ Watch 5  Star 2  Fork 1 Gaddea/kreotive
+forked from opendatakosovo/flask-app-framework
+ Code  Pull requests 1  Projects 0  Pulse  Graphs
+Branch: master Find file Copy pathkreotive/app/templates/mod_profile/feed.html
+6d58602  a day ago
+ Kosovare Sahatqija Article categories edited
+2 contributors @partini @KosovareSahatqija
+RawBlameHistory     88 lines (74 sloc)  3.72 KB
 {% extends "layout.html" %}
 {% block body %}
 
@@ -25,19 +38,15 @@
     </div>
 
     <script type="text/javascript">
-
         $(document).ready(function () {
             // Initialize displaying articles in feed
             initFeed();
-
-
             function initFeed() {
                 var articles = {{ feed|safe }};
                     for (var idx in articles) {
                         feedTheFeed(articles[idx], idx)
                     }
             }
-
             $(".article:nth-child(8n+1)").css("background-color", "black").addClass('col-md-8 col-sm-6 col-xs-12');
             $(".article:nth-child(8n+2)").css("background-color", "#b82776").addClass('col-md-4 col-sm-6 col-xs-12');
             $(".article:nth-child(8n+3)").css("background-color", "#27b85e").addClass('col-md-4 col-sm-6 col-xs-12');
@@ -46,7 +55,6 @@
             $(".article:nth-child(8n+6)").css("background-color", "#cf463a").addClass('col-md-4 col-sm-6 col-xs-12');
             $(".article:nth-child(8n+7)").css("background-color", "#445d9b").addClass('col-md-4 col-sm-6 col-xs-12');
             $(".article:nth-child(8n)").css("background-color", "#1c7184").addClass('col-md-8 col-sm-6 col-xs-12');
-
             function feedTheFeed(article, idx) {
                 var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
                 var article_slug_url = article_slug.replace('article_slug', article['slug']);
@@ -58,10 +66,8 @@
                     '</a>' +
                     '<i class="' + type + '" aria-hidden="true"></i>' +
                     '</div>';
-
                 $('.latest').append(divHTML);
             }
-
             function getArticleTypeClass(idx) {
                 var style = '';
                 switch (idx) {
@@ -80,7 +86,6 @@
                     default:
                     style = 'fa file-text-o article-type';
                 }
-
                 return style;
             }
         });

@@ -6,9 +6,9 @@
            <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <ul>
-                            <li><a href="{{ url_for ('organization.feed', organization_slug=organization['org_slug']) }}" class="active">Feed</a></li>
-                            <li><a href="{{ url_for ('organization.about', organization_slug=organization['org_slug']) }}" >About us</a></li>
-                            <li><a href="{{ url_for ('organization.archive', organization_slug=organization['org_slug']) }}"  >All articles</a>
+                            <li><a href="{{ url_for ('organization.feed', organization_slug=organization.org_slug) }}" class="active">Feed</a></li>
+                            <li><a href="{{ url_for ('organization.about', organization_slug=organization.org_slug) }}" >About us</a></li>
+                            <li><a href="{{ url_for ('organization.archive', organization_slug=organization.org_slug) }}"  >All articles</a>
                             </li>
                         </ul>
                     </div>
@@ -23,7 +23,7 @@
 
                         <div class="box">
                             <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
-                            <span class="user-name">PANTRINA</span>
+                            <span class="user-name">{{ organization.name }}</span>
                             <button type="button" class="follow pull-right">Follow</button>
                             <button type="button" class="ask-to-join pull-right">Ask to join</button>
 
@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-                {% if current_user.is_authenticated %}
+                {% if current_user.has_role('org_admin') or ('editor') or ('member') %}
                     <div class="row">
                         <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
                             <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
@@ -43,19 +43,19 @@
                                     <li><a href="#">Comments</a></li>
                                     <li><a href="#">Bookmarks</a></li>
                                     <li><a href="#">Following</a></li>
-                                    <li><a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account details</a></li>
+                                    <li><a href="{{ url_for('organization.organization_settings', organization_slug=organization.org_slug) }}">Account details</a></li>
                                 </ul>
 
                             </div>
                         <div class="col-md-1">
-                            <a href="{{ url_for('article.new_article' , author_type="organization", name=organization['name'], username=organization['org_slug']) }}" class="fa fa-pencil"></a>
+                            <a href="{{ url_for('article.new_article' , author_type="organization", name=organization.name, username=organization['org_slug']) }}" class="fa fa-pencil"></a>
                         </div>
                         <div class="col-md-1">
-                            <a href="{{ url_for('organization.search', organization_slug=organization['org_slug']) }}" class="fa fa-search"></a>
+                            <a href="{{ url_for('organization.search', organization_slug=organization.org_slug) }}" class="fa fa-search"></a>
                         </div>
 
-                        <div class="col-md-5">
-                            <input type="text" placeholder="Search for Articles or Authors in {{ current_user.name }}" class="search-field"/>
+                        <div class="col-md-8">
+                            <input type="text" placeholder="Search for Articles or Authors in {{ organization.name }}" class="search-field"/>
                         </div>
                     </div>
                 {% else %}
@@ -64,7 +64,7 @@
                             <a href="" class="fa fa-search"></a>
                         </div>
                         <div class="col-md-5">
-                            <input type="text" placeholder="Search for Articles or Authors in {{ current_user.name }}" class="search-field"/>
+                            <input type="text" placeholder="Search for Articles or Authors in {{ organization.name }}" class="search-field"/>
                         </div>
 
                         <div class="col-md-1">
@@ -88,13 +88,75 @@
                         <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
                         </div>
                     </div>
-                    <div class="row">
-                        <button class="col-md-8 col-md-offset-2 load-more-btn" data-skip-posts-number="6" data-posts-per-page="6">
-                            Load more
-                        </button>
-                    </div>
                 </div>
         </div>
     </div>
 
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            // Initialize displaying articles in feed
+            initFeed();
+
+            function initFeed() {
+                var articles = {{ feed|safe }};
+                    for (var idx in articles) {
+                        feedTheFeed(articles[idx], idx)
+                    }
+            }
+
+            $(".article:nth-child(8n+1)").css("background-color", "black").addClass('col-md-8 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+2)").css("background-color", "#b82776").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+3)").css("background-color", "#27b85e").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+4)").css("background-color", "#989e21").addClass('col-md-8 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+5)").css("background-color", "#b88027").addClass('col-md-8 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+6)").css("background-color", "#cf463a").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+7)").css("background-color", "#445d9b").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n)").css("background-color", "#1c7184").addClass('col-md-8 col-sm-6 col-xs-12');
+
+            function feedTheFeed(article, idx) {
+
+                var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
+                var article_slug_url = article_slug.replace('article_slug', article['slug']);
+                var article_avatar_url = "{{ url_for('static',filename='')}}" + article['avatar_url'];
+                var profile_url = "{{ url_for('organization.feed', organization_slug=organization.org_slug) }}".replace('organization_slug',article['org_slug']);
+                var type = getArticleTypeClass(article.type);
+
+                var divHTML = '' +
+                        '<div class="article" style="padding: 3px;">' +
+                        '<a href="' + profile_url + '">' +
+                        '<img src="' + article_avatar_url + '" class="img-circle img-responsive profil"/>' +
+                        '</a>' +
+                        '<a href="' + article_slug_url + '">' +
+                        '<h3 class="article-title">' + article['title'] + '</h3>' +
+                        '</a>' +
+                        '<i class="' + type + '" aria-hidden="true"></i>' +
+                        '</div>';
+
+                $('.latest').append(divHTML);
+            }
+
+            function getArticleTypeClass(idx) {
+                var style = '';
+                switch (idx) {
+                    case 'text':
+                    style = 'fa fa-file-text-o text article-type';
+                    break;
+                    case 'video':
+                    style = 'fa fa-file-video-o video article-type';
+                    break;
+                    case 'audio':
+                    style = 'fa fa-file-audio-o audio article-type';
+                    break;
+                    case 'attachment':
+                    style = 'fa fa-paperclip attachment article-type';
+                    break;
+                    default:
+                    style = 'fa file-text-o article-type';
+                }
+
+                return style;
+            }
+        });
+    </script>
 {% endblock body %}

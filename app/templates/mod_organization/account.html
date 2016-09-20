@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <div id="acc-details">
+        {% include('mod_profile/profile_header.html') %}
+        {% include('mod_profile/user_menu.html') %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Account details</h4>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <img src="{{ url_for('static',filename=current_user.avatar_url) }}"
+                     class="img-responsive img-circle avatar">
+                <form name="avatar_change" method=POST enctype="multipart/form-data"
+                      action="{{ url_for('profile.upload_avatar') }}">
+
+                    <input type='file' name='photo'>
+                    <button type="submit" class="change-avatar">Change avatar</button>
+                </form>
+
+            </div>
+
+            <div class="col-md-4">
+                <h5>Edit account details</h5>
+                <span style="color:red;">{% if error != '' %}{{ error }}{% endif %}</span>
+                <form name="profile-details" id="profile-details" method="POST"
+                      action="{{ url_for('profile.profile_settings', username=current_user.username) }}">
+
+                    <input type="text" class="personal-data name" placeholder="Name" name="name"
+                           value="{% if profile.name %}{{ profile.name }} {% endif %}">
+
+
+                    <input type="text" class="personal-data email" placeholder="Email" name="email"
+                           value="{% if profile.email %} {{ profile.email }}{% endif %}">
+
+
+                    <input type="text" class="personal-data location" placeholder="Location" name="location"
+                           value="{% if profile.location %}{{ profile.location }} {% endif %}">
+
+
+                    <input type="text" class="personal-data telephone" placeholder="Telephone" name="telephone"
+                           value="{% if profile.telephone %}{{ profile.telephone }} {% endif %}">
+
+
+                    <input type="text" class="personal-data mobile" placeholder="Mobile" name="mobile"
+                           value="{% if profile.mobile %} {{ profile.mobile }} {% endif %}">
+
+
+                    <textarea rows="7" class="personal-data about" name="about_us">{% if profile.about_me %}
+                        {{ profile.about_me }} {% endif %}</textarea>
+                    <button type="submit" class="save_details">Save</button>
+                </form>
+
+            </div>
+            <div class="col-md-4">
+                <h5>Change password</h5>
+                <form name="change-password" id="change-password"
+                      action="{{ url_for('profile.profile_settings', username=current_user.username) }}">
+                    <input type="password" class="personal-data" placeholder="Current password">
+                    <input type="password" class="personal-data" placeholder="New password">
+                    <input type="password" class="personal-data" placeholder="Confirm new password">
+                    <button type="submit" class="change-password">Change password</button>
+                </form>
+                <br><br><br>
+                <h5>Delete account</h5>
+                <h6>Are you sure? There's no coming back from this one!</h6>
+                <h6><b>All your articles will be deleted.</b></h6><br>
+                <button type="submit" class="del-account">Delete account</button>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

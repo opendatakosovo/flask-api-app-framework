@@ -24,7 +24,7 @@
 
                 <div class="box">
                     <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
-                    <span class="user-name">{{ current_user.name }}, {{ current_user.lastname }}</span>
+                    <span class="user-name">{{ organization.name }}</span>
                     <button type="button" class="follow pull-right">Follow</button>
                     <button type="button" class="ask-to-join pull-right">Ask to join</button>
                 </div>
@@ -32,11 +32,14 @@
         </div>
 
         <div class="row activity-info">
-            <div class="col-md-2 col-md-offset-4">
-                <span>Location:</span> <strong><span>{{ current_user.location }}</span></strong>
+            <div class="col-md-2 col-md-offset-2">
+                <span>Location:</span> <strong><span>{{ organization.location }}</span></strong>
             </div>
             <div class="col-md-2">
                 <span>Articles:</span><strong><span>0</span></strong>
+            </div>
+            <div class="col-md-2">
+                <span>Members:</span><strong><span>0</span></strong>
             </div>
             <div class="col-md-2">
                 <span>Followers:</span><strong><span>0</span></strong>
@@ -72,9 +75,9 @@
         <br/>
         <div class="row">
             <div class="col-md-10 col-md-offset-1 contact-info">
-                <span class="email col-md-3">E-mail: {{ current_user.email }}</span>
-                <span class="telephone col-md-3">Telephone: {{ current_user.telephone }}</span>
-                <span class="mobile col-md-3">Mobile: {{ current_user.mobile }}</span>
+                <span class="email col-md-3">E-mail: {{ organization.email }}</span>
+                <span class="telephone col-md-3">Telephone: {{ organization.telephone }}</span>
+                <span class="mobile col-md-3">Mobile: {{ organization.mobile }}</span>
             </div>
         </div>
     </div>

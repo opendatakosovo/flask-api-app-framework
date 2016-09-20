@@ -84,6 +84,17 @@ class ContentMongoUtils(object):
                 .find_one({"username": article['username']})['avatar_url']
         return articles_dump
 
+    def get_org_articles(self, org_slug):
+
+        articles = self.mongo.db[self.content_collection] \
+            .find({"author.org_slug": org_slug, 'visible': True, 'published': True}).sort([("_id", -1)])
+        articles_dump = list(articles)
+        for article in articles_dump:
+            if article is not None:
+                article['avatar_url'] = self.mongo.db[self.users_collection] \
+                    .find_one({"username": article['username']})['avatar_url']
+        return articles_dump
+
     def get_single_article(self, slug):
         """ Get an article based on the title slug.
         :param slug: the slug version of the title
@@ -131,8 +142,25 @@ class ContentMongoUtils(object):
             articles_number_category_list[category] = nr_articles_category
         return json.dumps(articles_number_category_list)
 
+    def count_org_articles_by_category(self, org_slug, category):
+
+        list_of_categories = self.mongo.db[self.content_collection].distinct("category")
+        articles_number_category_list = {}
+        for category in list_of_categories:
+            nr_articles_category = self.mongo.db[self.content_collection] \
+                .find({"author.org_slug": org_slug, "category": category, 'visible': True, 'published': True}).count()
+
+            articles_number_category_list[category] = nr_articles_category
+        return json.dumps(articles_number_category_list)
+
     def get_articles_one_category_only(self, username, category):
 
         articles = self.mongo.db[self.content_collection] \
                 .find({"username": username, "category": category, 'visible': True, 'published': True})
+        return articles
+
+    def get_articles_one_category_only_org(self,category, org_slug):
+
+        articles = self.mongo.db[self.content_collection] \
+                .find({"author.org_slug": org_slug, "category": category, 'visible': True, 'published': True})
         return articles
