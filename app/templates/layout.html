@@ -50,13 +50,13 @@
                     <a href="{{ url_for('profile.feed', username = current_user.username) }}" style="margin: auto">
                         {% if current_user.avatar_url %}
                             <img src="{{ url_for('static',filename='') + current_user.avatar_url }}"
-                                 class="img-circle profile-img">
+                                 class="profile-avatar img-circle profile-img">
                         {% else %}
                              <img src="{{ url_for('static',filename='img/no-avatar.png') }}"
-                                 class="img-circle profile-img">
+                                 class="profile-avatar img-circle profile-img">
                         {% endif %}
                     </a>
-                    <a href="{{ url_for('auth.logout') }}" style="color:#3b8cde; font-size:16px; margin-top: 30px;">Log
+                    <a href="{{ url_for('auth.logout') }}" class="log-out" style="color:#3b8cde; font-size:16px; margin-top: 30px;">Log
                         out</a>
                 {% else %}
                     <a href="#" id="sign-in" data-toggle="popover" content="#log-in-form" style="color:#3b8cde">Log

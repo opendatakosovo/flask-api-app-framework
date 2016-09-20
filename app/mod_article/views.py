@@ -152,4 +152,3 @@ def delete_article(article_id):
     # TODO: Restrict access to only authenticated users
     content_mongo_utils.delete_article(article_id)
     return Response(200)
-

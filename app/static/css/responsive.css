@@ -6,13 +6,25 @@
         .logo {
             margin-left: 10px;
         }
-
     }
 
-    @media (max-width : 991px) {
+    @media (max-width: 991px) {
+
         .fa-share-alt, .fa-bookmark-o{
             font-size: 20px;
         }
+
+        #single-article .article-t{
+             font-size: 25px;
+         }
+
+        #single-article .fa-bookmark-o,
+        #single-article .fa-bookmark,
+        #single-article .fa-share-alt{
+            font-size: 25px;
+        }
+
+
     }
 /*Medium Devices, Desktops */
     @media (max-width: 800px) {
@@ -20,7 +32,6 @@
         .logo {
             margin-left: 10px;
         }
-
 
         #nav-bar1 {
             margin-left: 0px;
@@ -61,17 +72,8 @@
             margin-top: 49px;
             margin-right: 5px;
         }
-
-
-
-    }
-
-    @media (max-width: 991px) {
-        @media (max-width: 800px) {
-            .fa-close {
-                margin-top: 80px;
-                margin-right: 90px;
-            }
+        #single-article .popover{
+            left: 125px!important;
         }
     }
 
@@ -108,6 +110,21 @@
             margin-left: -5px;
         }
 
+        #single-article .org{
+            font-size: 25px;
+        }
+
+        #single-article .author{
+            font-size: 20px;
+        }
+
+        #single-article .fa-bookmark-o,
+        #single-article .fa-bookmark,
+        #single-article .fa-share-alt,
+        #single-article .article-t{
+            font-size: 20px;
+        }
+
     }
 
     @media (max-width: 767px) {
@@ -136,13 +153,8 @@
             float: right;
         }
 
-    }
-
-    @media (max-width: 492px) {
-
-        #un-registered .btn-signup {
-            width: 60%;
-            margin-left: 20%;
+        #single-article .popover{
+            left: 165px!important;
         }
     }
 
@@ -155,6 +167,15 @@
         .fa-close {
             margin-top: 49px;
             margin-right: 5px;
+        }
+
+    }
+
+    @media (max-width: 492px) {
+
+        #un-registered .btn-signup {
+            width: 60%;
+            margin-left: 20%;
         }
     }
 
@@ -222,6 +243,21 @@
         .menu-icons .fa{
             font-size:25px !important;
         }
+
+         #single-article .org{
+            font-size: 20px;
+        }
+         #single-article .img-circle{
+           width: 40px;
+         }
+
+         #single-article .author{
+            font-size: 15px;
+        }
+
+         #single-article .popover {
+             left: 135px !important;
+         }
     }
 
     @media (max-width: 435px) {
@@ -271,12 +307,6 @@
         }
     }
 
-    @media (max-width: 375px) {
-
-    }
-
-
-
     @media only screen and (max-width: 360px) {
 
         #un-registered .btn-signup {
@@ -301,28 +331,45 @@
             margin-right: 0px;
         }
 
-        .news{
-            font-size: 18px!important;
+        .news {
+            font-size: 15px !important;
 
         }
-
 
         #single-article .fa-bookmark-o,
         #single-article .fa-bookmark,
         #single-article .fa-comment-o,
         #single-article .fa-tag,
-        #single-article .fa-share-alt{
-            font-size: 20px !important;
+        #single-article .fa-share-alt {
+            font-size: 15px !important;
         }
 
-        .comment{
+        .comment {
             font-size: 20px;
         }
 
+        .profile-avatar {
+            width: 30px;
+            height: 30px;
+        }
+
+        .log-out {
+            font-size: 13px !important;
+        }
+
+        #single-article .fa-clock-o {
+            font-size: 14px;
+        }
+
+        .btn-previous, .btn-reply {
+            font-size: 15px;
+        }
+
+        #single-article .popover {
+            width: 200px;
+            left: 100px !important;
+        }
     }
-
-
-
     /* Custom, iPhone Retina */
     @media (max-width: 320px) {
 
@@ -409,7 +456,8 @@
         .article-t{
             font-size: 20px;
         }
-
-
+        #single-article ul {
+            padding-left: 50px;
+        }
     }
 

@@ -46,7 +46,7 @@ class Profile():
 
         articles_no = content_mongo_utils.count_articles(username)
 
-        return render_template('mod_profile/about.html', profile=profile, articles_no=articles_no)
+        return render_template('mod_profile/about.html', profile=profile)
 
 
     def feed(self, username):

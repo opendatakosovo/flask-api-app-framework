@@ -620,11 +620,12 @@
     }
 
     #single-article .popover{
-        background-color: transparent;
+        background-color: #fff;
         border: 1px solid #dedede;
         padding: 0px;
         position: absolute;
         left:180px !important;
+        width: 200px;
     }
 
     .comment-field{
@@ -788,4 +789,8 @@
         font-size: 33px;
         color:#fff;
         margin-left: 10px;
+    }
+
+    #single-article .popover .arrow{
+        display: none;
     }
