@@ -15,6 +15,21 @@ def feed(organization_slug):
 
     return render_template('mod_organization/feed.html', feed=feed, organization=organization, organization_slug=organization_slug)
 
+
+@mod_organization.route('/<organization_slug>/<category>', methods=['GET'])
+def category_feed_org(organization_slug, category):
+    ''' Loads the feed page with specific category article.
+            '''
+
+    # get the profile object for the given username
+
+    organization = org_mongo_utils.get_org_by_slug(organization_slug)
+
+    feed = dumps(content_mongo_utils.get_articles_one_category_only_org(organization_slug,category))
+
+    return render_template('mod_organization/feed.html', organization=organization, feed=feed, organization_slug=organization_slug)
+
+
 @mod_organization.route('/<organization_slug>/about', methods=['GET'])
 def about(organization_slug):
 
@@ -37,18 +52,6 @@ def archive(organization_slug):
     return render_template('mod_organization/archive.html', organization=organization, articles_by_category_org=articles_by_category_org)
 
 
-@mod_organization.route('/<organization_slug>/<category>', methods=['GET'])
-def category_feed_org(organization_slug, category):
-    ''' Loads the feed page with specific category article.
-            '''
-
-    # get the profile object for the given username
-    organization = org_mongo_utils.get_org_by_slug(organization_slug)
-
-    feed = dumps(content_mongo_utils.get_articles_one_category_only_org(category, organization_slug))
-
-    return render_template('mod_profile/feed.html', organization=organization, feed=feed)
-
 @mod_organization.route('/<organization_slug>/search', methods=['GET'])
 def search(organization_slug):
 
@@ -57,6 +60,7 @@ def search(organization_slug):
     organization = org_mongo_utils.get_org_by_slug(organization_slug)
 
     return render_template('mod_organization/search.html', organization=organization, feed=feed)
+
 
 @mod_organization.route('/<organization_slug>/settings', methods=['GET'])
 def organization_settings(organization_slug):

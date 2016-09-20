@@ -18,9 +18,11 @@ class Profile():
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
 
-        feed = content_mongo_utils.get_authors_articles(profile.username)
+        category = content_mongo_utils.get_categories()
 
-        return render_template('mod_profile/archive.html', profile=profile, feed=feed)
+        articles_by_category = content_mongo_utils.count_articles_by_category(profile.username, category)
+
+        return render_template('mod_profile/archive.html', profile=profile, articles_by_category=articles_by_category)
 
 
     def search(self, username):
@@ -52,7 +54,7 @@ class Profile():
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
 
-        feed = dumps(content_mongo_utils.get_authors_paginated_articles(profile.username, 0, 6))
+        feed = dumps(content_mongo_utils.get_authors_paginated_articles(profile.username))
 
         return render_template('mod_profile/feed.html', profile=profile, feed=feed)
 

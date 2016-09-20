@@ -159,7 +159,7 @@ class ContentMongoUtils(object):
                 .find({"username": username, "category": category, 'visible': True, 'published': True})
         return articles
 
-    def get_articles_one_category_only_org(self,category, org_slug):
+    def get_articles_one_category_only_org(self, org_slug, category):
 
         articles = self.mongo.db[self.content_collection] \
                 .find({"author.org_slug": org_slug, "category": category, 'visible': True, 'published': True})
