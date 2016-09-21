@@ -1,6 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
+<script>
 
+    function mailToHref() {
+        var hrefMAilTo = "mailto:?subject={{ article['title']}} &BODY=I found this article interesting and thought of sharing it with you. Check it out:" + window.location.href;
+        $("#mail-to").attr("href", hrefMAilTo);
+    }
+    mailToHref();
+
+</script>
 
     <div id="single-article">
         <div class="row">
@@ -49,6 +57,7 @@
                     <i class="bookmark fa fa-bookmark-o"></i>
                     <i id="share" class="fa fa-share-alt" data-toggle="popover" content="#share-social-media"></i>
                     <div class="col-md-12 col-xs-6">
+
                         <form id="share-social-media" class="hidden">
                             <ul>
                                 <li><a href="https://www.facebook.com/sharer/sharer.php?u=&t=" class="fa fa-facebook"
@@ -62,7 +71,8 @@
                                 <li><a href="https://plus.google.com/share?url=" class="fa fa-google-plus"
                                        target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url='
                                    + encodeURIComponent(document.URL)); return false;"></a></li>
-                                <li><a href="" class="fa fa-at" target="_blank"></a></li>
+                                <li><a id="mail-to" href="" class="fa fa-at" onclick= mailToHref(); target="_blank">
+                                </a></li>
                             </ul>
                         </form>
                     </div>

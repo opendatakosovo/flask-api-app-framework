@@ -154,7 +154,7 @@
         }
 
         #single-article .popover{
-            left: 165px!important;
+            left: 220px!important;
         }
     }
 
@@ -168,6 +168,10 @@
             margin-top: 49px;
             margin-right: 5px;
         }
+
+         #single-article .popover {
+             left: 195px !important;
+         }
 
     }
 
@@ -369,6 +373,11 @@
             width: 200px;
             left: 100px !important;
         }
+
+        #single-article ul {
+            padding-left: 40px;
+        }
+
     }
     /* Custom, iPhone Retina */
     @media (max-width: 320px) {
