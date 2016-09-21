@@ -78,6 +78,7 @@ def new_article_from_author(form, name, username):
     title = form['title']
     type = form['type']
     publish_article = True
+    delete = False
     if action == "save":
         publish_article = False
     elif action == "cancel":
@@ -91,6 +92,7 @@ def new_article_from_author(form, name, username):
         "type": type,
         "username": current_user.username,
         "published": publish_article,
+        "delete": delete,
         "published_date": datetime.now(),
         "author": {
             "type": "individual",
@@ -109,6 +111,7 @@ def new_article_from_org(form, name, username):
     title = form['title']
     type = form['type']
     publish_article = True
+    delete = False
     if action == "save":
         publish_article = False
     elif action == "cancel":
@@ -122,6 +125,7 @@ def new_article_from_org(form, name, username):
         "type": type,
         "username": current_user.username,
         "published": publish_article,
+        "delete" : delete,
         "published_date": datetime.now(),
         "author": {
             "type": "organization",
@@ -147,8 +151,9 @@ def paginated_articles(skip_posts_number, posts_per_page):
     return Response(response=articles)
 
 
-@mod_article.route('/delete/<article_id>', methods=['POST'])
-def delete_article(article_id):
+@mod_article.route('/delete/<article_id>/<delete>', methods=["POST", "GET"])
+def delete_article(article_id, delete):
+
     # TODO: Restrict access to only authenticated users
-    content_mongo_utils.delete_article(article_id)
-    return Response(200)
+    article = content_mongo_utils.delete_article(article_id, delete)
+    return redirect(url_for('article.my_articles', article=article, article_action='show'))

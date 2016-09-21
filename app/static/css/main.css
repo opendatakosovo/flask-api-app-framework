@@ -794,3 +794,13 @@
     #single-article .popover .arrow{
         display: none;
     }
+
+    button.cancel.btn.btn-lg.btn-default {
+    width: 100px;
+    color: black;
+    height: 45px;}
+
+    button.confirm.btn.btn-lg.btn-primary {
+    height: 45px;
+    width: 100px;
+    }
