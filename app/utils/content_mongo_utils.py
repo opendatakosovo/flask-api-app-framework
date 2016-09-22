@@ -49,7 +49,7 @@ class ContentMongoUtils(object):
         :rtype: MongoDB Cursor with all the articles
         """
         self.mongo.db[self.content_collection] \
-            .deleteOne({"_id": ObjectId(id)})
+            .remove({"_id": ObjectId(id)})
 
         return True
 

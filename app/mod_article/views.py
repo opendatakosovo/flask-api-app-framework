@@ -51,6 +51,8 @@ def my_articles(article_action):
         message = "Your article has been published."
     elif article_action == "show":
         message = "Showing your latest articles"
+    elif article_action == 'delete':
+        message = "Article/s deleted."
     # TODO: Restrict access to only authenticated users
     articles = content_mongo_utils.get_authors_articles(current_user.username)
     return render_template('mod_article/article_management.html', articles=articles, article_action=article_action,
@@ -147,9 +149,8 @@ def paginated_articles(skip_posts_number, posts_per_page):
     return Response(response=articles)
 
 
-@mod_article.route('/delete/<article_id>', methods=['POST'])
+@mod_article.route('/delete/<article_id>', methods=['POST', 'GET'])
 def delete_article(article_id):
     # TODO: Restrict access to only authenticated users
-    content_mongo_utils.delete_article(article_id)
-    return Response(200)
-
+    delete_article = content_mongo_utils.delete_article(article_id)
+    return redirect(url_for('article.my_articles', article_action='delete'))
