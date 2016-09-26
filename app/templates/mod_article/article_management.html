@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
 
+
     <div id="article-management">
         <div class="row menu-icons">
             <div class="col-md-1 col-sm-1 col-xs-1 text-center">
@@ -87,12 +88,10 @@
                                     <i class="fa fa-eye-slash"></i>
                                 </a>
                             {% endif %}
-                            <a href="{{ url_for('article.delete_article', article_id = article._id) }}">
+                            <a class="del" href="{{ url_for('article.delete_article', article_id = article._id, delete = False) }}" >
                                 <i class="fa fa-trash-o"></i>
                             </a>
-                            <a href="">
-                                <i class=" fa fa-pencil-square-o"></i>
-                            </a>
+                            <a href=""><i class=" fa fa-pencil-square-o"></i></a>
                         </div>
                     </div>
                 {% endfor %}
@@ -100,4 +99,43 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+             $('.del').click(function(event) {
+            event.preventDefault();
+                 var url  = this.href;
+            swal({
+                        title: "Are you sure?",
+                        text: "Your will not be able to recover this article!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes",
+                        confirmButtonColor: "#DD6B55",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+
+                    function(isConfirm){
+                        if (isConfirm){
+                            swal({
+                                title: '',
+                                text: 'Article is successfully deleted!',
+                                type: 'success'
+                            }, function() {
+                                window.location=url;
+
+                            });
+
+
+                        } else {
+                            swal("Cancelled", "Your article is safe :)", "error");
+                        }
+                        });
+            });
+        });
+
+
+    </script>
 {% endblock %}
