@@ -1,6 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
+<script>
 
+    function mailToHref() {
+        var hrefMAilTo = "mailto:?subject={{ article['title']}} &BODY=I found this article interesting and thought of sharing it with you. Check it out:" + window.location.href;
+        $("#mail-to").attr("href", hrefMAilTo);
+    }
+    mailToHref();
+
+</script>
 
     <div id="single-article">
         <div class="row">
@@ -8,7 +16,7 @@
                 <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle">
             </div>
 
-            <div class="col-md-3 col-sm-4 col-xs-9 text-left">
+            <div class="col-md-3 col-sm-5 col-xs-9 text-left">
                 {% if organization %}
                     <span class="org">{{ article['author']['org_name'] }}</span><br />
                     <span class="author">{{ article['author']['name'] }}, {{ article['author']['lastname'] }}</span>
@@ -18,16 +26,16 @@
 
             </div>
 
-            <div class=" col-md-3 col-sm-3 col-xs-8">
+            <div class=" col-md-3 col-sm-3 col-xs-5">
                 <span class="fa fa-clock-o time">   {{ article['published_date'].strftime('%Y-%m-%d %H:%M') }}</span>
             </div>
 
-            <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-4 text-left">
+            <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-5 text-right">
                 {% if organization %}
                     <a href="{{ url_for('organization.archive', organization_slug=organization['org_slug']) }}"
                        class="fa fa-tag news">  {{ article['category'] }}</a>
                 {% else %}
-                    <a href="{{ url_for('profile.archive', username=profile.username) }}"
+                    <a href="{{ url_for ('profile.archive', username =article['author']['slug'])}}"
                        class="fa fa-tag news">  {{ article['category'] }}</a>
                 {% endif %}
 
@@ -35,7 +43,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-2 col-md-offset-1 col-sm-4 col-xs-6">
+            <div class="col-md-2 col-md-offset-1 col-sm-6 col-xs-8">
                 <button type="button" onclick="goBack()" class="go-back">Go Back</button>
             </div>
         </div>
@@ -45,10 +53,11 @@
                 <span class="article-t">    {{ article['title'] }}</span>
             </div>
             {% if current_user.is_authenticated %}
-                <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-2 col-xs-4 col-xs-offset-8 text-left">
+                <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-2 col-xs-5 col-xs-offset-7 text-left">
                     <i class="bookmark fa fa-bookmark-o"></i>
                     <i id="share" class="fa fa-share-alt" data-toggle="popover" content="#share-social-media"></i>
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-xs-6">
+
                         <form id="share-social-media" class="hidden">
                             <ul>
                                 <li><a href="https://www.facebook.com/sharer/sharer.php?u=&t=" class="fa fa-facebook"
@@ -62,13 +71,14 @@
                                 <li><a href="https://plus.google.com/share?url=" class="fa fa-google-plus"
                                        target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url='
                                    + encodeURIComponent(document.URL)); return false;"></a></li>
-                                <li><a href="" class="fa fa-at" target="_blank"></a></li>
+                                <li><a id="mail-to" href="" class="fa fa-at" onclick= mailToHref(); target="_blank">
+                                </a></li>
                             </ul>
                         </form>
                     </div>
                 </div>
             {% else %}
-                <div class="col-md-2 col-md-offset-1 text-left">
+                <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-2 col-xs-5 col-xs-offset-7 text-left">
                     <a href="{{ url_for('auth.sign_up') }}" class="fa fa-bookmark-o"></a>
                     <a href="{{ url_for('auth.sign_up') }}" class="fa fa-share-alt"></a>
                 </div>
