@@ -8,6 +8,7 @@ class UserMongoUtils(object):
         self.mongo = mongo
         self.users_collection = 'users'
         self.roles_collection = 'roles'
+        self.content_collection = 'content'
 
     def query(self, query):
         """ Make a query by only sending a JSON .
@@ -198,3 +199,23 @@ class UserMongoUtils(object):
                 return True
             else:
                 return False
+
+    def delete_user(self, username):
+        """ Delete user from the database.
+        :rtype: MongoDB Cursor with all the users
+        """
+        delete_user = self.mongo.db[self.users_collection] \
+            .remove({"username": username})
+
+        delete_users_content = self.mongo.db[self.content_collection] \
+            .remove({"author.slug": username})
+
+        return delete_user and delete_users_content
+
+    def change_pass(self, username, new_password):
+        from app import bcrypt
+        new_pass = self.mongo.db[self.users_collection] \
+            .update({"username": username},
+                    {"$set": {"password": bcrypt.generate_password_hash(new_password, rounds=12)}})
+
+        return new_pass

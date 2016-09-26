@@ -1,4 +1,4 @@
-    /*Header style*/
+  /*Header style*/
 
     h1{
         font-family: 'Comfortaa', cursive;
@@ -289,7 +289,7 @@
     /*positioning dropdown menu*/
 
     .dropdown-menu {
-        margin: 12px 0 0 218px;
+        margin-left: 10px;
         box-shadow: none;
     }
 
@@ -313,7 +313,6 @@
     #acc-details h4{
         font-weight: bold;
         font-size: 30px;
-        margin: 40px 0px 40px 200px;
     }
 
     #acc-details h5{
@@ -340,8 +339,8 @@
 
     .about{
         height: 140px;
-        width: 322px;
         resize: none;
+        border-color: #bfbfbf;
     }
 
     .save_details{
@@ -359,6 +358,7 @@
         color: #fff;
         height: 40px;
         margin-bottom: 22px;
+        padding-top: 10px;
     }
 
     #acc-details h6{
@@ -372,14 +372,17 @@
         border: none;
         color: #fff;
         height: 40px;
+        padding-top: 10px;
     }
 
+    .del-account:hover{
+        color: #fff;
+    }
 
     .avatar{
         width: 100px;
         height: 100px;
-        margin-left: 10%;
-        margin-top: 170px;
+        margin-top: 10%;
 
 
     }
