@@ -1,0 +1,57 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        ifFollowing();
+    });
+    function ifFollowing() {
+        var current_username = "{{ current_user.username }}";
+        var org_slug = "{{ organization['org_slug'] }}";
+        if (current_username == org_slug) {
+            $('.follow').css('display', 'none');
+        }
+
+
+    }
+    function follow() {
+        var action = $('.follow').text().toLowerCase();
+        if(action == 'follow'){
+            var post_result = $.post('{{ url_for('organization.follow', organization_slug=organization['org_slug'], action="follow")}}');
+            $('.follow').text('Unfollow');
+        }
+        else if(action == 'unfollow'){
+           var post_result = $.post('{{ url_for('organization.follow',organization_slug=organization['org_slug'], action="unfollow")}}');
+             $('.follow').text('Follow');
+        }
+
+    }
+
+</script>
+
+        <!-- Banner part at Feed/About/Article Pages-->
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <i class="fa fa-share-alt share-org"></i>
+                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
+
+                <div class="box">
+                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
+                    <span class="user-name">{{ organization.name }}</span>
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.username not in organization.followers %}
+                            <button type="button" class="follow pull-right" onclick="follow()">Follow</button>
+                        {% else %}
+                            <button type="button" class="follow pull-right" onclick="follow()">Unfollow</button>
+                        {% endif %}
+                        <button type="button" class="ask-to-join pull-right" onclick="{{ url_for('auth.sign_up') }}">Ask
+                            to join
+                        </button>
+                    {% else %}
+                        <button type="button" class="follow pull-right" onclick="{{ url_for('auth.sign_up') }}">Follow</button>
+                        <button type="button" class="ask-to-join pull-right" onclick="{{ url_for('auth.sign_up') }}">Ask
+                            to join
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+

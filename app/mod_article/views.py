@@ -112,6 +112,7 @@ def new_article_from_org(form, name, username):
     category = form['category']
     title = form['title']
     type = form['type']
+    private_article = False
     publish_article = True
     delete = False
     if action == "save":

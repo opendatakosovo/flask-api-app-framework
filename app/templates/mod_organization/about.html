@@ -15,28 +15,14 @@
             </div>
         </div>
 
-        <!-- Banner part at Feed/About/Article Pages-->
-
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <i class="fa fa-share-alt share-org"></i>
-                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
-
-                <div class="box">
-                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
-                    <span class="user-name">{{ organization.name }}</span>
-                    <button type="button" class="follow pull-right">Follow</button>
-                    <button type="button" class="ask-to-join pull-right">Ask to join</button>
-                </div>
-            </div>
-        </div>
+        {% include('mod_organization/org_header.html') %}
 
         <div class="row activity-info">
             <div class="col-md-2 col-md-offset-2">
                 <span>Location:</span> <strong><span>{{ organization.location }}</span></strong>
             </div>
             <div class="col-md-2">
-                <span>Articles:</span><strong><span>{{ articles_no }}</span></strong>
+                <span>Articles:</span><strong><span> {{ articles_no }}</span></strong>
             </div>
             <div class="col-md-2">
                 <span>Members:</span><strong><span>0</span></strong>

@@ -15,19 +15,7 @@
 
         <!-- Banner part at Feed/About/Article Pages-->
 
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <i class="fa fa-share-alt share-org"></i>
-                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
-
-                <div class="box">
-                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
-                    <span class="user-name">{{ organization.name }}</span>
-                    <button type="button" class="follow pull-right">Follow</button>
-                    <button type="button" class="ask-to-join pull-right">Ask to join</button>
-                </div>
-            </div>
-        </div>
+        {% include('mod_organization/org_header.html') %}
         <br>
 
         <div class="categories row">

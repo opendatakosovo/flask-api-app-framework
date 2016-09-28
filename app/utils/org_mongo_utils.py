@@ -3,6 +3,7 @@ class OrgMongoUtils(object):
     def __init__(self, mongo):
         self.mongo = mongo
         self.org_collection = 'organizations'
+        self.users_collection = 'users'
 
     def add_org(self, org):
         """ Add user to the database.
@@ -35,3 +36,36 @@ class OrgMongoUtils(object):
         find_org_result = self.mongo.db[self.org_collection] \
             .find({'$text': {'$search': keyword}})
         return find_org_result
+
+    def add_follower(self, follower_username, organization_slug, action):
+        if action == 'follow':
+            added_follower_to_current_user = self.mongo.db[self.org_collection].update(
+                {"org_slug": organization_slug},
+                {"$addToSet": {"followers": follower_username}}
+            )
+
+            added_followee_to_the_user_ = self.mongo.db[self.users_collection].update(
+                {"username": follower_username},
+                {"$addToSet": {"org_following": organization_slug}}
+            )
+
+            if added_followee_to_the_user_['updatedExisting'] and added_follower_to_current_user['updatedExisting']:
+                return True
+            else:
+                return False
+        elif action == 'unfollow':
+
+            added_follower_to_current_user = self.mongo.db[self.org_collection].update(
+                {"username": organization_slug},
+                {"$pull": {"organizations.followers": follower_username}}
+            )
+
+            added_followee_to_the_user_ = self.mongo.db[self.users_collection].update(
+                {"org_slug": follower_username},
+                {"$pull": {"org_following": organization_slug}}
+            )
+
+            if added_followee_to_the_user_['updatedExisting'] and added_follower_to_current_user['updatedExisting']:
+                return True
+            else:
+                return False

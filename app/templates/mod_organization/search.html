@@ -24,27 +24,8 @@
         </div>
 
         <!-- Banner part at Feed/About/Article Pages-->
+        {% include('mod_organization/org_header.html') %}
 
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <i class="fa fa-share-alt share-org"></i>
-                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
-                <div class="box">
-                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
-                    <span class="user-name">{{ organization['name'] }}</span>
-                    {% if current_user.is_authenticated %}
-                        <button type="button" class="follow pull-right">Follow</button>
-                        <button type="button" class="ask-to-join pull-right">Ask to join</button>
-                    {% else %}
-                        <button type="button" class="follow pull-right" onclick="{{ url_for('auth.sign_up') }}">Follow
-                        </button>
-                        <button type="button" class="ask-to-join pull-right" onclick="{{ url_for('auth.sign_up') }}">Ask
-                            to join
-                        </button>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
         {% if current_user.is_authenticated %}
             <div class="row">
                 <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">

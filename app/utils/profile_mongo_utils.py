@@ -26,3 +26,7 @@ class ProfileMongoUtils(object):
 
         return True
 
+    def count_followers(self, username):
+        followers = self.mongo.db[self.collection_name] \
+            .find({"username":username, "$size": "$people_followers"})
+        return followers

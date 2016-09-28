@@ -89,6 +89,7 @@ def add_org():
                 "active": True,
                 "org_slug": org_slug,
                 "org_admin": [slugify(admin)],
+                "followers": [],
             }
 
         org_mongo_utils.add_org(org_json)

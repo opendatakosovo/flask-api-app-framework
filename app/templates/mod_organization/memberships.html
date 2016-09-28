@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <div class="row">
+        <div class="search-item row">
+            <div class="row">
+                <div class="col-md-1 col-md-offset-2">
+                    <h3>Membership administration</h3>
+                </div>
+
+            </div>
+{#            <div class="row">#}
+{#                <div class="col-md-1 col-md-offset-3">#}
+{#                    <h4>Organizations()</h4>#}
+{#                </div>#}
+{#            </div>#}
+{#            {% for org in profile.org_following %}#}
+{##}
+{#                <div class="col-md-1 col-md-offset-3">#}
+{#                    <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">#}
+{#                </div>#}
+{#                <div class="col-md-6">#}
+{#                    <a href="{{ url_for('organization.feed', organization_slug=organization.org_slug) }}"><h4#}
+{#                            class="search-result-title">{{ user }}</h4></a>#}
+{#                </div>#}
+{##}
+{#            {% endfor %}#}
+{#            <div class="row">#}
+{#                <div class="col-md-1 col-md-offset-3">#}
+{#                    <h4>People()</h4>#}
+{#                </div>#}
+{#            </div>#}
+{#            {% for user in profile.people_following %}#}
+{##}
+{#                <div class="col-md-1 col-md-offset-3">#}
+{#                    <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">#}
+{#                </div>#}
+{#                <div class="col-md-6">#}
+{#                    <a href="{{ url_for('profile.feed', username=user) }}"><h4#}
+{#                            class="search-result-title">{{ user }}</h4></a>#}
+{#                </div>#}
+{##}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    </div>#}
+
+{% endblock body %}

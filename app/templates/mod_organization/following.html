@@ -1,14 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
-    {% include('mod_profile/profile_header.html') %}
-    {% include('mod_profile/user_menu.html') %}
     <div class="row">
         <div class="search-item row">
             <div class="row">
                 <div class="col-md-1 col-md-offset-2">
                     <h3>Following</h3>
                 </div>
-
             </div>
             <div class="row">
                 <div class="col-md-1 col-md-offset-3">
@@ -21,8 +18,8 @@
                     <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">
                 </div>
                 <div class="col-md-6">
-                    <a href="{{ url_for ('organization.feed', organization_slug=organization.org_slug) }}"><h4
-                            class="search-result-title">{{ org }}</h4></a>
+                    <a href="{{ url_for('organization.feed', slug=org) }}"><h4
+                            class="search-result-title">{{ user }}</h4></a>
                 </div>
 
             {% endfor %}
