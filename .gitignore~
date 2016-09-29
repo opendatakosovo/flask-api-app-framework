@@ -4,9 +4,6 @@ venv
 importer/data/*.*
 config.cfg
 
-# Ignore DS_Store files
-*.DS_Store*
-
 # Upload folder
 app/static/uploads
 

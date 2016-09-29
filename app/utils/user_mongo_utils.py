@@ -55,6 +55,7 @@ class UserMongoUtils(object):
     def get_role_id(self, name):
         role = self.mongo.db[self.roles_collection] \
             .find_one({"name": name})
+
         if role != None:
             return ObjectId(role['_id'])
         else:
@@ -68,6 +69,17 @@ class UserMongoUtils(object):
                 .find_one({"name": name})
 
             return ObjectId(role['_id'])
+
+    def update_user_role(self, username, role_name):
+        # Update role for a specific user
+
+        # Get role object
+        role = self.get_role_id(role_name)
+
+        # Update mongodb user document with the assigned role
+        result = self.mongo.db[self.users_collection] \
+            .update({"username": username}, {"$set": {"role": role_name, 'roles': role}})
+        return True
 
     def get_user(self, email):
         user_cursor = self.mongo.db[self.users_collection] \
@@ -162,7 +174,7 @@ class UserMongoUtils(object):
 
     def find_user(self, keyword):
 
-        find_user_result=self.mongo.db[self.users_collection] \
+        find_user_result = self.mongo.db[self.users_collection] \
             .find({'$text': {'$search': keyword}})
 
         return find_user_result

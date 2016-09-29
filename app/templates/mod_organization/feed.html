@@ -17,8 +17,7 @@
                 <!-- Banner part at Feed/About/Article Pages-->
 
             {% include('mod_organization/org_header.html') %}
-
-                {% if current_user.has_role('org_admin') or current_user.has_role('editor') %}
+                {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}
                     <div class="row">
                         <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
                             <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
@@ -61,13 +60,14 @@
                     </div>
 
                 {% endif %}
-
-                <div class="articles">
+                {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') or current_user.has_role('org_editor') and post_privacy == "on" %}
+                    <div class="articles">
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
                         </div>
                     </div>
                 </div>
+                {% endif %}
         </div>
     </div>
 

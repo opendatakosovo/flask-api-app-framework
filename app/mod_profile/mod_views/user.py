@@ -14,7 +14,7 @@ class User(UserMixin):
         self.lastname = lastname
         self.email = email
         self.password = password
-        self.roles = [Roles(role, 'individual', 'description')]
+        self.roles = [Roles(role, role, 'description')]
         self.role = role
         self.confirmed_at = datetime.datetime.now()
         self.username = username

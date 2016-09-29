@@ -45,7 +45,7 @@ def add_users():
                     "password": bcrypt.generate_password_hash(password, rounds=12),
                     "active": True,
                     "user_slug": slugify(name + ' ' + lastname),
-                    "roles": [user_mongo_utils.get_role_id('individual')],
+                    "roles": [user_mongo_utils.get_role_id(role)],
                     "organizations": ['kreotive']
                 }
                 # TODO: Regiser user
@@ -76,10 +76,12 @@ def add_org():
         email = request.form['email']
         admin = request.form['org_admin']
 
+        user_mongo_utils.update_user_role(admin, 'org_admin')
+
         org_slug = slugify(name)
 
-        if user_mongo_utils.get_user({"slug": org_slug}):
-            error = "A user with that e-mail already exists in the database"
+        if org_mongo_utils.get_org_by_slug({"slug": org_slug}):
+            error = "Organization exists"
             return render_template('mod_superadmin/add_org.html', error=error)
         else:
 
@@ -95,4 +97,8 @@ def add_org():
         org_mongo_utils.add_org(org_json)
 
         error = "Organization is registered, if you want to continue adding organizations, fill the form and click Add Organization"
-        return render_template('mod_superadmin/add_org.html', error=error)
+        users = user_mongo_utils.get_users()
+        users_list = []
+        for user in users:
+            users_list.append(user['username'])
+        return render_template('mod_superadmin/add_org.html', error=error, users_list=users_list)
