@@ -804,6 +804,31 @@
     height: 45px;}
 
     button.confirm.btn.btn-lg.btn-primary {
-    height: 45px;
-    width: 100px;
+        height: 45px;
+        width: 100px;
+    }
+
+    /*** custom checkboxes ***/
+    input[type=checkbox] {
+        position: relative;
+        width: 36px;
+        height: 30px !important;
+    }
+    /* to hide the checkbox itself */
+    label>input[type=checkbox]:before {
+        position: absolute;
+        background-color: #FFFFFF;
+        font-family: FontAwesome;
+        font-size: 30px;
+        display: inline-block;
+        content:"\f0c0";
+        color: #a1a1a1;
+    }
+    /* space between checkbox and label */
+    label>input[type=checkbox]:checked:before {
+        font-family: FontAwesome;
+        display: inline-block;
+        font-size: 30px;
+        color: #000000;
+        content:"\f0c0";
     }

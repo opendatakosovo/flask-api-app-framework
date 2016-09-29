@@ -71,7 +71,7 @@ def new_article(author_type, name, username):
         elif author_type == "organization":
             new_article_from_org(form, name, username)
             return redirect(url_for('article.my_articles', article_action='show'))
-    return redirect(url_for('article.my_articles', article_action='show'))
+    return redirect(url_for('article.my_articles', article_action='show', article=article))
 
 def new_article_from_author(form, name, username):
     action = form['action']
@@ -79,6 +79,11 @@ def new_article_from_author(form, name, username):
     category = form['category']
     title = form['title']
     type = form['type']
+    post_privacy = ''
+    if 'post-privacy' in form:
+        post_privacy = form['post-privacy']
+    else:
+        post_privacy = 'off'
     publish_article = True
     delete = False
     if action == "save":
@@ -94,6 +99,7 @@ def new_article_from_author(form, name, username):
         "type": type,
         "username": current_user.username,
         "published": publish_article,
+        "post_privacy": post_privacy,
         "delete": delete,
         "published_date": datetime.now(),
         "author": {
@@ -112,7 +118,11 @@ def new_article_from_org(form, name, username):
     category = form['category']
     title = form['title']
     type = form['type']
-    private_article = False
+    post_privacy = ''
+    if 'post-privacy' in form:
+        post_privacy = form['post-privacy']
+    else:
+        post_privacy = 'off'
     publish_article = True
     delete = False
     if action == "save":
@@ -129,6 +139,7 @@ def new_article_from_org(form, name, username):
         "username": current_user.username,
         "published": publish_article,
         "delete" : delete,
+        "post_privacy" : post_privacy,
         "published_date": datetime.now(),
         "author": {
             "type": "organization",
@@ -160,8 +171,6 @@ def delete_article(article_id, delete):
    # TODO: Restrict access to only authenticated users
    article = content_mongo_utils.delete_article(article_id, delete)
    return redirect(url_for('article.my_articles', article=article, article_action='show'))
-
-
 
 
 

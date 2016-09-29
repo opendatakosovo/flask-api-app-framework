@@ -18,7 +18,7 @@
 
             {% include('mod_organization/org_header.html') %}
 
-                {% if current_user.has_role('org_admin') or ('editor') or ('member') %}
+                {% if current_user.has_role('org_admin') or current_user.has_role('editor') %}
                     <div class="row">
                         <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
                             <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"

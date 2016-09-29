@@ -56,12 +56,12 @@ class OrgMongoUtils(object):
         elif action == 'unfollow':
 
             added_follower_to_current_user = self.mongo.db[self.org_collection].update(
-                {"username": organization_slug},
+                {"org_slug": organization_slug},
                 {"$pull": {"organizations.followers": follower_username}}
             )
 
             added_followee_to_the_user_ = self.mongo.db[self.users_collection].update(
-                {"org_slug": follower_username},
+                {"username": follower_username},
                 {"$pull": {"org_following": organization_slug}}
             )
 
