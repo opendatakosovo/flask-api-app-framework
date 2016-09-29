@@ -104,6 +104,17 @@ class ContentMongoUtils(object):
                     .find_one({"username": article['username']})['avatar_url']
         return articles_dump
 
+    def get_org_private_articles(self, org_slug):
+        articles = self.mongo.db[self.content_collection] \
+            .find({"author.org_slug": org_slug, 'visible': True, 'published': True, 'delete': False}).sort(
+            [("_id", -1)])
+        articles_dump = list(articles)
+        for article in articles_dump:
+            if article is not None:
+                article['avatar_url'] = self.mongo.db[self.users_collection] \
+                    .find_one({"username": article['username']})['avatar_url']
+        return articles_dump
+
     def get_single_article(self, slug):
         """ Get an article based on the title slug.
         :param slug: the slug version of the title

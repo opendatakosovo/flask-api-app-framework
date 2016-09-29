@@ -3,6 +3,21 @@
 
     <script type="text/javascript" src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
 
+    <script>
+        $( function() {
+        var categories = [
+          "Politics",
+          "How-to's",
+          "Sports",
+          "Humour",
+          "Organisation News",
+          "Local News",
+        ];
+        $( "#categories" ).autocomplete({
+          source: categories
+        });
+      } );
+    </script>
 
 
     <div class="row" style="display: inline">
@@ -56,25 +71,18 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <select name="category" class="form-control category">
-                                <option value="empty">Category</option>
-                                <option value="Politics">Politics</option>
-                                <option value="Humour">Humour</option>
-                                <option value="Sports">Sports</option>
-                                <option value="How-to's">How-to's</option>
-                                <option value="Organisation News">Organisation News</option>
-                                <option value="Local News">Local News</option>
-                            </select><br/>
+                        <div class="col-md-9 col-md-offset-2">
+                            <label class="category-label">Category</label>
+                            <input name="category" id="categories"><br/>
                         </div>
 
-                        <div class="col-md-1">
+                        <div class="col-md-1" style="padding-top: 30px;">
                             <label>
                                 <input type="checkbox" id="post-privacy" name="post-privacy" />
                             </label>
                         </div>
-
                     </div>
+                    <br/>
                     <div class="row">
                         <div class="col-md-2">
 

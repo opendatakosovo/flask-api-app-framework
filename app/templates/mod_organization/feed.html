@@ -60,14 +60,16 @@
                     </div>
 
                 {% endif %}
-                {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') or current_user.has_role('org_editor') and post_privacy == "on" %}
+                {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') or current_user.has_role('member')%}
                     <div class="articles">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endif %}
+
+
         </div>
     </div>
 
