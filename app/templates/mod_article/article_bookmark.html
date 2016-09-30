@@ -35,3 +35,31 @@
     </div>
 
 {% endblock %}
+
+{#
+class Bookmark(db.Model):
+    url = TextField()
+    created_date = DateTimeField(default=datetime.datetime.now)#}
+{#
+bookmarks = Blueprint('bookmarks', __name__, template_folder='templates')
+
+@bookmarks.route('/')
+@auth.login_required
+def list():
+    qr = Bookmark.select()
+    return object_list('bookmarks/articles.html', qr)
+
+@bookmarks.route('/add/')
+@auth.login_required
+def add():
+    url = request.args.get('url')
+    if url:
+        Bookmark.get_or_create(url=url)
+    return redirect(url or url_for('bookmarks.list'))
+
+@bookmarks.route('/<pk>/delete/')
+@auth.login_required
+def delete(pk):
+    bookmark = get_object_or_404(Bookmark, id=pk)
+    bookmark.delete_instance()
+    return redirect(url_for('bookmarks.list'))#}
