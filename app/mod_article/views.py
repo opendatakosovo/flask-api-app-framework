@@ -32,7 +32,8 @@ def organization_author_articles(user_id, org_id):
 @mod_article.route('/<org_id>')
 def organization_articles(org_id):
     # TODO: Restrict access to only authenticated users
-    return render_template('mod_article/article_management.html')
+    organization = content_mongo_utils.get_org_articles(org_id)
+    return render_template('mod_article/article_management.html', organization=organization)
 
 
 @mod_article.route('/user/<username>')

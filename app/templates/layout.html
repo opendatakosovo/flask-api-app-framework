@@ -184,7 +184,14 @@
 
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
+
+        $('.dropdown-submenu a.org-adm').on("click", function(e){
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+      });
     });
+
 
 
 </script>

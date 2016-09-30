@@ -1,7 +1,10 @@
-from flask import Blueprint, render_template, request, Response
+from flask import Blueprint, render_template, request, Response, redirect, url_for, send_from_directory
 from flask.ext.security import login_required, current_user
-from app import org_mongo_utils, content_mongo_utils, user_mongo_utils
+from app import org_mongo_utils, content_mongo_utils, user_mongo_utils, upload_folder
 from bson.json_util import dumps
+import os
+from datetime import datetime
+from werkzeug.utils import secure_filename
 
 mod_organization = Blueprint('organization', __name__, url_prefix='/organization')
 
@@ -106,5 +109,44 @@ def follow(organization_slug, action):
 @mod_organization.route('/<organization_slug>/memberships', methods=['GET'])
 def memberships(organization_slug):
 
-    # profile = user_mongo_utils.get_user_by_username(username)
-    return render_template('mod_organization/memberships.html')
+    profile = user_mongo_utils.get_users()
+    organization = org_mongo_utils.get_org_by_slug(organization_slug)
+    return render_template('mod_organization/memberships.html',  profile=profile, organization=organization)
+
+
+@login_required
+@mod_organization.route('/upload', methods=["GET", 'POST'],)
+def upload_avatar(self):
+    error = ""
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'photo' not in request.files:
+            error = 'No file part'
+            return redirect(request.url)
+        file = request.files['photo']
+        allowed_file = self.allowed_file(file.filename)
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            error = 'No selected file'
+            return redirect(request.url)
+        if file and allowed_file:
+            filename = secure_filename(file.filename)
+            directory = str(upload_folder) + str(current_user.username) + '/' + str(
+                datetime.now().strftime('%Y-%m'))
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+            file.save(os.path.join(directory, filename))
+            photo_url = 'uploads/' + str(current_user.username) + '/' + str(
+                datetime.now().strftime('%Y-%m')) + "/" + filename
+            user_mongo_utils.change_avatar(current_user.username, photo_url)
+            return redirect(url_for('organization.organization_settings',
+                                    username=current_user.username))
+    return redirect(url_for('organization.organization_settings', username=current_user.username, error=error))
+
+
+@login_required
+@mod_organization.route('/photo/<filename>', methods=["GET"])
+def get_avatar_url(self, org_slug):
+    organization = org_mongo_utils.get_org_by_slug(org_slug)
+    return organization['avatar_url']

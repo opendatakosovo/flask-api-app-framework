@@ -2,46 +2,55 @@
 {% block body %}
 
     <div class="row">
-        <div class="search-item row">
-            <div class="row">
-                <div class="col-md-1 col-md-offset-2">
-                    <h3>Membership administration</h3>
-                </div>
-
+        <div class="col-md-1">
+            <div class="dropdown col-md-6">
+                <button class="fa fa-bars dropdown-toggle "
+                        data-toggle="dropdown" role="menu"></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Feed</a></li>
+                    <li>
+                        <a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
+                    </li>
+                    <li><a href="#">Comments</a></li>
+                    <li><a href="#">Bookmarks</a></li>
+                    <li><a href="#">Following</a></li>
+                    <li>
+                        <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account Details</a>
+                    </li>
+                    {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}
+                        {% include ('mod_organization/org_administration.html') %}
+                    {% endif %}
+                </ul>
             </div>
-{#            <div class="row">#}
-{#                <div class="col-md-1 col-md-offset-3">#}
-{#                    <h4>Organizations()</h4>#}
-{#                </div>#}
-{#            </div>#}
-{#            {% for org in profile.org_following %}#}
-{##}
-{#                <div class="col-md-1 col-md-offset-3">#}
-{#                    <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">#}
-{#                </div>#}
-{#                <div class="col-md-6">#}
-{#                    <a href="{{ url_for('organization.feed', organization_slug=organization.org_slug) }}"><h4#}
-{#                            class="search-result-title">{{ user }}</h4></a>#}
-{#                </div>#}
-{##}
-{#            {% endfor %}#}
-{#            <div class="row">#}
-{#                <div class="col-md-1 col-md-offset-3">#}
-{#                    <h4>People()</h4>#}
-{#                </div>#}
-{#            </div>#}
-{#            {% for user in profile.people_following %}#}
-{##}
-{#                <div class="col-md-1 col-md-offset-3">#}
-{#                    <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">#}
-{#                </div>#}
-{#                <div class="col-md-6">#}
-{#                    <a href="{{ url_for('profile.feed', username=user) }}"><h4#}
-{#                            class="search-result-title">{{ user }}</h4></a>#}
-{#                </div>#}
-{##}
-{#            {% endfor %}#}
+        </div>
+        <div class="col-md-1">
+            <a href="{{ url_for('article.new_article' , author_type="organization", name=organization.name, username=organization['org_slug']) }}" class="fa fa-pencil"></a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Membership administration</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-md-offset-3">
+            <h4>Members()</h4>
+        </div>
+    </div>
+    <div class="row">
+{#        <div class="col-md-1 col-md-offset-3">#}
+{#            <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">#}
 {#        </div>#}
-{#    </div>#}
+{#        <div class="col-md-6">#}
+{#            <a href="{{ url_for('organization.feed', organization_slug=organization.org_slug) }}"><h4#}
+{#                    class="search-result-title">{{ user }}</h4></a>#}
+{#        </div>#}
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-md-offset-3">
+            <h4>Pending()</h4>
+        </div>
+    </div>
 
 {% endblock body %}

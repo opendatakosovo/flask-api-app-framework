@@ -36,8 +36,8 @@
                     <div class="row">
                         <div class="col-md-2">
                             <div class="dropdown write-menu col-md-6">
-                                <button class="fa fa-bars dropdown-toggle " aria-hidden="true"
-                                        data-toggle="dropdown"></button>
+                                <button class="fa fa-bars dropdown-toggle "
+                                        data-toggle="dropdown" role="menu"></button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Feed</a></li>
                                     <li>
@@ -49,6 +49,9 @@
                                     <li>
                                         <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account Details</a>
                                     </li>
+{#                                    {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}#}
+{#                                        {% include ('mod_organization/org_administration.html') %}#}
+{#                                    {% endif %}#}
                                 </ul>
                             </div>
                         </div>
@@ -73,7 +76,7 @@
                     <div class="row">
                         <div class="col-md-9 col-md-offset-2">
                             <label class="category-label">Category</label>
-                            <input name="category" id="categories"><br/>
+                            <input name="category" id="categories" class="text-right"required ><br/>
                         </div>
 
                         <div class="col-md-1" style="padding-top: 30px;">

@@ -310,18 +310,21 @@
 
     /*Account details page*/
 
-    #acc-details h4{
+    #acc-details h4,
+    #org-acc-details h4{
         font-weight: bold;
         font-size: 30px;
     }
 
-    #acc-details h5{
+    #acc-details h5,
+    #org-acc-details h5{
         font-weight: bold;
         font-size: 22px;
         margin: 20px 0px;
     }
 
-    #acc-details .fa-bars{
+    #acc-details .fa-bars,
+    #org-acc-details .fa-bars{
         background: transparent;
         border: none;
     }
@@ -361,7 +364,8 @@
         padding-top: 10px;
     }
 
-    #acc-details h6{
+    #acc-details h6,
+    #org-acc-details h6{
         width: 80%;
         font-size: 18px;
     }
@@ -400,10 +404,7 @@
     .profile-about ul,
     .profile-archive ul,
     .prof-search ul,
-    .org-feed ul,
-    .org-about ul,
-    .org-archive ul,
-    .org-search ul{
+    .org-menu ul{
         margin-left: -40px;
         padding-top: 50px;
     }
@@ -412,10 +413,7 @@
     .profile-about ul li,
     .profile-archive ul li,
     .prof-search ul li,
-    .org-feed ul li,
-    .org-about ul li,
-    .org-archive ul li,
-    .org-search ul li{
+    .org-menu ul li{
         list-style-type: none;
         display: inline;
 
@@ -436,18 +434,12 @@
         margin-right: 20px;
 
     }
-    /*.profile-feed{*/
-        /*height:auto;*/
-    /*}*/
 
     .profile-feed ul li .active,
     .profile-about ul li .active,
     .profile-archive ul li .active,
     .prof-search ul li .active,
-    .org-feed ul li .active,
-    .org-about ul li .active,
-    .org-archive ul li .active,
-    .org-search ul li .active{
+    .org-menu ul li .active{
         font-weight: bold;
     }
 
@@ -455,10 +447,7 @@
     .profile-about .fa,
     .profile-archive .fa,
     .prof-search .fa,
-    .org-feed .fa,
-    .org-about .fa,
-    .org-archive .fa,
-    .org-search .fa{
+    .org-menu .fa{
         font-size: 40px;
         margin: 20px 10px;
     }
@@ -494,24 +483,6 @@
         width: 150px;
         height: 45px;
         margin: 12px 10px;
-    }
-
-
-
-    .profile-feed .dropdown,
-    .org-feed .dropdown,
-    .org-search .dropdown
-    {
-        margin: 10px 0;
-    }
-
-
-    .profile-feed .dropdown-menu,
-    .org-feed .dropdown-menu,
-    .org-search .dropdown-menu
-    {
-        margin-left: 20px;
-        margin-top: 0px;
     }
 
     .user-pic {
@@ -854,3 +825,28 @@
         color: #a1a1a1;
         font-size: 20px;
     }
+
+    .dropdown-submenu {
+    position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+    top: -45%;
+    left: 85%;
+    margin-top: -1px;
+    }
+
+    .org-adm,
+    a.org-adm:hover{
+        background-color: #D14A43 !important;
+        color: #FFFFFF !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+        padding-bottom: 20px !important;
+        padding-top: 10px !important;
+    }
+
+    .org-adm span{
+        color: #FFFFFF;
+    }
+

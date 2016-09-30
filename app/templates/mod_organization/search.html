@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="org-search">
-        <div class="row">
+        <div class="row org-menu">
             <div class="col-md-10 col-md-offset-1">
                 <ul>
                     <li>
@@ -39,7 +39,11 @@
                         <li><a href="#">Bookmarks</a></li>
                         <li><a href="#">Following</a></li>
                         <li><a href="#">Account details</a></li>
+                        {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}
+                            {% include ('mod_organization/org_administration.html') %}
+                        {% endif %}
                     </ul>
+
 
                 </div>
                 <div class="col-md-1">

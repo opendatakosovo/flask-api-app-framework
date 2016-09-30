@@ -4,7 +4,7 @@
     <div class="org-about">
 
     <div class="container">
-        <div class="row">
+        <div class="row org-menu">
             <div class="col-md-10 col-md-offset-1">
                 <ul>
                     <li><a href="{{ url_for ('organization.feed', organization_slug=organization['org_slug']) }}">Feed</a></li>
@@ -41,14 +41,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <span><br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat.
-                Donec placerat nisl magna, et faucibus arcu condimentum sed.Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit. Aliquam at porttitor sem.  <br><br>
-
-                Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna, et
-                faucibus arcu condimentum sed.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.
-                Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+               {% if organization.about_org %}{{ organization.about_org }}{% endif %}
                 </span>
             </div>
         </div>

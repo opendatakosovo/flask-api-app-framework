@@ -108,7 +108,7 @@ class Profile():
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
         organization = org_mongo_utils.get_organizations()
-        return render_template('mod_profile/memberships.html', profile=profile, organization=organization )
+        return render_template('mod_profile/following.html', profile=profile, organization=organization)
 
     @login_required
     def allowed_file(self, filename):

@@ -3,7 +3,7 @@
 
     <div class="org-feed">
         <div class="container">
-           <div class="row">
+           <div class="row org-menu">
                     <div class="col-md-10 col-md-offset-1">
                         <ul>
                             <li><a href="{{ url_for ('organization.feed', organization_slug=organization.org_slug) }}" class="active">Feed</a></li>
@@ -20,18 +20,23 @@
                 {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}
                     <div class="row">
                         <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
-                            <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
-                                            style="color: #000"></button>
+                            <button class="fa fa-bars dropdown-toggle "
+                                        data-toggle="dropdown" role="menu" style="color: #000"></button>
                                 <ul class="dropdown-menu" style="margin: 12px 0 0 30px; padding-top: 0px;">
-                                    <li><a href="#" class="active">Feed</a></li>
-                                    <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article
-                                        management</a></li>
+                                    <li><a href="#">Feed</a></li>
+                                    <li>
+                                        <a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
+                                    </li>
                                     <li><a href="#">Comments</a></li>
                                     <li><a href="#">Bookmarks</a></li>
-                                    <li><a href="{{ url_for('organization.memberships', organization_slug=organization.org_slug) }}">Following</a></li>
-                                    <li><a href="{{ url_for('organization.organization_settings', organization_slug=organization.org_slug) }}">Account details</a></li>
+                                    <li><a href="#">Following</a></li>
+                                    <li>
+                                        <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account Details</a>
+                                    </li>
+                                    {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}
+                                        {% include ('mod_organization/org_administration.html') %}
+                                    {% endif %}
                                 </ul>
-
                             </div>
                         <div class="col-md-1">
                             <a href="{{ url_for('article.new_article' , author_type="organization", name=organization.name, username=organization['org_slug']) }}" class="fa fa-pencil"></a>
