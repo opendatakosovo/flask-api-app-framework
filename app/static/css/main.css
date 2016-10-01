@@ -452,14 +452,8 @@
         margin: 20px 10px;
     }
 
-    .profile-feed .fa-bars,
-    .profile-about .fa-bars,
-    .profile-archive .fa-bars,
-    .prof-search .fa-bars,
-    .org-feed .fa-bars,
-    .org-about .fa-bars,
-    .org-archive .fa-bars,
-    .org-search .fa-bars{
+    .fa-bars{
+
         background-color: transparent;
         border: none;
     }

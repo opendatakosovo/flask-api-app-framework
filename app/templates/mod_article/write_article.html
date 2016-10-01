@@ -49,9 +49,9 @@
                                     <li>
                                         <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account Details</a>
                                     </li>
-{#                                    {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}#}
-{#                                        {% include ('mod_organization/org_administration.html') %}#}
-{#                                    {% endif %}#}
+                                     {% if current_user.has_role('org_admin')%}
+                                        {% include ('mod_organization/org_administration.html') %}
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>

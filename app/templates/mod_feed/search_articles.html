@@ -32,7 +32,7 @@
                             <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
                                     style="color: #000"></button>
                             <ul class="dropdown-menu" style="margin: 12px 0 0 30px;">
-                                <li><a href="#" class="active">Feed</a></li>
+                                <li><a href="{{ url_for('main.feed') }}" class="active">Feed</a></li>
                                 <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article
                                     management</a></li>
                                 <li><a href="#">Comments</a></li>

@@ -6,7 +6,7 @@
                 <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1">
                     <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Feed</a></li>
+                        <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
                         <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
                         </li>
                         <li><a href="#">Comments</a></li>

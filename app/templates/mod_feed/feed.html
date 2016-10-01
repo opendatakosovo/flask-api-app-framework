@@ -10,7 +10,6 @@
                 <br><br><br><br>
 
                 <div class="row menu-icons">
-
                     <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                         {% if current_user.is_authenticated() %}
                             <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
@@ -23,6 +22,12 @@
                                 <li><a href="#">Bookmarks</a></li>
                                 <li><a href="#">Following</a></li>
                                 <li><a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account details</a></li>
+{#                                <li>#}
+{##}
+{#                                    {% if current_user.has_role('org_admin') %}#}
+{#                                        {% include ('mod_organization/org_administration.html') %}#}
+{#                                    {% endif %}#}
+{#                                </li>#}
                             </ul>
                         {% endif %}
                     </div>

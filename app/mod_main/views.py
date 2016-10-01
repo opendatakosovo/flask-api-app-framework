@@ -30,7 +30,10 @@ def search_organizations():
 
     else:
         organizations = org_mongo_utils.get_organizations()
-    return render_template('mod_feed/search.html', organizations=organizations)
+
+        organization = org_mongo_utils.get_organizations()
+
+    return render_template('mod_feed/search.html', organizations=organizations, organization=organization)
 
 
 @mod_main.route('/articles/search', methods=['GET'])

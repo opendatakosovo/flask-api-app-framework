@@ -3,12 +3,12 @@
 
     <div id="org-acc-details">
         <div class="row">
-            <div class="col-md-1 col-md-offset-1" style="padding-left: 0px">
+            <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1" style="padding-left: 0px">
                 <div class="dropdown">
                     <button class="fa fa-bars dropdown-toggle "
                             data-toggle="dropdown" role="menu"></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Feed</a></li>
+                    <ul class="dropdown-menu col-xs-12">
+                        <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
                         <li>
                             <a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
                         </li>
@@ -18,34 +18,27 @@
                         <li>
                             <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account Details</a>
                         </li>
-                        {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}
-                        <li class="dropdown-submenu">
-                            <a class="org-adm" href="#">Org Administration  <span class="fa fa-angle-right"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a tabindex="-1" href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a></li>
-                                <li><a tabindex="-1" href="">Memberships</a></li>
-                                <li><a tabindex="-1" href="">Org account details</a></li>
-                            </ul>
-                        </li>
+                        {% if current_user.has_role('org_admin') %}
+                            {% include ('mod_organization/org_administration.html') %}
                         {% endif %}
                     </ul>
                 </div>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-1">
                 <a href="{{ url_for('article.new_article' , author_type="organization", name=organization.name, username=organization['org_slug']) }}" class="fa fa-pencil"></a>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-1">
                 <a href="{{ url_for('organization.search', organization_slug=organization.org_slug) }}" class="fa fa-search"></a>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-6 col-md-offset-1">
                 <h4>Org account details</h4>
             </div>
         </div>
         <br/>
         <div class="row">
-            <div class="col-md-2 col-md-offset-1">
+            <div class="col-md-2 col-md-offset-1 col-sm-6 col-sm-offset-4 col-xs-10 col-xs-offset-2">
                 <img src="{{ url_for('static',filename=current_user.avatar_url) }}"
                      class="img-responsive img-circle avatar">
                 <form name="avatar_change" method=POST enctype="multipart/form-data"
@@ -57,7 +50,7 @@
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-4 col-xs-10 col-xs-offset-2">
                 <h5>Edit account details</h5>
                 <span style="color:red;">{% if error != '' %}{{ error }}{% endif %}</span>
                 <form name="profile-details" id="profile-details" method="POST"
@@ -89,7 +82,7 @@
                 </form>
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-4 col-xs-10 col-xs-offset-2">
                 <h5>Change password</h5>
                 <form name="change-password" id="change-password"
                       action="{{ url_for('organization.organization_settings', organization_slug=organization.org_slug) }}">
