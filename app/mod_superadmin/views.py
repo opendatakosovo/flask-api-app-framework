@@ -74,6 +74,10 @@ def add_org():
     elif request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
+        location = request.form['location']
+        telephone = request.form['telephone']
+        mobile = request.form['mobile']
+        about_org = request.form['about_org']
         admin = request.form['org_admin']
 
         user_mongo_utils.update_user_role(admin, 'org_admin')
@@ -92,6 +96,11 @@ def add_org():
                 "org_slug": org_slug,
                 "org_admin": [slugify(admin)],
                 "followers": [],
+                "location": location,
+                "telephone": telephone,
+                "mobile": mobile,
+                "about_org":about_org,
+
             }
 
         org_mongo_utils.add_org(org_json)

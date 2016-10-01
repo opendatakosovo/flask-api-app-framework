@@ -32,7 +32,8 @@ def organization_author_articles(user_id, org_id):
 @mod_article.route('/<org_id>')
 def organization_articles(org_id):
     # TODO: Restrict access to only authenticated users
-    return render_template('mod_article/article_management.html')
+    organization = content_mongo_utils.get_org_articles(org_id)
+    return render_template('mod_article/article_management.html', organization=organization)
 
 
 @mod_article.route('/user/<username>')
@@ -62,13 +63,14 @@ def my_articles(article_action):
 @mod_article.route('/<string:author_type>/<string:name>/<string:username>/new', methods=["POST", "GET"])
 def new_article(author_type, name, username):
     if request.method == "GET":
-        return render_template('mod_article/write_article.html')
+        organization = org_mongo_utils.find_org_by_admin(username)
+        return render_template('mod_article/write_article.html' , organization=organization )
     elif request.method == "POST":
         form = request.form
         if author_type == "individual":
             new_article_from_author(form, name, username)
             return redirect(url_for('article.my_articles', article_action='show'))
-        elif author_type == "organization":
+        if author_type == "organization":
             new_article_from_org(form, name, username)
             return redirect(url_for('article.my_articles', article_action='show'))
     return redirect(url_for('article.my_articles', article_action='show', article=article))
