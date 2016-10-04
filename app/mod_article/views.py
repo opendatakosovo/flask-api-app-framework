@@ -26,17 +26,18 @@ def article(slug):
     return render_template('mod_article/article_single.html', article=article, profile=profile, organization=organization)
 
 
-@mod_article.route('/<user_id>/<org_id>')
-def organization_author_articles(user_id, org_id):
+@mod_article.route('/<user_id>/<organization_slug>')
+def organization_author_articles(user_id, organization_slug):
     # TODO: Restrict access to only authenticated users
     return render_template('mod_article/article_management.html')
 
 
-@mod_article.route('/articles/<org_id>')
-def organization_articles(org_id):
+@mod_article.route('/articles/organization/<organization_slug>')
+def organization_articles(organization_slug):
     # TODO: Restrict access to only authenticated users
-    organization = content_mongo_utils.get_org_articles(org_id)
-    return render_template('mod_article/article_management.html', organization=organization)
+    organization = org_mongo_utils.get_org_by_slug(organization_slug)
+    articles = content_mongo_utils.get_org_articles(organization_slug)
+    return render_template('mod_article/organization_article_management.html', organization=organization, articles=articles)
 
 
 @mod_article.route('/user/<username>')
@@ -63,22 +64,26 @@ def my_articles(article_action):
                            message=message)
 
 
-@mod_article.route('/<string:author_type>/<string:name>/<string:username>/new', methods=["POST", "GET"])
-def new_article(author_type, name, username):
+@mod_article.route('/<string:author_type>/<string:username>/new', methods=["POST", "GET"])
+def new_article(author_type, username):
+    organization = None
+    if author_type == 'organization':
+        organization = org_mongo_utils.get_org_by_slug(username)
+
     if request.method == "GET":
-        organization = org_mongo_utils.find_org_by_admin(username)
+
         return render_template('mod_article/write_article.html' , organization=organization )
     elif request.method == "POST":
         form = request.form
         if author_type == "individual":
-            new_article_from_author(form, name, username)
+            new_article_from_author(form, username)
             return redirect(url_for('article.my_articles', article_action='show'))
         if author_type == "organization":
-            new_article_from_org(form, name, username)
-            return redirect(url_for('article.my_articles', article_action='show'))
+            new_article_from_org(form, username, organization)
+            return redirect(url_for('article.organization_articles', organization_slug=organization['org_slug'],  article_action='show'))
     return redirect(url_for('article.my_articles', article_action='show', article=article))
 
-def new_article_from_author(form, name, username):
+def new_article_from_author(form, username):
     action = form['action']
     content = form['content']
     category = form['category']
@@ -110,14 +115,14 @@ def new_article_from_author(form, name, username):
         "author": {
             "type": "individual",
             "slug": username,
-            "name": name,
+            "name": current_user.name,
             "lastname": current_user.lastname
         }
     })
     return redirect(url_for('article.my_articles', article_action='save'))
 
 
-def new_article_from_org(form, name, username):
+def new_article_from_org(form, username, organization):
     action = form['action']
     content = form['content']
     category = form['category']
@@ -148,8 +153,8 @@ def new_article_from_org(form, name, username):
         "published_date": datetime.now(),
         "author": {
             "type": "organization",
-            "org_slug": username ,
-            "org_name": name,
+            "org_slug": organization['org_slug'] ,
+            "org_name": organization['name'],
             "name": current_user.name,
             "lastname": current_user.lastname
         }

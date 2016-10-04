@@ -74,7 +74,7 @@ class OrgMongoUtils(object):
 
     def find_org_by_admin(self, username):
         find_org_result = self.mongo.db[self.org_collection] \
-            .find({'org_admin': username})
+            .find_one({'org_admin':{"$in":[username]}})
         return find_org_result
 
     # Membership administration

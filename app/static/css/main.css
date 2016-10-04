@@ -869,3 +869,6 @@ a.org-adm:hover {
     position: absolute;
     right: 0;
 }
+.loading img {
+    width: 100px;
+}

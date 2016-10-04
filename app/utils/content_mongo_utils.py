@@ -27,12 +27,12 @@ class ContentMongoUtils(object):
 
         return articles
 
-    def get_org_articles(self,org_slug):
+    def get_org_articles(self, org_slug):
         """ Get articles from the database.
         :rtype: MongoDB Cursor with all the articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({'author.org_slug':org_slug, 'visible': True, 'published': True, 'delete': False})
+            .find({'author.org_slug': org_slug, 'author.type': 'organization','visible': True, 'published': True, 'delete': False})
 
         return articles
 
@@ -78,7 +78,6 @@ class ContentMongoUtils(object):
                 article['avatar_url'] = avatar_url['avatar_url']
         return articles_dump
 
-
     def get_authors_paginated_articles(self, username):
         """ Get paginated articles from the database for a specific author.
         :rtype: MongoDB Cursor with the queried articles
@@ -90,13 +89,14 @@ class ContentMongoUtils(object):
         for article in articles_dump:
             if article is not None:
                 article['avatar_url'] = self.mongo.db[self.users_collection] \
-                .find_one({"username": article['username']})['avatar_url']
+                    .find_one({"username": article['username']})['avatar_url']
         return articles_dump
 
     def get_org_articles(self, org_slug):
 
         articles = self.mongo.db[self.content_collection] \
-            .find({"author.org_slug": org_slug, 'visible': True, 'published': True, 'delete': False}).sort([("_id", -1)])
+            .find({"author.org_slug": org_slug, 'visible': True, 'published': True, 'delete': False}).sort(
+            [("_id", -1)])
         articles_dump = list(articles)
         for article in articles_dump:
             if article is not None:
@@ -147,12 +147,12 @@ class ContentMongoUtils(object):
                 .update({"_id": ObjectId(article_id)}, {'$set': {"visible": False}})
         return update
 
-    def count_articles(self,username):
+    def count_articles(self, username):
         nr_articles = self.mongo.db[self.content_collection] \
             .find({"username": username, 'visible': True, 'published': True, 'delete': False}).count()
         return nr_articles
 
-    def count_org_articles(self,org_slug):
+    def count_org_articles(self, org_slug):
         nr_articles = self.mongo.db[self.content_collection] \
             .find({"author.org_slug": org_slug, 'visible': True, 'published': True, 'delete': False}).count()
         return nr_articles
@@ -167,7 +167,8 @@ class ContentMongoUtils(object):
         articles_number_category_list = {}
         for category in list_of_categories:
             nr_articles_category = self.mongo.db[self.content_collection] \
-                .find({"username": username, "category": category, 'visible': True, 'published': True, 'delete': False}).count()
+                .find({"username": username, "category": category, 'visible': True, 'published': True,
+                       'delete': False}).count()
 
             articles_number_category_list[category] = nr_articles_category
         return json.dumps(articles_number_category_list)
@@ -178,7 +179,8 @@ class ContentMongoUtils(object):
         articles_number_category_list = {}
         for category in list_of_categories:
             nr_articles_category = self.mongo.db[self.content_collection] \
-                .find({"author.org_slug": org_slug, "category": category, 'visible': True, 'published': True, 'delete': False}).count()
+                .find({"author.org_slug": org_slug, "category": category, 'visible': True, 'published': True,
+                       'delete': False}).count()
 
             articles_number_category_list[category] = nr_articles_category
         return json.dumps(articles_number_category_list)
@@ -186,11 +188,12 @@ class ContentMongoUtils(object):
     def get_articles_one_category_only(self, username, category):
 
         articles = self.mongo.db[self.content_collection] \
-                .find({"username": username, "category": category, 'visible': True, 'published': True, 'delete': False})
+            .find({"username": username, "category": category, 'visible': True, 'published': True, 'delete': False})
         return articles
 
     def get_articles_one_category_only_org(self, org_slug, category):
 
         articles = self.mongo.db[self.content_collection] \
-                .find({"author.org_slug": org_slug, "category": category, 'visible': True, 'published': True, 'delete': False})
+            .find(
+            {"author.org_slug": org_slug, "category": category, 'visible': True, 'published': True, 'delete': False})
         return articles

@@ -5,7 +5,8 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <ul>
-                    <li><a href="{{ url_for ('profile.feed', username =profile.username ) }}" class="active">Feed</a></li>
+                    <li><a href="{{ url_for ('profile.feed', username =profile.username ) }}" class="active">Feed</a>
+                    </li>
                     <li><a href="{{ url_for ('profile.about', username =profile.username ) }}">About me</a></li>
                     <li><a href="{{ url_for ('profile.archive', username =profile.username ) }}">All articles</a></li>
                 </ul>
@@ -28,12 +29,8 @@
         $(document).ready(function () {
             // Initialize displaying articles in feed
             initFeed();
-            function initFeed() {
-                var articles = {{ feed|safe }};
-                    for (var idx in articles) {
-                        feedTheFeed(articles[idx], idx)
-                    }
-            }
+
+
             $(".article:nth-child(8n+1)").css("background-color", "black").addClass('col-md-8 col-sm-6 col-xs-12');
             $(".article:nth-child(8n+2)").css("background-color", "#b82776").addClass('col-md-4 col-sm-6 col-xs-12');
             $(".article:nth-child(8n+3)").css("background-color", "#27b85e").addClass('col-md-4 col-sm-6 col-xs-12');
@@ -42,39 +39,46 @@
             $(".article:nth-child(8n+6)").css("background-color", "#cf463a").addClass('col-md-4 col-sm-6 col-xs-12');
             $(".article:nth-child(8n+7)").css("background-color", "#445d9b").addClass('col-md-4 col-sm-6 col-xs-12');
             $(".article:nth-child(8n)").css("background-color", "#1c7184").addClass('col-md-8 col-sm-6 col-xs-12');
-            function feedTheFeed(article, idx) {
-                var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
-                var article_slug_url = article_slug.replace('article_slug', article['slug']);
-                var type = getArticleTypeClass(article.type);
-                var divHTML = '' +
+
+        });
+        function initFeed() {
+            var articles = {{ feed|safe }};
+            for (var idx in articles) {
+                feedTheFeed(articles[idx], idx)
+            }
+        }
+        function feedTheFeed(article, idx) {
+            var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
+            var article_slug_url = article_slug.replace('article_slug', article['slug']);
+            var type = getArticleTypeClass(article.type);
+            var divHTML = '' +
                     '<div class="article" style="padding: 3px;">' +
                     '<a href="' + article_slug_url + '">' +
                     '<h3 class="article-title">' + article['title'] + '</h3>' +
                     '</a>' +
                     '<i class="' + type + '" aria-hidden="true"></i>' +
                     '</div>';
-                $('.latest').append(divHTML);
-            }
-            function getArticleTypeClass(idx) {
-                var style = '';
-                switch (idx) {
-                    case 'text':
+            $('.latest').append(divHTML);
+        }
+        function getArticleTypeClass(idx) {
+            var style = '';
+            switch (idx) {
+                case 'text':
                     style = 'fa fa-file-text-o text article-type';
                     break;
-                    case 'video':
+                case 'video':
                     style = 'fa fa-file-video-o video article-type';
                     break;
-                    case 'audio':
+                case 'audio':
                     style = 'fa fa-file-audio-o audio article-type';
                     break;
-                    case 'attachment':
+                case 'attachment':
                     style = 'fa fa-paperclip attachment article-type';
                     break;
-                    default:
+                default:
                     style = 'fa file-text-o article-type';
-                }
-                return style;
             }
-        });
+            return style;
+        }
     </script>
 {% endblock body %}
