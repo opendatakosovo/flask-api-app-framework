@@ -3,76 +3,83 @@
 
     <div class="org-feed">
         <div class="container">
-           <div class="row org-menu">
-                    <div class="col-md-10 col-md-offset-1">
-                        <ul>
-                            <li><a href="{{ url_for ('organization.feed', organization_slug=organization.org_slug) }}" class="active">Feed</a></li>
-                            <li><a href="{{ url_for ('organization.about', organization_slug=organization.org_slug) }}" >About us</a></li>
-                            <li><a href="{{ url_for ('organization.archive', organization_slug=organization.org_slug) }}"  >All articles</a>
+            <div class="row org-menu">
+                <div class="col-md-10 col-md-offset-1">
+                    <ul>
+                        <li><a href="{{ url_for ('organization.feed', organization_slug=organization.org_slug) }}"
+                               class="active">Feed</a></li>
+                        <li><a href="{{ url_for ('organization.about', organization_slug=organization.org_slug) }}">About
+                            us</a></li>
+                        <li><a href="{{ url_for ('organization.archive', organization_slug=organization.org_slug) }}">All
+                            articles</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Banner part at Feed/About/Article Pages-->
+
+            {% include('mod_organization/org_header.html') %}
+            {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}
+                <div class="row">
+                    <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
+                        <button class="fa fa-bars dropdown-toggle "
+                                data-toggle="dropdown" role="menu" style="color: #000"></button>
+                        <ul class="dropdown-menu" style="margin: 12px 0 0 30px; padding-top: 0px;">
+                            <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
+                            <li>
+                                <a href="{{ url_for('article.my_articles', article_action='show') }}">Article
+                                    management</a>
                             </li>
+                            <li><a href="#">Comments</a></li>
+                            <li><a href="#">Bookmarks</a></li>
+                            <li><a href="#">Following</a></li>
+                            <li>
+                                <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account
+                                    Details</a>
+                            </li>
+                            {% if current_user.has_role('org_admin') %}
+                                {% include ('mod_organization/org_administration.html') %}
+                            {% endif %}
                         </ul>
+                    </div>
+                    <div class="col-md-1">
+                        <a href="{{ url_for('article.new_article' , author_type="organization", name=organization.name, username=organization['org_slug']) }}"
+                           class="fa fa-pencil"></a>
+                    </div>
+                    <div class="col-md-1">
+                        <a href="{{ url_for('organization.search', organization_slug=organization.org_slug) }}"
+                           class="fa fa-search"></a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-md-1 col-md-offset-1">
+                        <a href="" class="fa fa-search"></a>
+                    </div>
+                    <div class="col-md-1 col-md-offset-5">
+                        <a class="fa fa-file-video-o" data-toggle="tooltip" title="Filter by video"></a>
+                    </div>
+                    <div class="col-md-1">
+                        <a class="fa fa-file-audio-o" data-toggle="tooltip" title="Filter by audio"></a>
+                    </div>
+                    <div class="col-md-1">
+                        <a class="fa fa-file-text-o" data-toggle="tooltip" title="Filter by text"></a>
+                    </div>
+                    <div class="col-md-1">
+                        <a class="fa fa-paperclip" data-toggle="tooltip" title="Filter by attachment"></a>
                     </div>
                 </div>
 
-                <!-- Banner part at Feed/About/Article Pages-->
-
-            {% include('mod_organization/org_header.html') %}
-                {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}
+            {% endif %}
+            {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') or current_user.has_role('member') %}
+                <div class="articles">
                     <div class="row">
-                        <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
-                            <button class="fa fa-bars dropdown-toggle "
-                                        data-toggle="dropdown" role="menu" style="color: #000"></button>
-                                <ul class="dropdown-menu" style="margin: 12px 0 0 30px; padding-top: 0px;">
-                                    <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
-                                    <li>
-                                        <a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
-                                    </li>
-                                    <li><a href="#">Comments</a></li>
-                                    <li><a href="#">Bookmarks</a></li>
-                                    <li><a href="#">Following</a></li>
-                                    <li>
-                                        <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account Details</a>
-                                    </li>
-                                    {% if current_user.has_role('org_admin')%}
-                                        {% include ('mod_organization/org_administration.html') %}
-                                    {% endif %}
-                                </ul>
-                            </div>
-                        <div class="col-md-1">
-                            <a href="{{ url_for('article.new_article' , author_type="organization", name=organization.name, username=organization['org_slug']) }}" class="fa fa-pencil"></a>
-                        </div>
-                        <div class="col-md-1">
-                            <a href="{{ url_for('organization.search', organization_slug=organization.org_slug) }}" class="fa fa-search"></a>
+                        <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
                         </div>
                     </div>
-                {% else %}
-                    <div class="row">
-                        <div class="col-md-1 col-md-offset-1">
-                            <a href="" class="fa fa-search"></a>
-                        </div>
-                        <div class="col-md-1 col-md-offset-5">
-                            <a class="fa fa-file-video-o" data-toggle="tooltip" title="Filter by video"></a>
-                        </div>
-                        <div class="col-md-1">
-                            <a class="fa fa-file-audio-o" data-toggle="tooltip" title="Filter by audio"></a>
-                        </div>
-                        <div class="col-md-1">
-                            <a class="fa fa-file-text-o" data-toggle="tooltip" title="Filter by text"></a>
-                        </div>
-                        <div class="col-md-1">
-                            <a class="fa fa-paperclip" data-toggle="tooltip" title="Filter by attachment"></a>
-                        </div>
-                    </div>
-
-                {% endif %}
-                {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') or current_user.has_role('member')%}
-                    <div class="articles">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
+                </div>
+            {% endif %}
 
 
         </div>
@@ -86,9 +93,9 @@
 
             function initFeed() {
                 var articles = {{ feed|safe }};
-                    for (var idx in articles) {
-                        feedTheFeed(articles[idx], idx)
-                    }
+                for (var idx in articles) {
+                    feedTheFeed(articles[idx], idx)
+                }
             }
 
             $(".article:nth-child(8n+1)").css("background-color", "black").addClass('col-md-8 col-sm-6 col-xs-12');
@@ -105,7 +112,7 @@
                 var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
                 var article_slug_url = article_slug.replace('article_slug', article['slug']);
                 var article_avatar_url = "{{ url_for('static',filename='')}}" + article['avatar_url'];
-                var profile_url = "{{ url_for('organization.feed', organization_slug=organization.org_slug) }}".replace('organization_slug',article['org_slug']);
+                var profile_url = "{{ url_for('organization.feed', organization_slug=organization.org_slug) }}".replace('organization_slug', article['org_slug']);
                 var type = getArticleTypeClass(article.type);
 
                 var divHTML = '' +
@@ -126,19 +133,19 @@
                 var style = '';
                 switch (idx) {
                     case 'text':
-                    style = 'fa fa-file-text-o text article-type';
-                    break;
+                        style = 'fa fa-file-text-o text article-type';
+                        break;
                     case 'video':
-                    style = 'fa fa-file-video-o video article-type';
-                    break;
+                        style = 'fa fa-file-video-o video article-type';
+                        break;
                     case 'audio':
-                    style = 'fa fa-file-audio-o audio article-type';
-                    break;
+                        style = 'fa fa-file-audio-o audio article-type';
+                        break;
                     case 'attachment':
-                    style = 'fa fa-paperclip attachment article-type';
-                    break;
+                        style = 'fa fa-paperclip attachment article-type';
+                        break;
                     default:
-                    style = 'fa file-text-o article-type';
+                        style = 'fa file-text-o article-type';
                 }
 
                 return style;

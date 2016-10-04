@@ -31,7 +31,7 @@ def sign_up():
                     "name": name,
                     "lastname": lastname,
                     "email": email,
-                    "username": name+lastname,
+                    "username": name + lastname,
                     "password": bcrypt.generate_password_hash(password, rounds=12),
                     "active": True,
                     "user_slug": slugify(name + ' ' + lastname),
@@ -54,7 +54,10 @@ def sign_up():
 @mod_auth.route('/login', methods=["POST", "GET"])
 def login():
     if request.method == "GET":
-        return render_template('mod_auth/log_in.html')
+        if current_user.is_authenticated:
+            return redirect(url_for('main.feed'))
+        else:
+            return render_template('mod_auth/log_in.html')
     elif request.method == "POST":
         email = request.form['email']
         password = request.form['password']

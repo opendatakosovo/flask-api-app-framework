@@ -157,6 +157,7 @@ def memberships(organization_slug):
         editors_count = len(editors_list['members'])
 
     total_members_count = editors_count + approved_members_count
+    is_member = 'org_admin'
     return render_template('mod_organization/memberships.html', profile=profile, organization=organization,
                            user_avatar=user_avatar, pending_approval_count=pending_approval_members_count, approved_members_count=total_members_count)
 
