@@ -16,10 +16,13 @@ def article(slug):
 
     profile = None
     organization = None
-    if article['author']['type'] == 'individual':
-        profile = profile_mongo_utils.get_profile(article['author']['slug'])
-    elif article['author']['type'] == 'organization':
-        organization = org_mongo_utils.get_org_by_slug(article['author']['org_slug'])
+    if article:
+        if article['author']['type'] == 'individual':
+            profile = profile_mongo_utils.get_profile(article['author']['slug'])
+        elif article['author']['type'] == 'organization':
+            organization = org_mongo_utils.get_org_by_slug(article['author']['org_slug'])
+    else:
+        article = None
     return render_template('mod_article/article_single.html', article=article, profile=profile, organization=organization)
 
 
@@ -29,7 +32,7 @@ def organization_author_articles(user_id, org_id):
     return render_template('mod_article/article_management.html')
 
 
-@mod_article.route('/<org_id>')
+@mod_article.route('/articles/<org_id>')
 def organization_articles(org_id):
     # TODO: Restrict access to only authenticated users
     organization = content_mongo_utils.get_org_articles(org_id)

@@ -6,6 +6,8 @@ from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 import os
 from datetime import datetime
+import app
+
 UPLOAD_FOLDER = 'app/static/uploads/'
 
 class Profile():
@@ -148,6 +150,7 @@ class Profile():
         user  = user_mongo_utils.get_user_by_username(username)
         return user['avatar_url']
 
+
     @login_required
     def delete_profile(self, username):
         user = user_mongo_utils.delete_user(username)
@@ -172,3 +175,8 @@ class Profile():
         else:
             error = "This isn't your actual password"
             return redirect(url_for('profile.profile_settings', username=current_user.username, error=error))
+
+
+def user_avatar(username):
+    avatar_url  = user_mongo_utils.get_user_by_username(username)['avatar_url']
+    return avatar_url

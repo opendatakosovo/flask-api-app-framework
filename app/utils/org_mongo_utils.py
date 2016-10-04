@@ -1,5 +1,7 @@
-class OrgMongoUtils(object):
+import pprint
 
+
+class OrgMongoUtils(object):
     def __init__(self, mongo):
         self.mongo = mongo
         self.org_collection = 'organizations'
@@ -31,7 +33,7 @@ class OrgMongoUtils(object):
             .find()
         return org_cursor
 
-    def find_org(self,keyword):
+    def find_org(self, keyword):
 
         find_org_result = self.mongo.db[self.org_collection] \
             .find({'$text': {'$search': keyword}})
@@ -69,9 +71,95 @@ class OrgMongoUtils(object):
                 return True
             else:
                 return False
-            
+
     def find_org_by_admin(self, username):
         find_org_result = self.mongo.db[self.org_collection] \
             .find({'org_admin': username})
         return find_org_result
 
+    # Membership administration
+
+    def ask_to_join(self, username, organization_slug):
+        """ Ask to join to an organization
+         :param :
+         :rtype:
+        """
+
+        self.mongo.db[self.org_collection].update(
+            {"org_slug": organization_slug},
+            {"$addToSet": {"members": {"username": username, "status": 'pending'}}}
+        )
+        return True
+
+    def accept_member(self, organization_slug, username):
+        """ Get an organization by slug.
+         :param :
+         :rtype:
+        """
+        self.mongo.db[self.org_collection].update(
+            {"org_slug": organization_slug, 'members.username': username},
+            {"$set": {"members.$.status": 'member'}}
+        )
+        return True
+
+    def remove_member(self, organization_slug, username):
+        """ Remove member
+         :param :
+         :rtype:
+        """
+        self.mongo.db[self.org_collection].update(
+            {"org_slug": organization_slug},
+            {"$pull": {"members": {'username': username}}}
+        )
+        return True
+
+    def denote_member(self, organization_slug, username):
+        """ Denote member
+         :param :
+         :rtype:
+        """
+        self.mongo.db[self.org_collection].update(
+            {"org_slug": organization_slug, 'members.username': username},
+            {"$set": {"members.$.status": 'member'}}
+        )
+        return True
+
+    def promote_member(self, organization_slug, username):
+        """ Promote member
+         :param :
+         :rtype:
+        """
+        self.mongo.db[self.org_collection].update(
+            {"org_slug": organization_slug, 'members.username': username},
+            {"$set": {"members.$.status": 'editor'}}
+        )
+        return True
+
+    def promote_member_to_admin(self, organization_slug, username):
+        """ Promote member to admin
+         :param :
+         :rtype:
+        """
+        self.mongo.db[self.org_collection].update(
+            {"org_slug": organization_slug, 'members.username': username},
+            {"$set": {"members.$.status": 'member'}}
+        )
+        return True
+
+    def deny_member(self, organization_slug, username):
+        """ Promote member to admin
+         :param :
+         :rtype:
+        """
+        self.mongo.db[self.org_collection].update(
+            {"org_slug": organization_slug, 'members.username': username},
+            {"$set": {"members.$.status": 'denied'}}
+        )
+        return True
+
+    def check_if_user_is_member_of(self, organization_slug, username):
+
+        result = self.mongo.db[self.org_collection].find_one({'org_slug': organization_slug},
+                                                             {'members': {"$elemMatch": {'username': username}}})
+
+        return result

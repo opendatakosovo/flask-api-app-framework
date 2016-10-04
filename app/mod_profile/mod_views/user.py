@@ -154,3 +154,16 @@ class UserDataStore(object):
         """
         # TODO : Implement this method
         return True
+
+    @staticmethod
+    def is_a_member_of(self, user, organization):
+        """
+         Returns True if user is a member of the organization
+        :param user:
+        :return:
+        """
+        # TODO : Implement this method
+        from app import org_mongo_utils
+
+        is_member =  org_mongo_utils.check_if_user_is_member_of(user, organization)
+        return is_member

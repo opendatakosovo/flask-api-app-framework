@@ -34,6 +34,8 @@ principal = Principal()
 # Create flask-social object
 social = Social()
 
+uds = UserDataStore()
+
 upload_folder = join(dirname(realpath(__file__)), 'static/uploads/')
 allowed_extensions = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 

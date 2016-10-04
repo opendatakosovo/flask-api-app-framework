@@ -83,7 +83,7 @@ mod_profile.add_url_rule(
    view_func=profile.upload_avatar)
 
 mod_profile.add_url_rule(
-   '/photo/<filename>',
+   '/avatar/<username>',
    methods=["GET"],
    view_func=profile.get_avatar_url)
 
