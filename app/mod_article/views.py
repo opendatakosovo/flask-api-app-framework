@@ -175,6 +175,22 @@ def paginated_articles(skip_posts_number, posts_per_page):
     return Response(response=articles)
 
 
+@mod_article.route('/articles/<string:username>/<int:skip_posts_number>/<int:posts_per_page>', methods=['POST'])
+def paginated_author_articles(username, skip_posts_number, posts_per_page):
+    # TODO: Restrict access to only authenticated users
+    articles = dumps(content_mongo_utils.get_authors_paginated_articles(username,skip_posts_number, posts_per_page))
+
+    return Response(response=articles)
+
+
+@mod_article.route('/articles/<string:organization_slug>/<int:skip_posts_number>/<int:posts_per_page>', methods=['POST'])
+def paginated_org_articles(organization_slug, skip_posts_number, posts_per_page):
+    # TODO: Restrict access to only authenticated users
+    articles = dumps(content_mongo_utils.get_org_paginated_articles(organization_slug, skip_posts_number, posts_per_page))
+
+    return Response(response=articles)
+
+
 @mod_article.route('/delete/<article_id>/<delete>', methods=["POST", "GET"])
 def delete_article(article_id, delete):
 

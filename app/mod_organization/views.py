@@ -13,7 +13,7 @@ mod_organization = Blueprint('organization', __name__, url_prefix='/organization
 def feed(organization_slug):
     organization = org_mongo_utils.get_org_by_slug(organization_slug)
 
-    feed = dumps(content_mongo_utils.get_org_articles(organization_slug))
+    feed = dumps(content_mongo_utils.get_org_paginated_articles(organization_slug, 0, 8))
 
     is_member = org_mongo_utils.check_if_user_is_member_of(organization_slug, current_user.username)
 

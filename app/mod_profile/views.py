@@ -50,7 +50,7 @@ mod_profile.add_url_rule(
 
 # Paginated articles of a specific profile
 mod_profile.add_url_rule(
-   '/articles/<string:username>/<int:skip_posts_number>/<int:posts_per_page>',
+   '/articles/<string:username>/',
    methods=['POST'],
    view_func=profile.paginated_author_articles)
 

@@ -45,7 +45,7 @@ class Profile():
         if current_user.is_authenticated:
             # get the profile object for the given username
             profile = user_mongo_utils.get_user_by_username(username)
-            feed = dumps(content_mongo_utils.get_authors_paginated_articles(profile.username))
+            feed = dumps(content_mongo_utils.get_authors_paginated_articles(profile.username, 0, 8))
         else:
             feed = None
             profile = current_user

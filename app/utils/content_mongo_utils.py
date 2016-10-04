@@ -78,12 +78,12 @@ class ContentMongoUtils(object):
                 article['avatar_url'] = avatar_url['avatar_url']
         return articles_dump
 
-    def get_authors_paginated_articles(self, username):
+    def get_authors_paginated_articles(self, username, skips, limits):
         """ Get paginated articles from the database for a specific author.
         :rtype: MongoDB Cursor with the queried articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({"username": username, 'visible': True, 'published': True, 'delete': False}).sort([("_id", -1)])
+            .find({"username": username, 'visible': True, 'published': True, 'delete': False}).sort([("_id", -1)]).limit(limits).skip(skips)
 
         articles_dump = list(articles)
         for article in articles_dump:
@@ -92,11 +92,11 @@ class ContentMongoUtils(object):
                     .find_one({"username": article['username']})['avatar_url']
         return articles_dump
 
-    def get_org_articles(self, org_slug):
+    def get_org_paginated_articles(self, org_slug, skips, limits):
 
         articles = self.mongo.db[self.content_collection] \
             .find({"author.org_slug": org_slug, 'visible': True, 'published': True, 'delete': False}).sort(
-            [("_id", -1)])
+            [("_id", -1)]).limit(limits).skip(skips)
         articles_dump = list(articles)
         for article in articles_dump:
             if article is not None:
