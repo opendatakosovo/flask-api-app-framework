@@ -43,15 +43,16 @@
         </div>
         <div class="row">
             <div class="col-md-1 col-md-offset-2">
-                <h4 style="padding-left: 10px">Members()</h4>
+                <h4 style="padding-left: 10px">Members({{ approved_members_count }})</h4>
             </div>
         </div>
-        <div class="row">
-            {% for member in organization.members %}
+        {% for member in organization.members %}
+            <div class="row">
+
                 {% if member.status != 'pending' %}
                     <div class="col-md-1 col-md-offset-2 col-xs-2">
                         <img src="{{ url_for('static', filename=user_avatar(member.username) ) }}"
-                             class="img-circle search-img-item">
+                             class="img-circle member-avatar">
 
                     </div>
                     <div class="col-md-3 col-xs-3">
@@ -61,30 +62,32 @@
                     </div>
                     <div class="col-md-6 col-xs-7">
 
-                        <button class="btn-green">{{ member.status | capitalize }}</button>
+                        <button class="btn-membership btn-green">{{ member.status | capitalize }}</button>
                         {% if member.status == 'editor' %}
-                            <button class="btn-white" onclick="denote('{{ member.username }}')">Denote</button>
+                            <button class="btn-membership btn-white" onclick="denote('{{ member.username }}')">Denote</button>
                         {% else %}
-                            <button class="btn-white" onclick="promote('{{ member.username }}')">Promote</button>
+                            <button class="btn-membership btn-white" onclick="promote('{{ member.username }}')">Promote</button>
                         {% endif %}
 
-                        <button class="btn-white" onclick="remove('{{ member.username }}')">Remove</button>
+                        <button class="btn-membership btn-white" onclick="remove('{{ member.username }}')">Remove</button>
                     </div>
                 {% endif %}
-            {% endfor %}
 
-        </div>
+
+            </div>
+        {% endfor %}
         <div class="row">
             <div class="col-md-1 col-md-offset-2">
-                <h4 style="padding-left: 10px">Pending()</h4>
+                <h4 style="padding-left: 10px">Pending({{ pending_approval_count }})</h4>
             </div>
 
         </div>
         {% for member in organization.members %}
+            <div class="row">
             {% if member.status == 'pending' %}
                 <div class="col-md-1 col-md-offset-2">
                     <img src="{{ url_for('static', filename=user_avatar(member.username) ) }}"
-                         class="img-circle search-img-item">
+                         class="img-circle member-avatar">
 
                 </div>
                 <div class="col-md-4">
@@ -93,10 +96,11 @@
                     </a>
                 </div>
                 <div class="col-md-5">
-                    <button class="btn-green" onclick="accept('{{ member.username }}')">Accept</button>
-                    <button class="btn-white" onclick="deny('{{ member.username }}')">Deny</button>
+                    <button class="btn-membership btn-green" onclick="accept('{{ member.username }}')">Accept</button>
+                    <button class="btn-membership btn-white" onclick="deny('{{ member.username }}')">Deny</button>
                 </div>
             {% endif %}
+            </div>
         {% endfor %}
     </div>
     <script type="text/javascript">

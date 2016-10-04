@@ -140,8 +140,25 @@ def memberships(organization_slug):
     profile = user_mongo_utils.get_users()
     organization = org_mongo_utils.get_org_by_slug(organization_slug)
 
+    pending_approval_members_count = 0
+    approved_members_count = 0
+    editors_count = 0
+
+    pending_approval_members_list = org_mongo_utils.get_users_by_status(organization_slug, 'pending')
+    approved_members_list = org_mongo_utils.get_users_by_status(organization_slug, 'member')
+    editors_list = org_mongo_utils.get_users_by_status(organization_slug, 'editor')
+
+    if 'members' in pending_approval_members_list:
+         pending_approval_members_count = len(pending_approval_members_list['members'])
+
+    if 'members' in approved_members_list:
+        approved_members_count = len(approved_members_list['members'])
+    if 'members' in editors_list:
+        editors_count = len(editors_list['members'])
+
+    total_members_count = editors_count + approved_members_count
     return render_template('mod_organization/memberships.html', profile=profile, organization=organization,
-                           user_avatar=user_avatar)
+                           user_avatar=user_avatar, pending_approval_count=pending_approval_members_count, approved_members_count=total_members_count)
 
 
 def user_avatar(username):

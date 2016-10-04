@@ -157,6 +157,13 @@ class OrgMongoUtils(object):
         )
         return True
 
+    def get_users_by_status(self, organization_slug, status):
+
+        result = self.mongo.db[self.org_collection].find_one({'org_slug': organization_slug},
+                                                    {'members': {"$elemMatch": {'status': status}}})
+        return result
+
+
     def check_if_user_is_member_of(self, organization_slug, username):
 
         result = self.mongo.db[self.org_collection].find_one({'org_slug': organization_slug},
