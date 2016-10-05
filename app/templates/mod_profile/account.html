@@ -1,27 +1,23 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div id="acc-details">
+    <div id="acc-details" class="profile-feed">
         <div class="row">
-            {% if current_user.username == profile.username %}
-                <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1">
-                    <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
-                        <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
-                        </li>
-                        <li><a href="#">Comments</a></li>
-                        <li><a href="#">Bookmarks</a></li>
-                        <li><a href="{{ url_for('profile.memberships', username=profile.username) }}">Following</a></li>
-                        <li><a href="{{ url_for('profile.profile_settings', username=profile.username) }}">Account
-                            Details</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-1">
-                    <a href="{{ url_for('article.new_article', author_type="individual", name=profile.name, username=profile.username) }}"
-                   class="fa fa-pencil"></a>
-                </div>
-            {% endif %}
+            <div class="col-md-10 col-md-offset-1">
+                <ul>
+                    <li><a href="{{ url_for ('profile.feed', username =profile.username ) }}" class="active">Feed</a>
+                    </li>
+                    <li><a href="{{ url_for ('profile.about', username =profile.username ) }}">About me</a></li>
+                    <li><a href="{{ url_for ('profile.archive', username =profile.username ) }}">All articles</a></li>
+                </ul>
+            </div>
         </div>
+
+
+        <!-- Banner part at Feed/About/Article Pages-->
+
+        {% include('mod_profile/profile_header.html') %}
+        {% include('mod_profile/user_menu.html') %}
+
         <div class="row">
             <div class="col-md-6 col-md-offset-1">
                 <h4>Account details</h4>
@@ -52,55 +48,61 @@
                            value="{% if profile.telephone %}{{ profile.telephone }} {% endif %}">
                     <input type="text" class="personal-data mobile" placeholder="Mobile" name="mobile"
                            value="{% if profile.mobile %} {{ profile.mobile }} {% endif %}">
-                    <textarea rows="7" class="personal-data about" name="about_me" placeholder="About">{% if profile.about_me %}
+                    <textarea rows="7" class="personal-data about" name="about_me"
+                              placeholder="About">{% if profile.about_me %}
                         {{ profile.about_me }} {% endif %}</textarea>
                     <button type="submit" class="save_details">Save</button>
                 </form>
             </div>
             <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-4 col-xs-10 col-xs-offset-2">
                 <h5>Change password</h5>
-                <form name="change-password" id="change-password" method="post" action="{{ url_for('profile.change_password', username=current_user.username) }}">
+                <form name="change-password" id="change-password" method="post"
+                      action="{{ url_for('profile.change_password', username=current_user.username) }}">
                     <input type="password" class="personal-data" name="old_password" placeholder="Current password">
                     <input type="password" class="personal-data" name="new_password" placeholder="New password">
-                    <input type="password" class="personal-data" name="confirm_new_password" placeholder="Confirm new password">
-                    {% if error %}<div style="color:red;">   {{ error }}</div>{% endif %}
-                    {% if success %}<div style="color:green;">   {{ success }}</div>{% endif %}
+                    <input type="password" class="personal-data" name="confirm_new_password"
+                           placeholder="Confirm new password">
+                    {% if error %}
+                        <div style="color:red;">   {{ error }}</div>{% endif %}
+                    {% if success %}
+                        <div style="color:green;">   {{ success }}</div>{% endif %}
                     <button type="submit" class="btn change-password">Change password</button>
                 </form>
                 <h5 style="padding-top: 15%;">Delete account</h5>
                 <h6>Are you sure? There's no coming back from this one!</h6>
                 <h6><b>All your articles will be deleted.</b></h6><br>
-                <a id="del-account" href="{{ url_for('profile.delete_profile', username = current_user.username) }}" class="del-account btn">Delete account</a>
+                <a id="del-account" href="{{ url_for('profile.delete_profile', username = current_user.username) }}"
+                   class="del-account btn">Delete account</a>
             </div>
         </div>
     </div>
     <script>
-        document.querySelector('a#del-account').onclick = function(event) {
+        document.querySelector('a#del-account').onclick = function (event) {
             event.preventDefault();
             swal({
-                    title: "Are you sure?",
-                    text: "There's no coming back from this one! All your articles will be deleted.",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                    confirmButtonColor: "#DD6B55",
-                    cancelButtonText: "Cancel",
-                    closeOnConfirm: false,
-                    closeOnCancel:false
-                },
-                function(isConfirm){
-                    if (isConfirm){
-                        swal({
-                            title: '',
-                            text: 'Bye bye!',
-                            type: 'success'
-                        }, function() {
-                            window.location=document.getElementById('del-account').href;
-                        });
-                    } else {
-                        swal("Cancelled", "Your account is safe :)", "error");
-                    }
-            });
+                        title: "Are you sure?",
+                        text: "There's no coming back from this one! All your articles will be deleted.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes",
+                        confirmButtonColor: "#DD6B55",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            swal({
+                                title: '',
+                                text: 'Bye bye!',
+                                type: 'success'
+                            }, function () {
+                                window.location = document.getElementById('del-account').href;
+                            });
+                        } else {
+                            swal("Cancelled", "Your account is safe :)", "error");
+                        }
+                    });
         };
     </script>
 {% endblock body %}

@@ -8,11 +8,11 @@
 
         {% if current_user.is_authenticated %}
 
-            <nav id="nav-bar1" style="margin-top: 100px;">
+            <nav id="nav-bar1">
                 <br><br><br><br>
 
                 <div class="row menu-icons">
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                    <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
                         {% if current_user.is_authenticated() %}
                             <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
                                     style="color: #000"></button>
@@ -22,7 +22,9 @@
                                     management</a></li>
                                 <li><a href="#">Comments</a></li>
                                 <li><a href="#">Bookmarks</a></li>
-                                <li><a href="#">Following</a></li>
+                                <li>
+                                    <a href="{{ url_for('profile.memberships', username=current_user.username) }}">Following</a>
+                                </li>
                                 <li><a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account
                                     details</a></li>
                             </ul>
@@ -40,20 +42,20 @@
                            style="margin-left: 0px;"></a>
                     </div>
                     <div id="filter">
-                        <div class="col-md-1 col-md-offset-5 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-right">
+                        <div class="col-md-1 col-md-offset-3 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-center">
                             <a href="" class="fa fa-file-video-o" aria-hidden="true" id="video-type1"
                                data-toggle="tooltip" title="Filter by video" data-category="video"></a>
                         </div>
-                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                             <a href="" class="fa fa-file-audio-o" aria-hidden="true" id="audio-type1"
                                data-toggle="tooltip" title="Filter by audio" data-category="audio"></a>
                         </div>
-                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                             <a href="" class="fa fa-file-text-o" aria-hidden="true" id="text-type1"
                                data-toggle="tooltip" title="Filter by text" data-category="text"></a>
                         </div>
 
-                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                             <a href="" class="fa fa-paperclip" aria-hidden="true" id="attach-type1"
                                data-toggle="tooltip" title="Filter by attachment" data-category="attachment"></a>
                         </div>
@@ -66,26 +68,26 @@
             <nav id="nav-bar">
                 <br><br>
                 <div class="row">
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                    <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
                         <a href="{{ url_for('main.search_organizations') }}" class="fa fa-search" aria-hidden="true"
                            id="search"></a>
                     </div>
                     <div id="filter">
-                        <div class="col-md-1 col-md-offset-7 col-sm-1 col-sm-offset-7 col-xs-1 col-xs-offset-6 text-right">
+                        <div class="col-md-1 col-md-offset-5 col-sm-1 col-sm-offset-7 col-xs-1 col-xs-offset-6 text-center">
                             <a href="" class="fa fa-file-video-o " aria-hidden="true" id="video-type"
                                data-toggle="tooltip" title="Filter by video" data-category="video"></a>
                         </div>
 
-                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                             <a href="" class="fa fa-file-audio-o " aria-hidden="true" id="audio-type"
                                data-toggle="tooltip" title="Filter by audio" data-category="audio"></a>
                         </div>
 
-                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                             <a href="" class="fa fa-file-text-o " aria-hidden="true" id="text-type"
                                data-toggle="tooltip" title="Filter by text" data-category="text"></a>
                         </div>
-                        <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                        <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                             <a href="" class="fa fa-paperclip " aria-hidden="true" id="attach-type"
                                data-toggle="tooltip" title="Filter by attachment" data-category="attachment"></a>
                         </div>
@@ -155,24 +157,48 @@
                 var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
                 var article_slug_url = article_slug.replace('article_slug', article['slug']);
                 var article_avatar_url = "{{ url_for('static',filename='')}}" + article['avatar_url'];
+                var post_privacy = article['post_privacy'];
                 var profile_url = "{{ url_for('profile.feed',username='username') }}".replace('username', article['username']);
                 var type = getArticleTypeClass(article.type);
+                var divHTML = '';
+                divHTML = generateArticleHTML(profile_url, article_avatar_url, article_slug_url, article['title'], type, post_privacy);
 
-                var divHTML = '' +
+
+                $('.latest').append(divHTML);
+            }
+            function generateArticleHTML(profile_url, article_avatar_url, article_slug_url, title, type, privacy) {
+                if (privacy == 'on') {
+                    return generatePrivateArticle(profile_url, article_avatar_url, article_slug_url, title, type)
+                } else {
+                    return generatePublicArticle(profile_url, article_avatar_url, article_slug_url, title, type)
+                }
+
+
+            }
+            function generatePrivateArticle(profile_url, article_avatar_url, article_slug_url, title, type) {
+                return '' +
+                        '<div class="article "  style="padding: 3px;">' +
+                        '<a href="' + profile_url + '">' +
+                        '<img src="' + article_avatar_url + '" class="img-circle img-responsive profil"/>' +
+                        '</a>' + '<i class="fa fa-users"></i>' +
+                        '<a href="' + article_slug_url + '">' +
+                        '<h3 class="article-title">' + title + '</h3>' +
+                        '</a>' +
+                        '<i class="' + type + '" aria-hidden="true"></i>' +
+                        '</div>';
+            }
+            function generatePublicArticle(profile_url, article_avatar_url, article_slug_url, title, type) {
+                return '' +
                         '<div class="article "  style="padding: 3px;">' +
                         '<a href="' + profile_url + '">' +
                         '<img src="' + article_avatar_url + '" class="img-circle img-responsive profil"/>' +
                         '</a>' +
                         '<a href="' + article_slug_url + '">' +
-                        '<h3 class="article-title">' + article['title'] + '</h3>' +
+                        '<h3 class="article-title">' + title + '</h3>' +
                         '</a>' +
                         '<i class="' + type + '" aria-hidden="true"></i>' +
                         '</div>';
-
-
-                $('.latest').append(divHTML);
             }
-
             function getArticleTypeClass(idx) {
                 var style = '';
                 switch (idx) {
@@ -194,7 +220,7 @@
 
                 return style;
             }
-            function addTileColors(){
+            function addTileColors() {
                 $(".article:nth-child(8n+1)").css("background-color", "black").addClass('col-md-8 col-sm-6 col-xs-12');
                 $(".article:nth-child(8n+2)").css("background-color", "#b82776").addClass('col-md-4 col-sm-6 col-xs-12');
                 $(".article:nth-child(8n+3)").css("background-color", "#27b85e").addClass('col-md-4 col-sm-6 col-xs-12');
@@ -209,7 +235,7 @@
 
         </script>
         <div class="articles row">
-            <div class="col-md-12 latest row-bottom-margin row-margin">
+            <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
             </div>
             <div class="loading row" data-skip-posts-number="6" data-posts-per-page="6">
                 <img class="col-md-offset-5"
