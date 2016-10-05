@@ -238,10 +238,6 @@ footer a:hover {
     margin: 40px 0px 20px 200px;
 }
 
-#article-management .fa {
-    font-size: 35px;
-}
-
 .article-visibility {
     padding: 5px 5px 10px 5px;
 }
@@ -282,11 +278,13 @@ time {
 .dropdown-menu {
     margin-left: 10px;
     box-shadow: none;
+    padding-top: 0px !important;
 }
 
 .dropdown-menu > li > a {
     margin: 33px 21px;
-    font-size: 20px;
+    font-size: 20px !important;
+
 }
 
 .fa-pencil {
@@ -301,21 +299,18 @@ a:focus, a:hover {
 
 /*Account details page*/
 
-#acc-details h4,
-#org-acc-details h4 {
-    font-weight: bold;
-    font-size: 30px;
+h4 {
+    font-weight: bold !important;
+    font-size: 30px !important;
 }
 
-#acc-details h5,
-#org-acc-details h5 {
-    font-weight: bold;
-    font-size: 22px;
-    margin: 20px 0px;
+h5 {
+    font-weight: bold !important;
+    font-size: 22px !important;
+    margin: 20px 0px !important;
 }
 
-#acc-details .fa-bars,
-#org-acc-details .fa-bars {
+.fa-bars{
     background: transparent;
     border: none;
 }
@@ -354,8 +349,7 @@ a:focus, a:hover {
     padding-top: 10px;
 }
 
-#acc-details h6,
-#org-acc-details h6 {
+h6 {
     width: 80%;
     font-size: 18px;
 }
@@ -431,19 +425,9 @@ a:focus, a:hover {
     font-weight: bold;
 }
 
-.profile-feed .fa,
-.profile-about .fa,
-.profile-archive .fa,
-.prof-search .fa,
-.org-menu .fa {
-    font-size: 40px;
+.fa{
+    font-size: 35px;
     margin: 20px 10px;
-}
-
-.fa-bars {
-
-    background-color: transparent;
-    border: none;
 }
 
 img.banner {
@@ -629,32 +613,8 @@ img.banner {
     margin: auto;
 }
 
-.blue {
-    background: #008081;
-}
-
-.magenta {
-    background: #b82776;
-}
-
-.green {
-    background: #27b85e;
-}
-
-.yellow {
-    background: #989e21;
-}
-
-.brown {
-    background: #b88027;
-}
-
-.red {
-    background: #cf463a;
-}
-
 .article {
-    height: 300px;
+    height: 270px;
     background-clip: content-box;;
     padding: 10px;
 }
@@ -871,4 +831,22 @@ a.org-adm:hover {
 }
 .loading img {
     width: 100px;
+}
+
+.org-following, .people-following{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+span.search-title,
+span.search-result-title {
+    font-size: 18px;
+
+}
+
+.articles i.fa.fa-users {
+    font-size: 15px;
+    color: #fff;
+    left: 70px;
+    position: absolute;
 }

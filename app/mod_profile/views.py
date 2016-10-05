@@ -73,7 +73,7 @@ mod_profile.add_url_rule(
 #     view_func=profile.articles)
 
 mod_profile.add_url_rule(
-   '/<string:username>/memberships',
+   '/<string:username>/following',
    methods=["GET"],
    view_func=profile.memberships)
 

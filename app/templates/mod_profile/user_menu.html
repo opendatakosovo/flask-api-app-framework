@@ -1,37 +1,42 @@
 {% if current_user.is_authenticated %}
-
-
-    <div class="row">
-        <div class="col-md-8 col-md-offset-1">
-            {% if current_user.username == profile.username %}
-                <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
-                <ul class="dropdown-menu">
+    {% if current_user.username == profile.username %}
+        <div class="row menu-icons">
+            <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
+                <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></button>
+                <ul class="dropdown-menu" style="margin: 12px 0 0 30px;">
                     <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
-                    <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
-                    </li>
+                    <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article
+                                management</a></li>
                     <li><a href="#">Comments</a></li>
                     <li><a href="#">Bookmarks</a></li>
                     <li><a href="{{ url_for('profile.memberships', username=profile.username) }}">Following</a></li>
                     <li><a href="{{ url_for('profile.profile_settings', username=profile.username) }}">Account
-                        Details</a></li>
+                                details</a></li>
                 </ul>
-                <a href="{{ url_for('article.new_article', author_type="individual", name=profile.name, username=profile.username) }}"
+
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                <a href="{{ url_for('article.new_article', author_type='individual', name=profile.name, username=profile.username) }}"
                    class="fa fa-pencil"></a>
-            {% endif %}
-            <a href="{{ url_for('profile.search', username = profile.username) }}" class="fa fa-search"></a>
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                <a href="{{ url_for('main.search_organizations') }}" class="fa fa-search " aria-hidden="true"
+                   id="search1"
+                   style="margin-left: 0px;"></a>
+            </div>
         </div>
-    </div>
-
-{% else %}
-
-    <div class="row">
-        <div class="col-md-2 col-md-offset-1">
-            <a href="" class="fa fa-search"></a>
         </div>
-        <div class="col-md-8">
-            <input type="text" placeholder="Search for Articles by {{ current_user.name }}"
-                   class="search-field"/>
-        </div>
-    </div>
+    {% else %}
 
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <a href="" class="fa fa-search"></a>
+            </div>
+            <div class="col-md-8">
+                <input type="text" placeholder="Search for Articles by {{ profile.name }}"
+                       class="search-field"/>
+            </div>
+        </div>
+
+    {% endif %}
 {% endif %}
