@@ -103,6 +103,7 @@ class ContentMongoUtils(object):
                 article['avatar_url'] = avatar_url['avatar_url']
         return articles_dump
 
+
     def get_authors_paginated_articles(self, username, skips, limits):
         """ Get paginated articles from the database for a specific author.
         :rtype: MongoDB Cursor with the queried articles
@@ -129,9 +130,9 @@ class ContentMongoUtils(object):
                     .find_one({"username": article['username']})['avatar_url']
         return articles_dump
 
-    def get_org_private_articles(self, org_slug):
+    def get_org_public_articles(self, org_slug, skips, limits):
         articles = self.mongo.db[self.content_collection] \
-            .find({"author.org_slug": org_slug, 'visible': True, 'published': True, 'delete': False}).sort(
+            .find({"author.org_slug": org_slug, 'visible': True, 'published': True, 'delete': False, "post_privacy" : "off"}).sort(
             [("_id", -1)])
         articles_dump = list(articles)
         for article in articles_dump:

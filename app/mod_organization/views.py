@@ -15,10 +15,12 @@ def feed(organization_slug):
 
     feed = dumps(content_mongo_utils.get_org_paginated_articles(organization_slug, 0, 8))
 
+    public_feed = dumps(content_mongo_utils.get_org_public_articles(organization_slug, 0, 8))
+
     is_member = org_mongo_utils.check_if_user_is_member_of(organization_slug, current_user.username)
 
     return render_template('mod_organization/feed.html', feed=feed, organization=organization,
-                           organization_slug=organization_slug, is_member=is_member)
+                           organization_slug=organization_slug, is_member=is_member, public_feed=public_feed)
 
 
 @mod_organization.route('/<organization_slug>/<category>', methods=['GET'])

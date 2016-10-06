@@ -19,7 +19,59 @@
         <!-- Banner part at Feed/About/Article Pages-->
 
         {% include('mod_organization/org_header.html') %}
-        {% include('mod_organization/org_menu.html') %}
+
+        {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}
+            <div class="row">
+                <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
+                    <button class="fa fa-bars dropdown-toggle "
+                            data-toggle="dropdown" role="menu" style="color: #000"></button>
+                    <ul class="dropdown-menu" style="margin: 12px 0 0 30px; padding-top: 0px;">
+                        <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
+                        <li>
+                            <a href="{{ url_for('article.my_articles', article_action='show') }}">Article
+                                    management</a>
+                        </li>
+                        <li><a href="#">Comments</a></li>
+                        <li><a href="#">Bookmarks</a></li>
+                        <li><a href="#">Following</a></li>
+                        <li>
+                            <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account
+                                    Details</a>
+                        </li>
+                        {% if current_user.has_role('org_admin') %}
+                            {% include ('mod_organization/org_administration.html') %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md-1">
+                    <a href="{{ url_for('article.new_article' , author_type="organization", name=organization.name, username=organization['org_slug']) }}"
+                       class="fa fa-pencil"></a>
+                </div>
+                <div class="col-md-1">
+                    <a href="{{ url_for('organization.search', organization_slug=organization.org_slug) }}"
+                       class="fa fa-search"></a>
+                </div>
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="col-md-1 col-md-offset-1">
+                    <a href="" class="fa fa-search"></a>
+                </div>
+                <div class="col-md-1 col-md-offset-5">
+                    <a class="fa fa-file-video-o" data-toggle="tooltip" title="Filter by video"></a>
+                </div>
+                <div class="col-md-1">
+                    <a class="fa fa-file-audio-o" data-toggle="tooltip" title="Filter by audio"></a>
+                </div>
+                <div class="col-md-1">
+                    <a class="fa fa-file-text-o" data-toggle="tooltip" title="Filter by text"></a>
+                </div>
+                <div class="col-md-1">
+                    <a class="fa fa-paperclip" data-toggle="tooltip" title="Filter by attachment"></a>
+                </div>
+            </div>
+
+        {% endif %}
 
         <div class="articles">
             <div class="row">
@@ -70,13 +122,27 @@
             $('.loading').data('skip-posts-number', (parseInt(skip_posts_number) + 6));
         }
 
-        function initFeed() {
-            var articles = {{ feed|safe }};
-            for (var idx in articles) {
-                feedTheFeed(articles[idx], idx)
+        {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') or current_user.has_role('member') %}
+
+            function initFeed() {
+                var articles = {{ feed|safe }};
+                for (var idx in articles) {
+                    feedTheFeed(articles[idx], idx)
+                }
+                addTileColors();
             }
-            addTileColors();
-        }
+
+        {% else %}
+
+            function initFeed() {
+                // Get the first 6 feeds
+                var articles = {{ public_feed|safe }};
+                for (var idx in articles) {
+                    feedTheFeed(articles[idx], idx);
+                }
+                addTileColors();
+            }
+        {% endif %}
 
         function loadMoreArticles(posts) {
             for (var idx in posts) {
@@ -92,21 +158,50 @@
             var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
             var article_slug_url = article_slug.replace('article_slug', article['slug']);
             var article_avatar_url = "{{ url_for('static',filename='')}}" + article['avatar_url'];
+            var post_privacy = article['post_privacy'];
             var profile_url = "{{ url_for('organization.feed', organization_slug=organization.org_slug) }}".replace('organization_slug', article['org_slug']);
             var type = getArticleTypeClass(article.type);
 
-            var divHTML = '' +
+            var divHTML = '';
+            divHTML = generateArticleHTML(profile_url, article_avatar_url, article_slug_url, article['title'], type, post_privacy);
+
+            $('.latest').append(divHTML);
+        }
+
+        function generateArticleHTML(profile_url, article_avatar_url, article_slug_url, title, type, privacy) {
+            if (privacy == 'on') {
+                return generatePrivateArticle(profile_url, article_avatar_url, article_slug_url, title, type)
+            } else {
+                return generatePublicArticle(profile_url, article_avatar_url, article_slug_url, title, type)
+            }
+
+
+        }
+
+        function generatePrivateArticle(profile_url, article_avatar_url, article_slug_url, title, type) {
+            return '' +
+                    '<div class="article" style="padding: 3px;">' +
+                    '<a href="' + profile_url + '">' +
+                    '<img src="' + article_avatar_url + '" class="img-circle img-responsive profil"/>' +
+                    '</a>' + '<i class="fa fa-users"></i>' +
+                    '<a href="' + article_slug_url + '">' +
+                    '<h3 class="article-title">' + title + '</h3>' +
+                    '</a>' +
+                    '<i class="' + type + '" aria-hidden="true"></i>' +
+                    '</div>';
+        }
+
+        function generatePublicArticle(profile_url, article_avatar_url, article_slug_url, title, type) {
+            return '' +
                     '<div class="article" style="padding: 3px;">' +
                     '<a href="' + profile_url + '">' +
                     '<img src="' + article_avatar_url + '" class="img-circle img-responsive profil"/>' +
                     '</a>' +
                     '<a href="' + article_slug_url + '">' +
-                    '<h3 class="article-title">' + article['title'] + '</h3>' +
+                    '<h3 class="article-title">' + title + '</h3>' +
                     '</a>' +
                     '<i class="' + type + '" aria-hidden="true"></i>' +
                     '</div>';
-
-            $('.latest').append(divHTML);
         }
 
         function getArticleTypeClass(idx) {
@@ -130,6 +225,7 @@
 
             return style;
         }
+
         function addTileColors() {
             $(".article:nth-child(8n+1)").css("background-color", "black").addClass('col-md-8 col-sm-6 col-xs-12');
             $(".article:nth-child(8n+2)").css("background-color", "#b82776").addClass('col-md-4 col-sm-6 col-xs-12');
