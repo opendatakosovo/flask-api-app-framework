@@ -73,31 +73,31 @@
 
                 <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-4 col-xs-10 col-xs-offset-2">
                     <h5>Edit account details</h5>
-                    <span style="color:green;">{% if error != '' %}{{ message }}{% endif %}</span>
+                    <span style="color:green;">{% if error != '' %}{{ error }}{% endif %}</span>
                     <form name="org-details" id="org-details" method="POST"
                           action="{{ url_for('organization.organization_settings', organization_slug=organization.org_slug) }}">
 
                         <input type="text" class="personal-data name" placeholder="Name" name="org_name"
-                               value="{% if organization.name %}{{ organization.name }} {% endif %}">
+                               value="{% if organization.name -%}{{ organization.name }} {% endif %}">
 
 
                         <input type="text" class="personal-data email" placeholder="Email" name="org_email"
-                               value="{% if organization.email %} {{ organization.email }}{% endif %}">
+                               value="{% if organization.email -%} {{ organization.email }}{% endif %}">
 
 
                         <input type="text" class="personal-data location" placeholder="Location" name="org_location"
-                               value="{% if organization.location %}{{ organization.location }} {% endif %}">
+                               value="{% if organization.location -%}{{ organization.location }} {% endif %}">
 
 
                         <input type="text" class="personal-data telephone" placeholder="Telephone" name="org_telephone"
-                               value="{% if organization.telephone %}{{ organization.telephone }} {% endif %}">
+                               value="{% if organization.telephone -%}{{ organization.telephone }} {% endif %}">
 
 
                         <input type="text" class="personal-data mobile" placeholder="Mobile" name="org_mobile"
-                               value="{% if organization.mobile %} {{ organization.mobile }} {% endif %}">
+                               value="{% if organization.mobile -%} {{ organization.mobile }} {% endif %}">
 
 
-                        <textarea rows="7" class="personal-data about" name="about_org">{% if organization.about_org %}
+                        <textarea rows="7" class="personal-data about" name="about_org">{% if organization.about_org -%}
                             {{ organization.about_org }} {% endif %}</textarea>
                         <button type="submit" class="save_details">Save</button>
                     </form>

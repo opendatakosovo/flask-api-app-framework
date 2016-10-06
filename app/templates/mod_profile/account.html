@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-4 col-xs-10 col-xs-offset-2">
                 <h5>Edit account details</h5>
-                <span style="color:green;">{{ error }}</span>
+                <span style="color:green;">{% if error != '' %}{{ error }} {% endif %}</span>
                 <form name="profile-details" id="profile-details" method="POST"
                       action="{{ url_for('profile.profile_settings', username=current_user.username) }}">
                     <input type="text" class="personal-data name" placeholder="Name" name="name"
@@ -56,7 +56,9 @@
             </div>
             <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-4 col-xs-10 col-xs-offset-2">
                 <h5>Change password</h5>
-                    <span style="color:green;"> {% if error != '' %} {{ success }} {% endif %}</span>
+                    <span style="color:green;">{% if success == "Password was changed successfully" %}{{ success }}{% endif %}</span>
+                    <span style="color:red;">{% if errorP != '' %}{{ errorP }}{% endif %}</span>
+
                 <form name="change-password" id="change-password" method="post"
                       action="{{ url_for('profile.change_password', username=current_user.username) }}">
                     <input type="password" class="personal-data" name="old_password" placeholder="Current password">

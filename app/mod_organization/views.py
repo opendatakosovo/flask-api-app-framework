@@ -84,8 +84,9 @@ def search(organization_slug):
 @mod_organization.route('/<string:organization_slug>/settings', methods=["POST", "GET"])
 def organization_settings(organization_slug):
     # Get the profile info
-    organization = org_mongo_utils.get_org_by_slug(organization_slug)
+
     if request.method == "GET":
+        organization = org_mongo_utils.get_org_by_slug(organization_slug)
         return render_template('mod_organization/account.html', organization=organization, error='')
     elif request.method == "POST":
         user_json = {}
@@ -97,8 +98,9 @@ def organization_settings(organization_slug):
             user_json['mobile'] = request.form['org_mobile']
             user_json['about_org'] = request.form['about_org']
             org_mongo_utils.update_org({"org_slug": organization_slug}, user_json)
+            organization = org_mongo_utils.get_org_by_slug(organization_slug)
         return render_template('mod_organization/account.html', organization=organization,
-                               message="Successfully updated organization profile.")
+                               error="Successfully updated organization profile.")
 
 
 @mod_organization.route('/<organization_slug>/<action>', methods=['POST'])
