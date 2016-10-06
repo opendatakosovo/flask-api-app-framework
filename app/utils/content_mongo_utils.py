@@ -32,7 +32,7 @@ class ContentMongoUtils(object):
         :rtype: MongoDB Cursor with all the articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({'author.org_slug': org_slug, 'author.type': 'organization','visible': True, 'published': True, 'delete': False})
+            .find({'author.org_slug': org_slug, 'author.type': 'organization','visible': True, 'published': True, 'delete': False}).sort([("_id", -1)])
 
         return articles
 
@@ -63,6 +63,22 @@ class ContentMongoUtils(object):
         return articles
 
     def get_paginated_articles(self, skips, limits):
+        """ Get paginated articles from the database.
+        :rtype: JSON with the queried articles
+        """
+        articles = self.mongo.db[self.content_collection] \
+            .find({'visible': True, 'published': True, 'delete': False, 'post_privacy': 'off'}).sort([("_id", -1)]).limit(limits).skip(skips)
+
+        articles_dump = list(articles)
+
+        for article in articles_dump:
+            avatar_url = self.mongo.db[self.users_collection] \
+                .find_one({"username": article['username']})
+            if avatar_url:
+                article['avatar_url'] = avatar_url['avatar_url']
+        return articles_dump
+
+    def get_paginated_all_articles(self, skips, limits):
         """ Get paginated articles from the database.
         :rtype: JSON with the queried articles
         """

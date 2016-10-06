@@ -39,13 +39,13 @@
                                 <button class="fa fa-bars dropdown-toggle "
                                         data-toggle="dropdown" role="menu"></button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Feed</a></li>
+                                    <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
                                     <li>
                                         <a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
                                     </li>
                                     <li><a href="#">Comments</a></li>
                                     <li><a href="#">Bookmarks</a></li>
-                                    <li><a href="#">Following</a></li>
+                                    <li><a href="{{ url_for('profile.following', username=current_user.username) }}">Following</a></li>
                                     <li>
                                         <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account Details</a>
                                     </li>
@@ -76,7 +76,7 @@
                     <div class="row">
                         <div class="col-md-9 col-md-offset-2">
                             <label class="category-label">Category</label>
-                            <input name="category" id="categories" class="text-right"required ><br/>
+                            <input name="category" id="categories" required ><br/>
                         </div>
 
                         <div class="col-md-1" style="padding-top: 30px;">

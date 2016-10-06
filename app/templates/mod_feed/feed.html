@@ -23,7 +23,7 @@
                                 <li><a href="#">Comments</a></li>
                                 <li><a href="#">Bookmarks</a></li>
                                 <li>
-                                    <a href="{{ url_for('profile.memberships', username=current_user.username) }}">Following</a>
+                                    <a href="{{ url_for('profile.following', username=current_user.username) }}">Following</a>
                                 </li>
                                 <li><a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account
                                     details</a></li>
@@ -132,16 +132,32 @@
                 });
                 $('.loading').data('skip-posts-number', (parseInt(skip_posts_number) + 6));
             }
-            function initFeed() {
 
-                // Get the first 6 feeds
-                var articles = {{ articles|safe }};
-                for (var idx in articles) {
-                    feedTheFeed(articles[idx], idx);
+            {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') or current_user.has_role('member') %}
+                function initFeed() {
+
+                    // Get the first 6 feeds
+                    var articles = {{ all_articles|safe }};
+                    for (var idx in articles) {
+                        feedTheFeed(articles[idx], idx);
+                    }
+                    addTileColors();
+
                 }
-                addTileColors();
 
-            }
+            {% else %}
+
+                function initFeed() {
+
+                    // Get the first 6 feeds
+                    var articles = {{ articles|safe }};
+                    for (var idx in articles) {
+                        feedTheFeed(articles[idx], idx);
+                    }
+                    addTileColors();
+
+                }
+            {% endif %}
 
             function loadMoreArticles(posts) {
                 for (var idx in posts) {

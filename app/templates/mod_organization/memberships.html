@@ -20,9 +20,9 @@
                 {% include('mod_organization/org_header.html') %}
                 <div id="org-members">
                     <div class="row">
-                        <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1">
+                        <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
                             <div class="dropdown">
-                                <button class="fa fa-bars dropdown-toggle text-left"
+                                <button class="fa fa-bars dropdown-toggle"
                                         data-toggle="dropdown" role="menu"></button>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
@@ -32,7 +32,9 @@
                                     </li>
                                     <li><a href="#">Comments</a></li>
                                     <li><a href="#">Bookmarks</a></li>
-                                    <li><a href="#">Following</a></li>
+                                    <li>
+                                        <a href="{{ url_for('profile.following', username=current_user.username) }}">Following</a>
+                                    </li>
                                     <li>
                                         <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account
                                             Details</a>
@@ -43,12 +45,12 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-1">
+                        <div class="col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-1 text-center">
                             <a href="{{ url_for('article.new_article' , author_type="organization", name=organization.name, username=organization['org_slug']) }}"
                                class="fa fa-pencil"></a>
                         </div>
 
-                        <div class="col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-1">
+                        <div class="col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-1 text-center">
                             <a href="{{ url_for('organization.search', organization_slug=organization.org_slug) }}"
                                class="fa fa-search"></a>
                         </div>
@@ -56,141 +58,167 @@
 
                     <div class="row">
                         <div class="col-md-6 col-md-offset-1">
-                            <h3>Membership administration</h3>
+                            <h3 class="administration-title">Membership administration</h3>
                         </div>
                     </div>
+                    <br/>
                     <div class="row">
-                        <div class="col-md-1 col-md-offset-2">
-                            <h4 style="padding-left: 10px">Members({{ approved_members_count }})</h4>
+                        <div class="col-md-2 col-md-offset-1">
+                            <span class="membership-type">Members ({{ approved_members_count }})</span>
                         </div>
                     </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-1 col-md-offset-1 col-xs-2">
+                            <img src="{{ url_for('static', filename=user_avatar(current_user.username) ) }}"
+                                 class="img-circle member-avatar">
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <a href="{{ url_for ('profile.feed', username=organization.org_admin) }}">
+                                <span class="search-result-title">{{ current_user.username }}</span>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-md-offset-4 col-xs-7 nopadding text-right">
+                            <button class="btn-membership btn-red">Administrator
+                            </button>
+                        </div>
+                    </div>
+                    <br/>
                     {% for member in organization.members %}
                         <div class="row">
-
                             {% if member.status != 'pending' %}
-                                <div class="col-md-1 col-md-offset-2 col-xs-2">
+                                <div class="col-md-1 col-md-offset-1 col-xs-2">
                                     <img src="{{ url_for('static', filename=user_avatar(member.username) ) }}"
                                          class="img-circle member-avatar">
-
                                 </div>
                                 <div class="col-md-3 col-xs-3">
                                     <a href="{{ url_for ('profile.feed', username=member.username) }}">
-                                        <h4 class="search-result-title">{{ member.username }}</h4>
+                                        <span class="search-result-title">{{ member.username }}</span>
                                     </a>
                                 </div>
-                                <div class="col-md-6 col-xs-7">
-
-                                    <button class="btn-membership btn-green">{{ member.status | capitalize }}</button>
-                                    {% if member.status == 'editor' %}
+                                <div class="col-md-2 col-xs-7 nopadding text-right">
+                                    {% if member.status == "member" %}
+                                        <button class="btn-membership btn-green">{{ member.status | capitalize }}</button>
+                                    {% else %}
+                                        <button class="btn-membership btn-green"
+                                                style="background-color:rgb(89, 53, 219);">{{ member.status | capitalize }}</button>
+                                    {% endif %}
+                                </div>
+                                {% if member.status == 'editor' %}
+                                    <div class="col-md-2 col-xs-7 nopadding text-right">
                                         <button class="btn-membership btn-white"
                                                 onclick="denote('{{ member.username }}')">Denote
                                         </button>
-                                    {% else %}
+                                    </div>
+                                {% else %}
+                                    <div class="col-md-2 col-xs-7 nopadding text-right">
                                         <button class="btn-membership btn-white"
                                                 onclick="promote('{{ member.username }}')">Promote
                                         </button>
-                                    {% endif %}
-
+                                    </div>
+                                {% endif %}
+                                <div class="col-md-2 col-xs-7 nopadding text-right">
                                     <button class="btn-membership btn-white" onclick="remove('{{ member.username }}')">
                                         Remove
                                     </button>
                                 </div>
                             {% endif %}
-
-
                         </div>
+                        <br/>
                     {% endfor %}
-                    <div class="row">
-                        <div class="col-md-1 col-md-offset-2">
-                            <h4 style="padding-left: 10px">Pending({{ pending_approval_count }})</h4>
-                        </div>
 
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-1">
+                            <span class="membership-type">Pending ({{ pending_approval_count }})</span>
+                        </div>
                     </div>
+                    <br/>
                     {% for member in organization.members %}
-                        <div class="row">
-                            {% if member.status == 'pending' %}
-                                <div class="col-md-1 col-md-offset-2 col-xs-2">
+                        {% if member.status == 'pending' %}
+                            <div class="row">
+                                <div class="col-md-1 col-md-offset-1 col-xs-2">
                                     <img src="{{ url_for('static', filename=user_avatar(member.username) ) }}"
                                          class="img-circle member-avatar">
-
                                 </div>
-                                <div class="col-md-3 col-xs-3">
+                                <div class="col-md-5 col-xs-3">
                                     <a href="{{ url_for ('profile.feed', username=member.username) }}">
-                                        <h4 class="search-result-title">{{ member.username }}</h4>
+                                        <span class="search-result-title">{{ member.username }}</span>
                                     </a>
                                 </div>
-                                <div class="col-md-6 col-xs-7">
+                                <div class="col-md-2 col-md-offset-4 col-xs-7 nopadding text-right">
                                     <button class="btn-membership btn-green" onclick="accept('{{ member.username }}')">
                                         Accept
                                     </button>
+                                </div>
+                                <div class="col-md-2 col-xs-7 nopadding text-right">
                                     <button class="btn-membership btn-white" onclick="deny('{{ member.username }}')">
                                         Deny
                                     </button>
                                 </div>
-                            {% endif %}
-                        </div>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
         </div>
-                <script type="text/javascript">
-                    $(document).ready(function () {
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-                    });
-                    function accept(username) {
-                        var post_url = "{{ url_for('organization.accept_member', organization_slug = organization.org_slug, username="USERNAME") }}";
-                        post_url = post_url.replace('USERNAME', username);
-                        $.post(post_url, function () {
-                        }).done(function () {
-                            location.reload();
-                        }).fail(function () {
-                            alert("Something went wrong. Please try again!");
-                        });
-                    }
-                    function denote(username) {
-                        var post_url = "{{ url_for('organization.denote_member', organization_slug = organization.org_slug, username="USERNAME") }}";
-                        post_url = post_url.replace('USERNAME', username);
-                        $.post(post_url, function () {
-                        }).done(function () {
-                            location.reload();
-                        }).fail(function () {
-                            alert("Something went wrong. Please try again!");
-                        });
+            });
+            function accept(username) {
+                var post_url = "{{ url_for('organization.accept_member', organization_slug = organization.org_slug, username="USERNAME") }}";
+                post_url = post_url.replace('USERNAME', username);
+                $.post(post_url, function () {
+                }).done(function () {
+                    location.reload();
+                }).fail(function () {
+                    alert("Something went wrong. Please try again!");
+                });
+            }
+            function denote(username) {
+                var post_url = "{{ url_for('organization.denote_member', organization_slug = organization.org_slug, username="USERNAME") }}";
+                post_url = post_url.replace('USERNAME', username);
+                $.post(post_url, function () {
+                }).done(function () {
+                    location.reload();
+                }).fail(function () {
+                    alert("Something went wrong. Please try again!");
+                });
 
-                    }
-                    function promote(username) {
-                        var post_url = "{{ url_for('organization.promote_member', organization_slug = organization.org_slug, username="USERNAME") }}";
-                        post_url = post_url.replace('USERNAME', username);
-                        $.post(post_url, function () {
-                        }).done(function () {
-                            location.reload();
-                        }).fail(function () {
-                            alert("Something went wrong. Please try again!");
-                        });
+            }
+            function promote(username) {
+                var post_url = "{{ url_for('organization.promote_member', organization_slug = organization.org_slug, username="USERNAME") }}";
+                post_url = post_url.replace('USERNAME', username);
+                $.post(post_url, function () {
+                }).done(function () {
+                    location.reload();
+                }).fail(function () {
+                    alert("Something went wrong. Please try again!");
+                });
 
-                    }
-                    function remove(username) {
-                        var post_url = "{{ url_for('organization.remove_member', organization_slug = organization.org_slug, username="USERNAME") }}";
-                        post_url = post_url.replace('USERNAME', username);
-                        $.post(post_url, function () {
-                        }).done(function () {
-                            location.reload();
-                        }).fail(function () {
-                            alert("Something went wrong. Please try again!");
-                        });
+            }
+            function remove(username) {
+                var post_url = "{{ url_for('organization.remove_member', organization_slug = organization.org_slug, username="USERNAME") }}";
+                post_url = post_url.replace('USERNAME', username);
+                $.post(post_url, function () {
+                }).done(function () {
+                    location.reload();
+                }).fail(function () {
+                    alert("Something went wrong. Please try again!");
+                });
 
-                    }
+            }
 
-                    function deny(username) {
-                        var post_url = "{{ url_for('organization.deny_member', organization_slug = organization.org_slug, username="USERNAME") }}";
-                        post_url = post_url.replace('USERNAME', username);
-                        $.post(post_url, function () {
-                        }).done(function () {
-                            location.reload();
-                        }).fail(function () {
-                            alert("Something went wrong. Please try again!");
-                        });
+            function deny(username) {
+                var post_url = "{{ url_for('organization.deny_member', organization_slug = organization.org_slug, username="USERNAME") }}";
+                post_url = post_url.replace('USERNAME', username);
+                $.post(post_url, function () {
+                }).done(function () {
+                    location.reload();
+                }).fail(function () {
+                    alert("Something went wrong. Please try again!");
+                });
 
-                    }
-                </script>
+            }
+        </script>
 {% endblock body %}

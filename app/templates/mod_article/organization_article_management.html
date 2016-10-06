@@ -4,17 +4,17 @@
 
     <div id="article-management">
         <div class="row menu-icons">
-            <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+            <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
                 <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
                         style="color: #000"></button>
                 <ul class="dropdown-menu" style="margin: 12px 0 0 30px;">
-                    <li><a href="#" class="active">Feed</a></li>
+                    <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
                     <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article
                         management</a></li>
                     <li><a href="#">Comments</a></li>
                     <li><a href="#">Bookmarks</a></li>
-                    <li><a href="#">Following</a></li>
-                    <li><a href="#">Account details</a></li>
+                    <li><a href="{{ url_for('profile.following', username=current_user.username) }}">Following</a></li>
+                    <li><a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account details</a></li>
                     {% include('mod_organization/org_administration.html') %}
                 </ul>
             </div>
@@ -28,20 +28,20 @@
                    style="margin-left: 0px;"></a>
             </div>
             <div id="filter">
-                <div class="col-md-1 col-md-offset-5 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-right">
+                <div class="col-md-1 col-md-offset-3 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-center">
                     <a href="" class="fa fa-file-video-o" aria-hidden="true" id="video-type1"
                        data-toggle="tooltip" title="Filter by video" data-category="video"></a>
                 </div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                     <a href="" class="fa fa-file-audio-o" aria-hidden="true" id="audio-type1"
                        data-toggle="tooltip" title="Filter by audio" data-category="audio"></a>
                 </div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                     <a href="" class="fa fa-file-text-o" aria-hidden="true" id="text-type1"
                        data-toggle="tooltip" title="Filter by text" data-category="text"></a>
                 </div>
 
-                <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                     <a href="" class="fa fa-paperclip" aria-hidden="true" id="attach-type1"
                        data-toggle="tooltip" title="Filter by attachment" data-category="attachment"></a>
                 </div>
@@ -57,46 +57,48 @@
 
         <div class="row">
             <div class="article-visibility">
-                {% for article in articles %}
-                    <div id="{{ article['_id'] }}" class="manage-line" style="">
-                        <div class="col-md-5 col-md-offset-1 col-sm-5 col-xs-10">
-                            {% if article['published'] == False %}
-                                <a href="{{ url_for('article.article',slug=article['slug']) }}">
-                                    <h3 style="font-size: 20px; padding-bottom: 5px;">(DRAFT)
-                                        - {{ article['title'] }}
-                                    </h3>
-                                </a>
-                            {% else %}
-                                <a href="{{ url_for('article.article',slug=article['slug']) }}">
-                                    <h3 style="font-size: 20px; padding-bottom: 5px;">{{ article['title'] }}</h3>
-                                </a>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-2 col-sm-3 col-xs-4">
-                            <h3 style="font-size: 14px" datetime="2016-07-20T12:39">
-                                {% if article['published_date'] %}
-                                    {{ article['published_date'].strftime('%Y-%m-%d %H:%M') }}
+                <div class="col-md-10 col-md-offset-1">
+                    {% for article in articles %}
+                        <div id="{{ article['_id'] }}" class="manage-line" style="">
+                            <div class="col-md-6 col-sm-5 col-xs-10">
+                                {% if article['published'] == False %}
+                                    <a href="{{ url_for('article.article',slug=article['slug']) }}">
+                                        <h3 style="font-size: 20px; padding-bottom: 5px;">(DRAFT)
+                                            - {{ article['title'] }}
+                                        </h3>
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('article.article',slug=article['slug']) }}">
+                                        <h3 style="font-size: 20px; padding-bottom: 5px;">{{ article['title'] }}</h3>
+                                    </a>
                                 {% endif %}
-                            </h3>
-                        </div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 visible-article text-right">
-                            {% if article['visible'] == True %}
-                                <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=False) }}">
-                                    <i class="fa fa-eye "></i>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-4">
+                                <h3 style="font-size: 14px" datetime="2016-07-20T12:39">
+                                    {% if article['published_date'] %}
+                                        {{ article['published_date'].strftime('%Y-%m-%d %H:%M') }}
+                                    {% endif %}
+                                </h3>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-12 visible-article text-right">
+                                {% if article['visible'] == True %}
+                                    <a href="{{ url_for('article.edit_org_article_visibility', article_id = article._id, visible=False) }}">
+                                        <i class="fa fa-eye "></i>
+                                    </a>
+                                {% elif article['visible'] == False %}
+                                    <a href="{{ url_for('article.edit_org_article_visibility', article_id = article._id, visible=True) }}">
+                                        <i class="fa fa-eye-slash"></i>
+                                    </a>
+                                {% endif %}
+                                <a class="del"
+                                   href="{{ url_for('article.delete_article', article_id = article._id, delete = False) }}">
+                                    <i class="fa fa-trash-o"></i>
                                 </a>
-                            {% elif article['visible'] == False %}
-                                <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=True) }}">
-                                    <i class="fa fa-eye-slash"></i>
-                                </a>
-                            {% endif %}
-                            <a class="del"
-                               href="{{ url_for('article.delete_article', article_id = article._id, delete = False) }}">
-                                <i class="fa fa-trash-o"></i>
-                            </a>
-                            <a href=""><i class=" fa fa-pencil-square-o"></i></a>
+                                <a href=""><i class=" fa fa-pencil-square-o"></i></a>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
@@ -108,33 +110,32 @@
                 event.preventDefault();
                 var url = this.href;
                 swal({
-                            title: "Are you sure?",
-                            text: "Your will not be able to recover this article!",
-                            type: "warning",
-                            showCancelButton: true,
-                            confirmButtonText: "Yes",
-                            confirmButtonColor: "#DD6B55",
-                            cancelButtonText: "Cancel",
-                            closeOnConfirm: false,
-                            closeOnCancel: false
-                        },
+                        title: "Are you sure?",
+                        text: "Your will not be able to recover this article!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes",
+                        confirmButtonColor: "#DD6B55",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
 
-                        function (isConfirm) {
-                            if (isConfirm) {
-                                swal({
-                                    title: '',
-                                    text: 'Article is successfully deleted!',
-                                    type: 'success'
-                                }, function () {
-                                    window.location = url;
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            swal({
+                                title: '',
+                                text: 'Article is successfully deleted!',
+                                type: 'success'
+                            }, function () {
+                                window.location = url;
 
-                                });
+                            });
 
-
-                            } else {
-                                swal("Cancelled", "Your article is safe :)", "error");
-                            }
-                        });
+                        } else {
+                            swal("Cancelled", "Your article is safe :)", "error");
+                        }
+                    });
             });
         });
 

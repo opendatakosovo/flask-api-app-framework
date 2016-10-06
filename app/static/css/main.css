@@ -244,8 +244,7 @@ footer a:hover {
 
 .article-visibility i {
     color: #000;
-    font-size: 32px;
-    padding-top: 15px;
+    font-size: 30px;
 }
 
 .article-visibility .fa-trash-o {
@@ -310,7 +309,7 @@ h5 {
     margin: 20px 0px !important;
 }
 
-.fa-bars{
+.fa-bars {
     background: transparent;
     border: none;
 }
@@ -425,7 +424,7 @@ h6 {
     font-weight: bold;
 }
 
-.fa{
+.fa {
     font-size: 35px;
     margin: 20px 10px;
 }
@@ -790,10 +789,9 @@ ul#ui-id-1 {
 a.org-adm:hover {
     background-color: #D14A43 !important;
     color: #FFFFFF !important;
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-    padding-bottom: 20px !important;
-    padding-top: 10px !important;
+    margin: 0px !important;
+    padding-bottom: 8px !important;
+    padding-left: 40px !important;
 }
 
 .org-adm span {
@@ -816,24 +814,32 @@ a.org-adm:hover {
     border: 1px solid black;
     background-color: white;
     color: #000;
-
 }
-.btn-membership{
+
+.btn-red{
+    border: 1px solid #D14A43;
+    background-color: #D14A43;
+    color: #fff;
+}
+
+.btn-membership {
     font-size: 12px;
     height: 30px;
-    width: 60px;
+    width: 70%;
 }
+
 .member-avatar {
-    width: 40px;
-    height: 36px;
+    width: 35px;
+    height: 35px;
     position: absolute;
     right: 0;
 }
+
 .loading img {
     width: 100px;
 }
 
-.org-following, .people-following{
+.org-following, .people-following {
     font-size: 20px;
     font-weight: bold;
 }
@@ -841,6 +847,7 @@ a.org-adm:hover {
 span.search-title,
 span.search-result-title {
     font-size: 18px;
+    color: #000;
 
 }
 
@@ -849,4 +856,21 @@ span.search-result-title {
     color: #fff;
     left: 70px;
     position: absolute;
+}
+
+.membership-type {
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.administration-title {
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
 }

@@ -12,8 +12,12 @@ def feed():
     '''
     articles_cursor = content_mongo_utils.get_paginated_articles(0, 6)
     articles = dumps(articles_cursor)
+
+    all_articles_cursor = content_mongo_utils.get_paginated_all_articles(0,6)
+    all_articles = dumps(all_articles_cursor)
+
     # TODO: Create a macro for jinja where you can get avatar link by username
-    return render_template('mod_feed/feed.html', articles=articles)
+    return render_template('mod_feed/feed.html', articles=articles, all_articles=all_articles)
 
 
 @mod_main.route('/organizations/search', methods=['GET'])
