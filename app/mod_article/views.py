@@ -48,7 +48,7 @@ def organization_articles(organization_slug, article_action):
 
     # TODO: Restrict access to only authenticated users
     organization = org_mongo_utils.get_org_by_slug(organization_slug)
-    articles = content_mongo_utils.get_org_articles(organization_slug)
+    articles = content_mongo_utils.get_all_org_articles(organization_slug)
     return render_template('mod_article/organization_article_management.html', organization=organization, articles=articles, article_action=article_action,
                            message=message)
 
@@ -179,11 +179,11 @@ def edit_article_visibility(article_id, visible):
     update = content_mongo_utils.change_article_visibility(article_id, visible)
     return redirect(url_for('article.my_articles', article_action='show'))
 
-@mod_article.route('/visibility/<string:organization_slug>/<article_id>/<visible>', methods=["POST", "GET"])
+@mod_article.route('/visibility/organization/<string:organization_slug>/<string:article_id>/<string:visible>', methods=["POST", "GET"])
 def edit_org_article_visibility(article_id, visible, organization_slug):
-    update = content_mongo_utils.change_article_visibility(article_id, visible)
     organization = org_mongo_utils.get_org_by_slug(organization_slug)
-    return redirect(url_for('article.organization_articles', organization_slug = organization['org_slug'], article_action='show'))
+    update = content_mongo_utils.change_article_visibility(article_id, visible)
+    return redirect(url_for('article.organization_articles', organization_slug=organization['org_slug'], article_action='show'))
 
 @mod_article.route('/articles/<int:skip_posts_number>/<int:posts_per_page>', methods=['POST'])
 def paginated_articles(skip_posts_number, posts_per_page):
