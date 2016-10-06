@@ -75,7 +75,7 @@ mod_profile.add_url_rule(
 mod_profile.add_url_rule(
    '/<string:username>/following',
    methods=["GET"],
-   view_func=profile.memberships)
+   view_func=profile.following)
 
 mod_profile.add_url_rule(
    '/upload',

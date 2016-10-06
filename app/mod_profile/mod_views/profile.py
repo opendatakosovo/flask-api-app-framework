@@ -87,9 +87,10 @@ class Profile():
     @login_required
     def profile_settings(self, username):
         # Get the profile info
-        profile = user_mongo_utils.get_user_by_username(username)
+        error = ""
         if request.method == "GET":
-            return render_template('mod_profile/account.html', profile=profile , error='')
+            profile = user_mongo_utils.get_user_by_username(username)
+            return render_template('mod_profile/account.html', profile=profile, error=error)
         elif request.method == "POST":
             user_json = {}
             if request.form['email'] is not None:
@@ -100,13 +101,14 @@ class Profile():
                 user_json['mobile'] = request.form['mobile']
                 user_json['about_me'] = request.form['about_me']
                 user_mongo_utils.update({'username': current_user.username},user_json )
-            return render_template('mod_profile/account.html', profile=profile, error="Succesfully updated profile.")
+                profile = user_mongo_utils.get_user_by_username(username)
+            return render_template('mod_profile/account.html', profile=profile, error="Successfully updated your profile.")
 
     def articles(self, username):
         return render_template('mod_profile/articles.html')
 
     @login_required
-    def memberships(self, username):
+    def following(self, username):
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
         organization = org_mongo_utils.get_organizations()
@@ -158,23 +160,29 @@ class Profile():
 
     @login_required
     def change_password(self,username):
-        email = current_user.email
-        old_password = request.form['old_password']
-        new_password = request.form['new_password']
-        confirm_new_password = request.form['confirm_new_password']
-        user_input = user_mongo_utils.get_user(email=email)
-        password_check = bcrypt.check_password_hash(user_input.password, old_password)
-        if password_check:
-            if new_password == confirm_new_password:
-                user_mongo_utils.change_pass(username, new_password)
-                success = "Password was changed successfully"
-                return redirect(url_for('profile.profile_settings', username=current_user.username, success=success))
+        errorP = ""
+        if request.method == "GET":
+            profile = user_mongo_utils.get_user_by_username(username)
+            return render_template('mod_profile/account.html', profile=profile, errorP=errorP)
+        elif request.method == 'POST':
+            email = current_user.email
+            old_password = request.form['old_password']
+            new_password = request.form['new_password']
+            confirm_new_password = request.form['confirm_new_password']
+            user_input = user_mongo_utils.get_user(email=email)
+            password_check = bcrypt.check_password_hash(user_input.password, old_password)
+            if password_check:
+                if new_password == confirm_new_password:
+                    user_mongo_utils.change_pass(username, new_password)
+                    profile = user_mongo_utils.get_user_by_username(username)
+
+                    return render_template('mod_profile/account.html', profile=profile, success = "Password was changed successfully")
+                else:
+                    profile = user_mongo_utils.get_user_by_username(username)
+                    return render_template('mod_profile/account.html', profile=profile, errorP ="Passwords didn't match")
             else:
-                error = "Passwords didn't match"
-                return redirect(url_for('profile.profile_settings', username=current_user.username, error=error))
-        else:
-            error = "This isn't your actual password"
-            return redirect(url_for('profile.profile_settings', username=current_user.username, error=error))
+                    profile = user_mongo_utils.get_user_by_username(username)
+                    return render_template('mod_profile/account.html', profile=profile, errorP="This isn't your actual password")
 
 
 def user_avatar(username):

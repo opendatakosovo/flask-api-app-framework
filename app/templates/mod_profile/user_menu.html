@@ -9,7 +9,7 @@
                                 management</a></li>
                     <li><a href="#">Comments</a></li>
                     <li><a href="#">Bookmarks</a></li>
-                    <li><a href="{{ url_for('profile.memberships', username=profile.username) }}">Following</a></li>
+                    <li><a href="{{ url_for('profile.following', username=profile.username) }}">Following</a></li>
                     <li><a href="{{ url_for('profile.profile_settings', username=profile.username) }}">Account
                                 details</a></li>
                 </ul>

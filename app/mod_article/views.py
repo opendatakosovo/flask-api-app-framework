@@ -29,15 +29,28 @@ def article(slug):
 @mod_article.route('/<user_id>/<organization_slug>')
 def organization_author_articles(user_id, organization_slug):
     # TODO: Restrict access to only authenticated users
-    return render_template('mod_article/article_management.html')
+    articles = org_mongo_utils.get_org_by_slug(organization_slug)
+    return render_template('mod_article/organization_article_management.html', articles=articles)
 
 
-@mod_article.route('/articles/organization/<organization_slug>')
-def organization_articles(organization_slug):
+@mod_article.route('/articles/organization/<organization_slug>/<string:article_action>')
+def organization_articles(organization_slug, article_action):
+
+    message = None
+    if article_action == "save":
+        message = "Your article has been saved, but not published."
+    elif article_action == "publish":
+        message = "Your article has been published."
+    elif article_action == "show":
+        message = "Showing your latest articles"
+    elif article_action == 'delete':
+        message = "Article/s deleted."
+
     # TODO: Restrict access to only authenticated users
     organization = org_mongo_utils.get_org_by_slug(organization_slug)
-    articles = content_mongo_utils.get_org_articles(organization_slug)
-    return render_template('mod_article/organization_article_management.html', organization=organization, articles=articles)
+    articles = content_mongo_utils.get_all_org_articles(organization_slug)
+    return render_template('mod_article/organization_article_management.html', organization=organization, articles=articles, article_action=article_action,
+                           message=message)
 
 
 @mod_article.route('/user/<username>')
@@ -81,7 +94,7 @@ def new_article(author_type, username):
         if author_type == "organization":
             new_article_from_org(form, username, organization)
             return redirect(url_for('article.organization_articles', organization_slug=organization['org_slug'],  article_action='show'))
-    return redirect(url_for('article.my_articles', article_action='show', article=article))
+
 
 def new_article_from_author(form, username):
     action = form['action']
@@ -138,7 +151,7 @@ def new_article_from_org(form, username, organization):
     if action == "save":
         publish_article = False
     elif action == "cancel":
-        return redirect(url_for('article.my_articles', article_action='show'))
+        return redirect(url_for('article.organization_articles', organization_slug = organization['org_slug'], article_action='show'))
     content_mongo_utils.add_article({
         "content": content,
         "visible": publish_article,
@@ -159,13 +172,18 @@ def new_article_from_org(form, username, organization):
             "lastname": current_user.lastname
         }
     })
-    return redirect(url_for('article.my_articles', article_action='save'))
+    return redirect(url_for('article.organization_articles', organization_slug = organization['org_slug'], article_action='save'))
 
 @mod_article.route('/visibility/<article_id>/<visible>', methods=["POST", "GET"])
 def edit_article_visibility(article_id, visible):
     update = content_mongo_utils.change_article_visibility(article_id, visible)
     return redirect(url_for('article.my_articles', article_action='show'))
 
+@mod_article.route('/visibility/organization/<string:organization_slug>/<string:article_id>/<string:visible>', methods=["POST", "GET"])
+def edit_org_article_visibility(article_id, visible, organization_slug):
+    organization = org_mongo_utils.get_org_by_slug(organization_slug)
+    update = content_mongo_utils.change_article_visibility(article_id, visible)
+    return redirect(url_for('article.organization_articles', organization_slug=organization['org_slug'], article_action='show'))
 
 @mod_article.route('/articles/<int:skip_posts_number>/<int:posts_per_page>', methods=['POST'])
 def paginated_articles(skip_posts_number, posts_per_page):

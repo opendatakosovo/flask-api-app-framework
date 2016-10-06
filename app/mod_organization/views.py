@@ -81,25 +81,26 @@ def search(organization_slug):
                            users=users)
 
 
-@mod_organization.route('/<organization_slug>/settings', methods=['GET'])
+@mod_organization.route('/<string:organization_slug>/settings', methods=["POST", "GET"])
 def organization_settings(organization_slug):
     # Get the profile info
-    organization = org_mongo_utils.get_org_by_slug(organization_slug)
 
     if request.method == "GET":
+        organization = org_mongo_utils.get_org_by_slug(organization_slug)
         return render_template('mod_organization/account.html', organization=organization, error='')
     elif request.method == "POST":
         user_json = {}
-        if request.form['email'] is not None:
-            user_json['email'] = request.form['email']
-            user_json['name'] = request.form['name']
-            user_json['location'] = request.form['location']
-            user_json['telephone'] = request.form['telephone']
-            user_json['mobile'] = request.form['mobile']
-            user_json['about_us'] = request.form['about_me']
-            org_mongo_utils.update({'username': current_user.username}, user_json)
+        if request.form['org_email'] is not None:
+            user_json['email'] = request.form['org_email']
+            user_json['name'] = request.form['org_name']
+            user_json['location'] = request.form['org_location']
+            user_json['telephone'] = request.form['org_telephone']
+            user_json['mobile'] = request.form['org_mobile']
+            user_json['about_org'] = request.form['about_org']
+            org_mongo_utils.update_org({"org_slug": organization_slug}, user_json)
+            organization = org_mongo_utils.get_org_by_slug(organization_slug)
         return render_template('mod_organization/account.html', organization=organization,
-                               error="Succesfully updated organization profile.")
+                               error="Successfully updated organization profile.")
 
 
 @mod_organization.route('/<organization_slug>/<action>', methods=['POST'])
@@ -143,10 +144,12 @@ def memberships(organization_slug):
     pending_approval_members_count = 0
     approved_members_count = 0
     editors_count = 0
+    admin_count = 1
 
     pending_approval_members_list = org_mongo_utils.get_users_by_status(organization_slug, 'pending')
     approved_members_list = org_mongo_utils.get_users_by_status(organization_slug, 'member')
     editors_list = org_mongo_utils.get_users_by_status(organization_slug, 'editor')
+    admin_list = org_mongo_utils.get_users_by_status(organization_slug,'admin')
 
     if 'members' in pending_approval_members_list:
          pending_approval_members_count = len(pending_approval_members_list['members'])
@@ -155,11 +158,16 @@ def memberships(organization_slug):
         approved_members_count = len(approved_members_list['members'])
     if 'members' in editors_list:
         editors_count = len(editors_list['members'])
+    if 'members' in admin_list:
+        admin_count = len(admin_list['members'])
 
-    total_members_count = editors_count + approved_members_count
+    total_members_count = editors_count + approved_members_count + admin_count
+
     is_member = 'org_admin'
+
     return render_template('mod_organization/memberships.html', profile=profile, organization=organization,
-                           user_avatar=user_avatar, pending_approval_count=pending_approval_members_count, approved_members_count=total_members_count)
+                           user_avatar=user_avatar, pending_approval_count=pending_approval_members_count, approved_members_count=total_members_count,
+                           admin_count=admin_count)
 
 
 def user_avatar(username):
@@ -168,7 +176,7 @@ def user_avatar(username):
 
 
 @login_required
-@mod_organization.route('/upload', methods=["GET", 'POST'], )
+@mod_organization.route('/upload', methods=["GET", 'POST'])
 def upload_avatar(self):
     error = ""
     if request.method == 'POST':
