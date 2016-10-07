@@ -160,7 +160,7 @@ def new_article_from_org(form, username, organization):
         "visible": publish_article,
         "category": category,
         "title": title,
-        "slug": slugify(title),
+        "slug": slugify(title)+'-' + str(ObjectId()),
         "type": type,
         "username": current_user.username,
         "published": publish_article,

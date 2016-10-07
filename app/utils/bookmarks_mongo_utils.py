@@ -16,7 +16,7 @@ class BookmarksMongoUtils(object):
 
     def get_bookmark_article(self, username, slug):
         bookmark = self.mongo.db[self.bookmarks_collection] \
-            .find_one({"username": username, "slug": slug})
+            .find_one({"username": username, "slug": slug}).sort([("_id", -1)])
         if bookmark:
             return True
         else:
