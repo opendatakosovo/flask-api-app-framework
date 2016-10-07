@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, Response, redirect, url_for
-from app import content_mongo_utils, profile_mongo_utils, org_mongo_utils, user_mongo_utils
+from app import content_mongo_utils, profile_mongo_utils, org_mongo_utils, user_mongo_utils, bookmarks_mongo_utils
 from flask.ext.security import current_user
 from slugify import slugify
 from datetime import datetime
 from bson.json_util import dumps
-
+from bson.objectid import ObjectId
 
 mod_article = Blueprint('article', __name__, url_prefix='/article')
 
@@ -13,7 +13,7 @@ mod_article = Blueprint('article', __name__, url_prefix='/article')
 def article(slug):
     # TODO: Restrict access to only authenticated users if the article has "visible" set to False
     article = content_mongo_utils.get_single_article(slug)
-
+    is_bookmarked = bookmarks_mongo_utils.get_bookmark_article(current_user.username, article["slug"])
     profile = None
     organization = None
     if article:
@@ -23,7 +23,8 @@ def article(slug):
             organization = org_mongo_utils.get_org_by_slug(article['author']['org_slug'])
     else:
         article = None
-    return render_template('mod_article/article_single.html', article=article, profile=profile, organization=organization)
+    return render_template('mod_article/article_single.html', is_bookmarked=is_bookmarked, article=article,
+                           profile=profile, organization=organization)
 
 
 @mod_article.route('/<user_id>/<organization_slug>')
@@ -35,7 +36,6 @@ def organization_author_articles(user_id, organization_slug):
 
 @mod_article.route('/articles/organization/<organization_slug>/<string:article_action>')
 def organization_articles(organization_slug, article_action):
-
     message = None
     if article_action == "save":
         message = "Your article has been saved, but not published."
@@ -49,7 +49,8 @@ def organization_articles(organization_slug, article_action):
     # TODO: Restrict access to only authenticated users
     organization = org_mongo_utils.get_org_by_slug(organization_slug)
     articles = content_mongo_utils.get_all_org_articles(organization_slug)
-    return render_template('mod_article/organization_article_management.html', organization=organization, articles=articles, article_action=article_action,
+    return render_template('mod_article/organization_article_management.html', organization=organization,
+                           articles=articles, article_action=article_action,
                            message=message)
 
 
@@ -85,7 +86,7 @@ def new_article(author_type, username):
 
     if request.method == "GET":
 
-        return render_template('mod_article/write_article.html' , organization=organization )
+        return render_template('mod_article/write_article.html', organization=organization)
     elif request.method == "POST":
         form = request.form
         if author_type == "individual":
@@ -93,7 +94,8 @@ def new_article(author_type, username):
             return redirect(url_for('article.my_articles', article_action='show'))
         if author_type == "organization":
             new_article_from_org(form, username, organization)
-            return redirect(url_for('article.organization_articles', organization_slug=organization['org_slug'],  article_action='show'))
+            return redirect(url_for('article.organization_articles', organization_slug=organization['org_slug'],
+                                    article_action='show'))
 
 
 def new_article_from_author(form, username):
@@ -118,7 +120,7 @@ def new_article_from_author(form, username):
         "visible": publish_article,
         "category": category,
         "title": title,
-        "slug": slugify(title),
+        "slug": slugify(title)+'-' + str(ObjectId()),
         "type": type,
         "username": current_user.username,
         "published": publish_article,
@@ -151,39 +153,46 @@ def new_article_from_org(form, username, organization):
     if action == "save":
         publish_article = False
     elif action == "cancel":
-        return redirect(url_for('article.organization_articles', organization_slug = organization['org_slug'], article_action='show'))
+        return redirect(
+            url_for('article.organization_articles', organization_slug=organization['org_slug'], article_action='show'))
     content_mongo_utils.add_article({
         "content": content,
         "visible": publish_article,
         "category": category,
         "title": title,
-        "slug": slugify(title),
+        "slug": slugify(title)+'-' + str(ObjectId()),
         "type": type,
         "username": current_user.username,
         "published": publish_article,
-        "delete" : delete,
-        "post_privacy" : post_privacy,
+        "delete": delete,
+        "post_privacy": post_privacy,
         "published_date": datetime.now(),
         "author": {
             "type": "organization",
-            "org_slug": organization['org_slug'] ,
+            "org_slug": organization['org_slug'],
             "org_name": organization['name'],
             "name": current_user.name,
             "lastname": current_user.lastname
         }
     })
-    return redirect(url_for('article.organization_articles', organization_slug = organization['org_slug'], article_action='save'))
+    return redirect(
+        url_for('article.organization_articles', organization_slug=organization['org_slug'], article_action='save'))
 
-@mod_article.route('/visibility/<article_id>/<visible>', methods=["POST", "GET"])
-def edit_article_visibility(article_id, visible):
-    update = content_mongo_utils.change_article_visibility(article_id, visible)
+
+@mod_article.route('/visibility/<slug>/<visible>', methods=["POST", "GET"])
+def edit_article_visibility(slug, visible):
+    update = content_mongo_utils.change_article_visibility(slug, visible)
     return redirect(url_for('article.my_articles', article_action='show'))
 
-@mod_article.route('/visibility/organization/<string:organization_slug>/<string:article_id>/<string:visible>', methods=["POST", "GET"])
-def edit_org_article_visibility(article_id, visible, organization_slug):
+
+@mod_article.route('/visibility/organization/<string:organization_slug>/<string:slug>/<string:visible>',
+                   methods=["POST", "GET"])
+def edit_org_article_visibility(slug, visible, organization_slug):
     organization = org_mongo_utils.get_org_by_slug(organization_slug)
-    update = content_mongo_utils.change_article_visibility(article_id, visible)
-    return redirect(url_for('article.organization_articles', organization_slug=organization['org_slug'], article_action='show'))
+    update = content_mongo_utils.change_article_visibility(slug, visible)
+    return redirect(
+        url_for('article.organization_articles', organization_slug=organization['org_slug'], article_action='show'))
+
 
 @mod_article.route('/articles/<int:skip_posts_number>/<int:posts_per_page>', methods=['POST'])
 def paginated_articles(skip_posts_number, posts_per_page):
@@ -196,29 +205,39 @@ def paginated_articles(skip_posts_number, posts_per_page):
 @mod_article.route('/articles/<string:username>/<int:skip_posts_number>/<int:posts_per_page>', methods=['POST'])
 def paginated_author_articles(username, skip_posts_number, posts_per_page):
     # TODO: Restrict access to only authenticated users
-    articles = dumps(content_mongo_utils.get_authors_paginated_articles(username,skip_posts_number, posts_per_page))
+    articles = dumps(content_mongo_utils.get_authors_paginated_articles(username, skip_posts_number, posts_per_page))
 
     return Response(response=articles)
 
 
-@mod_article.route('/articles/<string:organization_slug>/<int:skip_posts_number>/<int:posts_per_page>', methods=['POST'])
+@mod_article.route('/articles/<string:organization_slug>/<int:skip_posts_number>/<int:posts_per_page>',
+                   methods=['POST'])
 def paginated_org_articles(organization_slug, skip_posts_number, posts_per_page):
     # TODO: Restrict access to only authenticated users
-    articles = dumps(content_mongo_utils.get_org_paginated_articles(organization_slug, skip_posts_number, posts_per_page))
+    articles = dumps(
+        content_mongo_utils.get_org_paginated_articles(organization_slug, skip_posts_number, posts_per_page))
 
     return Response(response=articles)
 
 
-@mod_article.route('/delete/<article_id>/<delete>', methods=["POST", "GET"])
-def delete_article(article_id, delete):
-
-   # TODO: Restrict access to only authenticated users
-   article = content_mongo_utils.delete_article(article_id, delete)
-   return redirect(url_for('article.my_articles', article=article, article_action='show'))
-
+@mod_article.route('/delete/<slug>/<delete>', methods=["POST", "GET"])
+def delete_article(slug, delete):
+    # TODO: Restrict access to only authenticated users
+    article = content_mongo_utils.delete_article(slug, delete)
+    return redirect(url_for('article.my_articles', article=article, article_action='show'))
 
 
+@mod_article.route('/bookmarks/<slug>/<username>', methods=["POST", "GET"])
+def bookmark_article(username, slug):
+
+    bookmark = bookmarks_mongo_utils.bookmark_article(username, slug)
+
+    return redirect(url_for('article.article', username=username, slug=slug))
 
 
+@mod_article.route('/bookmark/remove/<slug>/<username>', methods=["POST", "GET"])
+def remove_bookmark(username, slug):
+    remove_bookmark = bookmarks_mongo_utils.remove_bookmark(username, slug)
 
+    return redirect(url_for('article.article', username=username, slug=slug, remove_bookmark=remove_bookmark))
 

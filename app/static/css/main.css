@@ -251,6 +251,10 @@ footer a:hover {
     padding-left: 20px;
 }
 
+i.fa.fa-bookmark{
+    color: #000;
+}
+
 .article-visibility h3 {
     font-size: 20px;
 }
@@ -530,13 +534,15 @@ img.banner {
 }
 
 #single-article .fa-bookmark-o,
-#single-article .fa-share-alt {
+#single-article .fa-share-alt,
+#single-article .fa-bookmark{
     font-size: 30px;
     color: #000;
 
 }
 
-#single-article .fa-bookmark-o {
+#single-article .fa-bookmark-o,
+#single-article .fa-bookmark{
     margin-left: -20px;
 }
 

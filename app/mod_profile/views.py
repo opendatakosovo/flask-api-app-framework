@@ -96,3 +96,13 @@ mod_profile.add_url_rule(
    '/change/password/<string:username>',
    methods=['POST', 'GET'],
    view_func=profile.change_password)
+
+mod_profile.add_url_rule(
+   '/bookmarks/<string:username>',
+   methods=['POST', 'GET'],
+   view_func=profile.bookmarks)
+
+mod_profile.add_url_rule(
+   '/bookmarks/remove/<string:username>/<string:slug>',
+   methods=['POST', 'GET'],
+   view_func=profile.remove_bookmarks)

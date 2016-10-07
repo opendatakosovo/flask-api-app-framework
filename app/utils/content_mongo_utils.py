@@ -53,12 +53,12 @@ class ContentMongoUtils(object):
         find_result = self.mongo.db[self.content_collection].find({'$text': {'$search': keyword}})
         return find_result
 
-    def delete_article(self, article_id, delete):
+    def delete_article(self, slug, delete):
         """ Delete article from the database.
         :rtype: MongoDB Cursor with all the articles
         """
         update = self.mongo.db[self.content_collection] \
-            .update({"_id": ObjectId(article_id)}, {'$set': {"delete": True}});
+            .update({"slug": slug}, {'$set': {"delete": True}});
 
         return update
 
@@ -159,18 +159,18 @@ class ContentMongoUtils(object):
             .find({"username": username, 'delete': False}).sort([("_id", -1)])
         return articles
 
-    def change_article_visibility(self, article_id, visible):
+    def change_article_visibility(self, slug, visible):
         """ Update the article to make it show/not show in the feed.
-        :param article_id: the id of the article we want to change the visibility of
+        :param slug: the id of the article we want to change the visibility of
         :param visible: True or False
         :rtype: Boolean
         """
         if visible == 'True':
             update = self.mongo.db[self.content_collection] \
-                .update({"_id": ObjectId(article_id)}, {'$set': {"visible": True}})
+                .update({"slug": slug}, {'$set': {"visible": True}})
         elif visible == 'False':
             update = self.mongo.db[self.content_collection] \
-                .update({"_id": ObjectId(article_id)}, {'$set': {"visible": False}})
+                .update({"slug": slug}, {'$set': {"visible": False}})
         return update
 
     def count_articles(self, username):
