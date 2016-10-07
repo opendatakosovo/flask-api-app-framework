@@ -8,6 +8,7 @@ from app.utils.user_mongo_utils import UserMongoUtils
 from app.mod_profile.mod_views.user import UserDataStore
 from app.utils.content_mongo_utils import ContentMongoUtils
 from app.utils.org_mongo_utils import OrgMongoUtils
+from app.utils.bookmarks_mongo_utils import BookmarksMongoUtils
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.login import LoginManager
 from flask.ext.security import Security
@@ -44,6 +45,7 @@ profile_mongo_utils = ProfileMongoUtils(mongo)
 user_mongo_utils = UserMongoUtils(mongo)
 content_mongo_utils = ContentMongoUtils(mongo)
 org_mongo_utils = OrgMongoUtils(mongo)
+bookmarks_mongo_utils = BookmarksMongoUtils(mongo)
 
 
 def create_app():

@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
-<script>
+    <script>
 
-    function mailToHref() {
-        var hrefMAilTo = "mailto:?subject={{ article['title']}} &BODY=I found this article interesting and thought of sharing it with you. Check it out:" + window.location.href;
-        $("#mail-to").attr("href", hrefMAilTo);
-    }
-    mailToHref();
+        function mailToHref() {
+            var hrefMAilTo = "mailto:?subject={{ article['title']}} &BODY=I found this article interesting and thought of sharing it with you. Check it out:" + window.location.href;
+            $("#mail-to").attr("href", hrefMAilTo);
+        }
+        mailToHref();
 
-</script>
+    </script>
 
     <div id="single-article">
         <div class="row">
@@ -18,7 +18,7 @@
 
             <div class="col-md-3 col-sm-5 col-xs-9 text-left">
                 {% if organization %}
-                    <span class="org">{{ article['author']['org_name'] }}</span><br />
+                    <span class="org">{{ article['author']['org_name'] }}</span><br/>
                     <span class="author">{{ article['author']['name'] }}, {{ article['author']['lastname'] }}</span>
                 {% else %}
                     <span class="org">{{ article['author']['name'] }}, {{ article['author']['lastname'] }}</span></br>
@@ -35,7 +35,7 @@
                     <a href="{{ url_for('organization.archive', organization_slug=organization['org_slug']) }}"
                        class="fa fa-tag news">  {{ article['category'] }}</a>
                 {% else %}
-                    <a href="{{ url_for ('profile.archive', username =article['author']['slug'])}}"
+                    <a href="{{ url_for ('profile.archive', username =article['author']['slug']) }}"
                        class="fa fa-tag news">  {{ article['category'] }}</a>
                 {% endif %}
 
@@ -54,7 +54,14 @@
             </div>
             {% if current_user.is_authenticated %}
                 <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-2 col-xs-5 col-xs-offset-7 text-left">
-                    <i class="bookmark fa fa-bookmark-o"></i>
+                    {% if is_bookmarked %}
+                        <a href="{{ url_for('article.remove_bookmark', username=current_user.username,slug=article['slug']) }}">
+                            <i class="bookmark fa fa-bookmark"></i></a>
+                    {% else %}
+                        <a href="{{ url_for('article.bookmark_article', username=current_user.username, slug=article['slug']) }}">
+                            <i class="bookmark fa fa-bookmark-o"></i></a>
+                    {% endif %}
+
                     <i id="share" class="fa fa-share-alt" data-toggle="popover" content="#share-social-media"></i>
                     <div class="col-md-12 col-xs-6">
 
@@ -71,7 +78,7 @@
                                 <li><a href="https://plus.google.com/share?url=" class="fa fa-google-plus"
                                        target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url='
                                    + encodeURIComponent(document.URL)); return false;"></a></li>
-                                <li><a id="mail-to" href="" class="fa fa-at" onclick= mailToHref(); target="_blank">
+                                <li><a id="mail-to" href="" class="fa fa-at" onclick=mailToHref(); target="_blank">
                                 </a></li>
                             </ul>
                         </form>
