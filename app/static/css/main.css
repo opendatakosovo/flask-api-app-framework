@@ -238,22 +238,21 @@ footer a:hover {
     margin: 40px 0px 20px 200px;
 }
 
-#article-management .fa {
-    font-size: 35px;
-}
-
 .article-visibility {
     padding: 5px 5px 10px 5px;
 }
 
 .article-visibility i {
     color: #000;
-    font-size: 32px;
-    padding-top: 15px;
+    font-size: 30px;
 }
 
 .article-visibility .fa-trash-o {
     padding-left: 20px;
+}
+
+i.fa.fa-bookmark{
+    color: #000;
 }
 
 .article-visibility h3 {
@@ -282,11 +281,13 @@ time {
 .dropdown-menu {
     margin-left: 10px;
     box-shadow: none;
+    padding-top: 0px !important;
 }
 
 .dropdown-menu > li > a {
     margin: 33px 21px;
-    font-size: 20px;
+    font-size: 20px !important;
+
 }
 
 .fa-pencil {
@@ -301,21 +302,18 @@ a:focus, a:hover {
 
 /*Account details page*/
 
-#acc-details h4,
-#org-acc-details h4 {
-    font-weight: bold;
-    font-size: 30px;
+h4 {
+    font-weight: bold !important;
+    font-size: 30px !important;
 }
 
-#acc-details h5,
-#org-acc-details h5 {
-    font-weight: bold;
-    font-size: 22px;
-    margin: 20px 0px;
+h5 {
+    font-weight: bold !important;
+    font-size: 22px !important;
+    margin: 20px 0px !important;
 }
 
-#acc-details .fa-bars,
-#org-acc-details .fa-bars {
+.fa-bars {
     background: transparent;
     border: none;
 }
@@ -354,8 +352,7 @@ a:focus, a:hover {
     padding-top: 10px;
 }
 
-#acc-details h6,
-#org-acc-details h6 {
+h6 {
     width: 80%;
     font-size: 18px;
 }
@@ -431,19 +428,9 @@ a:focus, a:hover {
     font-weight: bold;
 }
 
-.profile-feed .fa,
-.profile-about .fa,
-.profile-archive .fa,
-.prof-search .fa,
-.org-menu .fa {
-    font-size: 40px;
+.fa {
+    font-size: 35px;
     margin: 20px 10px;
-}
-
-.fa-bars {
-
-    background-color: transparent;
-    border: none;
 }
 
 img.banner {
@@ -547,14 +534,17 @@ img.banner {
 }
 
 #single-article .fa-bookmark-o,
-#single-article .fa-share-alt {
+#single-article .fa-share-alt,
+#single-article .fa-bookmark{
     font-size: 30px;
     color: #000;
 
 }
 
-#single-article .fa-bookmark-o {
+#single-article .fa-bookmark-o,
+#single-article .fa-bookmark{
     margin-left: -20px;
+    cursor: pointer;
 }
 
 #single-article .fa-share-alt {
@@ -629,32 +619,8 @@ img.banner {
     margin: auto;
 }
 
-.blue {
-    background: #008081;
-}
-
-.magenta {
-    background: #b82776;
-}
-
-.green {
-    background: #27b85e;
-}
-
-.yellow {
-    background: #989e21;
-}
-
-.brown {
-    background: #b88027;
-}
-
-.red {
-    background: #cf463a;
-}
-
 .article {
-    height: 300px;
+    height: 270px;
     background-clip: content-box;;
     padding: 10px;
 }
@@ -830,10 +796,9 @@ ul#ui-id-1 {
 a.org-adm:hover {
     background-color: #D14A43 !important;
     color: #FFFFFF !important;
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-    padding-bottom: 20px !important;
-    padding-top: 10px !important;
+    margin: 0px !important;
+    padding-bottom: 8px !important;
+    padding-left: 40px !important;
 }
 
 .org-adm span {
@@ -856,18 +821,23 @@ a.org-adm:hover {
     border: 1px solid black;
     background-color: white;
     color: #000;
+}
 
+.btn-red{
+    border: 1px solid #D14A43;
+    background-color: #D14A43;
+    color: #fff;
 }
 
 .btn-membership {
     font-size: 12px;
     height: 30px;
-    width: 60px;
+    width: 70%;
 }
 
 .member-avatar {
-    width: 40px;
-    height: 36px;
+    width: 35px;
+    height: 35px;
     position: absolute;
     right: 0;
 }
@@ -876,6 +846,7 @@ a.org-adm:hover {
     width: 100px;
 }
 
+<<<<<<< HEAD
 .comment-time {
     color: rgb(199, 199, 199);
     font-size: 12px;
@@ -896,4 +867,40 @@ a.org-adm:hover {
     margin-top: 25px;
     height: 50px;
     border-radius: 5px;
+=======
+.org-following, .people-following {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+span.search-title,
+span.search-result-title {
+    font-size: 18px;
+    color: #000;
+
+}
+
+.articles i.fa.fa-users {
+    font-size: 15px;
+    color: #fff;
+    left: 70px;
+    position: absolute;
+}
+
+.membership-type {
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.administration-title {
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+>>>>>>> master
 }

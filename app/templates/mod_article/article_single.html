@@ -9,8 +9,8 @@
         mailToHref();
 
     </script>
-
     <script type="text/javascript" src="{{ url_for('static', filename='js/comments.js') }}"></script>
+
 
     <div id="single-article">
         <div class="row">
@@ -56,7 +56,14 @@
             </div>
             {% if current_user.is_authenticated %}
                 <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-2 col-xs-5 col-xs-offset-7 text-left">
-                    <i class="bookmark fa fa-bookmark-o"></i>
+                    {% if is_bookmarked %}
+                        <a id="remove-bookmark">
+                            <i class="bookmark fa fa-bookmark"></i></a>
+                    {% else %}
+                        <a id="bookmark">
+                            <i class="bookmark fa fa-bookmark-o"></i></a>
+                    {% endif %}
+
                     <i id="share" class="fa fa-share-alt" data-toggle="popover" content="#share-social-media"></i>
                     <div class="col-md-12 col-xs-6">
 
@@ -145,7 +152,36 @@
             var addCommentReplyPostUrl = "{{ url_for('comments.add_comment_reply') }}";
             commentReply(addCommentReplyPostUrl, articleId, userName, firstName, lastName);
 
+            bookMark();
+
         });
+        function bookMark() {
+            $('.bookmark').click(function () {
+                var is_bookmarked = $('.bookmark').hasClass('fa-bookmark');
+                var post_url = "";
+                if (is_bookmarked) {
+                    $(this).removeClass();
+                    $(this).addClass('bookmark fa fa-bookmark-o');
+                    post_url = "{{ url_for('article.remove_bookmark') }}";
+
+                } else {
+                    $(this).removeClass();
+                    $(this).addClass('bookmark fa fa-bookmark');
+                    post_url = "{{ url_for('article.bookmark_article') }}";
+                }
+                data = {
+                    'username': "{{current_user.username}}",
+                    'slug': "{{article['slug']}}"
+                }
+                $.post(post_url, data).done(function (data) {
+
+
+                }).fail(function () {
+                    alert("Something went wrong. Please try again!");
+                });
+            });
+
+        }
         function addComment(action, id, text, username, firstname, lastname, date, avatar_url) {
             var time = time_ago(date);
             var img_href = "";
