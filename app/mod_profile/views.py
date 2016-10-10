@@ -73,9 +73,9 @@ mod_profile.add_url_rule(
 #     view_func=profile.articles)
 
 mod_profile.add_url_rule(
-   '/<string:username>/memberships',
+   '/<string:username>/following',
    methods=["GET"],
-   view_func=profile.memberships)
+   view_func=profile.following)
 
 mod_profile.add_url_rule(
    '/upload',
@@ -96,3 +96,13 @@ mod_profile.add_url_rule(
    '/change/password/<string:username>',
    methods=['POST', 'GET'],
    view_func=profile.change_password)
+
+mod_profile.add_url_rule(
+   '/bookmarks/<string:username>',
+   methods=['POST', 'GET'],
+   view_func=profile.bookmarks)
+
+mod_profile.add_url_rule(
+   '/bookmarks/remove/<string:username>/<string:slug>',
+   methods=['POST', 'GET'],
+   view_func=profile.remove_bookmarks)

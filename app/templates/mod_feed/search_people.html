@@ -74,19 +74,19 @@
         <div class="row">
             <div class="col-md-2 col-md-offset-3">
                 <a href="{{ url_for('main.search_organizations') }}">
-                    <h4  class="search-title ">Organizations</h4>
+                    <span  class="search-title ">Organizations</span>
                 </a>
 
             </div>
             <div class="col-md-1 col-md-offset-0">
                 <a href="{{ url_for('main.search_people') }}">
-                    <h4  class="search-title active">People</h4>
+                    <span  class="search-title active">People</span>
                 </a>
 
             </div>
             <div class="col-md-2 col-md-offset-0">
                 <a href="{{ url_for('main.search_articles') }}">
-                    <h4 class="search-title">Articles</h4>
+                    <span class="search-title">Articles</span>
                 </a>
 
             </div>
@@ -98,7 +98,7 @@
                         <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">
                     </div>
                     <div class="col-md-6">
-                        <a href="{{ url_for('profile.feed', username=user.username) }}"><h4 class="search-result-title">{{ user.name }}, {{ user.lastname }}</h4></a>
+                        <a href="{{ url_for('profile.feed', username=user.username) }}"><span class="search-result-title">{{ user.name }}, {{ user.lastname }}</span></a>
                     </div>
                 </div>
             {% endfor %}

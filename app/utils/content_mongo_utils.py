@@ -32,8 +32,16 @@ class ContentMongoUtils(object):
         :rtype: MongoDB Cursor with all the articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({'author.org_slug': org_slug, 'author.type': 'organization', 'visible': True, 'published': True,
-                   'delete': False})
+            .find({'author.org_slug': org_slug, 'author.type': 'organization','visible': True, 'published': True, 'delete': False}).sort([("_id", -1)])
+
+        return articles
+
+    def get_all_org_articles(self, org_slug):
+        """ Get articles from the database.
+        :rtype: MongoDB Cursor with all the articles
+        """
+        articles = self.mongo.db[self.content_collection] \
+            .find({'author.org_slug': org_slug, 'author.type': 'organization','published': True, 'delete': False}).sort([("_id", -1)])
 
         return articles
 
@@ -45,12 +53,12 @@ class ContentMongoUtils(object):
         find_result = self.mongo.db[self.content_collection].find({'$text': {'$search': keyword}})
         return find_result
 
-    def delete_article(self, article_id, delete):
+    def delete_article(self, slug, delete):
         """ Delete article from the database.
         :rtype: MongoDB Cursor with all the articles
         """
         update = self.mongo.db[self.content_collection] \
-            .update({"_id": ObjectId(article_id)}, {'$set': {"delete": True}});
+            .update({"slug": slug}, {'$set': {"delete": True}});
 
         return update
 
@@ -68,6 +76,22 @@ class ContentMongoUtils(object):
         :rtype: JSON with the queried articles
         """
         articles = self.mongo.db[self.content_collection] \
+            .find({'visible': True, 'published': True, 'delete': False, 'post_privacy': 'off'}).sort([("_id", -1)]).limit(limits).skip(skips)
+
+        articles_dump = list(articles)
+
+        for article in articles_dump:
+            avatar_url = self.mongo.db[self.users_collection] \
+                .find_one({"username": article['username']})
+            if avatar_url:
+                article['avatar_url'] = avatar_url['avatar_url']
+        return articles_dump
+
+    def get_paginated_all_articles(self, skips, limits):
+        """ Get paginated articles from the database.
+        :rtype: JSON with the queried articles
+        """
+        articles = self.mongo.db[self.content_collection] \
             .find({'visible': True, 'published': True, 'delete': False}).sort([("_id", -1)]).limit(limits).skip(skips)
 
         articles_dump = list(articles)
@@ -78,6 +102,7 @@ class ContentMongoUtils(object):
             if avatar_url:
                 article['avatar_url'] = avatar_url['avatar_url']
         return articles_dump
+
 
     def get_authors_paginated_articles(self, username, skips, limits):
         """ Get paginated articles from the database for a specific author.
@@ -106,9 +131,9 @@ class ContentMongoUtils(object):
                     .find_one({"username": article['username']})['avatar_url']
         return articles_dump
 
-    def get_org_private_articles(self, org_slug):
+    def get_org_public_articles(self, org_slug, skips, limits):
         articles = self.mongo.db[self.content_collection] \
-            .find({"author.org_slug": org_slug, 'visible': True, 'published': True, 'delete': False}).sort(
+            .find({"author.org_slug": org_slug, 'visible': True, 'published': True, 'delete': False, "post_privacy" : "off"}).sort(
             [("_id", -1)])
         articles_dump = list(articles)
         for article in articles_dump:
@@ -135,18 +160,18 @@ class ContentMongoUtils(object):
             .find({"username": username, 'delete': False}).sort([("_id", -1)])
         return articles
 
-    def change_article_visibility(self, article_id, visible):
+    def change_article_visibility(self, slug, visible):
         """ Update the article to make it show/not show in the feed.
-        :param article_id: the id of the article we want to change the visibility of
+        :param slug: the id of the article we want to change the visibility of
         :param visible: True or False
         :rtype: Boolean
         """
         if visible == 'True':
             update = self.mongo.db[self.content_collection] \
-                .update({"_id": ObjectId(article_id)}, {'$set': {"visible": True}})
+                .update({"slug": slug}, {'$set': {"visible": True}})
         elif visible == 'False':
             update = self.mongo.db[self.content_collection] \
-                .update({"_id": ObjectId(article_id)}, {'$set': {"visible": False}})
+                .update({"slug": slug}, {'$set': {"visible": False}})
         return update
 
     def count_articles(self, username):

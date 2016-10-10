@@ -16,6 +16,16 @@ class OrgMongoUtils(object):
             .insert(org)
         return True
 
+    def update_org(self, condition, update_json):
+        """ Make a update by only sending a JSON .
+         :param query: JSON object containing the update params
+         :rtype: Mongo Cursor
+        """
+        result = self.mongo.db[self.org_collection] \
+            .update(condition, {"$set": update_json})
+        return result
+
+
     def get_org_by_slug(self, org_slug):
         """ Get an organization by slug.
          :param org_slug: Slug of the organization

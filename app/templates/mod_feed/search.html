@@ -19,14 +19,10 @@
         {% include "unregistered.html" %}
 
         {% if current_user.is_authenticated %}
-
-
-            <nav id="nav-bar1" style="margin-top: 100px;">
+            <nav id="nav-bar1">
                 <br><br><br><br>
-
                 <div class="row menu-icons">
-
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                    <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
                         {% if current_user.is_authenticated %}
                             <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
                                     style="color: #000"></button>
@@ -64,7 +60,7 @@
             <nav id="nav-bar">
                 <br><br>
                 <div class="row">
-                    <div class="col-md-1 col-sm-1 col-xs-1 text-right">
+                    <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-right">
                         <a href="#" class="fa fa-search" aria-hidden="true" id="search"></a>
                     </div>
                     <div class="col-md-7 col-sm-7 col-xs-7">
@@ -76,19 +72,19 @@
         <div class="row">
             <div class="col-md-2 col-md-offset-3">
                 <a href="{{ url_for('main.search_organizations') }}">
-                    <h4  class="search-title active">Organizations</h4>
+                    <span  class="search-title active">Organizations</span>
                 </a>
 
             </div>
             <div class="col-md-1 col-md-offset-0">
                 <a href="{{ url_for('main.search_people') }}">
-                    <h4  class="search-title">People</h4>
+                    <span  class="search-title">People</span>
                 </a>
 
             </div>
             <div class="col-md-2 col-md-offset-0">
                 <a href="{{ url_for('main.search_articles') }}">
-                    <h4 class="search-title">Articles</h4>
+                    <span class="search-title">Articles</span>
                 </a>
 
             </div>
@@ -101,7 +97,7 @@
                         <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">
                     </div>
                     <div class="col-md-6">
-                        <a href="{{ url_for('organization.feed', organization_slug=organization.org_slug) }}"><h4 class="search-result-title">{{ organization.name }}</h4></a>
+                        <a href="{{ url_for('organization.feed', organization_slug=organization.org_slug) }}"><span class="search-result-title">{{ organization.name }}</span></a>
                     </div>
                 </div>
 
