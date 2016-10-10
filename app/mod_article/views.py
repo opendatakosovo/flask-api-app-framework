@@ -23,7 +23,7 @@ def article(slug):
             organization = org_mongo_utils.get_org_by_slug(article['author']['org_slug'])
     else:
         article = None
-    return render_template('mod_article/article_single.html', article=article, profile=profile, organization=organization)
+    return render_template('mod_article/article_single.html', user_avatar=user_avatar, article=article, profile=profile, organization=organization)
 
 
 @mod_article.route('/<user_id>/<organization_slug>')
@@ -199,8 +199,6 @@ def delete_article(article_id, delete):
    return redirect(url_for('article.my_articles', article=article, article_action='show'))
 
 
-
-
-
-
-
+def user_avatar(username):
+    avatar_url = user_mongo_utils.get_user_by_username(username).avatar_url
+    return avatar_url

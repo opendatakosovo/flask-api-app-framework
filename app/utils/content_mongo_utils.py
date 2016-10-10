@@ -32,7 +32,8 @@ class ContentMongoUtils(object):
         :rtype: MongoDB Cursor with all the articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({'author.org_slug': org_slug, 'author.type': 'organization','visible': True, 'published': True, 'delete': False})
+            .find({'author.org_slug': org_slug, 'author.type': 'organization', 'visible': True, 'published': True,
+                   'delete': False})
 
         return articles
 
@@ -83,7 +84,8 @@ class ContentMongoUtils(object):
         :rtype: MongoDB Cursor with the queried articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({"username": username, 'visible': True, 'published': True, 'delete': False}).sort([("_id", -1)]).limit(limits).skip(skips)
+            .find({"username": username, 'visible': True, 'published': True, 'delete': False}).sort(
+            [("_id", -1)]).limit(limits).skip(skips)
 
         articles_dump = list(articles)
         for article in articles_dump:
