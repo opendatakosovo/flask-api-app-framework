@@ -544,6 +544,7 @@ img.banner {
 #single-article .fa-bookmark-o,
 #single-article .fa-bookmark{
     margin-left: -20px;
+    cursor: pointer;
 }
 
 #single-article .fa-share-alt {
@@ -845,6 +846,28 @@ a.org-adm:hover {
     width: 100px;
 }
 
+<<<<<<< HEAD
+.comment-time {
+    color: rgb(199, 199, 199);
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.comment-reply {
+    color: rgb(199, 199, 199);
+    font-size: 12px;
+    margin-top: 10px;
+    cursor: hand;
+}
+
+.reply-comment-field {
+    width: 98%;
+    border: 1px solid #dedede;
+    resize: none;
+    margin-top: 25px;
+    height: 50px;
+    border-radius: 5px;
+=======
 .org-following, .people-following {
     font-size: 20px;
     font-weight: bold;
@@ -879,4 +902,5 @@ span.search-result-title {
 .nopadding {
    padding: 0 !important;
    margin: 0 !important;
+>>>>>>> master
 }

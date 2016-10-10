@@ -8,6 +8,7 @@ from app.utils.user_mongo_utils import UserMongoUtils
 from app.mod_profile.mod_views.user import UserDataStore
 from app.utils.content_mongo_utils import ContentMongoUtils
 from app.utils.org_mongo_utils import OrgMongoUtils
+from app.utils.comments_mongo_utils import CommentsMongoUtils
 from app.utils.bookmarks_mongo_utils import BookmarksMongoUtils
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.login import LoginManager
@@ -45,6 +46,7 @@ profile_mongo_utils = ProfileMongoUtils(mongo)
 user_mongo_utils = UserMongoUtils(mongo)
 content_mongo_utils = ContentMongoUtils(mongo)
 org_mongo_utils = OrgMongoUtils(mongo)
+comment_mongo_util = CommentsMongoUtils(mongo)
 bookmarks_mongo_utils = BookmarksMongoUtils(mongo)
 
 
@@ -173,7 +175,7 @@ def init_modules(app):
     from app.mod_superadmin.views import mod_superadmin
     from app.mod_article.views import mod_article
     from app.mod_organization.views import mod_organization
-
+    from app.mod_comments.views import mod_comments
 
     app.register_blueprint(mod_main)
     app.register_blueprint(mod_profile)
@@ -181,3 +183,4 @@ def init_modules(app):
     app.register_blueprint(mod_superadmin)
     app.register_blueprint(mod_article)
     app.register_blueprint(mod_organization)
+    app.register_blueprint(mod_comments)
