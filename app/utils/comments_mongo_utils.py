@@ -23,7 +23,7 @@ class CommentsMongoUtils(object):
             "lastname": last_name,
             "article_id": ObjectId(article_id),
             "text": text,
-            "date": datetime.now()
+            "date": datetime.utcnow()
         }
         comment_id = self.mongo.db[self.comments_collection] \
             .insert(comment)
@@ -41,7 +41,7 @@ class CommentsMongoUtils(object):
             "article_id": ObjectId(article_id),
             "text": text,
             "reply_of": ObjectId(reply_of),
-            "date": datetime.now()
+            "date": datetime.utcnow()
         }
         comment_id = self.mongo.db[self.comments_collection] \
             .insert(comment)

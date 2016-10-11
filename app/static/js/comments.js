@@ -85,8 +85,8 @@ function getComments(post_url, article_id) {
 function time_ago(time) {
     if (time != undefined) {
         time = new Date(time['$date'])
-    } else {
-        return "Just now";
+    }else{
+        time = new Date();
     }
 
     switch (typeof time) {
