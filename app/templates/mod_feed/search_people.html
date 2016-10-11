@@ -19,19 +19,19 @@
         {% include "mod_feed/main_menu.html" %}
 
         <div class="row">
-            <div class="col-md-2 col-md-offset-3">
+            <div class="col-md-2 col-md-offset-3 col-sm-4 col-xs-4 text-center">
                 <a href="{{ url_for('main.search_organizations') }}">
                     <span class="search-title ">Organizations</span>
                 </a>
 
             </div>
-            <div class="col-md-1 col-md-offset-0">
+            <div class="col-md-1 col-md-offset-0 col-sm-4 col-xs-4 text-center">
                 <a href="{{ url_for('main.search_people') }}">
                     <span class="search-title active">People</span>
                 </a>
 
             </div>
-            <div class="col-md-2 col-md-offset-0">
+            <div class="col-md-2 col-md-offset-0 col-sm-4 col-xs-4 text-center">
                 <a href="{{ url_for('main.search_articles') }}">
                     <span class="search-title">Articles</span>
                 </a>
@@ -41,10 +41,10 @@
         <div class="row">
             {% for user in users %}
                 <div class="search-item row">
-                    <div class="col-md-1 col-md-offset-2">
+                    <div class="col-md-1 col-md-offset-2 col-sm-1 col-sm-offset-2 col-xs-2">
                         <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle search-img-item">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-sm-7 col-xs-7">
                         <a href="{{ url_for('profile.feed', username=user.username) }}"><span
                                 class="search-result-title">{{ user.name }}, {{ user.lastname }}</span></a>
                     </div>

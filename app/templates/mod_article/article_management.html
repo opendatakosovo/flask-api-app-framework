@@ -18,7 +18,7 @@
 
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <h3>Article Management</h3>
+                <h3 class="administration-title">Article Management</h3>
                 <span style="color:green;"> {{ message }} </span>
             </div>
         </div>
@@ -28,7 +28,7 @@
                 <div class="col-md-10 col-md-offset-1">
                     {% for article in articles %}
                         <div id="{{ article['_id'] }}" class="manage-line">
-                            <div class="col-md-6 col-sm-5 col-xs-10">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
                                 {% if article['published'] == False %}
                                     <a href="{{ url_for('article.article',slug=article['slug']) }}">
                                         <h3 style="font-size: 20px; padding: 10px;">(DRAFT)
@@ -37,18 +37,18 @@
                                     </a>
                                 {% else %}
                                     <a href="{{ url_for('article.article',slug=article['slug']) }}">
-                                        <h3 style="font-size: 20px; padding: 10px;">{{ article['title'] }}</h3>
+                                        <h3 class="articles-title">{{ article['title'] }}</h3>
                                     </a>
                                 {% endif %}
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-4">
-                                <h3 style="font-size: 14px; padding: 20px 0px;" datetime="2016-07-20T12:39">
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <h3 class="article-date" style="font-size: 12px; padding: 8px 0px;" datetime="2016-07-20T12:39">
                                     {% if article['published_date'] %}
                                         {{ article['published_date'].strftime('%Y-%m-%d %H:%M') }}
                                     {% endif %}
                                 </h3>
                             </div>
-                            <div class="col-md-3 col-sm-4 col-xs-12 visible-article text-right">
+                            <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                                 {% if article['visible'] == True %}
                                     <a href="{{ url_for('article.edit_article_visibility', slug = article.slug, visible=False) }}">
                                         <i class="fa fa-eye "></i>
@@ -58,11 +58,15 @@
                                         <i class="fa fa-eye-slash"></i>
                                     </a>
                                 {% endif %}
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+                                <a href=""><i class=" fa fa-pencil-square-o"></i></a>
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-1 text-center">
                                 <a class="del"
                                    href="{{ url_for('article.delete_article', slug = article.slug, delete = False) }}">
                                     <i class="fa fa-trash-o"></i>
                                 </a>
-                                <a href=""><i class=" fa fa-pencil-square-o"></i></a>
                             </div>
                         </div>
                     {% endfor %}

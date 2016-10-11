@@ -87,6 +87,14 @@
         height: 30px;
     }
 
+    div.edit-acc-label{
+        padding-top: 15%;
+    }
+
+    .article-visibility i {
+
+    font-size: 22px;}
+
 }
 
 /* Small Devices, Tablets (iPad)*/
@@ -160,16 +168,8 @@
         left: 220px !important;
     }
 
-    #acc-details h4 {
-        font-size: 24px;
-    }
-
-    #acc-details h5 {
-        font-size: 17px;
-    }
-
-    #acc-details h6 {
-        font-size: 15px;
+    .article-visibility i{
+        padding: 0px;
     }
 }
 
@@ -185,6 +185,10 @@
     .avatar {
         height: 80px;
         width: 80px;
+    }
+
+    .administration-title {
+    font-size: 20px;
     }
 }
 
@@ -228,22 +232,10 @@
         height: 35px;
     }
 
-    .visible-article {
-        padding: 0;
+    .article-date{
+        font-size: 12px;
     }
 
-    .article-visibility .fa-trash-o,
-    .article-visibility .fa-pencil-square-o {
-        padding-left: 5px;
-    }
-
-    .article-visibility h3 {
-        font-size: 15px;
-    }
-
-    .visible-article a i {
-        font-size: 25px !important;
-    }
 
     .menu-icons .fa {
         font-size: 25px !important;
@@ -319,6 +311,10 @@
         font-size: 25px;
     }
 
+    .article-visibility i{
+        font-size: 20px;
+    }
+
 }
 
 @media only screen and (max-width: 360px) {
@@ -384,6 +380,14 @@
 
     #single-article ul {
         padding-left: 40px;
+    }
+
+    div.acc-details-label{
+        font-size: 22px;
+    }
+
+    div.edit-acc-label{
+        font-size: 18px;
     }
 }
 
@@ -490,5 +494,13 @@
 
     .popover {
         max-width: 250px;
+    }
+
+    .article-date{
+        font-size:10px;
+    }
+
+    .articles-title{
+        font-size: 15px;
     }
 }
