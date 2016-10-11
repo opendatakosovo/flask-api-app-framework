@@ -2,49 +2,19 @@
 {% block body %}
 
     <div id="article-management">
-        <div class="row menu-icons">
-            <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
-                <button class="fa fa-bars dropdown-toggle" data-toggle="dropdown"
-                        style="color: #000"></button>
-                <ul class="dropdown-menu" style="margin: 12px 0 0 30px;">
-                    <li><a href="#" class="active">Feed</a></li>
-                    <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article
-                        management</a></li>
-                    <li><a href="#">Comments</a></li>
-                    <li><a href="#">Bookmarks</a></li>
-                    <li><a href="#">Following</a></li>
-                    <li><a href="#">Account details</a></li>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <ul>
+                    <li><a href="{{ url_for ('profile.feed', username = profile.username ) }}">Feed</a></li>
+                    <li><a href="{{ url_for ('profile.about', username = profile.username ) }}">About me</a></li>
+                    <li><a href="{{ url_for ('profile.archive', username = profile.username ) }}">All articles</a>
+                    </li>
                 </ul>
             </div>
-            <div class="col-md-1 col-sm-1 col-xs-1 text-center">
-                <a href="{{ url_for('article.new_article', author_type='individual', name=current_user.name , username=current_user.username) }}"
-                   class="fa fa-pencil"></a>
-            </div>
-            <div class="col-md-1 col-sm-1 col-xs-1 text-center">
-                <a href="{{ url_for('main.search_organizations') }}" class="fa fa-search " aria-hidden="true"
-                   id="search1"
-                   style="margin-left: 0px;"></a>
-            </div>
-            <div id="filter">
-                <div class="col-md-1 col-md-offset-3 col-sm-1 col-sm-offset-5 col-xs-1 col-xs-offset-5 text-center">
-                    <a href="" class="fa fa-file-video-o" aria-hidden="true" id="video-type1"
-                       data-toggle="tooltip" title="Filter by video" data-category="video"></a>
-                </div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center">
-                    <a href="" class="fa fa-file-audio-o" aria-hidden="true" id="audio-type1"
-                       data-toggle="tooltip" title="Filter by audio" data-category="audio"></a>
-                </div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center">
-                    <a href="" class="fa fa-file-text-o" aria-hidden="true" id="text-type1"
-                       data-toggle="tooltip" title="Filter by text" data-category="text"></a>
-                </div>
-
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center">
-                    <a href="" class="fa fa-paperclip" aria-hidden="true" id="attach-type1"
-                       data-toggle="tooltip" title="Filter by attachment" data-category="attachment"></a>
-                </div>
-            </div>
         </div>
+
+        {% include('mod_profile/profile_header.html') %}
+        {% include('mod_profile/user_menu.html') %}
 
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
