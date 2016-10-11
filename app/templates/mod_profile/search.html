@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="prof-search">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <ul>
+                    <li><a href="{{ url_for ('profile.feed', username = profile.username ) }}">Feed</a></li>
+                    <li><a href="{{ url_for ('profile.about', username = profile.username ) }}">About me</a></li>
+                    <li><a href="{{ url_for ('profile.archive', username = profile.username ) }}">All articles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Banner part at Feed/About/Article Pages-->
+
+
+        {% include('mod_profile/user_menu.html') %}
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".tab-2").click(function () {
+                $(".nav-article-type").hide();
+            });
+
+            $(".tab-1").click(function () {
+                $(".nav-article-type").show();
+            });
+        })
+    </script>
+{% endblock %}

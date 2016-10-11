@@ -1,0 +1,51 @@
+<!-- Banner part at Feed/About/Article Pages-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        ifFollowing();
+    });
+    function ifFollowing() {
+        var current_username = "{{ current_user.username }}";
+        var profile_username = "{{ profile.username }}";
+        if (current_username == profile_username) {
+            $('.follow').css('display', 'none');
+        }
+
+
+    }
+    function follow() {
+        var action = $('.follow').text().toLowerCase();
+        if(action == 'follow'){
+            var post_result = $.post('{{ url_for('profile.follow',username=profile.username, action="follow")}}');
+            $('.follow').text('Unfollow');
+        }
+        else if(action == 'unfollow'){
+           var post_result = $.post('{{ url_for('profile.follow',username=profile.username, action="unfollow")}}');
+             $('.follow').text('Follow');
+        }
+
+    }
+
+</script>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <i class="fa fa-share-alt share-org"></i>
+        <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
+        <div class="box">
+            <img src="{{ url_for('static',filename='') + profile.avatar_url }}" class="img-circle user-pic">
+            <span class="user-name">{{ profile.name }}, {{ profile.lastname }}</span>
+            {% if current_user.is_authenticated %}
+                {% if current_user.username not in profile.people_followers %}
+                    <button type="button" class="follow pull-right" onclick="follow()">Follow</button>
+                {% else %}
+                    <button type="button" class="follow pull-right" onclick="follow()">Unfollow</button>
+                {% endif %}
+
+            {% else %}
+                <button type="button" class="follow pull-right" onclick="{{ url_for('auth.sign_up') }}">Follow</button>
+                <button type="button" class="ask-to-join pull-right" onclick="{{ url_for('auth.sign_up') }}">Ask
+                    to join
+                </button>
+            {% endif %}
+        </div>
+    </div>
+</div>

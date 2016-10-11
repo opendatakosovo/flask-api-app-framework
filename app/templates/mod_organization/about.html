@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <div class="org-about">
+
+    <div class="container">
+        <div class="row org-menu">
+            <div class="col-md-10 col-md-offset-1">
+                <ul>
+                    <li><a href="{{ url_for ('organization.feed', organization_slug=organization['org_slug']) }}">Feed</a></li>
+                    <li><a href="{{ url_for ('organization.about', organization_slug=organization['org_slug']) }}"  class="active">About us</a></li>
+                    <li><a href="{{ url_for ('organization.archive', organization_slug=organization['org_slug']) }}">All articles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {% include('mod_organization/org_header.html') %}
+
+        <div class="row activity-info">
+            <div class="col-md-2 col-md-offset-2">
+                <span>Location:</span> <strong><span>{{ organization.location }}</span></strong>
+            </div>
+            <div class="col-md-2">
+                <span>Articles:</span><strong><span> {{ articles_no }}</span></strong>
+            </div>
+            <div class="col-md-2">
+                <span>Members:</span><strong><span>0</span></strong>
+            </div>
+            <div class="col-md-2">
+                <span>Followers:</span><strong><span>0</span></strong>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1"><br>
+                <span style="font-weight: bold; font-size: 30px">About us</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <span><br>
+               {% if organization.about_org %}{{ organization.about_org }}{% endif %}
+                </span>
+            </div>
+        </div>
+            <br/>
+        <div class="row">
+            <div class="col-md-3 col-md-offset-1">
+                <span class="contact">Contact us</span>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 contact-info">
+                <span class="email col-md-3">E-mail: {{ organization.email }}</span>
+                <span class="telephone col-md-3">Telephone: {{ organization.telephone }}</span>
+                <span class="mobile col-md-3">Mobile: {{ organization.mobile }}</span>
+            </div>
+        </div>
+    </div>
+    <br/>
+    </div>
+
+
+
+
+{% endblock body %}

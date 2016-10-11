@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="bookmarks profile-feed">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <ul>
+                    <li><a href="{{ url_for ('profile.feed', username =profile.username ) }}" class="active">Feed</a>
+                    </li>
+                    <li><a href="{{ url_for ('profile.about', username =profile.username ) }}">About me</a></li>
+                    <li><a href="{{ url_for ('profile.archive', username =profile.username ) }}">All articles</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Banner part at Feed/About/Article Pages-->
+
+        {% include('mod_profile/profile_header.html') %}
+        {% include('mod_profile/user_menu.html') %}
+
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <h3 class="administration-title">Bookmarks</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                {% for bookmark in bookmarks %}
+                    <div id="" class="manage-line">
+                        <div class="col-md-6 col-sm-5 col-xs-10">
+                            <a href="{{ url_for('article.article', slug=bookmark['slug'])}}">
+                                <h3 style="font-size: 20px; padding: 10px; color:#000;">{{ article_title(bookmark['slug'])['title'] }}</h3>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-4">
+                            <h3 style="font-size: 14px; padding: 20px 0px;" datetime="2016-07-20T12:39">
+                                {% if article_title(bookmark['slug'])['published_date'] %}
+                                    {{ article_title(bookmark['slug'])['published_date'].strftime('%Y-%m-%d %H:%M') }}
+                                {% endif %}
+                            </h3>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 visible-article text-right">
+                            <a class="remove"
+                               href="{{ url_for('profile.remove_bookmarks', username= current_user.username, slug = bookmark['slug']) }}"><i
+                                    class=" fa fa-bookmark"></i></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.remove').click(function (event) {
+                event.preventDefault();
+                var url = this.href;
+                swal({
+                            title: "Are you sure?",
+                            text: "Your will not be able to see on your bookmark's list this article!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Yes",
+                            confirmButtonColor: "#DD6B55",
+                            cancelButtonText: "Cancel",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                swal({
+                                    title: '',
+                                    text: 'Article is successfully removed from your bookmarks!',
+                                    type: 'success'
+                                }, function () {
+                                    window.location = url;
+
+                                });
+
+
+                            } else {
+                                swal("Cancelled", "Your article is safe :)", "error");
+                            }
+                        });
+            });
+        });
+
+
+    </script>
+{% endblock body %}
