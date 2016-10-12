@@ -31,7 +31,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 {% if article['published'] == False %}
                                     <a href="{{ url_for('article.article',slug=article['slug']) }}">
-                                        <h3 style="font-size: 20px; padding: 10px;">(DRAFT)
+                                        <h3 class="articles-title">(DRAFT)
                                             - {{ article['title'] }}
                                         </h3>
                                     </a>

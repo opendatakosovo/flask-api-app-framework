@@ -223,4 +223,11 @@ class ContentMongoUtils(object):
         articles = self.mongo.db[self.content_collection] \
             .find(
             {"author.org_slug": org_slug, "category": category, 'visible': True, 'published': True, 'delete': False})
-        return articles
+
+        articles_dump = list(articles)
+        for article in articles_dump:
+            if article is not None:
+                article['avatar_url'] = self.mongo.db[self.users_collection] \
+                    .find_one({"username": article['username']})['avatar_url']
+        return articles_dump
+        return articles_dump

@@ -4,6 +4,10 @@
     .logo {
         margin-left: 10px;
     }
+
+    .fa-bars::before {
+        margin-left: 5px;
+    }
 }
 
 @media (max-width: 991px) {
@@ -91,9 +95,11 @@
         padding-top: 15%;
     }
 
-    .article-visibility i {
+    .article-visibility i,
+    .bookmarks-list i.fa.fa-bookmark{
 
         font-size: 22px;
+
     }
 
 }
@@ -169,8 +175,13 @@
         left: 220px !important;
     }
 
-    .article-visibility i {
+    .article-visibility i{
         padding: 0px;
+    }
+
+    i.fa.fa-share-alt.share-org {
+        font-size: 14px !important;
+        top: -10px;
     }
 }
 
@@ -191,6 +202,10 @@
     .administration-title {
         font-size: 20px;
     }
+
+    .people-following, .org-following {
+        font-size: 15px;
+    }
 }
 
 @media (max-width: 492px) {
@@ -198,6 +213,7 @@
         width: 60%;
         margin-left: 20%;
     }
+
 }
 
 /* Extra Small Devices, Phones */
@@ -271,6 +287,10 @@
         height: 30px;
     }
 
+    .row.follow-list {
+        padding-left: 25px;
+    }
+
 }
 
 @media (max-width: 435px) {
@@ -287,7 +307,7 @@
         font-size: 12px;
     }
 
-    .contact-info{
+    .contact-info {
         font-size: 12px;
     }
 }
@@ -327,8 +347,10 @@
         font-size: 25px;
     }
 
-    .article-visibility i {
+    .article-visibility i,
+    .bookmarks-list i.fa.fa-bookmark{
         font-size: 20px;
+        padding-top: 17px;
     }
 
     span.search-title, span.search-result-title {
@@ -337,6 +359,20 @@
 
     .search-img-item {
         height: 27px;
+    }
+
+    .profile-feed ul li a,
+    .profile-about ul li a,
+    .profile-archive ul li a,
+    .prof-search ul li a,
+    .org-feed ul li a,
+    .org-about ul li a,
+    .org-archive ul li a,
+    .org-search ul li a,
+    .org-article-management ul li a,
+    #article-management ul li a {
+        font-size: 14px !important;
+
     }
 
 }
@@ -526,5 +562,9 @@
 
     .articles-title {
         font-size: 15px;
+    }
+
+    .fa-pencil:before {
+        margin-left: 5px;
     }
 }
