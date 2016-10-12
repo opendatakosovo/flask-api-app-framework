@@ -453,10 +453,6 @@ h6 {
     font-weight: bold;
 }
 
-.about-me-text{
-
-}
-
 .fa {
     font-size: 35px;
     margin: 20px 10px;
@@ -572,6 +568,7 @@ img.banner {
 #single-article .fa-bookmark-o,
 #single-article .fa-bookmark {
     margin-left: -20px;
+    cursor: pointer;
 }
 
 #single-article .fa-share-alt {
@@ -869,6 +866,28 @@ a.org-adm:hover {
     width: 100px;
 }
 
+.comment-time {
+    color: rgb(199, 199, 199);
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.comment-reply {
+    color: rgb(199, 199, 199);
+    font-size: 12px;
+    margin-top: 10px;
+    cursor: hand;
+}
+
+.reply-comment-field {
+    width: 98%;
+    border: 1px solid #dedede;
+    resize: none;
+    margin-top: 25px;
+    height: 50px;
+    border-radius: 5px;
+}
+
 .org-following, .people-following {
     font-size: 20px;
     font-weight: bold;
@@ -881,7 +900,7 @@ span.search-result-title {
 
 }
 
-.articles-title{
+.articles-title {
     font-size: 18px;
     padding: 5px;
     color: #000;
@@ -907,6 +926,7 @@ span.search-result-title {
 }
 
 .nopadding {
+
     padding: 0 !important;
     margin: 0 !important;
 }

@@ -109,7 +109,8 @@ class ContentMongoUtils(object):
         :rtype: MongoDB Cursor with the queried articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({"username": username, 'visible': True, 'published': True, 'delete': False}).sort([("_id", -1)]).limit(limits).skip(skips)
+            .find({"username": username, 'visible': True, 'published': True, 'delete': False}).sort(
+            [("_id", -1)]).limit(limits).skip(skips)
 
         articles_dump = list(articles)
         for article in articles_dump:

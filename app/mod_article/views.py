@@ -23,8 +23,8 @@ def article(slug):
             organization = org_mongo_utils.get_org_by_slug(article['author']['org_slug'])
     else:
         article = None
-    return render_template('mod_article/article_single.html', is_bookmarked=is_bookmarked, article=article,
-                           profile=profile, organization=organization)
+    return render_template('mod_article/article_single.html', is_bookmarked=is_bookmarked, user_avatar=user_avatar, article=article, profile=profile, organization=organization)
+
 
 
 @mod_article.route('/<user_id>/<organization_slug>')
@@ -228,17 +228,20 @@ def delete_article(slug, delete):
     return redirect(url_for('article.my_articles', article=article, article_action='show'))
 
 
-@mod_article.route('/bookmarks/<slug>/<username>', methods=["POST", "GET"])
-def bookmark_article(username, slug):
+@mod_article.route('/bookmark/add', methods=["POST", "GET"])
+def bookmark_article():
+    bookmark = bookmarks_mongo_utils.bookmark_article(request.form['username'], request.form['slug'])
 
-    bookmark = bookmarks_mongo_utils.bookmark_article(username, slug)
+    return redirect(url_for('article.article', username=request.form['username'], slug=request.form['slug']))
 
-    return redirect(url_for('article.article', username=username, slug=slug))
+def user_avatar(username):
+    avatar_url = user_mongo_utils.get_user_by_username(username).avatar_url
+    return avatar_url
 
 
-@mod_article.route('/bookmark/remove/<slug>/<username>', methods=["POST", "GET"])
-def remove_bookmark(username, slug):
-    remove_bookmark = bookmarks_mongo_utils.remove_bookmark(username, slug)
+@mod_article.route('/bookmark/remove', methods=["POST"])
+def remove_bookmark():
+    remove_bookmark = bookmarks_mongo_utils.remove_bookmark(request.form['username'], request.form['slug'])
 
-    return redirect(url_for('article.article', username=username, slug=slug, remove_bookmark=remove_bookmark))
+    return redirect(url_for('article.article', username=request.form['username'], slug=request.form['slug'], remove_bookmark=remove_bookmark))
 
