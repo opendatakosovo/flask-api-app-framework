@@ -218,11 +218,12 @@ class ContentMongoUtils(object):
             .find({"username": username, "category": category, 'visible': True, 'published': True, 'delete': False})
         return articles
 
-    def get_articles_one_category_only_org(self, org_slug, category):
+    def get_articles_one_category_only_org(self, org_slug, category, skips, limits):
 
         articles = self.mongo.db[self.content_collection] \
             .find(
-            {"author.org_slug": org_slug, "category": category, 'visible': True, 'published': True, 'delete': False})
+            {"author.org_slug": org_slug, "category": category, 'visible': True, 'published': True, 'delete': False}).sort(
+            [("_id", -1)]).limit(limits).skip(skips)
 
         articles_dump = list(articles)
         for article in articles_dump:
