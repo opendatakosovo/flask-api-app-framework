@@ -1,7 +1,7 @@
 {% if current_user.is_authenticated %}
     {% if current_user.username == profile.username %}
         <div class="row menu-icons">
-            <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-1 text-center">
+            <div class="col-md-1 col-md-offset-1 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-0 text-center">
                 <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
                 <ul class="dropdown-menu" style="margin-left: 10px">
                     <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
@@ -15,11 +15,11 @@
                 </ul>
 
             </div>
-            <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+            <div class="col-md-1 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-0 text-center">
                 <a href="{{ url_for('article.new_article', author_type='individual', name=profile.name, username=profile.username) }}"
                    class="fa fa-pencil"></a>
             </div>
-            <div class="col-md-1 col-sm-1 col-xs-1 text-center">
+            <div class="col-md-1 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-0 text-center">
                 <a href="{{ url_for('profile.search', username = profile.username) }}" class="fa fa-search "
                    aria-hidden="true"
                    id="search1"

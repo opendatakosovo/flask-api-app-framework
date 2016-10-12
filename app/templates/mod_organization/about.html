@@ -18,29 +18,29 @@
         {% include('mod_organization/org_header.html') %}
 
         <div class="row activity-info">
-            <div class="col-md-2 col-md-offset-2">
+            <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3">
                 <span>Location:</span> <strong><span>{{ organization.location }}</span></strong>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-sm-3 col-xs-3">
                 <span>Articles:</span><strong><span> {{ articles_no }}</span></strong>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-sm-3 col-xs-3">
                 <span>Members:</span><strong><span>0</span></strong>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-sm-3 col-xs-3">
                 <span>Followers:</span><strong><span>0</span></strong>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-10 col-md-offset-1"><br>
-                <span style="font-weight: bold; font-size: 30px">About us</span>
+                <span class="administration-title">About us</span>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <span><br>
+                <span class="about-me-text"><br>
                {% if organization.about_org %}{{ organization.about_org }}{% endif %}
                 </span>
             </div>

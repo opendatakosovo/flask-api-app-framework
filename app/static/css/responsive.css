@@ -87,13 +87,14 @@
         height: 30px;
     }
 
-    div.edit-acc-label{
+    div.edit-acc-label {
         padding-top: 15%;
     }
 
     .article-visibility i {
 
-    font-size: 22px;}
+        font-size: 22px;
+    }
 
 }
 
@@ -168,7 +169,7 @@
         left: 220px !important;
     }
 
-    .article-visibility i{
+    .article-visibility i {
         padding: 0px;
     }
 }
@@ -188,7 +189,7 @@
     }
 
     .administration-title {
-    font-size: 20px;
+        font-size: 20px;
     }
 }
 
@@ -232,10 +233,9 @@
         height: 35px;
     }
 
-    .article-date{
+    .article-date {
         font-size: 12px;
     }
-
 
     .menu-icons .fa {
         font-size: 25px !important;
@@ -263,6 +263,14 @@
         margin-left: 0px !important;
     }
 
+    span.search-title, span.search-result-title {
+        font-size: 16px;
+    }
+
+    .search-img-item {
+        height: 30px;
+    }
+
 }
 
 @media (max-width: 435px) {
@@ -273,6 +281,14 @@
 
     .video-type {
         margin-left: 25%;
+    }
+
+    .about-me-text {
+        font-size: 12px;
+    }
+
+    .contact-info{
+        font-size: 12px;
     }
 }
 
@@ -311,8 +327,16 @@
         font-size: 25px;
     }
 
-    .article-visibility i{
+    .article-visibility i {
         font-size: 20px;
+    }
+
+    span.search-title, span.search-result-title {
+        font-size: 14px;
+    }
+
+    .search-img-item {
+        height: 27px;
     }
 
 }
@@ -382,11 +406,11 @@
         padding-left: 40px;
     }
 
-    div.acc-details-label{
+    div.acc-details-label {
         font-size: 22px;
     }
 
-    div.edit-acc-label{
+    div.edit-acc-label {
         font-size: 18px;
     }
 }
@@ -496,11 +520,11 @@
         max-width: 250px;
     }
 
-    .article-date{
-        font-size:10px;
+    .article-date {
+        font-size: 10px;
     }
 
-    .articles-title{
+    .articles-title {
         font-size: 15px;
     }
 }

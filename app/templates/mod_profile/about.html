@@ -17,30 +17,29 @@
             <!-- Banner part at Feed/About/Article Pages-->
 
             {% include('mod_profile/profile_header.html') %}
-            {% include('mod_profile/user_menu.html') %}
 
             <div class="row activity-info">
-                <div class="col-md-2 col-md-offset-4">
+                <div class="col-md-2 col-md-offset-4 col-sm-3 col-sm-offset-2 col-xs-4">
                     <span>Location:</span> <strong><span>{% if profile.location %}
                     {{ profile.location }}{% endif %}</span></strong>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-3 col-xs-4">
                     <span>Articles:</span><strong><span> {{ articles_no }}</span></strong>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-3 col-xs-4">
                     <span>Followers:</span><strong><span>0</span></strong>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-10 col-md-offset-1"><br>
-                    <span style="font-weight: bold; font-size: 30px">About me</span>
+                    <span class="administration-title">About me</span>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                <span><br>
+                <span class="about-me-text"><br>
                {% if profile.about_me %}{{ profile.about_me }}{% endif %}
                 </span>
                 </div>

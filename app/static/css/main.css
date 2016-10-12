@@ -453,6 +453,10 @@ h6 {
     font-weight: bold;
 }
 
+.about-me-text{
+
+}
+
 .fa {
     font-size: 35px;
     margin: 20px 10px;
@@ -705,10 +709,6 @@ img.banner {
     padding: 0px;
 }
 
-.col-md-3.visible-article {
-    /*padding-left: 12%;*/
-}
-
 .search-img-item {
     height: 36px;
     position: absolute;
@@ -721,6 +721,10 @@ img.banner {
 
 .search-item.row a {
     color: #000;
+}
+
+.search-item.row {
+    margin: 0px;
 }
 
 .search-title {

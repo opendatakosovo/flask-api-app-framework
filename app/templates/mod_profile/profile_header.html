@@ -14,20 +14,20 @@
     }
     function follow() {
         var action = $('.follow').text().toLowerCase();
-        if(action == 'follow'){
+        if (action == 'follow') {
             var post_result = $.post('{{ url_for('profile.follow',username=profile.username, action="follow")}}');
             $('.follow').text('Unfollow');
         }
-        else if(action == 'unfollow'){
-           var post_result = $.post('{{ url_for('profile.follow',username=profile.username, action="unfollow")}}');
-             $('.follow').text('Follow');
+        else if (action == 'unfollow') {
+            var post_result = $.post('{{ url_for('profile.follow',username=profile.username, action="unfollow")}}');
+            $('.follow').text('Follow');
         }
 
     }
 
 </script>
 <div class="row">
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0">
         <i class="fa fa-share-alt share-org"></i>
         <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
         <div class="box">
