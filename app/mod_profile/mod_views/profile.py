@@ -36,7 +36,9 @@ class Profile():
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
         articles_no = content_mongo_utils.count_articles(username)
-        followers_no = profile_mongo_utils.count_followers(username)
+
+        if profile.people_followers != None:
+            followers_no = len(profile.people_followers)
 
         return render_template('mod_profile/about.html', profile=profile, articles_no=articles_no,
                                followers_no=followers_no)
@@ -200,21 +202,23 @@ class Profile():
         remove_bookmarks = bookmarks_mongo_utils.remove_bookmark(username, slug)
         return redirect(url_for('profile.bookmarks', username=current_user.username))
 
-
     def comments(self, username):
         profile = user_mongo_utils.get_user_by_username(username)
         comments = comment_mongo_util.get_comments_list(username)
 
-        return render_template('mod_profile/comments.html', article_title=commented_article_title, profile=profile, comments=comments)
+        return render_template('mod_profile/comments.html', article_title=commented_article_title, profile=profile,
+                               comments=comments)
 
     def remove_comment(self, username, comment_id):
 
         remove_comment = comment_mongo_util.remove_comment(username, comment_id)
         return redirect(url_for('profile.comments', username=current_user.username))
 
+
 def bookmarked_article_title(slug):
     article = bookmarks_mongo_utils.get_article_title(slug)
     return article
+
 
 def commented_article_title(slug):
     article = comment_mongo_util.get_article_title(slug)

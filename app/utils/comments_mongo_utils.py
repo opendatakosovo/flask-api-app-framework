@@ -71,7 +71,8 @@ class CommentsMongoUtils(object):
 
     def get_comments_list(self, username):
         comments = self.mongo.db[self.comments_collection] \
-            .find({"username": username})
+            .find({"username": username}).sort(
+            [("_id", -1)])
         return comments
 
     def get_article_title(self,slug):
