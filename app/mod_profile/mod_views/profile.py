@@ -1,7 +1,7 @@
 from flask import render_template, request, Response, redirect, url_for, send_from_directory
 from flask.ext.security import current_user, login_required
 from app import profile_mongo_utils, content_mongo_utils, org_mongo_utils, user_mongo_utils, allowed_extensions, \
-    upload_folder, bcrypt, bookmarks_mongo_utils
+    upload_folder, bcrypt, bookmarks_mongo_utils, comment_mongo_util
 from bson.json_util import dumps
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
@@ -185,7 +185,6 @@ class Profile():
                 return render_template('mod_profile/account.html', profile=profile,
                                        errorP="This isn't your actual password")
 
-
     def user_avatar(username):
         avatar_url = user_mongo_utils.get_user_by_username(username)['avatar_url']
         return avatar_url
@@ -193,7 +192,8 @@ class Profile():
     def bookmarks(self, username):
         profile = user_mongo_utils.get_user_by_username(username)
         bookmarks = bookmarks_mongo_utils.get_bookmark_list(username)
-        return render_template('mod_profile/bookmarks.html',article_title=article_title, profile=profile, bookmarks=bookmarks)
+        return render_template('mod_profile/bookmarks.html', article_title=bookmarked_article_title, profile=profile,
+                               bookmarks=bookmarks)
 
     def remove_bookmarks(self, username, slug):
 
@@ -201,6 +201,21 @@ class Profile():
         return redirect(url_for('profile.bookmarks', username=current_user.username))
 
 
-def article_title(slug):
+    def comments(self, username):
+        profile = user_mongo_utils.get_user_by_username(username)
+        comments = comment_mongo_util.get_comments_list(username)
+
+        return render_template('mod_profile/comments.html', article_title=commented_article_title, profile=profile, comments=comments)
+
+    def remove_comment(self, username, comment_id):
+
+        remove_comment = comment_mongo_util.remove_comment(username, comment_id)
+        return redirect(url_for('profile.comments', username=current_user.username))
+
+def bookmarked_article_title(slug):
     article = bookmarks_mongo_utils.get_article_title(slug)
+    return article
+
+def commented_article_title(slug):
+    article = comment_mongo_util.get_article_title(slug)
     return article

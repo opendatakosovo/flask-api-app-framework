@@ -11,7 +11,7 @@
                         <li><a href="{{ url_for('main.feed') }}" class="active">Feed</a></li>
                         <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article
                                     management</a></li>
-                        <li><a href="#">Comments</a></li>
+                        <li><a href="{{ url_for('profile.comments', username=current_user.username) }}">Comments</a></li>
                         <li><a href="{{ url_for('profile.bookmarks', username=current_user.username) }}">Bookmarks</a>
                         </li>
                         <li>
