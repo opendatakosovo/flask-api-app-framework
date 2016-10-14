@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <a href="{{ url_for ('organization.feed', organization_slug=org) }}"><span
-                                    class="search-result-title">{{ org }}</span></a>
+                                    class="search-result-title">{{ get_org_name_by_username(org)['name'] }}</span></a>
                         </div>
                     </div>
                 {% endfor %}
@@ -75,7 +75,7 @@
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <a href="{{ url_for('profile.feed', username=user) }}"><span
-                                    class="search-result-title">{{ user }}</span></a>
+                                    class="search-result-title">{{ get_user_name_last_name_by_username(user)['name'] }}, {{ get_user_name_last_name_by_username(user)['lastname'] }}</span></a>
                         </div>
                     </div>
                 {% endfor %}

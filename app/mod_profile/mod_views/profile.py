@@ -108,12 +108,17 @@ class Profile():
             return render_template('mod_profile/account.html', profile=profile,
                                    error="Successfully updated your profile.")
 
+
+
     @login_required
     def following(self, username):
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
         organization = org_mongo_utils.get_organizations()
-        return render_template('mod_profile/following.html', profile=profile, organization=organization)
+
+        return render_template('mod_profile/following.html', user_avatar=user_avatar, profile=profile,
+                               get_user_name_last_name_by_username=get_user_name_last_name_by_username,
+                               organization=organization, get_org_name_by_username=get_org_name_by_username)
 
     @login_required
     def allowed_file(self, filename):
@@ -187,9 +192,7 @@ class Profile():
                 return render_template('mod_profile/account.html', profile=profile,
                                        errorP="This isn't your actual password")
 
-    def user_avatar(username):
-        avatar_url = user_mongo_utils.get_user_by_username(username)['avatar_url']
-        return avatar_url
+
 
     def bookmarks(self, username):
         profile = user_mongo_utils.get_user_by_username(username)
@@ -214,6 +217,9 @@ class Profile():
         remove_comment = comment_mongo_util.remove_comment(username, comment_id)
         return redirect(url_for('profile.comments', username=current_user.username))
 
+def user_avatar(username):
+    avatar_url = user_mongo_utils.get_user_by_username(username)['avatar_url']
+    return avatar_url
 
 def bookmarked_article_title(slug):
     article = bookmarks_mongo_utils.get_article_title(slug)
@@ -223,3 +229,14 @@ def bookmarked_article_title(slug):
 def commented_article_title(slug):
     article = comment_mongo_util.get_article_title(slug)
     return article
+
+
+def get_user_name_last_name_by_username(username):
+    return user_mongo_utils.get_name_last_name_by_username(username)
+
+
+def get_org_name_by_username(organization_slug):
+    return org_mongo_utils.get_org_by_slug(organization_slug)
+
+
+
