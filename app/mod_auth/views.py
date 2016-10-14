@@ -81,7 +81,6 @@ def login():
                 # Tell Flask-Principal the identity changed
                 identity_changed.send(current_app._get_current_object(),
                                       identity=Identity(current_user.id))
-                # print current_user.is_authenticated()
                 return redirect(url_for('main.feed'))
 
 

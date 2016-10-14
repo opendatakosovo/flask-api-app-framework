@@ -4,6 +4,7 @@ from flask import request
 from flask import Response
 import json
 from slugify import slugify
+from bson.objectid import ObjectId
 
 mod_superadmin = Blueprint('superadmin', __name__, url_prefix='/sadmin')
 
@@ -41,7 +42,7 @@ def add_users():
                     "name": name,
                     "lastname": lastname,
                     "email": email,
-                    "username": name + lastname,
+                    "username": name + lastname + '-' + str(ObjectId()),
                     "password": bcrypt.generate_password_hash(password, rounds=12),
                     "active": True,
                     "user_slug": slugify(name + ' ' + lastname),
@@ -82,7 +83,7 @@ def add_org():
 
         user_mongo_utils.update_user_role(admin, 'org_admin')
 
-        org_slug = slugify(name)
+        org_slug = slugify(name) + '-' + str(ObjectId())
 
         if org_mongo_utils.get_org_by_slug({"slug": org_slug}):
             error = "Organization exists"
