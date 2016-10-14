@@ -71,7 +71,7 @@ def add_org():
         users_list = []
         for user in users:
             users_list.append(user['username'])
-        return render_template('mod_superadmin/add_org.html', users_list=users_list)
+        return render_template('mod_superadmin/add_org.html', users_list=users_list, get_user_name_last_name_by_username=get_user_name_last_name_by_username)
     elif request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
@@ -111,4 +111,8 @@ def add_org():
         users_list = []
         for user in users:
             users_list.append(user['username'])
-        return render_template('mod_superadmin/add_org.html', error=error, users_list=users_list)
+        return render_template('mod_superadmin/add_org.html', error=error, users_list=users_list, get_user_name_last_name_by_username=get_user_name_last_name_by_username)
+
+def get_user_name_last_name_by_username(username):
+    return user_mongo_utils.get_user_by_username(username)
+
