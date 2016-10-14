@@ -248,6 +248,7 @@ footer a:hover {
 
 .menu-icons .fa {
     font-size: 35px;
+    -webkit-text-stroke: 1px white;
 }
 
 .fa-bars, .fa-pencil, .fa-search, .fa-file-audio-o, .fa-file-text-o, .fa-file-video-o, .fa-paperclip {
@@ -673,7 +674,7 @@ img.banner {
 }
 
 .articles .article-type {
-    font-size: 32px;
+    font-size: 25px;
     color: #fff;
     position: absolute;
     bottom: 0;

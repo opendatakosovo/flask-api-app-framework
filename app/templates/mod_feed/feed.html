@@ -33,7 +33,7 @@
 
                 posting.done(function (data) {
                     var posts = jQuery.parseJSON(data);
-                    if (posts.length > 0) {
+                    if (posts.length > 0 ){
                         loadMoreArticles(posts);
                     } else {
                         $('.loading').css('display', 'none');

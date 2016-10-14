@@ -23,7 +23,7 @@ class ContentMongoUtils(object):
         :rtype: MongoDB Cursor with all the articles
         """
         articles = self.mongo.db[self.content_collection] \
-            .find({'visible': True, 'published': True, 'delete': False})
+            .find({'visible': True, 'published': True, 'delete': False}).sort([("_id", -1)])
 
         return articles
 

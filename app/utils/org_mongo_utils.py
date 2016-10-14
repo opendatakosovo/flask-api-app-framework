@@ -40,7 +40,7 @@ class OrgMongoUtils(object):
          :rtype: MongoDB Cursor
         """
         org_cursor = self.mongo.db[self.org_collection] \
-            .find()
+            .find().sort([("_id", -1)])
         return org_cursor
 
     def find_org(self, keyword):
