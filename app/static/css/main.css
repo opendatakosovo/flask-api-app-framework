@@ -975,3 +975,10 @@ div.del-acc-label {
     padding-left: 0px;
     padding-right: 0px;
 }
+
+.search-article-title{
+    font-weight: normal !important;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
