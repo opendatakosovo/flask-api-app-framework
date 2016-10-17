@@ -1,129 +1,126 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="org-feed">
-        <div class="container">
-            <div class="row">
-                <div class="row org-menu">
-                    <div class="col-md-10 col-md-offset-1">
-                        <ul>
-                            <li><a href="{{ url_for ('organization.feed', organization_slug=organization.org_slug) }}"
-                                   class="active">Feed</a></li>
-                            <li><a href="{{ url_for ('organization.about', organization_slug=organization.org_slug) }}">About
+
+        <div class="row org-menu">
+            <div class="col-md-10 col-md-offset-1">
+                <ul>
+                    <li><a href="{{ url_for ('organization.feed', organization_slug=organization.org_slug) }}"
+                           class="active">Feed</a></li>
+                    <li><a href="{{ url_for ('organization.about', organization_slug=organization.org_slug) }}">About
                                 us</a></li>
-                            <li>
-                                <a href="{{ url_for ('organization.archive', organization_slug=organization.org_slug) }}">All
+                    <li>
+                        <a href="{{ url_for ('organization.archive', organization_slug=organization.org_slug) }}">All
                                     articles</a>
-                            </li>
-                        </ul>
-                    </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% include('mod_organization/org_header.html') %}
+        {% include('mod_organization/org_menu.html') %}
+        <div id="org-members">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-1">
+                    <h3 class="administration-title">Membership administration</h3>
                 </div>
-                {% include('mod_organization/org_header.html') %}
-                {% include('mod_organization/org_menu.html') %}
-                <div id="org-members">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-1">
-                            <h3 class="administration-title">Membership administration</h3>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-2 col-md-offset-1">
-                            <span class="membership-type">Members ({{ approved_members_count }})</span>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row">
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <span class="membership-type">Members ({{ approved_members_count }})</span>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-1 col-md-offset-1 col-xs-2">
+                    <img src="{{ url_for('static', filename=user_avatar(current_user.username) ) }}"
+                         class="img-circle member-avatar">
+                </div>
+                <div class="col-md-3 col-xs-3">
+                    <a href="{{ url_for ('profile.feed', username=organization.org_admin) }}">
+                        <span class="search-result-title">{{ current_user.username }}</span>
+                    </a>
+                </div>
+                <div class="col-md-2 col-md-offset-4 col-xs-7 nopadding text-right">
+                    <button class="btn-membership btn-red">Administrator
+                    </button>
+                </div>
+            </div>
+            <br/>
+            {% for member in organization.members %}
+                <div class="row">
+                    {% if member.status != 'pending' %}
                         <div class="col-md-1 col-md-offset-1 col-xs-2">
-                            <img src="{{ url_for('static', filename=user_avatar(current_user.username) ) }}"
+                            <img src="{{ url_for('static', filename=user_avatar(member.username) ) }}"
                                  class="img-circle member-avatar">
                         </div>
                         <div class="col-md-3 col-xs-3">
-                            <a href="{{ url_for ('profile.feed', username=organization.org_admin) }}">
-                                <span class="search-result-title">{{ current_user.username }}</span>
+                            <a href="{{ url_for ('profile.feed', username=member.username) }}">
+                                <span class="search-result-title">{{ get_user_name_last_name_by_username(member.username).name}}, {{ get_user_name_last_name_by_username(member.username).lastname  }}</span>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-xs-7 nopadding text-right">
+                            {% if member.status == "member" %}
+                                <button class="btn-membership btn-green">{{ member.status | capitalize }}</button>
+                            {% else %}
+                                <button class="btn-membership btn-green"
+                                        style="background-color:rgb(89, 53, 219);">{{ member.status | capitalize }}</button>
+                            {% endif %}
+                        </div>
+                        {% if member.status == 'editor' %}
+                            <div class="col-md-2 col-xs-7 nopadding text-right">
+                                <button class="btn-membership btn-white"
+                                        onclick="denote('{{ member.username }}')">Denote
+                                </button>
+                            </div>
+                        {% else %}
+                            <div class="col-md-2 col-xs-7 nopadding text-right">
+                                <button class="btn-membership btn-white"
+                                        onclick="promote('{{ member.username }}')">Promote
+                                </button>
+                            </div>
+                        {% endif %}
+                        <div class="col-md-2 col-xs-7 nopadding text-right">
+                            <button class="btn-membership btn-white" onclick="remove('{{ member.username }}')">
+                                Remove
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+                <br/>
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <span class="membership-type">Pending ({{ pending_approval_count }})</span>
+                </div>
+            </div>
+            <br/>
+            {% for member in organization.members %}
+                {% if member.status == 'pending' %}
+                    <div class="row">
+                        <div class="col-md-1 col-md-offset-1 col-xs-2">
+                            <img src="{{ url_for('static', filename=user_avatar(member.username) ) }}"
+                                 class="img-circle member-avatar">
+                        </div>
+                        <div class="col-md-5 col-xs-3">
+                            <a href="{{ url_for ('profile.feed', username=member.username) }}">
+                                <span class="search-result-title">{{ member.username }}</span>
                             </a>
                         </div>
                         <div class="col-md-2 col-md-offset-4 col-xs-7 nopadding text-right">
-                            <button class="btn-membership btn-red">Administrator
+                            <button class="btn-membership btn-green" onclick="accept('{{ member.username }}')">
+                                Accept
+                            </button>
+                        </div>
+                        <div class="col-md-2 col-xs-7 nopadding text-right">
+                            <button class="btn-membership btn-white" onclick="deny('{{ member.username }}')">
+                                Deny
                             </button>
                         </div>
                     </div>
-                    <br/>
-                    {% for member in organization.members %}
-                        <div class="row">
-                            {% if member.status != 'pending' %}
-                                <div class="col-md-1 col-md-offset-1 col-xs-2">
-                                    <img src="{{ url_for('static', filename=user_avatar(member.username) ) }}"
-                                         class="img-circle member-avatar">
-                                </div>
-                                <div class="col-md-3 col-xs-3">
-                                    <a href="{{ url_for ('profile.feed', username=member.username) }}">
-                                        <span class="search-result-title">{{ member.username }}</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-2 col-xs-7 nopadding text-right">
-                                    {% if member.status == "member" %}
-                                        <button class="btn-membership btn-green">{{ member.status | capitalize }}</button>
-                                    {% else %}
-                                        <button class="btn-membership btn-green"
-                                                style="background-color:rgb(89, 53, 219);">{{ member.status | capitalize }}</button>
-                                    {% endif %}
-                                </div>
-                                {% if member.status == 'editor' %}
-                                    <div class="col-md-2 col-xs-7 nopadding text-right">
-                                        <button class="btn-membership btn-white"
-                                                onclick="denote('{{ member.username }}')">Denote
-                                        </button>
-                                    </div>
-                                {% else %}
-                                    <div class="col-md-2 col-xs-7 nopadding text-right">
-                                        <button class="btn-membership btn-white"
-                                                onclick="promote('{{ member.username }}')">Promote
-                                        </button>
-                                    </div>
-                                {% endif %}
-                                <div class="col-md-2 col-xs-7 nopadding text-right">
-                                    <button class="btn-membership btn-white" onclick="remove('{{ member.username }}')">
-                                        Remove
-                                    </button>
-                                </div>
-                            {% endif %}
-                        </div>
-                        <br/>
-                    {% endfor %}
-
-                    <div class="row">
-                        <div class="col-md-2 col-md-offset-1">
-                            <span class="membership-type">Pending ({{ pending_approval_count }})</span>
-                        </div>
-                    </div>
-                    <br/>
-                    {% for member in organization.members %}
-                        {% if member.status == 'pending' %}
-                            <div class="row">
-                                <div class="col-md-1 col-md-offset-1 col-xs-2">
-                                    <img src="{{ url_for('static', filename=user_avatar(member.username) ) }}"
-                                         class="img-circle member-avatar">
-                                </div>
-                                <div class="col-md-5 col-xs-3">
-                                    <a href="{{ url_for ('profile.feed', username=member.username) }}">
-                                        <span class="search-result-title">{{ member.username }}</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-2 col-md-offset-4 col-xs-7 nopadding text-right">
-                                    <button class="btn-membership btn-green" onclick="accept('{{ member.username }}')">
-                                        Accept
-                                    </button>
-                                </div>
-                                <div class="col-md-2 col-xs-7 nopadding text-right">
-                                    <button class="btn-membership btn-white" onclick="deny('{{ member.username }}')">
-                                        Deny
-                                    </button>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
+                {% endif %}
+            {% endfor %}
         </div>
         <script type="text/javascript">
             $(document).ready(function () {
@@ -185,4 +182,5 @@
 
             }
         </script>
+    </div>
 {% endblock body %}

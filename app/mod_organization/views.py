@@ -181,7 +181,8 @@ def memberships(organization_slug):
     return render_template('mod_organization/memberships.html', profile=profile, organization=organization,
                            user_avatar=user_avatar, pending_approval_count=pending_approval_members_count,
                            approved_members_count=total_members_count,
-                           admin_count=admin_count)
+                           admin_count=admin_count,
+                           get_user_name_last_name_by_username=get_user_name_last_name_by_username)
 
 
 def user_avatar(username):
@@ -256,3 +257,7 @@ def remove_member(organization_slug, username):
 def deny_member(organization_slug, username):
     org_mongo_utils.deny_member(organization_slug, username)
     return Response(200)
+
+
+def get_user_name_last_name_by_username(username):
+    return user_mongo_utils.get_user_by_username(username)
