@@ -600,6 +600,13 @@ img.banner {
     width: 200px;
 }
 
+i#share-profile{
+    font-size: 20px !important;
+    color: #fff !important;
+    position: absolute;
+    right: 20px;
+}
+
 .comment-field {
     width: 100%;
     border: 1px solid #dedede;
@@ -743,6 +750,10 @@ img.banner {
 
 #single-article .popover .arrow {
     display: none;
+}
+
+.popover .arrow{
+    display:none;
 }
 
 button.cancel.btn.btn-lg.btn-default {
