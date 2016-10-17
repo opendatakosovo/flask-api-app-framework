@@ -27,8 +27,17 @@ class Profile():
         '''
         # get the profile object for the given username
         profile = user_mongo_utils.get_user_by_username(username)
-        feed = content_mongo_utils.get_authors_articles(profile.username)
-        return render_template('mod_profile/search.html', profile=profile, feed=feed)
+
+        keyword = request.args.get('q')
+
+        if keyword:
+            feed = content_mongo_utils.find_article(keyword)
+        else:
+            # TODO: Show latest 10 from each category
+
+            feed = content_mongo_utils.get_authors_articles(profile.username)
+
+        return render_template('mod_profile/search.html', feed=feed, profile=profile)
 
     def about(self, username):
         ''' Loads the about page.
