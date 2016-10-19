@@ -2,8 +2,39 @@
 {% block body %}
     <div class="org-feed">
 
-        <br/><br/><br/>
-        {% include('mod_organization/org_menu.html') %}
+        {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') %}
+            <div class="row menu-icons">
+            <br/><br/><br/>
+                <div class="col-md-1 col-md-offset-1 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-0 text-center">
+                    <i class="fa fa-bars dropdown-toggle "
+                       data-toggle="dropdown" role="menu" style="color: #000"></i>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
+                        <li>
+                            <a href="{{ url_for('article.my_articles', article_action='show') }}">Article
+                                    management</a>
+                        </li>
+                        <li><a href="{{ url_for('profile.comments', username=current_user.username) }}">Comments</a>
+                        </li>
+                        <li><a href="{{ url_for('profile.bookmarks', username=current_user.username) }}">Bookmarks</a>
+                        </li>
+                        <li><a href="{{ url_for('profile.following', username=current_user.username) }}">Following</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account
+                                    Details</a>
+                        </li>
+                        {% if current_user.has_role('org_admin') %}
+                            {% include ('mod_organization/org_administration.html') %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md-1 col-sm-1 col-sm-offset-0 col-xs-1 col-xs-offset-0 text-center">
+                    <a href="{{ url_for('article.new_article' , author_type="organization", name=organization.name, username=organization['org_slug']) }}"
+                       class="fa fa-pencil"></a>
+                </div>
+            </div>
+        {% endif %}
         <div id="org-members">
             <div class="row">
                 <div class="col-md-6 col-md-offset-1">

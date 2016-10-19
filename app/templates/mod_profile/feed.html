@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<script type="text/javascript" src="{{ url_for('static', filename='js/on_scroll.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/on_scroll.js') }}"></script>
     <div class="profile-feed">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -24,7 +24,7 @@
             <img class="col-md-offset-5 col-sm-offset-5 col-xs-offset-5"
                  src="{{ url_for('static', filename='img/loading.gif') }}"/>
         </div>
-    </div>
+
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -123,4 +123,5 @@
 
         }
     </script>
+</div>
 {% endblock body %}
