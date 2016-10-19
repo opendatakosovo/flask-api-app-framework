@@ -45,6 +45,15 @@ class ContentMongoUtils(object):
 
         return articles
 
+    def get_type_org_articles(self, org_slug, article_type):
+
+        articles = self.mongo.db[self.content_collection] \
+            .find(
+            {'author.org_slug': org_slug, 'author.type': 'organization', 'published': True, 'delete': False, 'type': article_type}).sort(
+            [("_id", -1)])
+
+        return articles
+
     def find_article(self, keyword):
         """ Find articles from the database.
         :param keyword: the keyword we want to search based on.
