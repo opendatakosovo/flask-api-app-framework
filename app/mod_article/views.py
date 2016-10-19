@@ -59,9 +59,9 @@ def organization_articles_type(organization_slug, article_action, article_type):
     elif article_type == "audio":
         message = "Showing organization audio articles"
         articles = content_mongo_utils.get_type_org_articles(organization_slug, article_type="audio")
-    elif article_type == "attach":
+    elif article_type == "attachment":
         message = "Showing organization attachment articles"
-        articles = content_mongo_utils.get_type_org_articles(organization_slug, article_type="attach")
+        articles = content_mongo_utils.get_type_org_articles(organization_slug, article_type="attachment")
 
     # TODO: Restrict access to only authenticated users
 
