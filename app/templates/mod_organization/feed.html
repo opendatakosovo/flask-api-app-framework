@@ -1,0 +1,189 @@
+{% extends "layout.html" %}
+{% block body %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/on_scroll.js') }}"></script>
+    <div class="org-feed">
+        <div class="row org-menu">
+            <div class="col-md-10 col-md-offset-1">
+                <ul>
+                    <li><a href="{{ url_for ('organization.feed', organization_slug=organization.org_slug) }}"
+                           class="active">Feed</a></li>
+                    <li><a href="{{ url_for ('organization.about', organization_slug=organization.org_slug) }}">About
+                            us</a></li>
+                    <li><a href="{{ url_for ('organization.archive', organization_slug=organization.org_slug) }}">All
+                            articles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Banner part at Feed/About/Article Pages-->
+
+        {% include('mod_organization/org_header.html') %}
+        {% include('mod_organization/org_menu.html') %}
+
+
+        <div class="articles">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 latest row-bottom-margin row-margin">
+                </div>
+            </div>
+            <div class="loading row" data-skip-posts-number="6" data-posts-per-page="6">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                    <img src="{{ url_for('static', filename='img/loading.gif') }}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            // Initialize displaying articles in feed
+            initFeed();
+
+            $(window).endlessScroll({
+                inflowPixels: 0,
+                fireOnce: false,
+                fireDelay: false,
+                loader: '<div class="loading"><div>',
+                callback: function () {
+                    getArticles();
+                }
+            });
+        });
+        function getArticles() {
+            var url = "{{ url_for('article.paginated_org_articles', organization_slug=organization.org_slug, skip_posts_number='1111111111', posts_per_page='999999999') }}";
+            var skip_posts_number = parseInt($('.loading').data().skipPostsNumber);
+            var number_of_posts = parseInt($('.loading').data().postsPerPage);
+            var post_url = url.replace("1111111111", skip_posts_number).replace("999999999", number_of_posts);
+            var posting = $.post(post_url);
+
+            posting.done(function (data) {
+                var posts = jQuery.parseJSON(data);
+                if (posts.length > 0) {
+                    loadMoreArticles(posts);
+                } else {
+                    $('.loading').css('display', 'none');
+                }
+
+            });
+            $('.loading').data('skip-posts-number', (parseInt(skip_posts_number) + 6));
+        }
+
+        {% if current_user.has_role('org_admin') or current_user.has_role('org_editor') or current_user.has_role('member') %}
+
+            function initFeed() {
+                var articles = {{ feed|safe }};
+                for (var idx in articles) {
+                    feedTheFeed(articles[idx], idx)
+                }
+                addTileColors();
+            }
+
+        {% else %}
+
+            function initFeed() {
+                // Get the first 6 feeds
+                var articles = {{ public_feed|safe }};
+                for (var idx in articles) {
+                    feedTheFeed(articles[idx], idx);
+                }
+                addTileColors();
+            }
+        {% endif %}
+
+        function loadMoreArticles(posts) {
+            for (var idx in posts) {
+                feedTheFeed(posts[idx], idx);
+            }
+            addTileColors();
+
+        }
+
+
+        function feedTheFeed(article, idx) {
+
+            var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
+            var article_slug_url = article_slug.replace('article_slug', article['slug']);
+            var article_avatar_url = "{{ url_for('static',filename='')}}" + article['avatar_url'];
+            var post_privacy = article['post_privacy'];
+            var profile_url = "{{ url_for('organization.feed', organization_slug=organization.org_slug) }}".replace('organization_slug', article['org_slug']);
+            var type = getArticleTypeClass(article.type);
+
+            var divHTML = '';
+            divHTML = generateArticleHTML(profile_url, article_avatar_url, article_slug_url, article['title'], type, post_privacy);
+
+            $('.latest').append(divHTML);
+        }
+
+        function generateArticleHTML(profile_url, article_avatar_url, article_slug_url, title, type, privacy) {
+            if (privacy == 'on') {
+                return generatePrivateArticle(profile_url, article_avatar_url, article_slug_url, title, type)
+            } else {
+                return generatePublicArticle(profile_url, article_avatar_url, article_slug_url, title, type)
+            }
+
+
+        }
+
+        function generatePrivateArticle(profile_url, article_avatar_url, article_slug_url, title, type) {
+            return '' +
+                    '<div class="article" style="padding: 3px;">' +
+                    '<a href="' + profile_url + '">' +
+                    '<img src="' + article_avatar_url + '" class="img-circle img-responsive profil"/>' +
+                    '</a>' + '<i class="fa fa-users"></i>' +
+                    '<a href="' + article_slug_url + '">' +
+                    '<h3 class="article-title">' + title + '</h3>' +
+                    '</a>' +
+                    '<i class="' + type + '" aria-hidden="true"></i>' +
+                    '</div>';
+        }
+
+        function generatePublicArticle(profile_url, article_avatar_url, article_slug_url, title, type) {
+            return '' +
+                    '<div class="article" style="padding: 3px;">' +
+                    '<a href="' + profile_url + '">' +
+                    '<img src="' + article_avatar_url + '" class="img-circle img-responsive profil"/>' +
+                    '</a>' +
+                    '<a href="' + article_slug_url + '">' +
+                    '<h3 class="article-title">' + title + '</h3>' +
+                    '</a>' +
+                    '<i class="' + type + '" aria-hidden="true"></i>' +
+                    '</div>';
+        }
+
+        function getArticleTypeClass(idx) {
+            var style = '';
+            switch (idx) {
+                case 'text':
+                    style = 'fa fa-file-text-o text article-type';
+                    break;
+                case 'video':
+                    style = 'fa fa-file-video-o video article-type';
+                    break;
+                case 'audio':
+                    style = 'fa fa-file-audio-o audio article-type';
+                    break;
+                case 'attachment':
+                    style = 'fa fa-paperclip attachment article-type';
+                    break;
+                default:
+                    style = 'fa file-text-o article-type';
+            }
+
+            return style;
+        }
+
+        function addTileColors() {
+            $(".article:nth-child(8n+1)").css("background-color", "black").addClass('col-md-8 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+2)").css("background-color", "#b82776").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+3)").css("background-color", "#27b85e").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+4)").css("background-color", "#989e21").addClass('col-md-8 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+5)").css("background-color", "#b88027").addClass('col-md-8 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+6)").css("background-color", "#cf463a").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n+7)").css("background-color", "#445d9b").addClass('col-md-4 col-sm-6 col-xs-12');
+            $(".article:nth-child(8n)").css("background-color", "#1c7184").addClass('col-md-8 col-sm-6 col-xs-12');
+
+        }
+    </script>
+{% endblock body %}

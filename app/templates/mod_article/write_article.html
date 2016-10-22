@@ -1,0 +1,160 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <script type="text/javascript" src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+
+    <script>
+        $(function () {
+            var categories = [
+                "Politics",
+                "How-to's",
+                "Sports",
+                "Humour",
+                "Organisation News",
+                "Local News",
+            ];
+            $("#categories").autocomplete({
+                source: categories
+            });
+        });
+
+
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+        $("#write-article").validate({
+            rules: {
+                title: {
+                    required: true,
+                    maxlength: 4
+                }
+            }
+        });
+
+    </script>
+
+
+    <div class="row" style="display: inline">
+
+        <div class="row">
+            <div class="col-md-10">
+                <form method="post" action="" id="write-article">
+
+
+                    <div class="row">
+                        <div class="col-md-12 col-md-offset-1">
+                            <input class="form-control title" name="title" placeholder="Title">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="dropdown write-menu col-md-6">
+                                <button class="fa fa-bars dropdown-toggle "
+                                        data-toggle="dropdown" role="menu"></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url_for('main.feed') }}">Feed</a></li>
+                                    <li>
+                                        <a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a>
+                                    </li>
+                                    <li><a href="#">Comments</a></li>
+                                    <li><a href="#">Bookmarks</a></li>
+                                    <li>
+                                        <a href="{{ url_for('profile.following', username=current_user.username) }}">Following</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('profile.profile_settings', username=current_user.username) }}">Account Details</a>
+                                    </li>
+                                    {% if current_user.has_role('org_admin') %}
+                                        {% include ('mod_organization/org_administration.html') %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                       <textarea name="content" id="text-editor">
+
+                      </textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-md-offset-1">
+                            <select name="type" class="form-control type">
+                                <option value="text">Text</option>
+                                <option value="audio">Audio</option>
+                                <option value="video">Video</option>
+                                <option value="attachment">Attachment</option>
+                            </select><br/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-9 col-md-offset-2">
+                            <label class="category-label">Category</label>
+                            <input name="category" id="categories" required><br/>
+                        </div>
+
+                        <div class="col-md-1" style="padding-top: 30px;">
+                            <label>
+                                <input type="checkbox" id="post-privacy" name="post-privacy"/>
+                            </label>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-10">
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <button name="action" type="submit" value="cancel" class="btn btn-cancel">Cancel
+                                </button>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <button name="action" type="submit" value="save" class="btn btn-save">Save</button>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <button name="action" type="submit" value="publish" class="btn btn-publish">Publish
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+
+
+        </div>
+
+    </div>
+    {% if current_user.has_role('org_admin') %}
+        <script>
+            CKEDITOR.replace('text-editor',
+                    {
+                        toolbar: [
+                            ['FontSize', 'Bold', 'Italic', 'Underline', 'Strike', 'BulletedList', 'NumberedList', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'Image', 'Link', 'Video', 'Audio', 'Attachment'],
+                        ],
+                        width: 800,
+                        height: 400
+                    });
+        </script>
+    {% else %}
+        <script>
+            CKEDITOR.replace('text-editor',
+                    {
+                        toolbar: [
+                            ['FontSize', 'Bold', 'Italic', 'Underline', 'Strike', 'BulletedList', 'NumberedList', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'Image', 'Link', 'Video', 'Audio', 'Attachment'],
+                        ],
+                        width: 800,
+                        height: 400
+                    });
+        </script>
+    {% endif %}
+
+{% endblock %}

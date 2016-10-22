@@ -1,0 +1,265 @@
+{% extends "layout.html" %}
+{% block body %}
+    <script>
+
+        function mailToHref() {
+            var hrefMAilTo = "mailto:?subject={{ article['title']}} &BODY=I found this article interesting and thought of sharing it with you. Check it out:" + window.location.href;
+            $("#mail-to").attr("href", hrefMAilTo);
+        }
+        mailToHref();
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/comments.js') }}"></script>
+
+
+    <div id="single-article">
+        <div class="row">
+            <div class="col-md-1 col-md-offset-1 col-sm-1 col-xs-2 text-center">
+                <img src="{{ url_for('static', filename='img/prof3.png') }}" class="img-circle">
+            </div>
+
+            <div class="col-md-3 col-sm-5 col-xs-9 text-left">
+                {% if organization %}
+                    <span class="org">{{ article['author']['org_name'] }}</span><br/>
+                    <span class="author">{{ article['author']['name'] }}, {{ article['author']['lastname'] }}</span>
+                {% else %}
+                    <span class="org">{{ article['author']['name'] }}, {{ article['author']['lastname'] }}</span></br>
+                {% endif %}
+
+            </div>
+
+            <div class=" col-md-3 col-sm-3 col-xs-5">
+                <span class="fa fa-clock-o time">   {{ article['published_date'].strftime('%Y-%m-%d %H:%M') }}</span>
+            </div>
+
+            <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-5 text-right">
+                {% if organization %}
+                    <a href="{{ url_for('organization.archive', organization_slug=organization['org_slug']) }}"
+                       class="fa fa-tag news">  {{ article['category'] }}</a>
+                {% else %}
+                    <a href="{{ url_for ('profile.archive', username =article['author']['slug']) }}"
+                       class="fa fa-tag news">  {{ article['category'] }}</a>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1 col-sm-6 col-xs-8">
+                <button type="button" onclick="goBack()" class="go-back">Go Back</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1 col-sm-8 col-xs-12">
+                <span class="article-t">    {{ article['title'] }}</span>
+            </div>
+            {% if current_user.is_authenticated %}
+                <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-2 col-xs-5 col-xs-offset-7 text-left">
+                    {% if is_bookmarked %}
+                        <a id="remove-bookmark">
+                            <i class="bookmark fa fa-bookmark"></i></a>
+                    {% else %}
+                        <a id="bookmark">
+                            <i class="bookmark fa fa-bookmark-o"></i></a>
+                    {% endif %}
+
+                    <i id="share" class="fa fa-share-alt" data-toggle="popover" content="#share-social-media"></i>
+                    <div class="col-md-12 col-xs-6">
+
+                        <form id="share-social-media" class="hidden">
+                            <ul>
+                                <li><a href="https://www.facebook.com/sharer/sharer.php?u=&t=" class="fa fa-facebook"
+                                       target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' +
+                                    encodeURIComponent(document.URL) + '&t='
+                                    + encodeURIComponent(document.title)); return false;"></a></li>
+                                <li><a href="https://twitter.com/intent/tweet?source=&amp;text=:%20"
+                                       class="fa fa-twitter" target="_blank" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title)
+                                   + ':%20'  + encodeURIComponent(document.URL)); return false;"></a></li>
+
+                                <li><a href="https://plus.google.com/share?url=" class="fa fa-google-plus"
+                                       target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url='
+                                   + encodeURIComponent(document.URL)); return false;"></a></li>
+                                <li><a id="mail-to" href="" class="fa fa-at" onclick=mailToHref(); target="_blank">
+                                </a></li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-2 col-xs-5 col-xs-offset-7 text-left">
+                    <a href="{{ url_for('auth.sign_up') }}" class="fa fa-bookmark-o"></a>
+                    <a href="{{ url_for('auth.sign_up') }}" class="fa fa-share-alt"></a>
+                </div>
+            {% endif %}
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <span class="thesis">{{ article['content']|safe }}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <hr style="border-width:2px;"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1 col-md-offset-1 col-sm-1 col-sm-offset-1 col-xs-1 col-xs-offset-1 text-right">
+                <i class="fa fa-comment-o"></i>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <span class="comment"> Comments</span>
+            </div>
+
+        </div>
+        <div class="row comments col-md-offset-1">
+
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <textarea class="comment-field"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 col-md-offset-1 col-sm-4 col-xs-6 ">
+                <button type="button" onclick="goBack()" class="btn btn-previous">Previous page</button>
+            </div>
+            <div class="col-md-3 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-6 text-right">
+                <button id="comment-submit" class="comment-submit btn btn-reply">Reply</button>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var articleId = "{{ article.slug }}";
+
+            var userName = "{{ current_user.username }}";
+            var firstName = "{{ current_user.name }}";
+            var lastName = "{{ current_user.lastname }}";
+
+            var getCommentsPostUrl = "{{ url_for('comments.get_comments') }}";
+            getComments(getCommentsPostUrl, "{{ article.slug }}");
+
+            var addCommentPostUrl = "{{ url_for('comments.add_comment') }}";
+            comment(addCommentPostUrl, articleId, userName, firstName, lastName);
+
+            var addCommentReplyPostUrl = "{{ url_for('comments.add_comment_reply') }}";
+            commentReply(addCommentReplyPostUrl, articleId, userName, firstName, lastName);
+
+            bookMark();
+
+        });
+        function bookMark() {
+            $('.bookmark').click(function () {
+                var is_bookmarked = $('.bookmark').hasClass('fa-bookmark');
+                var post_url = "";
+                if (is_bookmarked) {
+                    $(this).removeClass();
+                    $(this).addClass('bookmark fa fa-bookmark-o');
+                    post_url = "{{ url_for('article.remove_bookmark') }}";
+
+                } else {
+                    $(this).removeClass();
+                    $(this).addClass('bookmark fa fa-bookmark');
+                    post_url = "{{ url_for('article.bookmark_article') }}";
+                }
+                data = {
+                    'username': "{{current_user.username}}",
+                    'slug': "{{article['slug']}}"
+                }
+                $.post(post_url, data).done(function (data) {
+
+
+                }).fail(function () {
+                    alert("Something went wrong. Please try again!");
+                });
+            });
+
+        }
+        function addComment(action, id, text, username, firstname, lastname, date, avatar_url) {
+            var time = time_ago(date);
+            var img_href = "";
+            if (action == "commenting") {
+                img_href = "{{  current_user.avatar_url }}";
+            } else if (action == "listing") {
+                img_href = avatar_url;
+            }
+            var commentDIV = '' +
+                    '<div id="comment-' + id + '" data-username="' + username + '"  data-firstname="' + firstname + '" data-lastname="' + lastname + '" class="row">' +
+                    '<div class="col-md-1  col-xs-1 col-xs-offset-1">' +
+
+                    '<img class="img-circle profile-img" src="{{ url_for('static',filename="")}}' + img_href + '"/>' +
+                    '</div>' +
+                    '<div class="col-md-10 col-xs-8">' +
+                    '<div class="row">' +
+                    '<div class="col-md-3">' +
+                    '<a href=""><h4> ' + firstname + ' ' + lastname + '</h4></a>' +
+                    '</div>' +
+                    '<div class="col-md-3 ">' +
+                    '<span class="comment-time">' + time + '</span>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="row">' +
+                    '<div class="col-md-12">' +
+                    '<p> ' + text + '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="row">' +
+                    '<div class="col-md-3">' +
+                    '<a  id="reply-to-comment-' + id + '" class="comment-reply">Reply</a>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="row comment-replies-' + id + '">' +
+
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+
+            $('.comments').append(commentDIV);
+
+            $('.comment-field').val('');
+        }
+        function addCommentReply(action, reply_id, id, text, username, firstname, lastname, date, avatar_url) {
+            var time = time_ago(date);
+            var img_href = "";
+            if (action == "commenting") {
+                img_href = "{{  current_user.avatar_url }}";
+            } else if (action == "listing") {
+                img_href = avatar_url;
+            }
+            var commentDIV = '' +
+                    '<div id="comment-' + id + '" data-username="' + username + '"  data-firstname="' + firstname + '" data-lastname="' + lastname + '" class="row">' +
+                    '<div class="col-md-1 col-md-offset-1 col-xs-1 col-xs-offset-2">' +
+                    '<img class="img-circle profile-img" src="{{ url_for('static',filename="")}}' + img_href + '"/>' +
+                    '</div>' +
+                    '<div class="col-md-8 col-xs-8">' +
+                    '<div class="row">' +
+                    '<div class="col-md-3 col-xs-8">' +
+                    '<a href=""><h4> ' + firstname + ' ' + lastname + '</h4></a>' +
+                    '</div>' +
+                    '<div class="col-md-3 col-xs-3">' +
+                    '<span class="comment-time">' + time + '</span>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="row">' +
+                    '<div class="col-md-12 col-xs-12">' +
+                    '<p> ' + text + '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+
+            $('.comment-replies-' + reply_id + '').append(commentDIV);
+
+            $('.comment-field').val('');
+        }
+
+
+    </script>
+
+{% endblock body %}
