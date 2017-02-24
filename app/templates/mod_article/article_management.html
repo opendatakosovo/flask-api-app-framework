@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <div id="article-management">
+        <div class="row">
+            <div class="col-md-12 col-xs-12 editor-menu">
+                <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Feed</a></li>
+                        <li><a href="{{ url_for('article.my_articles', article_action='') }}" class="active">Article management</a></li>
+                        <li><a href="#">Comments</a></li>
+                        <li><a href="#">Bookmarks</a></li>
+                        <li><a href="#">People / Organisations</a></li>
+                        <li><a href="{{ url_for('user.account', slug='slug') }}">Account Details</a></li>
+                    </ul>
+                <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil" ></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <h3>Article Management</h3>
+                <span style="color:red;"> {{ message }} </span>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+        
+        <div class="row" >
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8 article-visibility">
+            
+            {% for article in articles %}
+                <div id="{{ article['_id'] }}" class="col-md-12" style="display: flex;">
+                    
+                        <div class="col-md-9">
+                            <div class="col-md-6">
+                                <h3>{{ article['title'] }}</h3>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 datetime="2016-07-20T12:39">{% if article['published_date'] %} {{ article['published_date'].strftime('%Y-%m-%d %H:%M') }} {% endif %}</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                        {% if article['visible'] == True %}
+                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=False) }}">
+                                <i class="fa fa-eye "></i>
+                            </a>
+                        {% elif article['visible'] == False %}
+                            <a href="{{ url_for('article.edit_article_visibility', article_id = article._id, visible=True) }}">
+                                <i class="fa fa-eye-slash"></i>
+                            </a>
+                        {% endif %}
+                            <i class=" fa fa-trash-o"></i>
+                        
+                        
+                        </div>
+                    
+                </div>
+            {% endfor %}
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

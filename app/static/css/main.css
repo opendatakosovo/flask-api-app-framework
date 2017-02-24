@@ -1,0 +1,686 @@
+    /*Header style*/
+
+    h1{
+        font-family: 'Comfortaa', cursive;
+        color: #666666;
+        font-size: 32px;
+        margin-left: -10px;
+    }
+
+    header{
+        margin-top: 15px;
+    }
+
+    #sign-in{
+        float: right;
+        margin-top: 30px;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+
+    /*Button properties*/
+    .btn{
+        width: 75%;
+        height: 40px;
+        margin: 5px;
+        color: #ffffff;
+        border-radius: 0px;
+        font-weight: bold;
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    .btn-google {
+        margin-top: 50px;
+        background-color: #878787;
+    }
+
+    .btn-facebook {
+        background-color: #2d59a1;
+        margin-right: -0.1px;
+    }
+
+    .btn-signup{
+        margin-top: 30px;
+        background-color: #349946;
+    }
+
+
+    /*Input fields*/
+
+    .form-control{
+        width: 77%;
+        height: 40px;
+        margin: 10px auto;
+        border-radius: 0px;
+    }
+
+
+    /*LogIn Form*/
+
+    .popover{
+        max-width: 500px;
+        border: none;
+        margin-left: -200px;
+        background-color: #f7f7f7;
+        loat: right;
+        box-shadow: none;
+        border-radius: 0px;
+        padding: 38px 0px 140px 40px;
+    }
+
+
+    .btn-log-in-google {
+        background-color: #d6d6d6;
+        color: #5c5c5c;
+        height: 50px;
+        font-size: 14px;
+        width: 290px;
+        padding: 8px;
+    }
+
+
+    .btn-log-in-facebook{
+        font-size: 14px;
+        padding: 8px;
+        background-color: #2d59a1;
+        height: 50px;
+        width: 290px;
+    }
+
+    .btn-log-in, .btn-popover-log-in{
+        background-color: #349946;
+        height: 50px;
+        width: 290px;
+    }
+
+    #email-login{
+        margin-bottom: -5px;
+    }
+
+    #email-login, #pass-login{
+        border: none;
+        height: 50px;
+        width: 290px;
+    }
+
+    #log-in-form a{
+        float: left;
+        color:#666666;
+        margin:10px 0 10px 60px;
+        font-size: 0.8em;
+    }
+
+    .popover.bottom>.arrow {
+        top: -13px;
+        left: 50%;
+        margin-left: 190px;
+        border-top-width: 0;
+        border-bottom-color: #888;
+        border-bottom-color: rgba(0,0,0,.25);
+    }
+
+
+    .popover.bottom>.arrow:after {
+        top: 4px;
+        margin-left: -10px;
+        content: " ";
+        border-top-width: 0;
+        border-bottom-color: #fff;
+    }
+
+    #log-in button,
+    #log-in input{
+        width: 70%;
+    }
+
+    label {
+      display: block;
+      padding-left: 15px;
+      text-indent: -15px;
+    }
+     input[type=checkbox]{
+      width: 13px;
+      height: 13px;
+      padding: 0;
+      margin-right:-100px;
+      vertical-align: bottom;
+      position: relative;
+      top: -1px;
+      *overflow: hidden;
+    }
+
+    /*Footer style*/
+
+    footer{
+        background-color: #ebebeb;
+        bottom: 0;
+        padding: 50px 50px 200px 50px;
+
+    }
+
+    footer ul li a h6{
+        color: #a39999;
+        font-size: 1.1em;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    footer ul li {
+        list-style-type: none;
+    }
+
+    footer a:hover{
+        text-decoration: none;
+    }
+
+
+    /*Feed page*/
+
+    #feed h1{
+        color: #333333;
+        font-size: 3.4em;
+        font-weight: bolder;
+        text-align: center;
+        margin-top: 150px;
+        line-height: 1.4em;
+    }
+
+    #un-registered{
+        margin-bottom: 300px;
+    }
+
+
+    .close-icon{
+        width: 18px;
+        float: right;
+        margin-top: 90px;
+        margin-right: -20px;
+    }
+
+
+    #feed .btn{
+        height: 50px;
+        outline: 0;
+        font-family: 'Comfortaa', cursive;
+    }
+
+    #feed .btn :active{
+        outline: 0;
+        box-shadow: none;
+    }
+
+    #feed .btn-signup{
+        margin-right: -10px;
+        float: right;
+        width: 65%;
+        border-radius: 2px;
+        padding-top: 10px;
+        font-size: 1.3em;
+    }
+
+    #feed .btn-continue{
+        margin-left: -10px;
+        float: left;
+        width: 65%;
+        font-size: 1.1em;
+        background-color: transparent;
+        color: #000;
+        margin-top: 30px;
+        font-weight: 100;
+    }
+
+    #feed .fa{
+        font-size: 35px;
+
+    }
+
+    #feed .fa-bars {
+        background-color: transparent;
+        border: none;
+            /*margin-left: -95px;*/
+    }
+
+    #articles .fa-play, .fa-pause{
+        color: #fff;
+        font-size: 30px;
+        z-index: 2;
+        float: right;
+        margin: -300px 15px;
+    }
+
+    .fa-close{
+        font-size:25px;
+        color: #777777;
+        float: right;
+        margin-top: 90px;
+        margin-right: -20px;
+    }
+
+
+    #feed .fa-search{
+        margin-left: 0px;
+
+    }
+
+    .fa-search, .fa-file-audio-o, .fa-file-text-o, .fa-file-video-o, .fa-paperclip {
+        font-size: 32px;
+        color: #000000;
+        margin-bottom: 20px;
+    }
+
+
+    .fa-close{
+        color: #c7c7c7;
+        font-size: 20px;
+    }
+
+    /*article management style*/
+
+    #article-management h4{
+        font-weight: bold;
+        font-size: 30px;
+        margin: 40px 0px 20px 200px;
+    }
+
+    .article-visibility {
+        width: 80%;
+        border: 1px solid #c8c8c8;
+        padding: 5px 5px 10px 5px;
+    }
+
+    .article-visibility i{
+        color: #000;
+        font-size: 32px;
+        padding-top: 15px;
+    }
+
+    .article-visibility .fa-trash-o{
+        padding-left: 20px;
+    }
+
+    time{
+        margin-left: 120px;
+        margin-top: 20px;
+        margin-right: 50px;
+    }
+
+    .fa-eye:before {
+        margin-left: 70px;
+    }
+
+    #article-management button{
+        background: transparent;
+        border: none;
+    }
+
+    /*positioning dropdown menu*/
+
+    .dropdown-menu {
+        margin: 12px 0 0 218px;
+        box-shadow: none;
+    }
+
+    .dropdown-menu>li>a {
+        margin: 33px 21px;
+        font-size: 20px;
+    }
+
+    .fa-pencil{
+        color: #000;
+        text-decoration: none;
+    }
+
+    a:focus, a:hover {
+        color: #000;
+        text-decoration: none;
+    }
+
+    /*Account details page*/
+
+    #acc-details h4{
+        font-weight: bold;
+        font-size: 30px;
+        margin: 40px 0px 40px 200px;
+    }
+
+    #acc-details h5{
+        font-weight: bold;
+        font-size: 22px;
+        margin: 20px 0px;
+    }
+
+    #acc-details .fa-bars{
+        background: transparent;
+        border: none;
+    }
+
+    .dropdown-menu .active{
+        font-weight: bold;
+    }
+
+    .personal-data{
+        width: 80%;
+        margin-bottom: 20px;
+        height: 40px;
+    }
+
+    .about{
+        height: 140px;
+        width: 322px;
+        resize: none;
+    }
+
+    .save_details{
+        width: 80%;
+        background-color: #349946;
+        border: none;
+        color: #fff;
+        height: 40px;
+    }
+
+    .change-password{
+        width: 80%;
+        background-color: #3498db;
+        border: none;
+        color: #fff;
+        height: 40px;
+        margin-bottom: 22px;
+    }
+
+    #acc-details h6{
+        width: 80%;
+        font-size: 18px;
+    }
+
+    .del-account{
+        width: 80%;
+        background-color: #db3535;
+        border: none;
+        color: #fff;
+        height: 40px;
+    }
+
+
+    .avatar{
+        width: 90px;
+        margin-left: 10%;
+        margin-top: 170px;
+
+
+    }
+
+
+    .change-avatar{
+        width: 70%;
+        background-color: #3498db;
+        border: none;
+        height: 35px;
+        color: #fff;
+        margin: 40px 0px;
+    }
+
+
+    /*Profile feed page style*/
+    .profile-feed ul,
+    .profile-about ul,
+    .profile-archive ul,
+    .org-feed ul,
+    .org-about ul,
+    .org-archive ul{
+        margin-left: -40px;
+        padding-top: 50px;
+    }
+
+    .profile-feed ul li,
+    .profile-about ul li,
+    .profile-archive ul li,
+    .org-feed ul li,
+    .org-about ul li,
+    .org-archive ul li{
+        list-style-type: none;
+        display: inline;
+
+
+    }
+
+    .profile-feed ul li a,
+    .profile-about ul li a,
+    .profile-archive ul li a,
+    .org-feed ul li a,
+    .org-about ul li a,
+    .org-archive ul li a{
+        text-decoration: none;
+        color: inherit;
+        font-size: 16px;
+        margin-right: 20px;
+
+    }
+    .profile-feed{
+        height:auto;
+    }
+
+    .profile-feed ul li .active,
+    .profile-about ul li .active,
+    .profile-archive ul li .active,
+    .org-feed ul li .active,
+    .org-about ul li .active,
+    .org-archive ul li .active{
+        font-weight: bold;
+    }
+
+    .profile-feed .fa,
+    .profile-about .fa,
+    .profile-archive .fa,
+    .org-feed .fa,
+    .org-about .fa,
+    .org-archive .fa{
+        font-size: 40px;
+        margin: 20px 10px;
+    }
+
+    .profile-feed .fa-bars,
+    .profile-about .fa-bars,
+    .profile-archive .fa-bars,
+    .org-feed .fa-bars,
+    .org-about .fa-bars,
+    .org-archive .fa-bars{
+        background-color: transparent;
+        border: none;
+    }
+
+
+    img.banner{
+        width: 100%;
+    }
+
+    .box{
+        width: 100%;
+        height: 80px;
+        background-color: #81b7e3;
+    }
+
+    .follow, .ask-to-join {
+        border: none;
+        background-color: #3498db;
+        color: #fff;
+        font-weight: bold;
+        width: 150px;
+        height: 45px;
+        margin: 15px 10px;
+    }
+
+
+
+    .profile-feed .dropdown,
+    .org-feed .dropdown{
+        margin: 10px 0;
+    }
+
+
+    .profile-feed .dropdown-menu,
+    .org-feed .dropdown-menu
+    {
+        margin-left: 20px;
+        margin-top: 0px;
+    }
+
+    .user-pic{
+        margin: 10px;
+    }
+
+    .user-name{
+        color: #fff;
+        font-size: 30px;
+    }
+
+    .profile-img{
+        width: 50px;
+        margin-top: 13px;
+    }
+
+    .contact{
+        font-size:1.3em;
+        font-weight: bold;
+    }
+
+    .contact-info{
+        background-color: #ebebeb;
+        padding: 20px 0px;
+        width: 97%;
+    }
+
+    .activity-info{
+        padding-top: 30px;
+    }
+
+    #single-article{
+        margin-top: 80px;
+    }
+
+    .news{
+        color: #000000;
+        font-size: 20px;
+    }
+
+    #single-article .org{
+        font-size: 30px;
+         margin-left: -70px;
+    }
+
+    #single-article .author{
+        font-size: 20px;
+    }
+
+    .go-back{
+        background-color: transparent;
+        border: 1px solid #000;
+        border-radius: 2px;
+        padding: 5px 30px;
+        margin: 30px 0px;
+    }
+
+    #single-article .fa-bookmark-o,
+    #single-article .fa-share-alt{
+        font-size: 30px;
+        color: #000;
+
+    }
+
+    #single-article .fa-bookmark-o{
+        margin-left: -20px;
+    }
+
+    #single-article .fa-share-alt{
+         margin-left: 50px;
+    }
+
+    .article-t{
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .thesis{
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .blue {
+        background: #008081;
+    }
+
+    .magenta{
+       background: #b82776;
+    }
+
+    .green{
+       background: #27b85e;
+    }
+
+    .yellow{
+       background: #989e21;
+    }
+
+    .brown{
+       background: #b88027;
+    }
+    .red{
+        background: #cf463a;
+    }
+
+    .article{
+        height:300px;
+        background-clip: content-box;;
+        padding: 10px;
+    }
+
+    .articles .profil{
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        top: 23px;
+        left: 25px;
+    }
+
+    .hidden{
+        display:none;
+    }
+
+    .article-title{
+        font-size: 1.5em;
+        color: #fff;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .articles .article-type {
+        font-size: 32px;
+        color: #fff;
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+    }
+    .load-more-btn{
+        margin-left:10%;
+    }
+
+    .articles{
+        height:auto;
+        padding-bottom: 150px;
+    }
+
+    #feed .container{
+        margin:0px;
+    }
+
+    .search-field{
+        padding: 20px;
+        width: 100%;
+        border: none;
+        font-size: 22px;
+    }
+
+    .search-field:focus{
+        outline: none;
+    }

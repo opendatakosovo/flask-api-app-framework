@@ -1,23 +1,48 @@
-from flask import Flask
+from flask import Flask, g
 import os
 import ConfigParser
 from logging.handlers import RotatingFileHandler
 from flask.ext.pymongo import PyMongo
-from flask.ext.cors import CORS
-from app.utils.mongo_utils import MongoUtils
+from app.utils.profile_mongo_utils import ProfileMongoUtils
+from app.utils.user_mongo_utils import UserMongoUtils, Anonymous, User, Roles
+from app.utils.content_mongo_utils import ContentMongoUtils
+from flask.ext.bcrypt import Bcrypt
+from flask.ext.login import LoginManager
+from flask.ext.security import Security, current_user
+from flask.ext.social import Social
+from flask.ext.principal import Principal
+from bson.objectid import ObjectId
+
+login_manager = LoginManager()
+
 
 # Create MongoDB database object.
 mongo = PyMongo()
 
-#Initialize mongo access point
-mongo_utils = MongoUtils(mongo)
+# Create BCrypt object
+bcrypt = Bcrypt()
+
+# Create flask-security object
+security = Security()
+
+# Create flask-principal object
+principal = Principal()
+
+# Create flask-social object
+social = Social()
+
+# Initialize mongo utils access points
+profile_mongo_utils = ProfileMongoUtils(mongo)
+user_mongo_utils = UserMongoUtils(mongo)
+content_mongo_utils = ContentMongoUtils(mongo)
+
 
 def create_app():
     # Here we  create flask instance
     app = Flask(__name__)
 
     # Allow cross-domain access to API.
-    #cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+    # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     # Load application configurations
     load_config(app)
@@ -25,13 +50,50 @@ def create_app():
     # Configure logging.
     configure_logging(app)
 
+    # Configure login manager
+    configure_login_manager(app)
+
     # Init modules
     init_modules(app)
+
+    # init principal
+    principal.init_app(app)
 
     # Initialize the app to work with MongoDB
     mongo.init_app(app, config_prefix='MONGO')
 
     return app
+
+
+def configure_login_manager(app):
+    # Init flask-security
+    security.init_app(app)
+
+    # Init flask-social
+    social.init_app(app)
+
+    # Init Login Manager
+    login_manager.init_app(app)
+
+    # Set the default user login view
+    login_manager.login_view = 'mod_user.login'
+
+    # Set the anonymous user class
+    login_manager.anonymous_user = Anonymous
+
+    # Set the user class
+    login_manager.user = User
+
+
+@login_manager.user_loader
+def user_loader(user_id):
+    """Given *user_id*, return the associated User object.
+
+    :param unicode user_id: user_id (email) user to retrieve
+    """
+    user = user_mongo_utils.get_user_by_id(ObjectId(user_id))
+
+    return user
 
 
 def load_config(app):
@@ -50,7 +112,20 @@ def load_config(app):
 
     app.config['SERVER_PORT'] = config.get('Application', 'SERVER_PORT')
     app.config['MONGO_DBNAME'] = config.get('Mongo', 'DB_NAME')
+    app.config['SECRET_KEY'] = config.get('Application', 'SECURITY_KEY')
+    app.config['SECURITY_PASSWORD_SALT'] = config.get('Application', 'SECURITY_PASSWORD_SALT')
+    app.config['SECURITY_REGISTREABLE'] = config.get('Application', 'SECURITY_REGISTREABLE')
 
+    app.config['SOCIAL_FACEBOOK'] = {
+        'consumer_key': config.get('SOCIAL', 'FACEBOOK_CONSUMER_KEY'),
+        'consumer_secret': config.get('SOCIAL', 'FACEBOOK_CONSUMER_SECRET')
+    }
+
+    app.config['SOCIAL_GOOGLE'] = {
+        'consumer_key': config.get('SOCIAL', 'GOOGLE_CONSUMER_KEY'),
+        'consumer_secret': config.get('SOCIAL', 'GOOGLE_CONSUMER_SECRET')
+    }
+    # db.connect(app.config['MONGO_DBNAME'], alias='default')
     # Logging path might be relative or starts from the root.
     # If it's relative then be sure to prepend the path with the application's root directory path.
     log_path = config.get('Logging', 'PATH')
@@ -63,9 +138,9 @@ def load_config(app):
 
 
 def configure_logging(app):
-    ''' Configure the app's logging.
+    """ Configure the app's logging.
      param app: The Flask app object
-    '''
+    """
 
     log_path = app.config['LOG_PATH']
     log_level = app.config['LOG_LEVEL']
@@ -86,10 +161,20 @@ def configure_logging(app):
 
 
 def init_modules(app):
-
     # Import blueprint modules
     from app.mod_main.views import mod_main
-    from app.mod_api.views import mod_api
+    from app.mod_profile.views import mod_profile
+    from app.mod_user.views import mod_user
+    from app.mod_auth.views import mod_auth
+    from app.mod_superadmin.views import mod_superadmin
+    from app.mod_article.views import mod_article
+    from app.mod_organization.views import mod_organization
+
 
     app.register_blueprint(mod_main)
-    app.register_blueprint(mod_api)
+    app.register_blueprint(mod_profile)
+    app.register_blueprint(mod_user)
+    app.register_blueprint(mod_auth)
+    app.register_blueprint(mod_superadmin)
+    app.register_blueprint(mod_article)
+    app.register_blueprint(mod_organization)

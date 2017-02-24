@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<script type="text/javascript" src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+
+
+<div class="row" style="display: inline">
+
+    <div class="row">
+        <div class="col-md-10">
+             <form method="post" action="{{ url_for('article.new_article')}}">
+
+                 <div class="row">
+                     <div class="col-md-12 col-md-offset-1">
+                        <input class="form-control title" name="title" placeholder="Title">
+                     </div>
+                 </div>
+
+                <div class="row">
+                     <div class="col-md-2">
+                          <div class="dropdown write-menu col-md-6">
+                            <button class="fa fa-bars dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Feed</a></li>
+                                <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a></li>
+                                <li><a href="#">Comments</a></li>
+                                <li><a href="#">Bookmarks</a></li>
+                                <li><a href="#">People / Organisations</a></li>
+                                <li><a href="{{ url_for('user.account', slug='slug') }}">Account Details</a></li>
+                            </ul>
+                          </div>
+                    </div>
+                    <div class="col-md-10">
+                       <textarea name="content" id="text-editor">
+
+                      </textarea>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-1">
+                         <select name="category" class="form-control category">
+                            <option value="empty">Category</option>
+                            <option value="Politics">Politics</option>
+                            <option value="Humour">Humour</option>
+                            <option value="Sports">Sports</option>
+                            <option value="How-to's ">How-to's </option>
+                            <option value="Organisation News ">Organisation News </option>
+                            <option value="Local News ">Local News</option>
+                         </select><br />
+                     </div>
+
+                </div>
+                 <div class="row">
+                     <div class="col-md-2">
+
+                     </div>
+                     <div class="col-md-10">
+                         <div class="col-md-4 col-sm-4 col-xs-4"><button name="action" type="submit" value="cancel" class="btn btn-cancel">Cancel</button></div>
+                         <div class="col-md-4 col-sm-4 col-xs-4"><button name="action" type="submit" value="save" class="btn btn-save">Save</button></div>
+                         <div class="col-md-4 col-sm-4 col-xs-4"><button name="action" type="submit" value="publish" class="btn btn-publish">Publish</button></div>
+
+                     </div>
+
+                 </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+
+
+    </div>
+
+</div>
+<script>
+CKEDITOR.replace( 'text-editor',
+     {toolbar : [
+            [ 'FontSize','Bold','Italic','Underline','Strike','BulletedList','NumberedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','Image','Link'],
+        ],
+    width: 800,
+    height:400
+});
+</script>
+{% endblock %}

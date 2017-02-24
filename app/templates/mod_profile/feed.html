@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <div class="profile-feed">
+        <div class="container">
+        <div class="row text-left">
+            <div class="col-md-12">
+                <ul>
+                    <li><a href="" class="active">Feed</a></li>
+                    <li><a href="{{ url_for ('profile.about', profile_slug = profile.user_slug ) }}">About me</a></li>
+                    <li><a href="{{ url_for ('profile.archive', profile_slug = profile.user_slug ) }}">All articles</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Banner part at Feed/About/Article Pages-->
+
+        <div class="row">
+            <div class="col-md-12">
+                <img src="{{ url_for('static', filename = 'img/banner.png') }}" class="banner">
+                <div class="box">
+                    <img src="{{ url_for('static', filename = 'img/prof3.png') }}" class="img-circle user-pic">
+                    <span class="user-name">{{ profile.name }}, {{ profile.lastname }}</span>
+                    <button type="button" class="follow pull-right">Follow</button>
+                </div>
+            </div>
+        </div>
+
+        {% if current_user.is_authenticated() %}
+
+        <div class="row">
+            <div class="col-md-8">
+                <button class="fa fa-bars dropdown dropdown-toggle " aria-hidden="true" data-toggle="dropdown"></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Feed</a></li>
+                        <li><a href="{{ url_for('article.my_articles', article_action='show') }}">Article management</a></li>
+                        <li><a href="#">Comments</a></li>
+                        <li><a href="#">Bookmarks</a></li>
+                        <li><a href="#">People / Organisations</a></li>
+                        <li><a href="#">Account Details</a></li>
+                    </ul>
+                <a href="{{ url_for('article.new_article') }}" class="fa fa-pencil"></a>
+                <a href="" class="fa fa-search"></a>
+            </div>
+        </div>
+
+        {% else %}
+
+        <div class="row">
+            <div class="col-md-2">
+                <a href="" class="fa fa-search"></a>
+            </div>
+        </div>
+
+        {% endif %}
+
+        <div class="articles">
+            <div class="col-md-12 latest">
+            </div>
+            <button class="btn col-md-12 load-more-btn" data-skip-posts-number="6" data-posts-per-page="6">
+                Load more
+            </button>
+        </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            // Initialize displaying articles in feed
+            initFeed();
+
+            $('.load-more-btn').click(function () {
+
+                var url = "{{ url_for('profile.paginated_author_articles',profile_slug=profile.user_slug, skip_posts_number='1111111111', posts_per_page='999999999') }}";
+                var skip_posts_number = parseInt($(this).attr("data-skip-posts-number"));
+                var number_of_posts = parseInt($(this).data("posts-per-page"));
+                var post_url = url.replace("1111111111", skip_posts_number).replace("999999999", number_of_posts);
+                var posting = $.post(post_url);
+
+                posting.done(function (data) {
+                    var posts = jQuery.parseJSON(data);
+                    if(posts.length > 0){
+                        loadMoreArticles(posts);
+                    }else{
+                        $('.load-more-btn').text("No more posts");
+                    };
+                });
+                $(this).attr('data-skip-posts-number', (parseInt(skip_posts_number) + 6));
+            });
+
+
+        });
+        function initFeed() {
+            // Get the first 6 feeds
+            var articles = {{ feed|safe }};
+            for (idx in articles) {
+                feedTheFeed(articles[idx], idx)
+            }
+        }
+        function loadMoreArticles(posts) {
+            for (var idx in posts) {
+                feedTheFeed(posts[idx], idx);
+            }
+
+        }
+
+        function feedTheFeed(article, idx) {
+
+
+            var styleClass = getArticleDivClass(idx);
+            var article_slug = "{{ url_for('article.article',slug='article_slug')}}";
+            article_slug_url = article_slug.replace('article_slug', article['slug']);
+            var divHTML = '' +
+                    '<div class="article ' + styleClass + ' text-type text-type1" style="padding-right: 0;">' +
+                    '<a href="' + article_slug_url + '">' +
+                    '<img src="' + "{{ url_for('static', filename='img/prof1.jpg')}}" + '" class="img-circle img-responsive profil"/>' +
+                    '<h3 class="article-title">' + article['title'] + '</h3>' +
+                    '</a>' +
+                    '<i class="fa fa-file-text-o article-type" aria-hidden="true"></i>' +
+                    '</div>';
+
+            $('.latest').append(divHTML);
+        }
+        function getArticleDivClass(idx) {
+            var style = '';
+            switch (idx) {
+                case '0':
+                    style = 'col-md-8 col-sm-6 col-xs-12 blue';
+                    break;
+                case '1':
+                    style = 'col-md-4 col-sm-6 col-xs-12 magenta';
+                    break;
+                case '2':
+                    style = 'col-md-4 col-sm-6 col-xs-12 green';
+                    break;
+                case '3':
+                    style = 'col-md-8 col-sm-6 col-xs-12 yellow';
+                    break;
+                case '4':
+                    style = 'col-md-8 col-sm-6 col-xs-12 brown';
+                    break;
+                case '5':
+                    style = 'col-md-4 col-sm-6 col-xs-12 red';
+                    break;
+                default:
+                    style = 'col-md-12 col-sm-12 col-xs-12 blue';
+            }
+
+            return style;
+        }
+    </script>
+{% endblock body %}
